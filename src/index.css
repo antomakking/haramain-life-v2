@@ -1,1 +1,94 @@
 @import "tailwindcss";
+
+@theme {
+  --color-cream-50: #FDFCFA;
+  --color-cream-100: #FAF6F0;
+  --color-cream-200: #F5EFE6;
+  --color-cream-300: #EDE4D6;
+  --color-cream-400: #E2D5C3;
+  --color-cream-500: #D5C4AE;
+
+  --color-forest-950: #0D2119;
+  --color-forest-900: #173628;
+  --color-forest-850: #1E4333;
+  --color-forest-800: #244C3B;
+  --color-forest-700: #2D5F4A;
+  --color-forest-600: #3A785E;
+  --color-forest-500: #4C9676;
+  --color-forest-400: #6CB294;
+  --color-forest-300: #96CCB4;
+  --color-forest-200: #C5E5D5;
+  --color-forest-100: #E4F4EC;
+  --color-forest-50: #F4FAF7;
+
+  --color-gold-50: #FCF9F2;
+  --color-gold-100: #F7F0DF;
+  --color-gold-200: #EFE0BE;
+  --color-gold-300: #E4CB96;
+  --color-gold-400: #D5B36C;
+  --color-gold-500: #C5A059;
+  --color-gold-600: #B18B44;
+  --color-gold-700: #926F32;
+  --color-gold-800: #75582B;
+  --color-gold-900: #5F4725;
+
+  --color-sand-50: #FCFBF9;
+  --color-sand-100: #F9F6F0;
+  --color-sand-200: #F5EFE6;
+  --color-sand-300: #EDE4D6;
+  --color-sand-400: #E5DAC8;
+  --color-sand-500: #D4C4AD;
+  --color-sand-600: #B8A48B;
+  --color-sand-700: #998369;
+  --color-sand-800: #78654F;
+  --color-sand-900: #5A4A38;
+
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-serif: "Plus Jakarta Sans", sans-serif;
+  --font-arabic: "Amiri", serif;
+}
+
+/* Custom essential utility classes */
+.bg-arabesque, .hero-dot-grid {
+  background-color: #F7F2EA;
+  background-image: radial-gradient(rgba(197, 160, 89, 0.22) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.dark .bg-arabesque, .dark .hero-dot-grid {
+  background-color: #0A1410;
+  background-image: radial-gradient(rgba(197, 160, 89, 0.15) 1.2px, transparent 1.2px);
+}
+
+@keyframes tabFadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleFadeIn {
+  0% { opacity: 0.3; transform: scale(0.988); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-tab-fade {
+  animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-scale-fade {
+  animation: scaleFadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.22s; }

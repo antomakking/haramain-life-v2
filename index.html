@@ -202,10 +202,14 @@
       gtag('config', 'G-SQ4LREY492');
     </script>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Optimized Non-Blocking Asynchronous Load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap">
+    </noscript>
 
     <!-- Early Theme Detection to prevent flicker -->
     <script>
@@ -224,103 +228,11 @@
       })();
     </script>
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              cream: {
-                50: '#FDFCFA',
-                100: '#FAF6F0',
-                200: '#F5EFE6',
-                300: '#EDE4D6',
-                400: '#E2D5C3',
-                500: '#D5C4AE',
-              },
-              forest: {
-                950: '#0D2119',
-                900: '#173628',
-                850: '#1E4333',
-                800: '#244C3B',
-                700: '#2D5F4A',
-                600: '#3A785E',
-                500: '#4C9676',
-                400: '#6CB294',
-                300: '#96CCB4',
-                200: '#C5E5D5',
-                100: '#E4F4EC',
-                50: '#F4FAF7',
-              },
-              emerald: {
-                950: '#0D2119',
-                900: '#173628',
-                850: '#1E4333',
-                800: '#244C3B',
-                700: '#2D5F4A',
-                600: '#3A785E',
-                500: '#4C9676',
-                400: '#6CB294',
-                300: '#96CCB4',
-                200: '#C5E5D5',
-                100: '#E4F4EC',
-                50: '#F4FAF7',
-              },
-              gold: {
-                50: '#FCF9F2',
-                100: '#F7F0DF',
-                200: '#EFE0BE',
-                300: '#E4CB96',
-                400: '#D5B36C',
-                500: '#C5A059',
-                600: '#B18B44',
-                700: '#926F32',
-                800: '#75582B',
-                900: '#5F4725',
-              },
-              amber: {
-                50: '#FCF9F2',
-                100: '#F7F0DF',
-                200: '#EFE0BE',
-                300: '#E4CB96',
-                400: '#D5B36C',
-                500: '#C5A059',
-                600: '#B18B44',
-                700: '#926F32',
-                800: '#75582B',
-                900: '#5F4725',
-              },
-              sand: {
-                50: '#FCFBF9',
-                100: '#F9F6F0',
-                200: '#F5EFE6',
-                300: '#EDE4D6',
-                400: '#E5DAC8',
-                500: '#D4C4AD',
-                600: '#B8A48B',
-                700: '#998369',
-                800: '#78654F',
-                900: '#5A4A38',
-              }
-            },
-            fontFamily: {
-              sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-              serif: ['"Plus Jakarta Sans"', 'sans-serif'],
-              arabic: ['"Amiri"', 'serif'],
-            }
-          }
-        }
-      }
-    </script>
+    <!-- Compiled Tailwind CSS Bundle via Vite -->
+    <link rel="stylesheet" href="/src/index.css" />
 
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Leaflet Interactive Maps CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Lucide Icons CDN (Deferred) -->
+    <script defer src="https://unpkg.com/lucide@latest"></script>
 
     <style>
       /* Starry Dot Grid Background with warm ivory cream & sand gold ambient */
@@ -821,6 +733,10 @@
     </style>
   </head>
   <body class="bg-[#F7F2EA] text-[#1C2D24] font-sans min-h-screen relative selection:bg-gold-500 selection:text-white overflow-x-hidden">
+    <!-- Accessible Skip to Main Content Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#244C3B] focus:text-white focus:font-bold focus:text-xs focus:rounded-xl focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#C5A059]">
+      Lewati ke Konten Utama
+    </a>
     
     <!-- Top Navigation Bar -->
     <header class="border-b border-[#E5DAC8] bg-[#FAF6F0]/95 backdrop-blur-md sticky top-0 z-50">
@@ -838,7 +754,7 @@
                 <!-- LIVE badge hidden on mobile screens to prevent horizontal overflow -->
                 <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#E4F4EC] text-[#244C3B] border border-[#244C3B]/20 font-bold text-[11px] tracking-wider">LIVE</span>
               </div>
-              <p class="text-[10px] sm:text-xs text-[#5C6F66] font-arabic tracking-wide truncate">بوابة الحرمين الشريفين</p>
+              <p class="text-[10px] sm:text-xs text-[#2E4338] font-arabic tracking-wide truncate">بوابة الحرمين الشريفين</p>
             </div>
           </a>
 
@@ -876,7 +792,7 @@
               <i data-lucide="smartphone" class="w-4 h-4 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_pulsa_1" class="text-[#244C3B] font-bold">Beli Pulsa</div>
-                <div data-i18n="nav_pulsa_2" class="text-[10px] text-[#5C6F66]">& Roaming Saudi</div>
+                <div data-i18n="nav_pulsa_2" class="text-[10px] text-[#2E4338]">& Roaming Saudi</div>
               </div>
               <i data-lucide="external-link" class="w-3 h-3 text-[#C5A059] -ml-1"></i>
             </a>
@@ -906,7 +822,7 @@
               <button id="lang-btn-id" onclick="setLanguage('id')" class="px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 bg-[#244C3B] text-white shadow-sm font-extrabold cursor-pointer text-[11px] sm:text-xs" title="Bahasa Indonesia">
                 <span>ID</span>
               </button>
-              <button id="lang-btn-en" onclick="setLanguage('en')" class="px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#5C6F66] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs" title="English">
+              <button id="lang-btn-en" onclick="setLanguage('en')" class="px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#2E4338] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs" title="English">
                 <span>EN</span>
               </button>
             </div>
@@ -924,8 +840,9 @@
       </div>
     </header>
 
-    <!-- Hero / Dual Real-Time Clock & Astrological Section -->
-    <section id="hero-section" class="relative pt-10 pb-14 overflow-hidden hero-dot-grid">
+    <main id="main-content">
+      <!-- Hero / Dual Real-Time Clock & Astrological Section -->
+      <section id="hero-section" class="relative pt-10 pb-14 overflow-hidden hero-dot-grid">
       <!-- Subtle Ambient Luxury Glowing Lights & Nebulas -->
       <div class="absolute -top-24 left-1/4 w-[420px] h-[420px] bg-gold-500/[0.12] rounded-full blur-3xl pointer-events-none -translate-x-1/2 animate-ambient-glow-gold"></div>
       <div class="absolute -top-16 right-1/4 w-[420px] h-[420px] bg-emerald-500/[0.08] rounded-full blur-3xl pointer-events-none translate-x-1/2 animate-ambient-glow-emerald"></div>
@@ -950,7 +867,7 @@
             </span>
           </h1>
 
-          <p class="mt-4 text-xs sm:text-sm md:text-base text-[#5C6F66] max-w-2xl mx-auto leading-relaxed font-normal" data-i18n="hero_desc">
+          <p class="mt-4 text-xs sm:text-sm md:text-base text-[#2E4338] max-w-2xl mx-auto leading-relaxed font-normal" data-i18n="hero_desc">
             Pantau siaran langsung 24/7, jam resmi zona waktu Arab Saudi (GMT+3), jadwal sholat fardhu, serta susunan imam dan muadzin resmi Masjidil Haram & Masjid Nabawi hari ini.
           </p>
         </div>
@@ -992,7 +909,7 @@
                   </span>
                 </button>
                 <div>
-                  <h3 class="text-lg sm:text-xl font-bold text-[#1C2D24] tracking-tight" data-i18n="makkah_title">Masjidil Haram</h3>
+                  <h2 class="text-lg sm:text-xl font-bold text-[#1C2D24] tracking-tight" data-i18n="makkah_title">Masjidil Haram</h2>
                   <p class="text-xs sm:text-[13px] font-semibold text-[#244C3B] font-arabic mt-0.5">مكة المكرمة • <span class="font-sans">Makkah</span></p>
                 </div>
               </div>
@@ -1020,11 +937,11 @@
             <!-- Date Displays -->
             <div class="grid grid-cols-2 gap-3 pt-3 border-t border-[#E5DAC8] text-xs">
               <div>
-                <p class="text-[#74857D] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_gregorian">Kalender Masehi</p>
+                <p class="text-[#3B5145] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_gregorian">Kalender Masehi</p>
                 <p id="makkah-gregorian" class="font-bold text-[#1C2D24] mt-0.5 text-xs sm:text-[13px]">--</p>
               </div>
               <div class="text-right">
-                <p class="text-[#74857D] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_hijri">Kalender Hijriah Umm Al-Qura</p>
+                <p class="text-[#3B5145] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_hijri">Kalender Hijriah Umm Al-Qura</p>
                 <p id="makkah-hijri" class="font-bold text-[#244C3B] mt-0.5 text-xs sm:text-[13px]">--</p>
               </div>
             </div>
@@ -1050,23 +967,23 @@
               <!-- Main Weather Metrics Grid -->
               <div class="grid grid-cols-3 gap-2 bg-[#FAF6F0] p-3 rounded-2xl border border-[#E5DAC8]">
                 <div class="text-left">
-                  <span class="text-[10px] text-[#74857D] uppercase block font-semibold" data-i18n="weather_temp">Suhu</span>
+                  <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_temp">Suhu</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
                     <span id="makkah-temp" class="text-lg sm:text-xl font-bold font-mono text-[#1C2D24]">34°C</span>
                   </div>
-                  <span id="makkah-feels" class="text-[10px] text-[#5C6F66] block font-medium">Terasa 36°C</span>
+                  <span id="makkah-feels" class="text-[10px] text-[#2E4338] block font-medium">Terasa 36°C</span>
                 </div>
 
                 <div class="text-left border-x border-[#E5DAC8] px-2">
-                  <span class="text-[10px] text-[#74857D] uppercase block font-semibold" data-i18n="weather_humidity">Kelembapan</span>
+                  <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_humidity">Kelembapan</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
                     <span id="makkah-humidity" class="text-lg sm:text-xl font-bold font-mono text-[#244C3B]">38%</span>
                   </div>
-                  <span id="makkah-wind" class="text-[10px] text-[#5C6F66] block font-medium">Angin 14 km/j</span>
+                  <span id="makkah-wind" class="text-[10px] text-[#2E4338] block font-medium">Angin 14 km/j</span>
                 </div>
 
                 <div class="text-left pl-1">
-                  <span class="text-[10px] text-[#74857D] uppercase block font-semibold" data-i18n="weather_condition">Kondisi</span>
+                  <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_condition">Kondisi</span>
                   <div class="flex items-center gap-1.5 mt-1 text-[#1C2D24] font-medium text-xs">
                     <i id="makkah-weather-icon" data-lucide="sun" class="w-3.5 h-3.5 text-[#C5A059] shrink-0"></i>
                     <span id="makkah-weather-desc" class="truncate font-bold text-xs">Cerah Bersih</span>
@@ -1119,7 +1036,7 @@
               </div>
 
               <!-- Prakiraan Suhu Sesi Shalat -->
-              <div class="mt-2.5 pt-2 border-t border-[#E5DAC8] flex items-center justify-between text-[10px] text-[#5C6F66]">
+              <div class="mt-2.5 pt-2 border-t border-[#E5DAC8] flex items-center justify-between text-[10px] text-[#2E4338]">
                 <span class="uppercase tracking-wider font-bold text-[#244C3B]" data-i18n="weather_prayer_forecast">Suhu Waktu Shalat:</span>
                 <div class="flex items-center gap-2 font-mono font-semibold">
                   <span><span data-i18n="fajr_short">Subuh</span> <strong class="text-[#1C2D24]">27°C</strong></span>
@@ -1170,7 +1087,7 @@
                   </span>
                 </button>
                 <div>
-                  <h3 class="text-lg sm:text-xl font-bold text-[#1C2D24] tracking-tight" data-i18n="madinah_title">Masjid An–Nabawi</h3>
+                  <h2 class="text-lg sm:text-xl font-bold text-[#1C2D24] tracking-tight" data-i18n="madinah_title">Masjid An–Nabawi</h2>
                   <p class="text-xs sm:text-[13px] font-semibold text-[#244C3B] font-arabic mt-0.5">المدينة المنورة • <span class="font-sans">Madinah</span></p>
                 </div>
               </div>
@@ -1198,11 +1115,11 @@
             <!-- Date Displays -->
             <div class="grid grid-cols-2 gap-3 pt-3 border-t border-[#E5DAC8] text-xs">
               <div>
-                <p class="text-[#74857D] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_gregorian">Kalender Masehi</p>
+                <p class="text-[#3B5145] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_gregorian">Kalender Masehi</p>
                 <p id="madinah-gregorian" class="font-bold text-[#1C2D24] mt-0.5 text-xs sm:text-[13px]">--</p>
               </div>
               <div class="text-right">
-                <p class="text-[#74857D] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_hijri">Kalender Hijriah Umm Al-Qura</p>
+                <p class="text-[#3B5145] uppercase tracking-wider text-[10px] font-bold" data-i18n="cal_hijri">Kalender Hijriah Umm Al-Qura</p>
                 <p id="madinah-hijri" class="font-bold text-[#244C3B] mt-0.5 text-xs sm:text-[13px]">--</p>
               </div>
             </div>
@@ -1228,23 +1145,23 @@
               <!-- Main Weather Metrics Grid -->
               <div class="grid grid-cols-3 gap-2 bg-[#FAF6F0] p-3 rounded-2xl border border-[#E5DAC8]">
                 <div class="text-left">
-                  <span class="text-[10px] text-[#74857D] uppercase block font-semibold" data-i18n="weather_temp">Suhu</span>
+                  <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_temp">Suhu</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
                     <span id="madinah-temp" class="text-xl sm:text-2xl font-bold font-mono text-[#1C2D24]">31°C</span>
                   </div>
-                  <span id="madinah-feels" class="text-[10px] text-[#5C6F66] block font-medium">Terasa 32°C</span>
+                  <span id="madinah-feels" class="text-[10px] text-[#2E4338] block font-medium">Terasa 32°C</span>
                 </div>
 
                 <div class="text-left border-x border-[#E5DAC8] px-2">
-                  <span class="text-[10px] text-[#74857D] uppercase block font-semibold" data-i18n="weather_humidity">Kelembapan</span>
+                  <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_humidity">Kelembapan</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
                     <span id="madinah-humidity" class="text-xl sm:text-2xl font-bold font-mono text-[#244C3B]">28%</span>
                   </div>
-                  <span id="madinah-wind" class="text-[10px] text-[#5C6F66] block font-medium">Angin 11 km/j</span>
+                  <span id="madinah-wind" class="text-[10px] text-[#2E4338] block font-medium">Angin 11 km/j</span>
                 </div>
 
                 <div class="text-left pl-1">
-                  <span class="text-[10px] text-[#74857D] uppercase block font-semibold" data-i18n="weather_condition">Kondisi</span>
+                  <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_condition">Kondisi</span>
                   <div class="flex items-center gap-1.5 mt-1 text-[#1C2D24] font-medium text-xs">
                     <i id="madinah-weather-icon" data-lucide="sun" class="w-4 h-4 text-[#C5A059] shrink-0"></i>
                     <span id="madinah-weather-desc" class="truncate font-bold">Cerah Bersahabat</span>
@@ -1297,7 +1214,7 @@
               </div>
 
               <!-- Prakiraan Suhu Sesi Shalat -->
-              <div class="mt-2.5 pt-2 border-t border-[#E5DAC8] flex items-center justify-between text-[10px] text-[#5C6F66]">
+              <div class="mt-2.5 pt-2 border-t border-[#E5DAC8] flex items-center justify-between text-[10px] text-[#2E4338]">
                 <span class="uppercase tracking-wider font-bold text-[#244C3B]" data-i18n="weather_prayer_forecast">Suhu Waktu Shalat:</span>
                 <div class="flex items-center gap-2 font-mono font-semibold">
                   <span><span data-i18n="fajr_short">Subuh</span> <strong class="text-[#1C2D24]">24°C</strong></span>
@@ -1326,7 +1243,7 @@
             <span data-i18n="stream_badge">Siaran Resmi Langsung 24/7</span>
           </div>
           <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24] tracking-tight" data-i18n="stream_heading">Siaran Langsung dari Dua Tanah Suci</h2>
-          <p class="text-sm text-[#5C6F66] mt-1 font-medium" data-i18n="stream_desc">Transmisi berkualitas tinggi tanpa henti langsung dari Saudi Quran TV & Saudi Sunnah TV.</p>
+          <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="stream_desc">Transmisi berkualitas tinggi tanpa henti langsung dari Saudi Quran TV & Saudi Sunnah TV.</p>
         </div>
 
         <!-- Stream Switcher Tabs -->
@@ -1362,7 +1279,7 @@
             <div class="flex items-center gap-1.5 text-[#244C3B] bg-[#FFFFFF] px-3 py-1.5 rounded-xl border border-[#E5DAC8] shadow-sm font-semibold">
               <i data-lucide="users" class="w-3.5 h-3.5 text-[#C5A059]"></i>
               <span id="viewer-count" class="font-mono font-bold text-[#1C2D24]">184.290</span>
-              <span class="text-[#74857D]" data-i18n="stream_viewers_suffix">jamaah menyaksikan</span>
+              <span class="text-[#3B5145]" data-i18n="stream_viewers_suffix">jamaah menyaksikan</span>
             </div>
             <button onclick="toggleCinemaMode()" class="p-2 rounded-xl bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#244C3B] border border-[#E5DAC8] transition shadow-sm" title="Layar Penuh / Lebar">
               <i data-lucide="maximize-2" class="w-4 h-4 text-[#244C3B]"></i>
@@ -1382,8 +1299,11 @@
           <iframe 
             id="stream-iframe" 
             class="w-full h-full border-0 transition-opacity duration-300"
-            src="https://www.youtube-nocookie.com/embed/eC4LfEVxvKg?autoplay=1&mute=0&rel=0" 
+            src="about:blank"
+            data-src="https://www.youtube-nocookie.com/embed/eC4LfEVxvKg?autoplay=1&mute=0&rel=0" 
             title="Siaran Langsung Dua Tanah Suci"
+            loading="lazy"
+            fetchpriority="low"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowfullscreen>
           </iframe>
@@ -1406,7 +1326,7 @@
         </div>
 
         <!-- Player Footer Highlights -->
-        <div class="p-4 bg-[#FAF6F0] border-t border-[#E5DAC8] grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-[#5C6F66] font-medium">
+        <div class="p-4 bg-[#FAF6F0] border-t border-[#E5DAC8] grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-[#2E4338] font-medium">
           <div class="flex items-center gap-2">
             <i data-lucide="shield-check" class="w-4 h-4 text-[#244C3B]"></i>
             <span data-i18n="stream_feat_1">Siaran Resmi Pemerintah</span>
@@ -1439,7 +1359,7 @@
               <span data-i18n="prayer_badge">Kalkulasi Hisab Umm Al-Qura</span>
             </div>
             <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-[#1C2D24] tracking-tight" data-i18n="prayer_heading">Jadwal Shalat Harian & Hitung Mundur</h2>
-            <p class="text-xs sm:text-sm text-[#5C6F66] mt-0.5 sm:mt-1 max-w-2xl font-medium" data-i18n="prayer_desc">Jadwal resmi waktu shalat untuk Dua Kota Suci dengan hitung mundur otomatis menuju adzan berikutnya.</p>
+            <p class="text-xs sm:text-sm text-[#2E4338] mt-0.5 sm:mt-1 max-w-2xl font-medium" data-i18n="prayer_desc">Jadwal resmi waktu shalat untuk Dua Kota Suci dengan hitung mundur otomatis menuju adzan berikutnya.</p>
           </div>
 
           <!-- City Selector for Prayer Times -->
@@ -1447,7 +1367,7 @@
             <button id="prayer-city-makkah" onclick="switchPrayerCity('makkah')" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition bg-[#244C3B] text-white shadow">
               <span data-i18n="prayer_city_makkah">Makkah Al-Mukarramah</span>
             </button>
-            <button id="prayer-city-madinah" onclick="switchPrayerCity('madinah')" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition">
+            <button id="prayer-city-madinah" onclick="switchPrayerCity('madinah')" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition">
               <span data-i18n="prayer_city_madinah">Madinah Al-Munawwarah</span>
             </button>
           </div>
@@ -1514,7 +1434,7 @@
             <span class="px-2 py-0.5 rounded bg-[#FAF6F0] border border-[#E5DAC8] text-[10px] text-[#244C3B] font-bold tracking-normal">14 Rabi'ul Akhir 1448 H</span>
           </div>
           <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="imams_heading">Jadwal Khatib & Imam Sholat Jumat</h2>
-          <p class="text-sm text-[#5C6F66] mt-1 font-medium" data-i18n="imams_desc">Daftar Syekh resmi yang ditugaskan memimpin Khutbah & Shalat Jumat serta shalat berjamaah lima waktu beserta Imam Cadangan (الاحتياطي).</p>
+          <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="imams_desc">Daftar Syekh resmi yang ditugaskan memimpin Khutbah & Shalat Jumat serta shalat berjamaah lima waktu beserta Imam Cadangan (الاحتياطي).</p>
         </div>
 
         <!-- Mosque Switcher for Imams -->
@@ -1522,7 +1442,7 @@
           <button id="imam-tab-makkah" onclick="switchImamMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02] cursor-pointer">
             <span data-i18n="imams_tab_makkah">Masjidil Haram (Makkah)</span>
           </button>
-          <button id="imam-tab-madinah" onclick="switchImamMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300 cursor-pointer">
+          <button id="imam-tab-madinah" onclick="switchImamMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300 cursor-pointer">
             <span data-i18n="imams_tab_madinah">Masjid Nabawi (Madinah)</span>
           </button>
         </div>
@@ -1539,7 +1459,7 @@
           <span class="w-2.5 h-2.5 rounded-full bg-[#244C3B]"></span>
           <h3 class="text-base sm:text-lg font-extrabold text-[#1C2D24]" data-i18n="daily_prayers_subheading">Jadwal Imam Shalat 5 Waktu Hari Ini</h3>
         </div>
-        <span class="text-xs text-[#5C6F66] font-medium hidden sm:inline" data-i18n="daily_prayers_note">Termasuk Imam Cadangan (الاحتياطي)</span>
+        <span class="text-xs text-[#2E4338] font-medium hidden sm:inline" data-i18n="daily_prayers_note">Termasuk Imam Cadangan (الاحتياطي)</span>
       </div>
 
       <!-- Imams List Grid with Smooth Transition -->
@@ -1560,7 +1480,7 @@
               <span class="px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E5DAC8] text-[10px] text-[#244C3B] font-bold tracking-normal">Pekan 09 – 15 Rabi'uts Tsani 1448 H</span>
             </div>
             <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24] tracking-tight" data-i18n="muadzins_heading">Jadwal Muadzin Bertugas Hari Ini</h2>
-            <p class="text-sm text-[#5C6F66] mt-1 font-medium" data-i18n="muadzins_desc">Para muadzin mulia pengumandang Adzan 1 & 2 serta Iqamah di menara-menara suci.</p>
+            <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="muadzins_desc">Para muadzin mulia pengumandang Adzan 1 & 2 serta Iqamah di menara-menara suci.</p>
           </div>
 
           <!-- Mosque Switcher for Muadzins -->
@@ -1568,7 +1488,7 @@
             <button id="muadzin-tab-makkah" onclick="switchMuadzinMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]">
               <span data-i18n="muadzins_tab_makkah">Masjidil Haram (Makkah)</span>
             </button>
-            <button id="muadzin-tab-madinah" onclick="switchMuadzinMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300">
+            <button id="muadzin-tab-madinah" onclick="switchMuadzinMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300">
               <span data-i18n="muadzins_tab_madinah">Masjid Nabawi (Madinah)</span>
             </button>
           </div>
@@ -1581,7 +1501,7 @@
               <i data-lucide="calendar" class="w-4 h-4 text-[#244C3B]"></i>
               <span id="muadzin-picker-title">Pilih Hari Penugasan Muadzin:</span>
             </div>
-            <span class="text-[11px] text-[#74857D] font-mono font-medium">Tabel Resmi: 09 – 15 Rabi'uts Tsani 1448 H</span>
+            <span class="text-[11px] text-[#3B5145] font-mono font-medium">Tabel Resmi: 09 – 15 Rabi'uts Tsani 1448 H</span>
           </div>
           <div id="muadzin-days-btn-group" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
             <!-- Populated via JS -->
@@ -1654,7 +1574,7 @@
                 <i data-lucide="zap" class="w-5 h-5 text-[#E4CB96]"></i>
               </div>
               <div>
-                <h4 class="font-bold text-white text-sm">Aktif Sebelum Terbang</h4>
+                <h3 class="font-bold text-white text-sm">Aktif Sebelum Terbang</h3>
                 <p class="text-xs text-[#D4E8DC] mt-0.5 font-medium">Sistem injeksi otomatis</p>
               </div>
             </div>
@@ -1665,7 +1585,7 @@
                 <i data-lucide="signal" class="w-5 h-5 text-[#E4CB96]"></i>
               </div>
               <div>
-                <h4 class="font-bold text-white text-sm">Sinyal Terkuat</h4>
+                <h3 class="font-bold text-white text-sm">Sinyal Terkuat</h3>
                 <p class="text-xs text-[#D4E8DC] mt-0.5 font-medium">Partner STC, Mobily & Zain</p>
               </div>
             </div>
@@ -1676,7 +1596,7 @@
                 <i data-lucide="message-square" class="w-5 h-5 text-[#E4CB96]"></i>
               </div>
               <div>
-                <h4 class="font-bold text-white text-sm">WhatsApp Tetap Aktif</h4>
+                <h3 class="font-bold text-white text-sm">WhatsApp Tetap Aktif</h3>
                 <p class="text-xs text-[#D4E8DC] mt-0.5 font-medium">OTP m-Banking aman</p>
               </div>
             </div>
@@ -1687,7 +1607,7 @@
                 <i data-lucide="badge-percent" class="w-5 h-5 text-[#E4CB96]"></i>
               </div>
               <div>
-                <h4 class="font-bold text-white text-sm">Harga Agen Resmi</h4>
+                <h3 class="font-bold text-white text-sm">Harga Agen Resmi</h3>
                 <p class="text-xs text-[#D4E8DC] mt-0.5 font-medium">Hemat s/d puluhan ribu</p>
               </div>
             </div>
@@ -1710,7 +1630,7 @@
           <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24] tracking-tight leading-tight">
             Panduan Haji, Umrah & <span class="text-[#244C3B]">Tanya Jawab Seputar Haramain</span>
           </h2>
-          <p class="mt-3 text-xs sm:text-sm text-[#5C6F66] leading-relaxed font-medium">
+          <p class="mt-3 text-xs sm:text-sm text-[#2E4338] leading-relaxed font-medium">
             Informasi lengkap dan terverifikasi untuk mempermudah ibadah Anda: jadwal sholat real-time Umm Al-Qura, siaran live streaming 24 jam, jadwal imam dan muadzin, denah pintu gerbang, lokasi Raudhah, serta panduan paket internet roaming Arab Saudi.
           </p>
         </div>
@@ -1757,10 +1677,10 @@
               <h3 class="text-lg font-bold text-[#1C2D24] mb-2 leading-snug">
                 Jadwal Sholat Masjidil Haram & Masjid Nabawi Hari Ini
               </h3>
-              <p class="text-xs text-[#5C6F66] leading-relaxed mb-3 font-medium">
+              <p class="text-xs text-[#2E4338] leading-relaxed mb-3 font-medium">
                 Waktu sholat fardhu (Subuh, Dzuhur, Ashar, Maghrib, Isya) dan waktu terbit matahari (Syuruq) di Makkah Al-Mukarramah dan Madinah Al-Munawwarah dihitung berdasarkan standar resmi <strong>Kalender Hisab Umm Al-Qura (Arab Saudi, GMT+3)</strong>.
               </p>
-              <ul class="text-xs text-[#5C6F66] space-y-1.5 list-disc list-inside font-medium">
+              <ul class="text-xs text-[#2E4338] space-y-1.5 list-disc list-inside font-medium">
                 <li>Sinkronisasi detik per detik dengan jam astronomis Makkah AST.</li>
                 <li>Hitung mundur otomatis menuju adzan berikutnya.</li>
                 <li>Pantauan cuaca, suhu, kelembapan, dan kenyamanan pelataran Tawaf & Sa'i.</li>
@@ -1784,10 +1704,10 @@
               <h3 class="text-lg font-bold text-[#1C2D24] mb-2 leading-snug">
                 Live Makkah 24 Jam & Live Streaming Madinah TV Online
               </h3>
-              <p class="text-xs text-[#5C6F66] leading-relaxed mb-3 font-medium">
+              <p class="text-xs text-[#2E4338] leading-relaxed mb-3 font-medium">
                 Saksikan suasana khusyuk pelataran Ka'bah dan kubah hijau Masjid Nabawi melalui transmisi resmi beresolusi tinggi <strong>Saudi Quran TV (Makkah)</strong> dan <strong>Saudi Sunnah TV (Madinah)</strong> tanpa jeda 24 jam nonstop.
               </p>
-              <ul class="text-xs text-[#5C6F66] space-y-1.5 list-disc list-inside font-medium">
+              <ul class="text-xs text-[#2E4338] space-y-1.5 list-disc list-inside font-medium">
                 <li>Streaming audio qiroah merdu & adzan langsung dari menara Haramain.</li>
                 <li>Pilihan mode layar penuh (Cinema Mode) untuk kenyamanan menonton.</li>
                 <li>Koneksi stabil dan ringan diakses lewat smartphone maupun desktop.</li>
@@ -1811,10 +1731,10 @@
               <h3 class="text-lg font-bold text-[#1C2D24] mb-2 leading-snug">
                 Peta Masjidil Haram Lengkap, Denah Pintu & Lokasi Raudhah
               </h3>
-              <p class="text-xs text-[#5C6F66] leading-relaxed mb-3 font-medium">
+              <p class="text-xs text-[#2E4338] leading-relaxed mb-3 font-medium">
                 Navigasi akurat membantu jamaah menemukan gerbang utama seperti <strong>Bab King Abdulaziz (Pintu 1)</strong>, <strong>Bab King Fahd (Pintu 79)</strong>, <strong>Bab Umrah (Pintu 62)</strong>, <strong>Bab As-Salam</strong>, hingga titik <strong>Raudhah Syarifah</strong> di Masjid Nabawi.
               </p>
-              <ul class="text-xs text-[#5C6F66] space-y-1.5 list-disc list-inside font-medium">
+              <ul class="text-xs text-[#2E4338] space-y-1.5 list-disc list-inside font-medium">
                 <li>Detail akses kursi roda, eskalator, posko medis, dan titik air Zamzam.</li>
                 <li>Panduan pintu masuk ziarah Raudhah untuk jamaah pria dan wanita via Nusuk.</li>
                 <li>Koordinat GPS presisi untuk mempermudah temu rombongan travel.</li>
@@ -1838,10 +1758,10 @@
               <h3 class="text-lg font-bold text-[#1C2D24] mb-2 leading-snug">
                 Paket Internet Umroh Arab Saudi Murah, eSIM & Roaming STC, Zain, Mobily
               </h3>
-              <p class="text-xs text-[#5C6F66] leading-relaxed mb-3 font-medium">
+              <p class="text-xs text-[#2E4338] leading-relaxed mb-3 font-medium">
                 Nikmati kemudahan internetan selama ibadah haji & umroh di Makkah dan Madinah tanpa antre registrasi sidik jari di bandara. Gunakan paket roaming hemat langsung pada SIM Card Indonesia atau eSIM instan dengan jaringan terbaik (STC, Mobily, Zain).
               </p>
-              <ul class="text-xs text-[#5C6F66] space-y-1.5 list-disc list-inside font-medium">
+              <ul class="text-xs text-[#2E4338] space-y-1.5 list-disc list-inside font-medium">
                 <li>Harga agen resmi lebih murah dibanding beli langsung di aplikasi provider.</li>
                 <li>WhatsApp, OTP perbankan / m-Banking, dan aplikasi Nusuk tetap aman aktif.</li>
                 <li>Injeksi otomatis dan dukungan tim bantuan responsif 24/7.</li>
@@ -1863,7 +1783,7 @@
             <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C2D24]">
               Tanya Jawab Populer Seputar Ibadah di Dua Tanah Suci (FAQ)
             </h3>
-            <p class="text-xs text-[#5C6F66] mt-1 font-medium">Jawaban praktis untuk pertanyaan yang sering dicari jamaah haji dan umrah.</p>
+            <p class="text-xs text-[#2E4338] mt-1 font-medium">Jawaban praktis untuk pertanyaan yang sering dicari jamaah haji dan umrah.</p>
           </div>
 
           <div class="space-y-3.5">
@@ -1877,7 +1797,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Jadwal sholat harian (Subuh, Syuruq, Dzuhur, Ashar, Maghrib, Isya) disinkronkan secara real-time dengan standar hisab <strong>Umm Al-Qura (GMT+3)</strong>. Anda dapat melihat hitung mundur adzan berikutnya langsung pada panel <a href="#prayer-times" class="text-[#244C3B] underline font-bold">Jadwal Sholat</a> di atas.
               </div>
             </details>
@@ -1891,7 +1811,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Ya. Siaran langsung dari Masjidil Haram Makkah (Saudi Quran TV) dan Masjid Nabawi Madinah (Saudi Sunnah TV) mengudara secara nonstop 24/7 dalam kualitas Ultra HD dengan suara adzan, bacaan sholat, dan lantunan dzikir asli dari Haramain.
               </div>
             </details>
@@ -1905,7 +1825,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Haramain Life memperbarui penugasan resmi dari <em>Presidensi Urusan Agama Dua Masjid Suci</em> setiap hari. Anda dapat melihat nama Imam yang memimpin shalat Subuh hingga Isya serta profil lengkap ulama besar seperti Syekh Abdul Rahman As-Sudais, Syekh Bandar Baleelah, Syekh Mahir Al-Mu'aiqly, Syekh Ali Al-Hudhaify, dan muadzin resmi lainnya pada bagian <a href="#daily-imams" class="text-[#244C3B] underline font-bold">Jadwal Imam</a>.
               </div>
             </details>
@@ -1919,7 +1839,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Raudhah Syarifah berada di antara mimbar dan makam Rasulullah SAW (berkarpet hijau khas). Masuk ke Raudhah mewajibkan reservasi jadwal resmi melalui aplikasi <strong>Nusuk</strong>. Jamaah pria biasanya masuk melalui gerbang selatan / Bab As-Salam, sedangkan jamaah wanita melalui Pintu 37 (Bab Utsman) atau Pintu 25 (Bab Ali) sesuai jadwal khusus yang tertera pada izin (tasreh).
               </div>
             </details>
@@ -1933,7 +1853,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Pintu gerbang utama meliputi <strong>Bab King Abdulaziz (Pintu 1)</strong> di sisi selatan dekat kompleks Abraj Al-Bait, <strong>Bab King Fahd (Pintu 79)</strong> di sisi barat dengan akses luas langsung ke pelataran, <strong>Bab Umrah (Pintu 62)</strong> untuk masuk ihram thawaf, serta gerbang perluasan Raja Abdullah di sisi utara. Cek denah lengkap melalui fitur peta interaktif di website ini.
               </div>
             </details>
@@ -1947,7 +1867,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Anda dapat memesan paket roaming haji & umroh atau eSIM Arab Saudi (dengan jaringan partner terkuat STC, Mobily, dan Zain) melalui <a href="https://pulsa.haramainlife.com/" target="_blank" class="text-[#244C3B] underline font-bold">pulsa.haramainlife.com</a>. Paket akan aktif otomatis saat mendarat di Jeddah atau Madinah tanpa perlu mengganti nomor WhatsApp atau kartu SIM bank Anda.
               </div>
             </details>
@@ -1961,7 +1881,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Membeli paket roaming atau eSIM sebelum berangkat menghindarkan Anda dari antrean panjang dan proses sidik jari paspor di bandara kedatangan. Selain itu, nomor Indonesia tetap aktif menerima SMS OTP perbankan, dan tarif paket roaming agen jauh lebih hemat dan terkontrol.
               </div>
             </details>
@@ -1975,7 +1895,7 @@
                 </span>
                 <i data-lucide="chevron-down" class="w-4 h-4 text-[#244C3B] group-open:rotate-180 transition-transform duration-200 shrink-0"></i>
               </summary>
-              <div class="px-5 pb-5 pt-1 text-xs text-[#5C6F66] leading-relaxed border-t border-[#E5DAC8] font-medium">
+              <div class="px-5 pb-5 pt-1 text-xs text-[#2E4338] leading-relaxed border-t border-[#E5DAC8] font-medium">
                 Makkah dan Madinah beriklim padang pasir dengan musim panas bersuhu rata-rata 38°C - 45°C dan musim dingin bersuhu sejuk 18°C - 28°C. Pelataran Masjidil Haram menggunakan marmer Thassos Yunani yang memantulkan panas, dan Masjid Nabawi dilengkapi 250 payung hidrolik serta sistem kipas embun (misting fan) pendingin udara.
               </div>
             </details>
@@ -1985,6 +1905,7 @@
 
       </div>
     </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="bg-[#1C2D24] border-t border-[#244C3B] py-12 px-4 sm:px-6 lg:px-8 text-xs text-[#A1B3AA]">
@@ -2020,27 +1941,27 @@
             </div>
             <div>
               <div class="flex flex-wrap items-center gap-2">
-                <h4 id="toast-title" class="font-extrabold text-[#1C2D24] text-base sm:text-lg tracking-tight">Syekh Dr. Bandar Baleelah</h4>
+                <h3 id="toast-title" class="font-extrabold text-[#1C2D24] text-base sm:text-lg tracking-tight">Syekh Dr. Bandar Baleelah</h3>
                 <span id="toast-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#244C3B]/10 text-[#244C3B] border border-[#244C3B]/20">Imam & Khatib</span>
               </div>
               <p id="toast-arabic" class="text-sm font-arabic font-bold text-[#244C3B] mt-0.5">فضيلة الشيخ أ.د. بندر بن عبد العزيز بليلة</p>
-              <p id="toast-subtitle" class="text-[11px] text-[#5C6F66] mt-0.5 font-medium">رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي</p>
+              <p id="toast-subtitle" class="text-[11px] text-[#2E4338] mt-0.5 font-medium">رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي</p>
             </div>
           </div>
-          <button type="button" onclick="closeNotice()" class="p-1.5 rounded-xl text-[#74857D] hover:text-[#1C2D24] hover:bg-[#E5DAC8]/40 border border-transparent transition cursor-pointer" aria-label="Tutup Profil">
+          <button type="button" onclick="closeNotice()" class="p-1.5 rounded-xl text-[#3B5145] hover:text-[#1C2D24] hover:bg-[#E5DAC8]/40 border border-transparent transition cursor-pointer" aria-label="Tutup Profil">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
         <!-- Scrollable Profile Content -->
         <div id="toast-body-content" class="overflow-y-auto p-4 sm:p-6 space-y-4 text-xs sm:text-sm text-[#384841] custom-scrollbar">
-          <p id="toast-message" class="text-xs sm:text-sm text-[#5C6F66] leading-relaxed font-medium"></p>
+          <p id="toast-message" class="text-xs sm:text-sm text-[#2E4338] leading-relaxed font-medium"></p>
           <div id="toast-details" class="space-y-4"></div>
         </div>
 
         <!-- Modal Footer -->
         <div class="p-3.5 sm:p-4 bg-[#FAF6F0] border-t border-[#E5DAC8] flex items-center justify-between gap-3 shrink-0">
-          <div class="flex items-center gap-2 text-[11px] text-[#74857D] font-medium">
+          <div class="flex items-center gap-2 text-[11px] text-[#3B5145] font-medium">
             <i data-lucide="shield-check" class="w-4 h-4 text-[#244C3B] shrink-0"></i>
             <span id="toast-source-label">Data Biografi Resmi Terverifikasi Otoritas Haramain</span>
           </div>
@@ -2064,7 +1985,7 @@
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <h3 id="mosque-modal-title" class="font-extrabold text-lg sm:text-xl text-[#1C2D24] tracking-tight">Masjidil Haram</h3>
+                <h2 id="mosque-modal-title" class="font-extrabold text-lg sm:text-xl text-[#1C2D24] tracking-tight">Masjidil Haram</h2>
                 <span id="mosque-modal-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#244C3B]/10 text-[#244C3B] border border-[#244C3B]/20">Makkah</span>
               </div>
               <p id="mosque-modal-arabic" class="text-xs sm:text-sm text-[#244C3B] font-arabic font-bold mt-0.5">المسجد الحرام • مكة المكرمة</p>
@@ -2073,7 +1994,7 @@
 
           <div class="flex items-center gap-2">
             <!-- Close Button -->
-            <button type="button" onclick="closeMosqueModal()" class="w-9 h-9 rounded-xl text-[#74857D] hover:text-[#1C2D24] hover:bg-[#E5DAC8]/40 border border-transparent transition flex items-center justify-center cursor-pointer" aria-label="Tutup Popup Info Masjid">
+            <button type="button" onclick="closeMosqueModal()" class="w-9 h-9 rounded-xl text-[#3B5145] hover:text-[#1C2D24] hover:bg-[#E5DAC8]/40 border border-transparent transition flex items-center justify-center cursor-pointer" aria-label="Tutup Popup Info Masjid">
               <i data-lucide="x" class="w-5 h-5"></i>
             </button>
           </div>
@@ -2097,7 +2018,7 @@
               <i data-lucide="map-pin" class="w-3 h-3 text-[#C5A059]"></i>
               <span data-i18n="sec_map_badge">Gerbang & Fasilitas Medis</span>
             </button>
-            <span class="text-[11px] text-[#74857D] hidden md:inline-flex items-center gap-1.5 font-medium">
+            <span class="text-[11px] text-[#3B5145] hidden md:inline-flex items-center gap-1.5 font-medium">
               <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#244C3B]"></i>
               <span data-i18n="modal_guide_tip">Detail Resmi Presidensi</span>
             </span>
@@ -2111,7 +2032,7 @@
 
         <!-- Modal Footer -->
         <div class="p-4 sm:p-5 bg-[#FAF6F0] border-t border-[#E5DAC8] flex flex-wrap items-center justify-between gap-3 shrink-0">
-          <div class="flex items-center gap-2 text-xs text-[#5C6F66] font-medium">
+          <div class="flex items-center gap-2 text-xs text-[#2E4338] font-medium">
             <i data-lucide="check-circle-2" class="w-4 h-4 text-[#244C3B] shrink-0"></i>
             <span id="mosque-modal-footer-src">Data terverifikasi Presidensi Umum Urusan Dua Masjid Suci</span>
           </div>
@@ -2181,7 +2102,7 @@
             <i data-lucide="volume-x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
           </div>
           <div class="flex-1 min-w-0">
-            <h4 class="font-bold text-white text-xs sm:text-sm tracking-wide" data-i18n="ibadah_silence_title">Adab di Dalam Masjid</h4>
+            <h3 class="font-bold text-white text-xs sm:text-sm tracking-wide" data-i18n="ibadah_silence_title">Adab di Dalam Masjid</h3>
             <p class="text-amber-200/70 text-[11px] sm:text-xs mt-0.5" data-i18n="ibadah_silence_desc">Harap pastikan ponsel dalam mode hening (silent) dan jaga ketenangan selama berada di rumah Allah.</p>
           </div>
           <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-900/60 text-emerald-300 text-[10px] font-semibold uppercase tracking-wider border border-emerald-500/30 shrink-0">
@@ -2259,7 +2180,7 @@
                 <i data-lucide="book-open" class="w-4 h-4"></i>
               </div>
               <div>
-                <h4 class="font-bold text-white text-xs sm:text-base tracking-wide" data-i18n="ibadah_dhikr_title">Kumpulan Dzikir & Doa Ringkas Ramah Mata</h4>
+                <h3 class="font-bold text-white text-xs sm:text-base tracking-wide" data-i18n="ibadah_dhikr_title">Kumpulan Dzikir & Doa Ringkas Ramah Mata</h3>
                 <p class="text-[10px] sm:text-[11px] text-amber-200/60" data-i18n="ibadah_dhikr_subtitle">Teks kontras tinggi dengan harakat jelas untuk dibaca di dalam masjid.</p>
               </div>
             </div>
@@ -3423,14 +3344,14 @@
             }">
               <div class="flex items-center justify-between gap-1 mb-1 sm:mb-2">
                 <span class="text-[11px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider truncate ${isNext ? 'text-[#F5E8C7]' : 'text-[#244C3B]'}">${prayerName}</span>
-                <i data-lucide="${prayer.icon}" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${isNext ? 'text-[#F5E8C7]' : 'text-[#8C6D23]'}"></i>
+                <i data-lucide="${prayer.icon}" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 ${isNext ? 'text-[#F5E8C7]' : 'text-[#694F12]'}"></i>
               </div>
               <div class="my-0.5 sm:my-1">
                 <p class="text-base sm:text-xl lg:text-2xl font-mono font-black ${isNext ? 'text-white' : 'text-[#1C2D24]'} tracking-tight leading-none">${prayer.time}</p>
               </div>
               <div class="flex items-center justify-between mt-1 sm:mt-2 pt-1.5 sm:pt-2 ${isNext ? 'border-t border-white/20' : 'border-t border-[#E5DAC8]'} gap-1">
                 <span class="text-[11px] sm:text-xs font-arabic ${isNext ? 'text-[#F5E8C7] font-bold' : 'text-[#244C3B] font-bold'} truncate">${prayer.arabic}</span>
-                ${isNext ? `<span class="text-[8.5px] sm:text-[9.5px] px-1.5 py-0.5 rounded bg-[#E4CB96] text-[#1C2D24] font-black uppercase tracking-wider leading-none shrink-0 shadow-sm">${nextBadge}</span>` : '<span class="text-[9px] sm:text-[10px] text-[#5C6F66] font-mono shrink-0 font-bold">AST</span>'}
+                ${isNext ? `<span class="text-[8.5px] sm:text-[9.5px] px-1.5 py-0.5 rounded bg-[#E4CB96] text-[#1C2D24] font-black uppercase tracking-wider leading-none shrink-0 shadow-sm">${nextBadge}</span>` : '<span class="text-[9px] sm:text-[10px] text-[#2E4338] font-mono shrink-0 font-bold">AST</span>'}
               </div>
             </div>
           `;
@@ -3449,11 +3370,11 @@
 
         if (city === 'makkah') {
           makkahBtn.className = "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow";
-          madinahBtn.className = "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300";
+          madinahBtn.className = "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300";
           if (label) label.innerText = "Makkah Al-Mukarramah";
         } else {
           madinahBtn.className = "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow";
-          makkahBtn.className = "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300";
+          makkahBtn.className = "px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300";
           if (label) label.innerText = "Madinah Al-Munawwarah";
         }
 
@@ -3790,10 +3711,10 @@
 
             <!-- Adab Masuk Masjidil Haram & Raudhah -->
             <div class="p-4 rounded-2xl bg-emerald-950/60 border border-gold-500/25 space-y-2 text-xs">
-              <h5 class="font-bold text-gold-300 flex items-center gap-2">
+              <h4 class="font-bold text-gold-300 flex items-center gap-2">
                 <i data-lucide="heart-handshake" class="w-4 h-4 text-gold-400"></i>
                 <span>Adab & Sunnah Masuk Masjid Suci:</span>
-              </h5>
+              </h4>
               <ul class="space-y-1.5 text-amber-100/80 list-disc list-inside">
                 <li>Melangkahkan kaki kanan terlebih dahulu sambil melantunkan shalawat & doa masuk masjid.</li>
                 <li>Mendirikan shalat sunnah Tahiyyatul Masjid 2 rakaat sebelum duduk (di Masjidil Haram, disunnahkan Thawaf Qudum/Sunnah jika memungkinkan).</li>
@@ -3965,10 +3886,10 @@
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E5DAC8] text-[#244C3B] text-xs font-bold shadow-xs">
                   <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#C5A059]"></i>
                   <span>${hijriDate}</span>
-                  <span class="text-[#8C6D23] font-arabic font-bold text-xs ml-0.5">(${hijriArabic})</span>
+                  <span class="text-[#694F12] font-arabic font-bold text-xs ml-0.5">(${hijriArabic})</span>
                 </span>
               </div>
-              <div class="flex items-center gap-1.5 text-xs text-[#5C6F66] font-medium">
+              <div class="flex items-center gap-1.5 text-xs text-[#2E4338] font-medium">
                 <i data-lucide="shield-check" class="w-4 h-4 text-[#244C3B] shrink-0"></i>
                 <span class="truncate font-semibold">${data.sourcePresidency}</span>
               </div>
@@ -3996,7 +3917,7 @@
                     <span class="px-2.5 py-0.5 rounded-lg bg-[#244C3B]/10 text-[#244C3B] text-[11px] font-extrabold uppercase tracking-wide">
                       ${roleText}
                     </span>
-                    <span class="font-arabic text-sm sm:text-base font-extrabold text-[#8C6D23]">
+                    <span class="font-arabic text-sm sm:text-base font-extrabold text-[#694F12]">
                       ${data.titleArabic}
                     </span>
                   </div>
@@ -4011,10 +3932,10 @@
                   <div class="inline-flex items-center gap-1.5 text-xs font-bold text-[#244C3B] mb-2">
                     <i data-lucide="award" class="w-3.5 h-3.5 text-[#C5A059]"></i>
                     <span>${posText}</span>
-                    <span class="text-[#8C6D23] font-arabic font-bold text-xs">(${data.khateebTitleArabic})</span>
+                    <span class="text-[#694F12] font-arabic font-bold text-xs">(${data.khateebTitleArabic})</span>
                   </div>
 
-                  <p class="text-xs text-[#5C6F66] leading-relaxed max-w-2xl font-medium">
+                  <p class="text-xs text-[#2E4338] leading-relaxed max-w-2xl font-medium">
                     ${bioText}
                   </p>
 
@@ -4035,7 +3956,7 @@
               <div class="lg:col-span-4 rounded-2xl bg-white/95 border border-[#E5DAC8] p-4 sm:p-5 shadow-sm flex flex-col justify-between h-full">
                 <div>
                   <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[#E5DAC8]">
-                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#8C6D23] flex items-center gap-1">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-[#694F12] flex items-center gap-1">
                       <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#C5A059]"></i>
                       <span>${backupTitle}</span>
                     </span>
@@ -4051,13 +3972,13 @@
                       <p class="font-arabic text-xs font-bold text-[#C5A059] mt-0.5">${data.backupFullArabic}</p>
                     </div>
                   </div>
-                  <p class="text-[11px] text-[#5C6F66] leading-relaxed font-medium">
+                  <p class="text-[11px] text-[#2E4338] leading-relaxed font-medium">
                     ${emergencyDutyText}
                   </p>
                 </div>
 
                 <div class="mt-3.5 pt-2.5 border-t border-[#E5DAC8] flex items-center justify-between text-xs">
-                  <span class="text-[10px] text-[#74857D] font-mono font-medium">${data.sourceAgency}</span>
+                  <span class="text-[10px] text-[#3B5145] font-mono font-medium">${data.sourceAgency}</span>
                   <button onclick="previewAdhanNotice('${data.backupName}')" class="text-[#244C3B] hover:text-[#C5A059] font-bold text-xs flex items-center gap-0.5 transition cursor-pointer">
                     <span>${viewProfileText}</span>
                     <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
@@ -4089,7 +4010,7 @@
           const backupSection = item.backupName ? `
             <div class="mt-3.5 p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <span class="text-[10px] uppercase font-bold text-[#8C6D23] flex items-center gap-1">
+                <span class="text-[10px] uppercase font-bold text-[#694F12] flex items-center gap-1">
                   <i data-lucide="shield-check" class="w-3 h-3 text-[#C5A059]"></i>
                   ${backupLabel}
                 </span>
@@ -4109,7 +4030,7 @@
                 <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#FAF6F0] text-[#244C3B] border border-[#E5DAC8]">
                   ${prayerBadgeLabel}
                 </span>
-                <span class="text-[10px] text-[#74857D] uppercase font-semibold">
+                <span class="text-[10px] text-[#3B5145] uppercase font-semibold">
                   ${tagText}
                 </span>
               </div>
@@ -4127,12 +4048,12 @@
               </div>
 
               <p class="text-xs font-bold text-[#244C3B] mb-1.5">${roleText}</p>
-              <p class="text-xs text-[#5C6F66] leading-relaxed">${bioText}</p>
+              <p class="text-xs text-[#2E4338] leading-relaxed">${bioText}</p>
 
               ${backupSection}
 
               <div class="mt-4 pt-3 border-t border-[#E5DAC8] flex items-center justify-between text-xs">
-                <span class="text-[11px] text-[#5C6F66] flex items-center gap-1 font-medium">
+                <span class="text-[11px] text-[#2E4338] flex items-center gap-1 font-medium">
                   <i data-lucide="check-circle" class="w-3.5 h-3.5 text-[#244C3B]"></i>
                   ${assignedText}
                 </span>
@@ -4157,10 +4078,10 @@
 
         if (mosque === 'makkah') {
           makkahBtn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]";
-          madinahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300";
+          madinahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300";
         } else {
           madinahBtn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]";
-          makkahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300";
+          makkahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300";
         }
 
         if (container) {
@@ -4212,11 +4133,11 @@
             <button onclick="selectMuadzinDay('${dayKey}')" class="relative p-2 sm:p-2.5 rounded-xl text-center border transition-all duration-200 ${
               isSelected 
                 ? 'bg-[#244C3B] text-white border-[#244C3B] font-bold shadow-md scale-[1.02] ring-2 ring-[#C5A059]/50' 
-                : 'bg-white text-[#5C6F66] hover:text-[#1C2D24] border-[#E5DAC8] hover:border-[#244C3B]/40'
+                : 'bg-white text-[#2E4338] hover:text-[#1C2D24] border-[#E5DAC8] hover:border-[#244C3B]/40'
             }">
               ${isToday ? `<span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded-full text-[9px] font-extrabold ${isSelected ? 'bg-[#E4CB96] text-[#1C2D24]' : 'bg-[#244C3B] text-white'} shadow-sm">${currentLang === 'en' ? 'Today' : 'Hari Ini'}</span>` : ''}
               <div class="text-xs font-bold leading-tight mt-0.5">${label}</div>
-              <div class="text-[10px] ${isSelected ? 'text-[#E4CB96] font-bold' : 'text-[#8C6D23] font-mono font-medium'} leading-tight mt-0.5">${d.dateHijri}</div>
+              <div class="text-[10px] ${isSelected ? 'text-[#E4CB96] font-bold' : 'text-[#694F12] font-mono font-medium'} leading-tight mt-0.5">${d.dateHijri}</div>
             </button>
           `;
         }).join('');
@@ -4259,7 +4180,7 @@
           const adhanLabel = typeof item.adhanType === 'object' ? item.adhanType[currentLang] || item.adhanType.id : item.adhanType;
           const isFajr1 = item.prayerKey === 'fajr1';
           const iqamahBadge = (!isFajr1 && item.iqamah) 
-            ? `<span class="text-[10px] text-[#74857D] ml-auto">Iqamah ${item.iqamah}</span>` 
+            ? `<span class="text-[10px] text-[#3B5145] ml-auto">Iqamah ${item.iqamah}</span>` 
             : '';
 
           return `
@@ -4268,7 +4189,7 @@
                 <span class="text-xs font-bold uppercase tracking-wider text-[#244C3B]">${adhanLabel}</span>
                 <span class="px-2 py-0.5 rounded-lg text-[10px] font-mono bg-[#FAF6F0] text-[#244C3B] font-semibold border border-[#E5DAC8]">${item.maqam}</span>
               </div>
-              <div class="flex items-center gap-1 text-xs text-[#5C6F66] font-mono mb-2">
+              <div class="flex items-center gap-1 text-xs text-[#2E4338] font-mono mb-2">
                 <i data-lucide="clock" class="w-3 h-3 text-[#C5A059]"></i>
                 <span>${item.time} AST</span>
                 ${iqamahBadge}
@@ -4277,7 +4198,7 @@
               <p class="font-arabic text-xs text-[#C5A059] font-bold mb-2.5 mt-0.5">${item.arabic}</p>
               <div class="flex items-center justify-between pt-2 border-t border-[#E5DAC8] text-[11px]">
                 <span class="text-[#244C3B] font-semibold truncate mr-1">${mosqueLabel}</span>
-                <span class="text-[#8C6D23] font-bold flex items-center gap-0.5 shrink-0 group-hover:underline">
+                <span class="text-[#694F12] font-bold flex items-center gap-0.5 shrink-0 group-hover:underline">
                   ${currentLang === 'en' ? 'Bio' : 'Profil'}
                   <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </span>
@@ -4298,10 +4219,10 @@
 
         if (mosque === 'makkah') {
           makkahBtn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]";
-          madinahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300";
+          madinahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300";
         } else {
           madinahBtn.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]";
-          makkahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#5C6F66] hover:text-[#1C2D24] transition-all duration-300";
+          makkahBtn.className = "px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300";
         }
 
         if (container) {
@@ -6306,8 +6227,8 @@
             <!-- Highlights Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8]">
-                <div class="flex items-center gap-2 text-[#8C6D23] text-xs font-bold mb-1">
-                  <i data-lucide="calendar" class="w-4 h-4 text-[#8C6D23]"></i>
+                <div class="flex items-center gap-2 text-[#694F12] text-xs font-bold mb-1">
+                  <i data-lucide="calendar" class="w-4 h-4 text-[#694F12]"></i>
                   <span>${labels.birth}</span>
                 </div>
                 <p class="text-xs text-[#1C2D24] font-bold">${birthShortText}</p>
@@ -6325,7 +6246,7 @@
             <!-- Birth Section -->
             <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-sm">
               <div class="flex items-center gap-2 text-[#244C3B] font-bold text-xs sm:text-sm mb-2">
-                <i data-lucide="map-pin" class="w-4 h-4 text-[#8C6D23]"></i>
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#694F12]"></i>
                 <span>${labels.birth}</span>
               </div>
               <p class="text-xs text-[#1C2D24] leading-relaxed">${birthDescText}</p>
@@ -6334,7 +6255,7 @@
             <!-- Education Section -->
             <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-sm">
               <div class="flex items-center gap-2 text-[#244C3B] font-bold text-xs sm:text-sm mb-2.5">
-                <i data-lucide="book-open" class="w-4 h-4 text-[#8C6D23]"></i>
+                <i data-lucide="book-open" class="w-4 h-4 text-[#694F12]"></i>
                 <span>${labels.education}</span>
               </div>
               <ul class="space-y-2">
@@ -6350,7 +6271,7 @@
             <!-- Career Section -->
             <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-sm">
               <div class="flex items-center gap-2 text-[#244C3B] font-bold text-xs sm:text-sm mb-2.5">
-                <i data-lucide="briefcase" class="w-4 h-4 text-[#8C6D23]"></i>
+                <i data-lucide="briefcase" class="w-4 h-4 text-[#694F12]"></i>
                 <span>${labels.career}</span>
               </div>
               <ul class="space-y-2">
@@ -6366,7 +6287,7 @@
             <!-- Tilawah Section -->
             <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-sm">
               <div class="flex items-center gap-2 text-[#244C3B] font-bold text-xs sm:text-sm mb-2">
-                <i data-lucide="mic" class="w-4 h-4 text-[#8C6D23]"></i>
+                <i data-lucide="mic" class="w-4 h-4 text-[#694F12]"></i>
                 <span>${labels.tilawah}</span>
               </div>
               <p class="text-xs text-[#1C2D24] leading-relaxed">${tilawahText}</p>
@@ -7043,7 +6964,7 @@
               ${poi.gateNo ? `<span class="text-[11px] font-mono font-bold text-gold-400">Pintu #${poi.gateNo}</span>` : ''}
             </div>
 
-            <h5 class="font-bold text-sm text-white leading-tight mb-0.5">${name}</h5>
+            <h3 class="font-bold text-sm text-white leading-tight mb-0.5">${name}</h3>
             ${poi.arabic ? `<p class="text-[12px] text-gold-300/90 font-arabic mb-2">${poi.arabic}</p>` : ''}
             
             <p class="text-[11px] text-amber-100/80 leading-relaxed mb-2.5 p-2 rounded-lg bg-[#02130f]/80 border border-gold-500/15">
@@ -7072,47 +6993,79 @@
         `;
       }
 
+      function loadLeafletAssets(callback) {
+        if (typeof L !== 'undefined') {
+          if (callback) callback();
+          return;
+        }
+        if (!document.getElementById('leaflet-css')) {
+          const link = document.createElement('link');
+          link.id = 'leaflet-css';
+          link.rel = 'stylesheet';
+          link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+          document.head.appendChild(link);
+        }
+        if (!document.getElementById('leaflet-js')) {
+          const script = document.createElement('script');
+          script.id = 'leaflet-js';
+          script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+          script.onload = () => {
+            if (callback) callback();
+          };
+          document.head.appendChild(script);
+        } else {
+          const poll = setInterval(() => {
+            if (typeof L !== 'undefined') {
+              clearInterval(poll);
+              if (callback) callback();
+            }
+          }, 30);
+        }
+      }
+
       function initOrUpdateMosqueMap(mosqueKey = activeModalMosque) {
-        setTimeout(() => {
-          const container = document.getElementById('mosque-leaflet-map');
-          if (!container || typeof L === 'undefined') return;
+        loadLeafletAssets(() => {
+          setTimeout(() => {
+            const container = document.getElementById('mosque-leaflet-map');
+            if (!container || typeof L === 'undefined') return;
 
-          // If map instance exists, remove it cleanly to avoid leaflet re-initialization errors
-          if (mosqueMapInstance) {
-            try {
-              mosqueMapInstance.remove();
-            } catch (e) {}
-            mosqueMapInstance = null;
-            mosqueTileLayerInstance = null;
-            mosqueMapMarkers = [];
-          }
+            // If map instance exists, remove it cleanly to avoid leaflet re-initialization errors
+            if (mosqueMapInstance) {
+              try {
+                mosqueMapInstance.remove();
+              } catch (e) {}
+              mosqueMapInstance = null;
+              mosqueTileLayerInstance = null;
+              mosqueMapMarkers = [];
+            }
 
-          const data = mosqueMapData[mosqueKey] || mosqueMapData.makkah;
+            const data = mosqueMapData[mosqueKey] || mosqueMapData.makkah;
 
-          mosqueMapInstance = L.map('mosque-leaflet-map', {
-            center: data.center,
-            zoom: data.defaultZoom,
-            zoomControl: false,
-            attributionControl: false
-          });
+            mosqueMapInstance = L.map('mosque-leaflet-map', {
+              center: data.center,
+              zoom: data.defaultZoom,
+              zoomControl: false,
+              attributionControl: false
+            });
 
-          // Zoom control on top right
-          L.control.zoom({ position: 'topright' }).addTo(mosqueMapInstance);
+            // Zoom control on top right
+            L.control.zoom({ position: 'topright' }).addTo(mosqueMapInstance);
 
-          // Default tile layer (No watermarks / No API key requirements)
-          const defaultLayerCfg = tileLayerConfigs[currentMapTileLayer] || tileLayerConfigs.voyager;
-          mosqueTileLayerInstance = L.tileLayer(defaultLayerCfg.url, defaultLayerCfg.options).addTo(mosqueMapInstance);
+            // Default tile layer (No watermarks / No API key requirements)
+            const defaultLayerCfg = tileLayerConfigs[currentMapTileLayer] || tileLayerConfigs.voyager;
+            mosqueTileLayerInstance = L.tileLayer(defaultLayerCfg.url, defaultLayerCfg.options).addTo(mosqueMapInstance);
 
-          // Minimal attribution
-          L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap • Presidensi Haramain' }).addTo(mosqueMapInstance);
+            // Minimal attribution
+            L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap • Presidensi Haramain' }).addTo(mosqueMapInstance);
 
-          // Ensure container dimensions are recognized by Leaflet
-          mosqueMapInstance.invalidateSize();
+            // Ensure container dimensions are recognized by Leaflet
+            mosqueMapInstance.invalidateSize();
 
-          // Render markers & cards
-          renderMapMarkers(mosqueKey, currentMapFilter);
-          renderPoiListCards(mosqueKey, currentMapFilter);
-        }, 160);
+            // Render markers & cards
+            renderMapMarkers(mosqueKey, currentMapFilter);
+            renderPoiListCards(mosqueKey, currentMapFilter);
+          }, 140);
+        });
       }
 
       function renderMapMarkers(mosqueKey = activeModalMosque, filter = currentMapFilter) {
@@ -7192,9 +7145,9 @@
                   ${poi.gateNo ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#02130f] border border-gold-500/30 text-gold-300 shrink-0">Pintu #${poi.gateNo}</span>` : ''}
                 </div>
 
-                <h6 class="text-xs font-bold text-white group-hover:text-gold-300 transition-colors leading-snug">
+                <h4 class="text-xs font-bold text-white group-hover:text-gold-300 transition-colors leading-snug">
                   ${poi.name[lang] || poi.name.id}
-                </h6>
+                </h4>
                 ${poi.arabic ? `<p class="text-[11px] text-gold-300/80 font-arabic mt-0.5">${poi.arabic}</p>` : ''}
                 <p class="text-[11px] text-amber-100/70 line-clamp-2 mt-1 leading-relaxed">${poi.desc[lang] || poi.desc.id}</p>
               </div>
@@ -7228,7 +7181,7 @@
             if (type === 'health') btn.className = "px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-rose-600 text-white shadow-sm";
             if (type === 'sacred') btn.className = "px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-[#C5A059] text-white shadow-sm";
           } else {
-            btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 bg-[#FAF6F0] text-[#5C6F66] hover:text-[#1C2D24] border border-[#E5DAC8]";
+            btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 bg-[#FAF6F0] text-[#2E4338] hover:text-[#1C2D24] border border-[#E5DAC8]";
           }
         });
       }
@@ -7465,7 +7418,7 @@
               <div class="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/30 flex items-center justify-center text-gold-400">
                 <i data-lucide="book-open" class="w-4 h-4"></i>
               </div>
-              <h4 class="font-bold text-base text-white">${dict.sec_history_title}</h4>
+              <h3 class="font-bold text-base text-white">${dict.sec_history_title}</h3>
             </div>
 
             <div class="space-y-2.5 text-xs sm:text-[13px] text-amber-100/85 leading-relaxed">
@@ -7491,7 +7444,7 @@
                 <i data-lucide="building-2" class="w-4 h-4"></i>
               </div>
               <div>
-                <h4 class="font-bold text-base text-white">${dict.sec_capacity_title}</h4>
+                <h3 class="font-bold text-base text-white">${dict.sec_capacity_title}</h3>
               </div>
             </div>
             <p class="text-xs text-amber-200/70 mb-3.5 leading-relaxed">${data.capacity.desc[lang]}</p>
@@ -7512,7 +7465,7 @@
               <div class="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/30 flex items-center justify-center text-gold-400">
                 <i data-lucide="heart-handshake" class="w-4 h-4"></i>
               </div>
-              <h4 class="font-bold text-base text-white">${dict.sec_facilities_title}</h4>
+              <h3 class="font-bold text-base text-white">${dict.sec_facilities_title}</h3>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -7522,7 +7475,7 @@
                     <div class="w-7 h-7 rounded-lg bg-gold-500/15 text-gold-400 flex items-center justify-center shrink-0">
                       <i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i>
                     </div>
-                    <h5 class="text-xs font-bold text-white leading-tight">${item.title[lang]}</h5>
+                    <h4 class="text-xs font-bold text-white leading-tight">${item.title[lang]}</h4>
                   </div>
                   <p class="text-[11.5px] text-amber-100/75 leading-relaxed pl-9">${item.desc[lang]}</p>
                 </div>
@@ -7539,12 +7492,12 @@
                   <i data-lucide="map-pin" class="w-4 h-4"></i>
                 </div>
                 <div>
-                  <h4 class="font-bold text-base text-white flex items-center gap-2">
+                  <h3 class="font-bold text-base text-white flex items-center gap-2">
                     <span>${dict.sec_map_title}</span>
                     <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">
                       ${activeModalMosque === 'makkah' ? 'Masjidil Haram' : 'Masjid Nabawi'}
                     </span>
-                  </h4>
+                  </h3>
                   <p class="text-xs text-amber-100/70 mt-0.5">${dict.sec_map_desc}</p>
                 </div>
               </div>
@@ -7632,10 +7585,10 @@
             <!-- Interactive POI Quick List Cards -->
             <div>
               <div class="flex items-center justify-between mb-2.5">
-                <h5 class="text-xs font-bold text-gold-300 uppercase tracking-wider flex items-center gap-1.5">
+                <h4 class="text-xs font-bold text-gold-300 uppercase tracking-wider flex items-center gap-1.5">
                   <i data-lucide="list-checks" class="w-3.5 h-3.5 text-gold-400"></i>
                   <span>${dict.map_poi_list_heading}</span>
-                </h5>
+                </h4>
                 <span class="text-[11px] text-amber-200/50">${lang === 'en' ? 'Click card to focus on map' : 'Klik kartu untuk fokus peta'}</span>
               </div>
 
@@ -7732,10 +7685,10 @@
         if (btnId && btnEn) {
           if (lang === 'id') {
             btnId.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 bg-[#244C3B] text-white shadow-sm font-extrabold cursor-pointer text-[11px] sm:text-xs";
-            btnEn.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#5C6F66] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs";
+            btnEn.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#2E4338] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs";
           } else {
             btnEn.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 bg-[#244C3B] text-white shadow-sm font-extrabold cursor-pointer text-[11px] sm:text-xs";
-            btnId.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#5C6F66] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs";
+            btnId.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#2E4338] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs";
           }
         }
 
@@ -8323,7 +8276,7 @@
           // Update quick tags
           const recTagEl = document.getElementById(`${city}-tag-recommendation`);
           if (recTagEl) {
-            recTagEl.innerHTML = `<i data-lucide="${cond.recIcon}" class="w-3 h-3 text-[#8C6D23]"></i><span class="text-[#1C2D24] font-semibold">${cond.recTag}</span>`;
+            recTagEl.innerHTML = `<i data-lucide="${cond.recIcon}" class="w-3 h-3 text-[#694F12]"></i><span class="text-[#1C2D24] font-semibold">${cond.recTag}</span>`;
           }
 
           const facTagEl = document.getElementById(`${city}-tag-facility`);
@@ -8796,6 +8749,26 @@
           quickPlayBtn.addEventListener('click', toggleAudioPlay);
         }
 
+        // Lazy-load YouTube stream iframe via IntersectionObserver to save critical FCP/LCP bandwidth
+        const streamIframe = document.getElementById('stream-iframe');
+        if (streamIframe && streamIframe.dataset && streamIframe.dataset.src) {
+          if ('IntersectionObserver' in window) {
+            const streamObs = new IntersectionObserver((entries, observer) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  if (streamIframe.src === 'about:blank' || !streamIframe.src) {
+                    streamIframe.src = streamIframe.dataset.src;
+                  }
+                  observer.disconnect();
+                }
+              });
+            }, { rootMargin: '300px' });
+            streamObs.observe(streamIframe);
+          } else {
+            streamIframe.src = streamIframe.dataset.src;
+          }
+        }
+
         // Initialize theme from localStorage or default to 'light'
         const savedTheme = (function() {
           try {
@@ -8828,13 +8801,21 @@
 
         if (window.lucide) {
           window.lucide.createIcons();
+        } else {
+          window.addEventListener('load', () => {
+            if (window.lucide) window.lucide.createIcons();
+          });
         }
 
         // Initialize scroll reveal animations
         setupScrollReveal();
 
-        // Initialize ambient floating particle engine
-        initHeroParticles();
+        // Initialize ambient floating particle engine during idle period
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(initHeroParticles);
+        } else {
+          setTimeout(initHeroParticles, 250);
+        }
 
         // Modal event listeners (Escape key & backdrop click)
         document.addEventListener('keydown', (e) => {
