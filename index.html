@@ -212,14 +212,14 @@
       (function() {
         try {
           var savedTheme = localStorage.getItem('haramain_theme');
-          if (savedTheme === 'light') {
-            document.documentElement.classList.remove('dark');
-          } else {
-            // Default to dark mode matching the original signature design
+          if (savedTheme === 'dark') {
             document.documentElement.classList.add('dark');
+          } else {
+            // Default to light mode
+            document.documentElement.classList.remove('dark');
           }
         } catch(e) {
-          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('dark');
         }
       })();
     </script>
@@ -7657,11 +7657,11 @@
       /* =========================================================================
          THEME MANAGER (DARK & LIGHT MODE CONTROLLER)
          ========================================================================= */
-      var currentTheme = 'dark';
+      var currentTheme = 'light';
       window.currentTheme = currentTheme;
 
       function applyTheme(theme, save = true) {
-        if (theme !== 'dark' && theme !== 'light') theme = 'dark';
+        if (theme !== 'dark' && theme !== 'light') theme = 'light';
         currentTheme = theme;
         window.currentTheme = currentTheme;
 
@@ -8796,12 +8796,12 @@
           quickPlayBtn.addEventListener('click', toggleAudioPlay);
         }
 
-        // Initialize theme from localStorage or default to 'dark'
+        // Initialize theme from localStorage or default to 'light'
         const savedTheme = (function() {
           try {
-            return localStorage.getItem('haramain_theme') || 'dark';
+            return localStorage.getItem('haramain_theme') || 'light';
           } catch (e) {
-            return 'dark';
+            return 'light';
           }
         })();
         applyTheme(savedTheme, false);
