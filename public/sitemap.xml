@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://haramainlife.com/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>always</changefreq>
+    <priority>1.0</priority>
+    <video:video>
+      <video:thumbnail_loc>https://img.youtube.com/vi/eC4LfEVxvKg/hqdefault.jpg</video:thumbnail_loc>
+      <video:title>Live Makkah 24 Jam - Siaran Langsung Masjidil Haram</video:title>
+      <video:description>Siaran langsung Ka'bah Masjidil Haram 24 jam nonstop kualitas HD dari Makkah Al-Mukarramah.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/eC4LfEVxvKg</video:player_loc>
+      <video:live>yes</video:live>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://haramainlife.com/#live-streams</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://haramainlife.com/#prayer-times</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://haramainlife.com/#daily-imams</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://haramainlife.com/#daily-muadzins</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://haramainlife.com/#pulsa-section</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://haramainlife.com/#panduan-haji-umrah-faq</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+</urlset>

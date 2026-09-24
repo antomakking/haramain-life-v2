@@ -1,0 +1,7 @@
+# Robots.txt for Haramain Life
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://haramainlife.com/sitemap.xml

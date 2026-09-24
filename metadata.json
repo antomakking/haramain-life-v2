@@ -1,0 +1,8 @@
+{
+  "name": "Remix V1.0 Haramain Life",
+  "description": "Portal terpadu Dua Tanah Suci: Siaran langsung 24/7 Makkah \u0026 Madinah, waktu astronomis AST, jadwal shalat Umm Al-Qura, jadwal Imam \u0026 Muadzin harian, dan peta interaktif gerbang Dua Masjid Suci.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
