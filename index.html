@@ -1247,13 +1247,13 @@
         </div>
 
         <!-- Stream Switcher Tabs -->
-        <div class="flex items-center p-1.5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
-          <button id="stream-tab-makkah" onclick="switchStream('makkah')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md scale-[1.02] cursor-pointer">
+        <div class="w-full sm:w-auto grid grid-cols-2 sm:flex sm:items-center p-1.5 rounded-2xl bg-[#FFFFFF] dark:bg-[#132A20] border border-[#E5DAC8] dark:border-[#244C3B] shadow-sm">
+          <button id="stream-tab-makkah" onclick="switchStream('makkah')" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer">
             <i data-lucide="video" class="w-4 h-4 text-white"></i>
             <span data-i18n="stream_tab_makkah">Makkah</span>
           </button>
-          <button id="stream-tab-madinah" onclick="switchStream('madinah')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-[#1C2D24] hover:text-[#244C3B] hover:bg-[#F5EFE6] transition-all duration-300 cursor-pointer">
-            <i data-lucide="video" class="w-4 h-4 text-[#244C3B]"></i>
+          <button id="stream-tab-madinah" onclick="switchStream('madinah')" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer">
+            <i data-lucide="video" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96]"></i>
             <span data-i18n="stream_tab_madinah">Madinah</span>
           </button>
         </div>
@@ -3774,16 +3774,16 @@
 
         // Update active tab buttons with scale & color morph
         if (city === 'makkah') {
-          makkahTab.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md scale-[1.02] cursor-pointer";
+          makkahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer";
           makkahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-white"></i><span data-i18n="stream_tab_makkah">Makkah</span>`;
-          madinahTab.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-[#1C2D24] hover:text-[#244C3B] hover:bg-[#F5EFE6] transition-all duration-300 cursor-pointer";
-          madinahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-[#244C3B]"></i><span data-i18n="stream_tab_madinah">Madinah</span>`;
+          madinahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer";
+          madinahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96]"></i><span data-i18n="stream_tab_madinah">Madinah</span>`;
           if (overlayText) overlayText.innerText = currentLang === 'en' ? "Connecting Saudi Quran TV (Makkah)..." : "Menghubungkan Saudi Quran TV (Makkah)...";
         } else {
-          madinahTab.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md scale-[1.02] cursor-pointer";
+          madinahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer";
           madinahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-white"></i><span data-i18n="stream_tab_madinah">Madinah</span>`;
-          makkahTab.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-[#1C2D24] hover:text-[#244C3B] hover:bg-[#F5EFE6] transition-all duration-300 cursor-pointer";
-          makkahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-[#244C3B]"></i><span data-i18n="stream_tab_makkah">Makkah</span>`;
+          makkahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer";
+          makkahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96]"></i><span data-i18n="stream_tab_makkah">Makkah</span>`;
           if (overlayText) overlayText.innerText = currentLang === 'en' ? "Connecting Saudi Sunnah TV (Madinah)..." : "Menghubungkan Saudi Sunnah TV (Madinah)...";
         }
         if (window.lucide) window.lucide.createIcons();
