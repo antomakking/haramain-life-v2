@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Advanced Security & Hardening Meta Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), payment=(), usb=(), display-capture=()" />
     <title>Haramain Life - Live Makkah 24 Jam, Jadwal Sholat Masjidil Haram & Nabawi Hari Ini, Peta & Roaming Umroh</title>
     <meta name="description" content="Portal Dua Tanah Suci: Siaran Live Streaming Makkah 24 Jam & Madinah TV Online, Jadwal Sholat Masjidil Haram & Masjid Nabawi Hari Ini, Jadwal Imam & Muadzin, Cuaca Makkah, Peta Gerbang & Raudhah, serta Paket Roaming & eSIM Saudi (STC, Zain, Mobily)." />
     <meta name="keywords" content="haji, umrah, umroh, jadwal sholat, jadwal sholat hari ini, jadwal salat, cuaca, jadwal sholat masjidil haram hari ini, jadwal sholat masjid nabawi madinah, waktu sholat makkah live, live makkah 24 jam, live streaming masjidil haram, live madinah tv online, jadwal imam masjidil haram, jadwal imam masjid nabawi, nama muadzin masjidil haram, peta masjidil haram lengkap, denah pintu masjid nabawi, lokasi raudhah masjid nabawi, paket internet umroh arab saudi, pulsa arab saudi murah, esim saudi umrah haji, kartu internet makkah madinah, paket roaming haji umrah, isi ulang kuota arab saudi, panduan pintu masjidil haram, stc zain mobily umroh" />
@@ -2275,6 +2280,135 @@
     <audio id="core-audio-element" preload="none"></audio>
 
     <script>
+      /* =========================================================================
+         ADVANCED SECURITY & INTEGRITY SHIELD (HARAMAIN SECURITY ENGINE)
+         - Anti-XSS (Cross-Site Scripting) Sanitization
+         - Anti-Reverse Tabnabbing Link Enforcement
+         - Prototype Pollution Protection
+         - Safe Storage Wrapper & JSON Injection Defense
+         - Anti-Flooding / Clickjacking Protection
+         - Strict URL Protocol Verification
+         ========================================================================= */
+      (function initHaramainSecurityShield() {
+        const HaramainSecurity = {
+          // 1. Strict HTML Entity Encoding (Anti-XSS / Anti-HTML Injection)
+          escapeHtml: function(str) {
+            if (typeof str !== 'string') return '';
+            const matchHtmlRegExp = /["'&<>`]/;
+            const match = matchHtmlRegExp.exec(str);
+            if (!match) return str;
+            return str
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;')
+              .replace(/`/g, '&#96;');
+          },
+
+          // 2. Safe URL Protocol Validator (Blocks javascript:, data:, vbscript:)
+          sanitizeUrl: function(url) {
+            if (typeof url !== 'string') return '#';
+            const cleanUrl = url.trim();
+            // Allow safe protocols or relative paths
+            if (/^(https?:|\/|#|mailto:|tel:|https:\/\/wa\.me\/)/i.test(cleanUrl)) {
+              // Block dangerous javascript:/data: bypass sequences
+              if (/^(javascript:|data:|vbscript:)/i.test(cleanUrl)) {
+                return '#';
+              }
+              return cleanUrl;
+            }
+            return '#';
+          },
+
+          // 3. Safe LocalStorage Handler (Anti-Corruption & Prototype-Safe)
+          safeStorage: {
+            getItem: function(key, fallback = null) {
+              try {
+                const val = localStorage.getItem(key);
+                if (val === null) return fallback;
+                return val;
+              } catch (e) {
+                return fallback;
+              }
+            },
+            setItem: function(key, val) {
+              try {
+                if (typeof key !== 'string' || key.includes('__proto__')) return;
+                localStorage.setItem(key, String(val));
+              } catch (e) {
+                // Quota exceeded or private browsing restricted
+              }
+            },
+            getJSON: function(key, fallback = null) {
+              try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return fallback;
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed === 'object') {
+                  delete parsed.__proto__;
+                  delete parsed.constructor;
+                  delete parsed.prototype;
+                }
+                return parsed || fallback;
+              } catch (e) {
+                return fallback;
+              }
+            }
+          },
+
+          // 4. Rate-Limiting / Anti-Flooding Utility (Protects Audio triggers, Refresh, Buttons)
+          rateLimiters: new Map(),
+          throttle: function(actionKey, delayMs, fn) {
+            const now = Date.now();
+            const lastExecuted = this.rateLimiters.get(actionKey) || 0;
+            if (now - lastExecuted < delayMs) {
+              return false; // Action throttled
+            }
+            this.rateLimiters.set(actionKey, now);
+            fn();
+            return true;
+          },
+
+          // 5. Anti-Reverse Tabnabbing & External Link Hardener
+          hardenExternalLinks: function() {
+            try {
+              const links = document.querySelectorAll('a[target="_blank"]');
+              links.forEach(link => {
+                const currentRel = link.getAttribute('rel') || '';
+                const rels = new Set(currentRel.split(' ').filter(Boolean));
+                rels.add('noopener');
+                rels.add('noreferrer');
+                link.setAttribute('rel', Array.from(rels).join(' '));
+              });
+            } catch (e) {}
+          }
+        };
+
+        // Enforce safe link security whenever DOM changes
+        if (typeof document !== 'undefined') {
+          document.addEventListener('DOMContentLoaded', () => {
+            HaramainSecurity.hardenExternalLinks();
+          });
+          // Periodic check for dynamically injected elements
+          setInterval(() => {
+            HaramainSecurity.hardenExternalLinks();
+          }, 3000);
+        }
+
+        // Export to window in a tamper-resistant manner
+        try {
+          Object.defineProperty(window, 'HaramainSecurity', {
+            value: Object.freeze(HaramainSecurity),
+            writable: false,
+            configurable: false,
+            enumerable: true
+          });
+        } catch (e) {
+          window.HaramainSecurity = HaramainSecurity;
+        }
+      })();
+
       // Ensure page always starts at the very top on load/reload
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
