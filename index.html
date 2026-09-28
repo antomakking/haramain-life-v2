@@ -562,6 +562,19 @@
       html.dark #hero-section #madinah-weather-tip {
         color: #CBD5E1 !important;
       }
+      html.dark #hero-section #makkah-5day-gear-box,
+      html.dark #hero-section #madinah-5day-gear-box {
+        background-color: #0c1d16 !important;
+        border-color: rgba(197, 160, 89, 0.25) !important;
+      }
+      html.dark .forecast-day-card {
+        background-color: #0f241c !important;
+        border-color: rgba(229, 218, 200, 0.15) !important;
+      }
+      html.dark .forecast-day-card.active-day {
+        background-color: #173628 !important;
+        border-color: #C5A059 !important;
+      }
 
       /* Sections Theming */
       html.dark #prayer-times {
@@ -1048,6 +1061,29 @@
                   <span><span data-i18n="maghrib_short">Maghrib</span> <strong class="text-[#2D5F4A]">32°C</strong></span>
                 </div>
               </div>
+
+              <!-- 5-Day Weather Forecast & Pilgrim Gear Preparation -->
+              <div class="mt-3 pt-3 border-t border-[#E5DAC8]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#244C3B] flex items-center gap-1.5 uppercase tracking-wider">
+                    <i data-lucide="calendar-days" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                    <span data-i18n="weather_5day_title">Prakiraan Cuaca 5 Hari & Panduan Perlengkapan</span>
+                  </span>
+                  <span class="text-[9.5px] font-bold text-[#244C3B] bg-[#E4F4EC] px-2 py-0.5 rounded-full border border-[#244C3B]/20" data-i18n="weather_5day_badge">
+                    5 Hari Ke Depan
+                  </span>
+                </div>
+
+                <!-- 5-Day Forecast Micro-Cards Grid -->
+                <div id="makkah-5day-grid" class="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  <!-- Populated dynamically by JS -->
+                </div>
+
+                <!-- Interactive Selected Day Pilgrim Gear Guide Box -->
+                <div id="makkah-5day-gear-box" class="mt-2.5 p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] transition-all duration-300 shadow-sm">
+                  <!-- Populated dynamically by JS -->
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1224,6 +1260,29 @@
                   <span><span data-i18n="asr_short">Ashar</span> <strong class="text-[#C5A059]">33°C</strong></span>
                   <span>•</span>
                   <span><span data-i18n="maghrib_short">Maghrib</span> <strong class="text-[#2D5F4A]">29°C</strong></span>
+                </div>
+              </div>
+
+              <!-- 5-Day Weather Forecast & Pilgrim Gear Preparation -->
+              <div class="mt-3 pt-3 border-t border-[#E5DAC8]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#244C3B] flex items-center gap-1.5 uppercase tracking-wider">
+                    <i data-lucide="calendar-days" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                    <span data-i18n="weather_5day_title">Prakiraan Cuaca 5 Hari & Panduan Perlengkapan</span>
+                  </span>
+                  <span class="text-[9.5px] font-bold text-[#244C3B] bg-[#E4F4EC] px-2 py-0.5 rounded-full border border-[#244C3B]/20" data-i18n="weather_5day_badge">
+                    5 Hari Ke Depan
+                  </span>
+                </div>
+
+                <!-- 5-Day Forecast Micro-Cards Grid -->
+                <div id="madinah-5day-grid" class="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  <!-- Populated dynamically by JS -->
+                </div>
+
+                <!-- Interactive Selected Day Pilgrim Gear Guide Box -->
+                <div id="madinah-5day-gear-box" class="mt-2.5 p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] transition-all duration-300 shadow-sm">
+                  <!-- Populated dynamically by JS -->
                 </div>
               </div>
             </div>
@@ -1431,7 +1490,7 @@
           <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-widest mb-1.5">
             <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#C5A059]"></i>
             <span data-i18n="imams_badge">Jadwal Resmi Presidensi Urusan Keagamaan</span>
-            <span class="px-2 py-0.5 rounded bg-[#FAF6F0] border border-[#E5DAC8] text-[10px] text-[#244C3B] font-bold tracking-normal">14 Rabi'ul Akhir 1448 H</span>
+            <span id="imams-week-badge" class="px-2 py-0.5 rounded bg-[#FAF6F0] dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#C5A059]/30 text-[10px] text-[#244C3B] dark:text-[#E4CB96] font-bold tracking-normal">--</span>
           </div>
           <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="imams_heading">Jadwal Khatib & Imam Sholat Jumat</h2>
           <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="imams_desc">Daftar Syekh resmi yang ditugaskan memimpin Khutbah & Shalat Jumat serta shalat berjamaah lima waktu beserta Imam Cadangan (الاحتياطي).</p>
@@ -1477,9 +1536,9 @@
             <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-widest mb-1.5">
               <i data-lucide="mic" class="w-3.5 h-3.5 text-[#C5A059]"></i>
               <span data-i18n="muadzins_badge">Suara dari Menara Suci</span>
-              <span class="px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E5DAC8] text-[10px] text-[#244C3B] font-bold tracking-normal">Pekan 09 – 15 Rabi'uts Tsani 1448 H</span>
+              <span id="muadzins-week-badge" class="px-2 py-0.5 rounded bg-[#FFFFFF] dark:bg-[#132A20] border border-[#E5DAC8] dark:border-[#244C3B] text-[10px] text-[#244C3B] dark:text-[#E4CB96] font-bold tracking-normal">--</span>
             </div>
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24] tracking-tight" data-i18n="muadzins_heading">Jadwal Muadzin Bertugas Hari Ini</h2>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="muadzins_heading">Jadwal Muadzin Bertugas Hari Ini</h2>
             <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="muadzins_desc">Para muadzin mulia pengumandang Adzan 1 & 2 serta Iqamah di menara-menara suci.</p>
           </div>
 
@@ -1495,15 +1554,15 @@
         </div>
 
         <!-- Weekly Day Selector for Muadzins (Available for both Makkah & Madinah) -->
-        <div id="muadzin-day-picker-wrap" class="mb-6 p-3 sm:p-4 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3">
-            <div class="flex items-center gap-2 text-xs font-bold text-[#1C2D24]">
-              <i data-lucide="calendar" class="w-4 h-4 text-[#244C3B]"></i>
-              <span id="muadzin-picker-title">Pilih Hari Penugasan Muadzin:</span>
+        <div id="muadzin-day-picker-wrap" class="mb-6 p-4 sm:p-6 rounded-[28px] bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
+            <div class="flex items-center gap-2 text-xs sm:text-[13.5px] font-bold text-[#1C2D24]">
+              <i data-lucide="calendar" class="w-4.5 h-4.5 text-[#244C3B] shrink-0"></i>
+              <span id="muadzin-picker-title" class="flex flex-wrap items-center gap-2">Pilih Hari Penugasan Muadzin:</span>
             </div>
-            <span class="text-[11px] text-[#3B5145] font-mono font-medium">Tabel Resmi: 09 – 15 Rabi'uts Tsani 1448 H</span>
+            <span id="muadzins-table-range" class="text-xs sm:text-[12.5px] text-[#2E4338] dark:text-[#E4CB96]/90 font-mono font-medium tracking-tight">Tabel Resmi: --</span>
           </div>
-          <div id="muadzin-days-btn-group" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+          <div id="muadzin-days-btn-group" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-3.5">
             <!-- Populated via JS -->
           </div>
         </div>
@@ -2278,6 +2337,11 @@
           weather_refresh: "Perbarui",
           weather_sync_status: "Langsung",
           weather_prayer_forecast: "Suhu Waktu Shalat:",
+          weather_5day_title: "Prakiraan Cuaca 5 Hari & Panduan Perlengkapan",
+          weather_5day_badge: "5 Hari Ke Depan",
+          weather_gear_title: "Rekomendasi Perlengkapan Ibadah:",
+          weather_day_today: "Hari Ini",
+          weather_day_tomorrow: "Besok",
           fajr_short: "Subuh",
           dhuhr_short: "Dzuhur",
           asr_short: "Ashar",
@@ -2446,6 +2510,11 @@
           weather_refresh: "Refresh",
           weather_sync_status: "Live",
           weather_prayer_forecast: "Prayer Time Temperatures:",
+          weather_5day_title: "5-Day Forecast & Pilgrim Gear",
+          weather_5day_badge: "5-Day Outlook",
+          weather_gear_title: "Recommended Worship Gear:",
+          weather_day_today: "Today",
+          weather_day_tomorrow: "Tomorrow",
           fajr_short: "Fajr",
           dhuhr_short: "Dhuhr",
           asr_short: "Asr",
@@ -3102,23 +3171,133 @@
         }
       };
 
+      function toArabicNumerals(num) {
+        const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        return String(num).replace(/\d/g, d => arabicDigits[d]);
+      }
+
+      function getRealtimeHijriWeekInfo(lang = (typeof currentLang !== 'undefined' ? currentLang : 'id')) {
+        const now = new Date();
+        const astString = now.toLocaleString("en-US", { timeZone: "Asia/Riyadh" });
+        const astDate = new Date(astString);
+        const dayOfWeek = astDate.getDay(); // 0 = Ahad/Sunday, ..., 6 = Sabtu/Saturday
+
+        const daysKeys = ['ahad', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        const dayNamesId = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const dayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        const locale = lang === 'en' ? 'en-u-ca-islamic-umalqura' : 'id-u-ca-islamic-umalqura';
+        let hijriFormatter;
+        try {
+          hijriFormatter = new Intl.DateTimeFormat(locale, {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'Asia/Riyadh'
+          });
+        } catch (e) {
+          hijriFormatter = null;
+        }
+
+        const weekDays = [];
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(astDate);
+          d.setDate(astDate.getDate() - dayOfWeek + i);
+          
+          let hijriDay = '';
+          let hijriMonth = '';
+          let hijriYear = '';
+          if (hijriFormatter) {
+            try {
+              const parts = hijriFormatter.formatToParts(d);
+              for (const p of parts) {
+                if (p.type === 'day') hijriDay = p.value;
+                if (p.type === 'month') hijriMonth = p.value;
+                if (p.type === 'year') hijriYear = p.value;
+              }
+            } catch (e) {
+              hijriDay = String(d.getDate());
+              hijriMonth = lang === 'en' ? "Rabiʻ II" : "Rabi'ul Akhir";
+              hijriYear = "1448";
+            }
+          } else {
+            hijriDay = String(d.getDate());
+            hijriMonth = lang === 'en' ? "Rabiʻ II" : "Rabi'ul Akhir";
+            hijriYear = "1448";
+          }
+
+          if (lang === 'id') {
+            hijriMonth = hijriMonth
+              .replace('Rabiulakhir', "Rabi'ul Akhir")
+              .replace('Rabiulawal', "Rabi'ul Awwal")
+              .replace('Jumadilakhir', "Jumadil Akhir")
+              .replace('Jumadilawal', "Jumadil Awwal");
+          }
+
+          const shortLabel = `${hijriDay} ${hijriMonth}`;
+          const fullDate = lang === 'en'
+            ? `${dayNamesEn[i]}, ${hijriDay} ${hijriMonth} ${hijriYear} AH`
+            : `${dayNamesId[i]}, ${hijriDay} ${hijriMonth} ${hijriYear} H`;
+
+          weekDays.push({
+            index: i,
+            key: daysKeys[i],
+            dateObj: d,
+            dayName: lang === 'en' ? dayNamesEn[i] : dayNamesId[i],
+            hijriDay: hijriDay,
+            hijriMonth: hijriMonth,
+            hijriYear: hijriYear,
+            dateHijri: shortLabel,
+            dateFull: fullDate,
+            isToday: i === dayOfWeek
+          });
+        }
+
+        const startDay = weekDays[0]; // Ahad
+        const endDay = weekDays[6];   // Sabtu
+        const friday = weekDays[5];   // Jumat
+
+        let weekRangeBadge = "";
+        let tableRange = "";
+        let fridayDate = "";
+
+        if (startDay.hijriMonth === endDay.hijriMonth) {
+          if (lang === 'en') {
+            weekRangeBadge = `Week ${startDay.hijriDay} – ${endDay.hijriDay} ${startDay.hijriMonth} ${startDay.hijriYear} AH`;
+            tableRange = `Official Roster: ${startDay.hijriDay} – ${endDay.hijriDay} ${startDay.hijriMonth} ${startDay.hijriYear} AH`;
+            fridayDate = `${friday.hijriDay} ${friday.hijriMonth} ${friday.hijriYear} AH`;
+          } else {
+            weekRangeBadge = `Pekan ${startDay.hijriDay} – ${endDay.hijriDay} ${startDay.hijriMonth} ${startDay.hijriYear} H`;
+            tableRange = `Tabel Resmi: ${startDay.hijriDay} – ${endDay.hijriDay} ${startDay.hijriMonth} ${startDay.hijriYear} H`;
+            fridayDate = `${friday.hijriDay} ${friday.hijriMonth} ${friday.hijriYear} H`;
+          }
+        } else {
+          if (lang === 'en') {
+            weekRangeBadge = `Week ${startDay.hijriDay} ${startDay.hijriMonth} – ${endDay.hijriDay} ${endDay.hijriMonth} ${endDay.hijriYear} AH`;
+            tableRange = `Official Roster: ${startDay.hijriDay} ${startDay.hijriMonth} – ${endDay.hijriDay} ${endDay.hijriMonth} ${endDay.hijriYear} AH`;
+            fridayDate = `${friday.hijriDay} ${friday.hijriMonth} ${friday.hijriYear} AH`;
+          } else {
+            weekRangeBadge = `Pekan ${startDay.hijriDay} ${startDay.hijriMonth} – ${endDay.hijriDay} ${endDay.hijriMonth} ${endDay.hijriYear} H`;
+            tableRange = `Tabel Resmi: ${startDay.hijriDay} ${startDay.hijriMonth} – ${endDay.hijriDay} ${endDay.hijriMonth} ${endDay.hijriYear} H`;
+            fridayDate = `${friday.hijriDay} ${friday.hijriMonth} ${friday.hijriYear} H`;
+          }
+        }
+
+        return {
+          weekDays,
+          todayKey: daysKeys[dayOfWeek],
+          todayIndex: dayOfWeek,
+          weekRangeBadge,
+          tableRange,
+          fridayDate,
+          friday
+        };
+      }
+
       function getRealtimeMuadzinDayKey() {
         try {
-          // Determine the current day in Asia/Riyadh timezone (GMT+3 AST)
-          const options = { timeZone: 'Asia/Riyadh', weekday: 'short' };
-          const formatter = new Intl.DateTimeFormat('en-US', options);
-          const dayStr = formatter.format(new Date()).toLowerCase();
-          
-          const dayMap = {
-            'sun': 'ahad',
-            'mon': 'senin',
-            'tue': 'selasa',
-            'wed': 'rabu',
-            'thu': 'kamis',
-            'fri': 'jumat',
-            'sat': 'sabtu'
-          };
-          return dayMap[dayStr] || 'jumat';
+          const weekInfo = getRealtimeHijriWeekInfo();
+          return weekInfo.todayKey || 'jumat';
         } catch (e) {
           const dayIndex = new Date().getDay();
           const dayList = ['ahad', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
@@ -3217,6 +3396,17 @@
           document.getElementById('madinah-gregorian').innerText = gregorianStr;
           document.getElementById('madinah-hijri').innerText = hijriStr;
         }
+
+        // Update real-time week info for Imams and Muadzins
+        const weekInfo = getRealtimeHijriWeekInfo(currentLang);
+        const imamsWeekBadge = document.getElementById('imams-week-badge');
+        if (imamsWeekBadge) imamsWeekBadge.innerText = weekInfo.fridayDate;
+
+        const muadzinsWeekBadge = document.getElementById('muadzins-week-badge');
+        if (muadzinsWeekBadge) muadzinsWeekBadge.innerText = weekInfo.weekRangeBadge;
+
+        const muadzinsTableRange = document.getElementById('muadzins-table-range');
+        if (muadzinsTableRange) muadzinsTableRange.innerText = weekInfo.tableRange;
 
         updatePrayerCountdown(astDate);
         updateHaramainRealtimeConditions(astDate);
@@ -3853,9 +4043,12 @@
         const container = document.getElementById('friday-khateeb-container');
         if (!container) return;
         const data = fridayKhatibData[currentImamMosque] || fridayKhatibData.makkah;
+        const weekInfo = getRealtimeHijriWeekInfo(currentLang);
         const mosqueName = typeof data.mosqueName === 'object' ? data.mosqueName[currentLang] || data.mosqueName.id : data.mosqueName;
-        const hijriDate = typeof data.hijriDate === 'object' ? data.hijriDate[currentLang] || data.hijriDate.id : data.hijriDate;
-        const hijriArabic = data.hijriDate && data.hijriDate.arabic ? data.hijriDate.arabic : '';
+        const hijriDate = weekInfo.fridayDate || (typeof data.hijriDate === 'object' ? data.hijriDate[currentLang] || data.hijriDate.id : data.hijriDate);
+        const hijriArabic = (weekInfo.friday && weekInfo.friday.hijriDay)
+          ? `${toArabicNumerals(weekInfo.friday.hijriDay)} ربيع الآخر ${toArabicNumerals(weekInfo.friday.hijriYear)} هـ`
+          : (data.hijriDate && data.hijriDate.arabic ? data.hijriDate.arabic : '');
         const roleText = typeof data.role === 'object' ? data.role[currentLang] || data.role.id : data.role;
         const posText = typeof data.position === 'object' ? data.position[currentLang] || data.position.id : data.position;
         const bioText = typeof data.bio === 'object' ? data.bio[currentLang] || data.bio.id : data.bio;
@@ -4102,42 +4295,55 @@
         const pickerWrap = document.getElementById('muadzin-day-picker-wrap');
         const btnGroup = document.getElementById('muadzin-days-btn-group');
         const titleEl = document.getElementById('muadzin-picker-title');
+        const tableRangeEl = document.getElementById('muadzins-table-range');
+        const muadzinsBadge = document.getElementById('muadzins-week-badge');
+        const imamsBadge = document.getElementById('imams-week-badge');
         if (!pickerWrap || !btnGroup) return;
 
         pickerWrap.classList.remove('hidden');
-        const todayKey = getRealtimeMuadzinDayKey();
+        const weekInfo = getRealtimeHijriWeekInfo(currentLang);
+        const todayKey = weekInfo.todayKey;
+
+        if (tableRangeEl) {
+          tableRangeEl.innerText = weekInfo.tableRange;
+        }
+        if (muadzinsBadge) {
+          muadzinsBadge.innerText = weekInfo.weekRangeBadge;
+        }
+        if (imamsBadge) {
+          imamsBadge.innerText = weekInfo.fridayDate;
+        }
 
         if (titleEl) {
           if (currentMuadzinMosque === 'makkah') {
             titleEl.innerHTML = currentLang === 'en' 
-              ? 'Select Day for Masjidil Haram Muadzins: <span class="ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#244C3B]/10 text-[#244C3B] border border-[#244C3B]/20">Realtime AST</span>'
-              : 'Pilih Hari Penugasan Muadzin Masjidil Haram (Makkah): <span class="ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#244C3B]/10 text-[#244C3B] border border-[#244C3B]/20">Realtime AST</span>';
+              ? 'Select Day for Masjidil Haram Muadzins: <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#E2EBE6] dark:bg-[#1A382A] text-[#244C3B] dark:text-[#E4CB96] border border-[#CBDCD2] dark:border-[#244C3B]">Realtime AST</span>'
+              : 'Pilih Hari Penugasan Muadzin Masjidil Haram (Makkah): <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#E2EBE6] dark:bg-[#1A382A] text-[#244C3B] dark:text-[#E4CB96] border border-[#CBDCD2] dark:border-[#244C3B]">Realtime AST</span>';
           } else {
             titleEl.innerHTML = currentLang === 'en' 
-              ? 'Select Day for Masjid Nabawi Muadzins: <span class="ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#244C3B]/10 text-[#244C3B] border border-[#244C3B]/20">Realtime AST</span>'
-              : 'Pilih Hari Penugasan Muadzin Masjid Nabawi (Madinah): <span class="ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#244C3B]/10 text-[#244C3B] border border-[#244C3B]/20">Realtime AST</span>';
+              ? 'Select Day for Masjid Nabawi Muadzins: <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#E2EBE6] dark:bg-[#1A382A] text-[#244C3B] dark:text-[#E4CB96] border border-[#CBDCD2] dark:border-[#244C3B]">Realtime AST</span>'
+              : 'Pilih Hari Penugasan Muadzin Masjid Nabawi (Madinah): <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#E2EBE6] dark:bg-[#1A382A] text-[#244C3B] dark:text-[#E4CB96] border border-[#CBDCD2] dark:border-[#244C3B]">Realtime AST</span>';
           }
         }
 
-        const days = ['ahad', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
         const dataSource = currentMuadzinMosque === 'makkah' ? haramWeeklyMuadzins : nabawiWeeklyMuadzins;
         
-        btnGroup.innerHTML = days.map(dayKey => {
-          const d = dataSource[dayKey];
-          if (!d) return '';
+        btnGroup.innerHTML = weekInfo.weekDays.map(wDay => {
+          const dayKey = wDay.key;
           const isSelected = currentMuadzinDay === dayKey;
-          const isToday = todayKey === dayKey;
-          const label = typeof d.dayName === 'object' ? d.dayName[currentLang] || d.dayName.id : d.dayName;
+          const isToday = wDay.isToday;
+          const label = wDay.dayName;
+          const dynamicDateHijri = wDay.dateHijri;
           
           return `
-            <button onclick="selectMuadzinDay('${dayKey}')" class="relative p-2 sm:p-2.5 rounded-xl text-center border transition-all duration-200 ${
+            <button type="button" onclick="selectMuadzinDay('${dayKey}')" class="relative py-3.5 px-2 rounded-2xl text-center border transition-all duration-200 cursor-pointer flex flex-col items-center justify-center ${
               isSelected 
-                ? 'bg-[#244C3B] text-white border-[#244C3B] font-bold shadow-md scale-[1.02] ring-2 ring-[#C5A059]/50' 
-                : 'bg-white text-[#2E4338] hover:text-[#1C2D24] border-[#E5DAC8] hover:border-[#244C3B]/40'
+                ? 'bg-[#244C3B] text-white border-2 border-[#C5A059] shadow-md' 
+                : 'bg-[#FFFFFF] dark:bg-[#132A20] text-[#1C2D24] dark:text-white border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#244C3B]/40 hover:shadow-xs'
             }">
-              ${isToday ? `<span class="absolute -top-2 right-2 px-1.5 py-0.2 rounded-full text-[9px] font-extrabold ${isSelected ? 'bg-[#E4CB96] text-[#1C2D24]' : 'bg-[#244C3B] text-white'} shadow-sm">${currentLang === 'en' ? 'Today' : 'Hari Ini'}</span>` : ''}
-              <div class="text-xs font-bold leading-tight mt-0.5">${label}</div>
-              <div class="text-[10px] ${isSelected ? 'text-[#E4CB96] font-bold' : 'text-[#694F12] font-mono font-medium'} leading-tight mt-0.5">${d.dateHijri}</div>
+              ${isToday ? `<span class="absolute -top-2.5 right-2 sm:right-3 px-2 py-0.5 rounded-full text-[9.5px] font-bold bg-[#E8D4B0] text-[#1C2D24] border border-[#D4BF9B] shadow-xs leading-none">${currentLang === 'en' ? 'Today' : 'Hari Ini'}</span>` : ''}
+              <div class="text-sm font-bold leading-tight ${isSelected ? 'text-white font-extrabold' : 'text-[#1C2D24] dark:text-white'}">${label}</div>
+              <div class="text-xs font-mono font-medium leading-tight mt-1.5 ${isSelected ? 'text-[#EBDCB9] font-bold' : 'text-[#4A3B18] dark:text-[#E4CB96]/90'}">${dynamicDateHijri}</div>
             </button>
           `;
         }).join('');
@@ -7744,6 +7950,8 @@
           });
         }
         updateHaramainRealtimeConditions(null, true);
+        render5DayForecast('makkah');
+        render5DayForecast('madinah');
 
         if (window.lucide) window.lucide.createIcons();
       }
@@ -8347,20 +8555,309 @@
         updateHaramainRealtimeConditions(null, true);
       }
 
+      // 5-Day Weather Forecast & Pilgrim Gear System State
+      const forecast5DayData = {
+        makkah: [],
+        madinah: []
+      };
+      const selectedForecastDay = {
+        makkah: 0,
+        madinah: 0
+      };
+
+      function generateDefault5DayForecast(city) {
+        const list = [];
+        const now = new Date();
+        const astString = now.toLocaleString("en-US", { timeZone: "Asia/Riyadh" });
+        const baseDate = new Date(astString);
+        
+        const dayNamesId = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+        const dayNamesEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const fullDayNamesId = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const fullDayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        const makkahTemps = [
+          { max: 39, min: 27, code: 0, uv: 9.5, hum: 40 },
+          { max: 39, min: 27, code: 0, uv: 9.2, hum: 38 },
+          { max: 38, min: 28, code: 1, uv: 8.8, hum: 45 },
+          { max: 38, min: 27, code: 2, uv: 8.5, hum: 48 },
+          { max: 37, min: 26, code: 0, uv: 9.0, hum: 42 }
+        ];
+
+        const madinahTemps = [
+          { max: 35, min: 23, code: 0, uv: 8.2, hum: 28 },
+          { max: 34, min: 22, code: 0, uv: 8.0, hum: 26 },
+          { max: 34, min: 22, code: 1, uv: 7.8, hum: 30 },
+          { max: 35, min: 23, code: 0, uv: 8.1, hum: 27 },
+          { max: 36, min: 24, code: 0, uv: 8.4, hum: 25 }
+        ];
+
+        const dataSet = city === 'makkah' ? makkahTemps : madinahTemps;
+
+        for (let i = 0; i < 5; i++) {
+          const d = new Date(baseDate);
+          d.setDate(baseDate.getDate() + i);
+          const dayIdx = d.getDay();
+          const dateStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+          const preset = dataSet[i] || dataSet[0];
+          const { desc, icon } = interpretWeatherCode(preset.code, preset.max);
+
+          list.push({
+            dayIndex: i,
+            date: d.toISOString().split('T')[0],
+            displayDate: dateStr,
+            dayNameShortId: i === 0 ? 'Hari Ini' : (i === 1 ? 'Besok' : dayNamesId[dayIdx]),
+            dayNameShortEn: i === 0 ? 'Today' : (i === 1 ? 'Tomorrow' : dayNamesEn[dayIdx]),
+            fullDayNameId: i === 0 ? `Hari Ini (${fullDayNamesId[dayIdx]})` : fullDayNamesId[dayIdx],
+            fullDayNameEn: i === 0 ? `Today (${fullDayNamesEn[dayIdx]})` : fullDayNamesEn[dayIdx],
+            maxTemp: preset.max,
+            minTemp: preset.min,
+            apparentMax: preset.max + (city === 'makkah' ? 2 : 1),
+            uvIndex: preset.uv,
+            humidityMax: preset.hum,
+            weatherCode: preset.code,
+            desc: desc,
+            icon: icon
+          });
+        }
+        return list;
+      }
+
+      function generate5DayGearAdvice(city, dayData, lang) {
+        const isEn = lang === 'en';
+        const max = dayData.maxTemp;
+        const min = dayData.minTemp;
+        const uv = dayData.uvIndex;
+        const chips = [];
+
+        // Universal essential gear for Haramain
+        chips.push({
+          icon: 'footprints',
+          text: isEn ? 'Cushioned Sandals & Shoe Bag' : 'Sandal Tebal & Kantong Alas'
+        });
+
+        // Heat & UV gear
+        if (max >= 36 || uv >= 7) {
+          chips.push({
+            icon: 'sun',
+            text: isEn ? 'UV Reflective Umbrella' : 'Payung Reflektif UV'
+          });
+          chips.push({
+            icon: 'glasses',
+            text: isEn ? 'Polarized Sunglasses' : 'Kacamata Hitam Polarized'
+          });
+          chips.push({
+            icon: 'shield-check',
+            text: isEn ? 'Halal Sunscreen SPF 50+' : 'Sunscreen Halal Non-Parfum'
+          });
+        }
+
+        // Hydration & cooling
+        chips.push({
+          icon: 'droplets',
+          text: isEn ? 'Zamzam Spray Mist' : 'Semprotan Air Zamzam'
+        });
+
+        // Cool weather / Fajr breeze gear
+        if (min <= 24 || city === 'madinah') {
+          chips.push({
+            icon: 'shirt',
+            text: isEn ? 'Light Fajr Jacket/Shawl' : 'Jaket/Syal Hangat Subuh'
+          });
+        }
+
+        // Moisturizer & Lip Balm
+        chips.push({
+          icon: 'sparkles',
+          text: isEn ? 'Lip Balm & Vaseline' : 'Pelembab Bibir & Kulit'
+        });
+
+        let summaryTip = '';
+        if (city === 'makkah') {
+          if (max >= 38) {
+            summaryTip = isEn 
+              ? `Extreme heat peak (${Math.round(max)}°C, UV ${uv.toFixed(1)}). Prioritize Mataf Tawaf during Fajr or after Isha. Keep hydration bottle and UV umbrella ready for daytime.`
+              : `Suhu terik puncak (${Math.round(max)}°C, indeks UV ${uv.toFixed(1)}). Prioritaskan Thawaf pelataran Mataf saat Subuh atau ba'da Isya. Wajib bawa payung UV dan botol semprotan air Zamzam.`;
+          } else {
+            summaryTip = isEn
+              ? `Sunny and manageable (${Math.round(max)}°C / ${Math.round(min)}°C). Ideal for daytime Iktikaf and Sa'i in air-conditioned levels. Wear anti-slip socks on upper floor marble.`
+              : `Cerah kondusif (${Math.round(max)}°C / ${Math.round(min)}°C). Sangat nyaman untuk Iktikaf siang dan Sa'i di area berpendingin. Gunakan kaos kaki anti-slip saat thawaf di lantai atas.`;
+          }
+        } else {
+          if (min <= 23) {
+            summaryTip = isEn
+              ? `Cool early morning breeze (${Math.round(min)}°C) and warm daytime (${Math.round(max)}°C). Wear a light jacket or shawl for Fajr prayer and early morning Rawdah visits.`
+              : `Subuh dan malam terasa sejuk (${Math.round(min)}°C), siang bersahabat (${Math.round(max)}°C). Kenakan syal/jaket tipis saat shalat Subuh dan antrean ziarah Raudhah Syarifah.`;
+          } else {
+            summaryTip = isEn
+              ? `Comfortable courtyard climate (${Math.round(max)}°C) shaded by the 250 hydraulic umbrellas. Keep lip balm handy against dry desert breeze.`
+              : `Kondisi sangat nyaman (${Math.round(max)}°C) dinaungi 250 payung hidrolik Masjid Nabawi. Sedia pelembab bibir untuk mengantisipasi udara kering gurun.`;
+          }
+        }
+
+        return { chips, summaryTip };
+      }
+
+      function render5DayForecast(city) {
+        const gridEl = document.getElementById(`${city}-5day-grid`);
+        const gearBoxEl = document.getElementById(`${city}-5day-gear-box`);
+        if (!gridEl || !gearBoxEl) return;
+
+        let data = forecast5DayData[city];
+        if (!data || data.length === 0) {
+          data = generateDefault5DayForecast(city);
+          forecast5DayData[city] = data;
+        }
+
+        const activeIdx = selectedForecastDay[city] || 0;
+        const isEn = currentLang === 'en';
+
+        // Render 5-day cards strip
+        gridEl.innerHTML = data.map((d, idx) => {
+          const isActive = idx === activeIdx;
+          const dayName = isEn ? d.dayNameShortEn : d.dayNameShortId;
+          const { desc, icon } = interpretWeatherCode(d.weatherCode, d.maxTemp);
+          
+          return `
+            <button 
+              type="button" 
+              onclick="selectForecastDay('${city}', ${idx})" 
+              class="forecast-day-card p-1.5 sm:p-2 rounded-xl text-center transition-all duration-200 cursor-pointer flex flex-col items-center justify-between border ${
+                isActive 
+                  ? 'active-day bg-[#FFFFFF] border-[#244C3B] shadow-md ring-2 ring-[#C5A059]/50 scale-[1.03]' 
+                  : 'bg-[#FAF6F0] border-[#E5DAC8] hover:bg-[#FFFFFF] hover:border-[#244C3B]/40 shadow-xs'
+              }"
+              title="${isEn ? d.fullDayNameEn : d.fullDayNameId} • ${Math.round(d.maxTemp)}°C / ${Math.round(d.minTemp)}°C"
+            >
+              <span class="text-[10px] font-bold uppercase tracking-tight truncate w-full ${isActive ? 'text-[#244C3B]' : 'text-[#1C2D24]'}">
+                ${dayName}
+              </span>
+              <span class="text-[8.5px] text-[#2E4338] font-mono leading-none my-0.5">
+                ${d.displayDate}
+              </span>
+              <div class="my-1 flex items-center justify-center">
+                <i data-lucide="${icon}" class="w-4 h-4 sm:w-4.5 sm:h-4.5 ${isActive ? 'text-[#C5A059]' : 'text-[#694F12]'}"></i>
+              </div>
+              <div class="mt-0.5">
+                <span class="text-[11px] font-mono font-bold text-[#1C2D24] leading-none block">
+                  ${Math.round(d.maxTemp)}°
+                </span>
+                <span class="text-[9px] font-mono text-[#2E4338] leading-none block mt-0.5">
+                  ${Math.round(d.minTemp)}°
+                </span>
+              </div>
+            </button>
+          `;
+        }).join('');
+
+        // Render selected day's gear recommendation box
+        const selectedDay = data[activeIdx] || data[0];
+        const advice = generate5DayGearAdvice(city, selectedDay, currentLang);
+        const dayLabel = isEn ? selectedDay.fullDayNameEn : selectedDay.fullDayNameId;
+
+        gearBoxEl.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-1 border-b border-[#E5DAC8] pb-1.5 mb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#C5A059]"></span>
+              <span class="font-bold text-xs text-[#244C3B]">
+                ${isEn ? 'Worship Gear Guide:' : 'Panduan Perlengkapan:'} <span class="text-[#1C2D24] font-extrabold">${dayLabel}</span>
+              </span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[9.5px] font-mono font-bold text-[#694F12] bg-[#FFFFFF] px-2 py-0.5 rounded-md border border-[#E5DAC8]">
+              <span>Maks: ${Math.round(selectedDay.maxTemp)}°C</span>
+              <span>•</span>
+              <span>UV: ${selectedDay.uvIndex.toFixed(1)}</span>
+            </div>
+          </div>
+
+          <!-- Gear Badges Wrap -->
+          <div class="flex flex-wrap items-center gap-1.5 mb-2">
+            ${advice.chips.map(chip => `
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-[#FFFFFF] border border-[#E5DAC8] text-[10px] font-semibold text-[#244C3B] shadow-2xs">
+                <i data-lucide="${chip.icon}" class="w-3 h-3 text-[#C5A059] shrink-0"></i>
+                <span>${chip.text}</span>
+              </span>
+            `).join('')}
+          </div>
+
+          <!-- Summary Tip -->
+          <div class="flex items-start gap-1.5 text-[10.5px] text-[#2C3E35] leading-relaxed bg-[#FFFFFF]/60 p-2 rounded-xl border border-[#E5DAC8]/60">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-[#244C3B] shrink-0 mt-0.5"></i>
+            <p class="leading-relaxed">${advice.summaryTip}</p>
+          </div>
+        `;
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function selectForecastDay(city, index) {
+        selectedForecastDay[city] = index;
+        render5DayForecast(city);
+      }
+
+      function apply5DayForecast(city, dailyData) {
+        if (!dailyData || !dailyData.time || !dailyData.time.length) return;
+        const list = [];
+        const dayNamesId = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+        const dayNamesEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const fullDayNamesId = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const fullDayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        const count = Math.min(5, dailyData.time.length);
+        for (let i = 0; i < count; i++) {
+          const rawDateStr = dailyData.time[i]; // "YYYY-MM-DD"
+          const parts = rawDateStr.split('-').map(Number);
+          const d = new Date(parts[0], parts[1] - 1, parts[2]);
+          const dayIdx = d.getDay();
+          const displayDate = `${String(parts[2]).padStart(2, '0')}/${String(parts[1]).padStart(2, '0')}`;
+          const maxTemp = dailyData.temperature_2m_max[i];
+          const minTemp = dailyData.temperature_2m_min[i];
+          const apparentMax = dailyData.apparent_temperature_max ? dailyData.apparent_temperature_max[i] : maxTemp;
+          const uvIndex = dailyData.uv_index_max ? dailyData.uv_index_max[i] : 8.0;
+          const humidityMax = dailyData.relative_humidity_2m_max ? dailyData.relative_humidity_2m_max[i] : 40;
+          const weatherCode = dailyData.weather_code ? dailyData.weather_code[i] : 0;
+          const { desc, icon } = interpretWeatherCode(weatherCode, maxTemp);
+
+          list.push({
+            dayIndex: i,
+            date: rawDateStr,
+            displayDate: displayDate,
+            dayNameShortId: i === 0 ? 'Hari Ini' : (i === 1 ? 'Besok' : dayNamesId[dayIdx]),
+            dayNameShortEn: i === 0 ? 'Today' : (i === 1 ? 'Tomorrow' : dayNamesEn[dayIdx]),
+            fullDayNameId: i === 0 ? `Hari Ini (${fullDayNamesId[dayIdx]})` : fullDayNamesId[dayIdx],
+            fullDayNameEn: i === 0 ? `Today (${fullDayNamesEn[dayIdx]})` : fullDayNamesEn[dayIdx],
+            maxTemp: maxTemp,
+            minTemp: minTemp,
+            apparentMax: apparentMax,
+            uvIndex: uvIndex,
+            humidityMax: humidityMax,
+            weatherCode: weatherCode,
+            desc: desc,
+            icon: icon
+          });
+        }
+
+        forecast5DayData[city] = list;
+        render5DayForecast(city);
+      }
+
       async function fetchWeatherData(isManual = false) {
         const refreshIcons = document.querySelectorAll('.weather-refresh-icon');
         refreshIcons.forEach(el => el.classList.add('animate-spin'));
 
         try {
           const [makkahRes, madinahRes] = await Promise.all([
-            fetch("https://api.open-meteo.com/v1/forecast?latitude=21.4225&longitude=39.8262&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FRiyadh"),
-            fetch("https://api.open-meteo.com/v1/forecast?latitude=24.4672&longitude=39.6111&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FRiyadh")
+            fetch("https://api.open-meteo.com/v1/forecast?latitude=21.4225&longitude=39.8262&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,uv_index_max,relative_humidity_2m_max&timezone=Asia%2FRiyadh&forecast_days=5"),
+            fetch("https://api.open-meteo.com/v1/forecast?latitude=24.4672&longitude=39.6111&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,uv_index_max,relative_humidity_2m_max&timezone=Asia%2FRiyadh&forecast_days=5")
           ]);
 
           if (makkahRes.ok) {
             const makkahJson = await makkahRes.json();
             if (makkahJson && makkahJson.current) {
               applyWeatherToCity('makkah', makkahJson.current);
+            }
+            if (makkahJson && makkahJson.daily) {
+              apply5DayForecast('makkah', makkahJson.daily);
             }
           }
 
@@ -8369,6 +8866,9 @@
             if (madinahJson && madinahJson.current) {
               applyWeatherToCity('madinah', madinahJson.current);
             }
+            if (madinahJson && madinahJson.daily) {
+              apply5DayForecast('madinah', madinahJson.daily);
+            }
           }
 
           if (window.lucide) window.lucide.createIcons();
@@ -8376,12 +8876,14 @@
           if (isManual) {
             const msgTitle = currentLang === 'en' ? "Weather Update Complete" : "Pembaruan Cuaca Berhasil";
             const msgDesc = currentLang === 'en' 
-              ? "Real-time Makkah & Madinah weather synchronized directly from meteorological satellites." 
-              : "Data cuaca real-time Makkah dan Madinah berhasil disinkronkan secara langsung dari stasiun meteorologi satelit.";
+              ? "Real-time Makkah & Madinah weather and 5-day forecast synchronized directly from meteorological satellites." 
+              : "Data cuaca real-time dan prakiraan 5 hari Makkah & Madinah berhasil disinkronkan secara langsung dari stasiun meteorologi satelit.";
             showNotice(msgTitle, msgDesc);
           }
         } catch (err) {
           console.warn("Gagal menghubungi API cuaca langsung, memakai data lokal:", err);
+          render5DayForecast('makkah');
+          render5DayForecast('madinah');
           if (isManual) {
             const msgTitle = currentLang === 'en' ? "Weather Forecast" : "Pembaruan Cuaca";
             const msgDesc = currentLang === 'en' 
@@ -8412,6 +8914,7 @@
       window.renderMuadzinDaySelector = renderMuadzinDaySelector;
       window.selectMuadzinDay = selectMuadzinDay;
       window.getRealtimeMuadzinDayKey = getRealtimeMuadzinDayKey;
+      window.getRealtimeHijriWeekInfo = getRealtimeHijriWeekInfo;
       window.switchMuadzinMosque = switchMuadzinMosque;
       window.previewAdhanNotice = previewAdhanNotice;
       window.showNotice = showNotice;
@@ -8442,6 +8945,8 @@
       window.renderIbadahPrayerGrid = renderIbadahPrayerGrid;
       window.toggleTheme = toggleTheme;
       window.applyTheme = applyTheme;
+      window.render5DayForecast = render5DayForecast;
+      window.selectForecastDay = selectForecastDay;
 
       /* =========================================================================
          SCROLL-REVEAL OBSERVER
