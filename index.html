@@ -817,22 +817,16 @@
           </nav>
 
           <!-- Far Right Controls: Mode Ibadah, Dark/Light Toggle, Language Switcher (ID/EN) & Siaran Makkah -->
-          <div class="flex items-center gap-1 sm:gap-2 shrink-0">
-            <!-- Theme Toggle Button (Dark / Light Mode) -->
-            <button id="theme-toggle-btn" onclick="toggleTheme()" class="p-1.5 sm:px-3 sm:py-2 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center gap-1.5 sm:gap-2 text-xs font-semibold shadow-sm group cursor-pointer shrink-0" title="Ganti Tema (Gelap / Terang)" aria-label="Ganti Tema">
-              <div class="relative flex items-center justify-center">
-                <i id="theme-toggle-icon" data-lucide="sun" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
-              </div>
-              <span id="theme-toggle-label" class="hidden md:inline font-bold text-[11px] sm:text-xs text-[#2C3E35]" data-i18n="nav_theme_light">Tema Terang</span>
+          <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <!-- Theme Toggle Button (Dark / Light Mode - Icon Only) -->
+            <button id="theme-toggle-btn" onclick="toggleTheme()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-sm group cursor-pointer shrink-0" title="Ganti Tema (Gelap / Terang)" aria-label="Ganti Tema">
+              <i id="theme-toggle-icon" data-lucide="sun" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
             </button>
 
-            <!-- Mode Ibadah Toggle Button -->
-            <button id="toggle-ibadah-mode-btn" onclick="toggleIbadahMode(true)" class="p-1.5 sm:px-3 sm:py-2 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#244C3B] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center gap-1.5 sm:gap-2 text-xs font-semibold shadow-sm group cursor-pointer shrink-0" title="Mode Ibadah: Redupkan layar & fokus waktu shalat di masjid">
-              <div class="relative flex items-center justify-center">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
-                <span id="ibadah-active-dot" class="hidden absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#244C3B] animate-ping"></span>
-              </div>
-              <span class="hidden sm:inline font-bold text-[11px] sm:text-xs text-[#2C3E35]" data-i18n="nav_ibadah_mode">Mode Ibadah</span>
+            <!-- Mode Ibadah Toggle Button (Icon Only) -->
+            <button id="toggle-ibadah-mode-btn" onclick="toggleIbadahMode(true)" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#244C3B] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-sm group cursor-pointer shrink-0 relative" title="Mode Ibadah: Redupkan layar & fokus waktu shalat di masjid" aria-label="Mode Ibadah">
+              <i data-lucide="sparkles" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
+              <span id="ibadah-active-dot" class="hidden absolute top-1 right-1 w-2 h-2 rounded-full bg-[#244C3B] animate-ping"></span>
             </button>
 
             <!-- Language Switcher (ID / EN) -->
