@@ -938,7 +938,7 @@
             <div class="my-4 p-4 rounded-2xl bg-gradient-to-br from-[#1E4333] via-[#244C3B] to-[#173628] border border-[#C5A059]/30 flex flex-col items-center justify-center text-center shadow-lg">
               <div class="flex items-baseline justify-center gap-2 font-mono">
                 <span id="makkah-time" class="text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#F5E5C9] tracking-wider">--:--:--</span>
-                <span id="makkah-ampm" class="text-xs sm:text-sm font-bold text-[#C5A059]">AST</span>
+                <span id="makkah-ampm" class="text-xs sm:text-sm font-bold text-[#C5A059] shrink-0 whitespace-nowrap cursor-help transition-colors" title="Waktu Bagian Arab Saudi (AST)">AST</span>
               </div>
               <div class="flex items-center gap-2 mt-2 text-xs text-[#C5E5D5]">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#6CB294] animate-ping"></span>
@@ -1139,7 +1139,7 @@
             <div class="my-4 p-4 rounded-2xl bg-gradient-to-br from-[#1E4333] via-[#244C3B] to-[#173628] border border-[#C5A059]/30 flex flex-col items-center justify-center text-center shadow-lg">
               <div class="flex items-baseline justify-center gap-2 font-mono">
                 <span id="madinah-time" class="text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#F5E5C9] tracking-wider">--:--:--</span>
-                <span id="madinah-ampm" class="text-xs sm:text-sm font-bold text-[#C5A059]">AST</span>
+                <span id="madinah-ampm" class="text-xs sm:text-sm font-bold text-[#C5A059] shrink-0 whitespace-nowrap cursor-help transition-colors" title="Waktu Bagian Arab Saudi (AST)">AST</span>
               </div>
               <div class="flex items-center gap-2 mt-2 text-xs text-[#C5E5D5]">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#6CB294] animate-ping"></span>
@@ -3474,6 +3474,90 @@
          FUNCTION DEFINITIONS & LOCALIZATION ENGINE
          ========================================================================= */
 
+      /**
+       * Menentukan nama bagian waktu, rentang jam, dan karakteristik & penjelasannya
+       * merujuk pada standar pembagian waktu:
+       * - Dini Hari      : 00.00 – 03.30 (Midnight s.d. sebelum fajar; periode tidur paling lelap)
+       * - Subuh / Fajar  : 03.30 – 05.30 (Cahaya fajar dawn/twilight di ufuk timur s.d. sebelum sunrise)
+       * - Pagi           : 05.30 – 10.30 (Matahari terbit sunrise, udara sejuk, aktivitas bergulir)
+       * - Siang          : 10.30 – 14.30 (Matahari kulminasi/solar noon, suhu terpanas, istirahat siang)
+       * - Sore           : 14.30 – 18.00 (Matahari condong barat, intensitas panas berkurang, pulang kerja)
+       * - Petang / Senja : 18.00 – 19.00 (Matahari terbenam sunset s.d. hilangnya cahaya merah magrib/safak)
+       * - Malam          : 19.00 – 24.00 (Langit gelap sepenuhnya night s.d. pergantian hari tengah malam)
+       */
+      function getTimePeriodInfo(hours, minutes, lang = 'id') {
+        const totalMinutes = (hours * 60) + minutes;
+
+        // 1. Dini Hari: 00.00 – 03.30 (0 s.d. < 210 menit)
+        if (totalMinutes >= 0 && totalMinutes < 210) {
+          return {
+            period: lang === 'en' ? 'Late Night' : 'Dini Hari',
+            range: '00.00 – 03.30',
+            desc: lang === 'en'
+              ? 'Period after midnight until before dawn; deepest sleep hours.'
+              : 'Waktu setelah tengah malam (midnight) hingga menjelang terbit fajar; periode tidur paling lelap.'
+          };
+        }
+        // 2. Subuh / Fajar: 03.30 – 05.30 (210 s.d. < 330 menit)
+        if (totalMinutes >= 210 && totalMinutes < 330) {
+          return {
+            period: lang === 'en' ? 'Dawn / Fajr' : 'Subuh / Fajar',
+            range: '03.30 – 05.30',
+            desc: lang === 'en'
+              ? 'Marked by dawn twilight on eastern horizon until shortly before sunrise.'
+              : 'Ditandai munculnya cahaya fajar (dawn/twilight) di ufuk timur hingga sesaat sebelum piringan matahari terbit.'
+          };
+        }
+        // 3. Pagi: 05.30 – 10.30 (330 s.d. < 630 menit)
+        if (totalMinutes >= 330 && totalMinutes < 630) {
+          return {
+            period: lang === 'en' ? 'Morning' : 'Pagi',
+            range: '05.30 – 10.30',
+            desc: lang === 'en'
+              ? 'Starts from sunrise; cool air and daily activities commence.'
+              : 'Dimulai sejak matahari terbit (sunrise). Suhu udara masih relatif sejuk dan aktivitas harian mulai bergulir.'
+          };
+        }
+        // 4. Siang: 10.30 – 14.30 (630 s.d. < 870 menit)
+        if (totalMinutes >= 630 && totalMinutes < 870) {
+          return {
+            period: lang === 'en' ? 'Noon / Midday' : 'Siang',
+            range: '10.30 – 14.30',
+            desc: lang === 'en'
+              ? 'Sun at highest point (solar noon ~12:00); peak temperature and midday rest.'
+              : 'Matahari berada di posisi tertinggi (kulminasi / solar noon sekitar pukul 12.00). Periode suhu terpanas dalam sehari dan waktu istirahat tengah hari.'
+          };
+        }
+        // 5. Sore: 14.30 – 18.00 (870 s.d. < 1080 menit)
+        if (totalMinutes >= 870 && totalMinutes < 1080) {
+          return {
+            period: lang === 'en' ? 'Afternoon' : 'Sore',
+            range: '14.30 – 18.00',
+            desc: lang === 'en'
+              ? 'Sun inclines westward, heat intensity softens, outdoors/return from work.'
+              : 'Matahari mulai condong ke barat, intensitas panas berkurang, dan jam pulang kerja/aktivitas luar ruangan.'
+          };
+        }
+        // 6. Petang / Senja: 18.00 – 19.00 (1080 s.d. < 1140 menit)
+        if (totalMinutes >= 1080 && totalMinutes < 1140) {
+          return {
+            period: lang === 'en' ? 'Dusk / Twilight' : 'Petang / Senja',
+            range: '18.00 – 19.00',
+            desc: lang === 'en'
+              ? 'From sunset until twilight glow disappears (Maghrib / shafaq).'
+              : 'Waktu matahari terbenam (sunset) hingga hilangnya cahaya merah/lembayung (magrib/safak).'
+          };
+        }
+        // 7. Malam: 19.00 – 24.00 (1140 s.d. 1440 menit)
+        return {
+          period: lang === 'en' ? 'Night' : 'Malam',
+          range: '19.00 – 24.00',
+          desc: lang === 'en'
+            ? 'The sky has completely darkened until midnight day turnover.'
+            : 'Langit telah gelap sepenuhnya (night), berlangsung hingga tepat pergantian hari pada tengah malam.'
+        };
+      }
+
       function updateClocks() {
         const now = new Date();
         
@@ -3482,14 +3566,17 @@
         const astDate = new Date(astString);
 
         let hours = astDate.getHours();
-        const minutes = String(astDate.getMinutes()).padStart(2, '0');
-        const seconds = String(astDate.getSeconds()).padStart(2, '0');
-        const ampm = currentLang === 'en'
-          ? (hours >= 12 ? 'PM AST' : 'AM AST')
-          : (hours >= 12 ? 'Malam AST' : 'Pagi AST');
+        const minutes = astDate.getMinutes();
+        const minutesStr = String(minutes).padStart(2, '0');
+        const secondsStr = String(astDate.getSeconds()).padStart(2, '0');
+        
+        // Penyesuaian nama bagian waktu berdasarkan tabel jam resmi
+        const periodInfo = getTimePeriodInfo(hours, minutes, currentLang);
+        const ampm = `${periodInfo.period} AST`;
+        const periodTooltip = `${periodInfo.period} (${periodInfo.range})\n${periodInfo.desc}`;
         
         const displayHours = String(hours).padStart(2, '0');
-        const timeFormatted = `${displayHours}:${minutes}:${seconds}`;
+        const timeFormatted = `${displayHours}:${minutesStr}:${secondsStr}`;
 
         // Gregorian Formatting in current language
         const gregorianOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Riyadh' };
@@ -3515,12 +3602,20 @@
         const mTime = document.getElementById('makkah-time');
         if (mTime) {
           mTime.innerText = timeFormatted;
-          document.getElementById('makkah-ampm').innerText = ampm;
+          const mAmPm = document.getElementById('makkah-ampm');
+          if (mAmPm) {
+            mAmPm.innerText = ampm;
+            mAmPm.title = periodTooltip;
+          }
           document.getElementById('makkah-gregorian').innerText = gregorianStr;
           document.getElementById('makkah-hijri').innerText = hijriStr;
 
           document.getElementById('madinah-time').innerText = timeFormatted;
-          document.getElementById('madinah-ampm').innerText = ampm;
+          const madAmPm = document.getElementById('madinah-ampm');
+          if (madAmPm) {
+            madAmPm.innerText = ampm;
+            madAmPm.title = periodTooltip;
+          }
           document.getElementById('madinah-gregorian').innerText = gregorianStr;
           document.getElementById('madinah-hijri').innerText = hijriStr;
         }
