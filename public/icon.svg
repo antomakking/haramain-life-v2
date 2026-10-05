@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E4333"/>
+      <stop offset="50%" stop-color="#244C3B"/>
+      <stop offset="100%" stop-color="#122A1E"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E5C9"/>
+      <stop offset="50%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#997332"/>
+    </linearGradient>
+    <linearGradient id="greenDomeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#024D35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="512" height="512" rx="100" fill="url(#bgGrad)"/>
+  
+  <!-- Outer Gold Ring Ornament -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="url(#goldGrad)" stroke-width="4" stroke-dasharray="12 8" opacity="0.4"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
+
+  <!-- Crescent Moon Header -->
+  <path d="M 276 90 A 45 45 0 1 1 230 150 A 38 38 0 1 0 276 90 Z" fill="url(#goldGrad)"/>
+
+  <!-- Combined Kaaba & Dome Symbolism -->
+  <!-- Kaaba Base Block -->
+  <polygon points="176,260 256,210 336,260 256,310" fill="#1B2A26" stroke="url(#goldGrad)" stroke-width="2"/>
+  <polygon points="176,260 256,310 256,410 176,360" fill="#07241B"/>
+  <polygon points="256,310 336,260 336,360 256,410" fill="#0E3D2F"/>
+  <!-- Gold Kiswah Band -->
+  <polygon points="176,290 256,340 256,355 176,305" fill="url(#goldGrad)"/>
+  <polygon points="256,340 336,290 336,305 256,355" fill="url(#goldGrad)"/>
+
+  <!-- Prophet's Mosque Green Dome Overlay Behind/Above -->
+  <path d="M 256 160 C 230 190 190 215 190 255 L 322 255 C 322 215 282 190 256 160 Z" fill="url(#greenDomeGrad)" opacity="0.85" stroke="url(#goldGrad)" stroke-width="2"/>
+
+  <!-- Compass Star / Location Pin Accent -->
+  <circle cx="256" cy="410" r="12" fill="url(#goldGrad)"/>
+  <circle cx="256" cy="410" r="5" fill="#122A1E"/>
+</svg>

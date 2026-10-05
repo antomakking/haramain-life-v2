@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- PWA & Mobile Web App Compliance Meta Tags -->
+    <meta name="theme-color" content="#244C3B" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="HaramainLife" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
     <!-- Advanced Security & Hardening Meta Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
@@ -806,6 +815,13 @@
                 <div data-i18n="nav_map_2">Masjid</div>
               </div>
             </button>
+            <a href="#historic-landmarks" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group" title="Situs Bersejarah & Tempat Ziarah Makkah & Madinah">
+              <i data-lucide="compass" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+              <div class="leading-tight text-left font-semibold">
+                <div data-i18n="nav_landmarks_1">Situs</div>
+                <div data-i18n="nav_landmarks_2">Bersejarah</div>
+              </div>
+            </a>
             <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 text-xs text-[#1C2D24] hover:text-[#244C3B] transition group px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] shadow-sm" title="Beli Pulsa & Roaming Saudi">
               <i data-lucide="smartphone" class="w-4 h-4 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
@@ -818,6 +834,12 @@
 
           <!-- Far Right Controls: Mode Ibadah, Dark/Light Toggle, Language Switcher (ID/EN) & Siaran Makkah -->
           <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <!-- PWA In-App Install Button -->
+            <button id="pwa-install-btn" onclick="triggerPWAInstall()" class="hidden h-9 px-2.5 sm:px-3 rounded-xl bg-gradient-to-r from-[#244C3B] to-[#1E4333] border border-[#C5A059]/50 hover:border-[#C5A059] text-white transition-all duration-200 flex items-center gap-1.5 shadow-sm group cursor-pointer shrink-0 text-xs font-bold" title="Instal Aplikasi HaramainLife untuk Akses Luring di Arab Saudi" aria-label="Instal Aplikasi">
+              <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+              <span class="hidden md:inline text-[11px] sm:text-xs">Instal App</span>
+            </button>
+
             <!-- Theme Toggle Button (Dark / Light Mode - Icon Only) -->
             <button id="theme-toggle-btn" onclick="toggleTheme()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-sm group cursor-pointer shrink-0" title="Ganti Tema (Gelap / Terang)" aria-label="Ganti Tema">
               <i id="theme-toggle-icon" data-lucide="sun" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
@@ -882,6 +904,13 @@
           <p class="mt-4 text-xs sm:text-sm md:text-base text-[#2E4338] max-w-2xl mx-auto leading-relaxed font-normal" data-i18n="hero_desc">
             Pantau siaran langsung 24/7, jam resmi zona waktu Arab Saudi (GMT+3), jadwal sholat fardhu, serta susunan imam dan muadzin resmi Masjidil Haram & Masjid Nabawi hari ini.
           </p>
+
+          <!-- Offline Access & PWA Travel Cache Badge -->
+          <div class="mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#244C3B] text-[11px] font-semibold shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+            <i data-lucide="wifi-off" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+            <span>Dukungan Luring (Offline PWA): Jadwal sholat & peta gerbang masjid tersimpan otomatis untuk perjalanan di Arab Saudi.</span>
+          </div>
         </div>
 
         <!-- DUAL CLOCK CARDS (Makkah & Madinah) -->
@@ -1834,6 +1863,73 @@
           </article>
 
         </div>
+
+        <!-- HISTORIC MOSQUES & LANDMARKS SECTION (MAKKAH & MADINAH) -->
+        <section id="historic-landmarks" class="mt-16 mb-16 reveal-on-scroll">
+          <div class="text-center mb-8 max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFFFFF] border border-[#E5DAC8] text-[#244C3B] text-[11px] font-bold tracking-wider uppercase mb-3 shadow-xs">
+              <i data-lucide="compass" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+              <span data-i18n="landmarks_badge">PANDUAN ZIARAH DUA TANAH SUCI</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1C2D24] tracking-tight leading-snug">
+              Daftar Masjid & Tempat Bersejarah di Makkah dan Madinah
+            </h2>
+            <p class="mt-2 text-xs sm:text-sm text-[#2E4338] leading-relaxed font-medium">
+              Eksplorasi situs kenabian, tempat miqat umrah, gunung bersejarah, serta masjid-masjid berkeutamaan agung lengkap dengan lokasi GPS & panduan ziarah jamaah.
+            </p>
+          </div>
+
+          <!-- Interactive Filters & Search Control Bar -->
+          <div class="bg-[#FFFFFF] border border-[#E5DAC8] p-4 sm:p-5 rounded-3xl shadow-sm mb-8 space-y-4">
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
+              
+              <!-- Filter Kota (Semua, Makkah, Madinah) -->
+              <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] overflow-x-auto shrink-0" id="landmark-city-filters">
+                <button id="landmark-city-all" onclick="filterLandmarkCity('all')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer bg-[#244C3B] text-white shadow-xs">
+                  Semua Kota (18)
+                </button>
+                <button id="landmark-city-makkah" onclick="filterLandmarkCity('makkah')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24]">
+                  🕋 Makkah (9)
+                </button>
+                <button id="landmark-city-madinah" onclick="filterLandmarkCity('madinah')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24]">
+                  🕌 Madinah (9)
+                </button>
+              </div>
+
+              <!-- Live Search Box -->
+              <div class="relative flex-1 max-w-md">
+                <i data-lucide="search" class="w-4 h-4 text-[#C5A059] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                <input id="landmark-search-input" type="text" oninput="onLandmarkSearch(this.value)" placeholder="Cari nama masjid, miqat, gunung, atau tempat ziarah..." class="w-full pl-10 pr-4 py-2 text-xs font-medium bg-[#FAF6F0] border border-[#E5DAC8] rounded-2xl focus:outline-none focus:border-[#244C3B] text-[#1C2D24] placeholder:text-[#3B5145]" />
+              </div>
+
+            </div>
+
+            <!-- Filter Kategori Micro-Tags -->
+            <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#E5DAC8] text-xs font-semibold" id="landmark-cat-filters">
+              <span class="text-[11px] text-[#3B5145] uppercase tracking-wider font-bold mr-1">Kategori:</span>
+              <button id="landmark-cat-all" onclick="filterLandmarkCategory('all')" class="px-3 py-1 rounded-xl bg-[#244C3B] text-white text-[11px] font-bold cursor-pointer transition">
+                Semua Kategori
+              </button>
+              <button id="landmark-cat-masjid" onclick="filterLandmarkCategory('masjid')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+                🕌 Masjid Utama & Bersejarah
+              </button>
+              <button id="landmark-cat-miqat" onclick="filterLandmarkCategory('miqat')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+                🕋 Tempat Miqat Umrah
+              </button>
+              <button id="landmark-cat-gua" onclick="filterLandmarkCategory('gua')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+                🏔️ Gunung & Gua Wahyu
+              </button>
+              <button id="landmark-cat-ziarah" onclick="filterLandmarkCategory('ziarah')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+                🌿 Tempat Ziarah & Makam
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Grid Container for Landmarks -->
+          <div id="landmarks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Cards rendered dynamically via JS -->
+          </div>
+        </section>
 
         <!-- FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) -->
         <div class="max-w-4xl mx-auto">
@@ -6441,6 +6537,562 @@
         }
       };
 
+      /* =========================================================================
+         DATASET & ENGINE SITUS BERSEJARAH MAKKAH & MADINAH
+         ========================================================================= */
+      var HARAMAIN_HISTORIC_LANDMARKS = [
+        // MAKKAH AL-MUKARRAMAH
+        {
+          id: 'masjidil-haram',
+          city: 'makkah',
+          category: 'masjid',
+          categoryLabel: { id: 'Masjid Utama & Kiblat Dunia', en: 'Grand Mosque & Qibla' },
+          nameId: 'Masjidil Haram (Al-Masjid Al-Haram)',
+          nameAr: 'المسجد الحرام',
+          location: 'Pusat Kota Makkah Al-Mukarramah',
+          distance: '0 km (Pusat Utama)',
+          coords: { lat: 21.4225, lng: 39.8262 },
+          mapsUrl: 'https://maps.google.com/?q=21.4225,39.8262',
+          badge: 'Shalat 100.000x Lipat',
+          descShort: 'Masjid suci terbesar di dunia yang mengelilingi Ka\'bah Al-Musyarrafah, Maqam Ibrahim, Hijir Ismail, Hajar Aswad, serta bukit Safa dan Marwah.',
+          virtue: 'Shalat satu kali di Masjidil Haram bernilai 100.000 kali lipat dibanding shalat di masjid lainnya.',
+          history: 'Dibangun pertama kali oleh Nabi Ibrahim AS dan Nabi Ismail AS atas perintah Allah SWT. Merupakan rumah ibadah pertama yang didirikan untuk manusia di muka bumi (QS. Ali Imran: 96).',
+          tips: 'Disarankan masuk melalui Bab King Abdulaziz (Pintu 1) atau Bab King Fahd (Pintu 79). Untuk lantai atas tawaf tersedia eskalator & lift ramah lansia.'
+        },
+        {
+          id: 'masjid-tanim',
+          city: 'makkah',
+          category: 'miqat',
+          categoryLabel: { id: 'Masjid & Tempat Miqat Utama', en: 'Mosque & Miqat Station' },
+          nameId: 'Masjid Tani\'im / Masjid Aisyah RA',
+          nameAr: 'مسجد التنعيم (مسجد عائشة)',
+          location: 'At-Taneem, Makkah Al-Mukarramah',
+          distance: '7,5 km dari Masjidil Haram',
+          coords: { lat: 21.4934, lng: 39.8118 },
+          mapsUrl: 'https://maps.google.com/?q=21.4934,39.8118',
+          badge: 'Miqat Terdekat Makkah',
+          descShort: 'Masjid miqat terdekat dari Makkah tempat Sayyidah Aisyah RA mengambil ihram Umrah atas perintah Rasulullah ﷺ.',
+          virtue: 'Lokasi resmi penikatan ihram (miqat) bagi penduduk Makkah atau jamaah yang ingin menunaikan Umrah berulang.',
+          history: 'Saat Haji Wada\' (632 M), Rasulullah ﷺ memerintahkan Abdurrahman bin Abu Bakar mendampingi adiknya, Aisyah RA, untuk ber-miqat di Tani\'im setelah sembuh dari haid.',
+          tips: 'Fasilitas kamar mandi dan tempat wudhu sangat luas dan bersih. Bus taksi/taksi online menuju Tani\'im tersedia 24 jam dari stasiun bus Kudai / Gaza.'
+        },
+        {
+          id: 'jabal-nur-hira',
+          city: 'makkah',
+          category: 'gua',
+          categoryLabel: { id: 'Gunung & Gua Wahyu', en: 'Mountain & Cave of Revelation' },
+          nameId: 'Jabal An-Nur & Gua Hira (Ghar Hira)',
+          nameAr: 'جبل النور وغار حراء',
+          location: 'Kawasan Heraa, Makkah Al-Mukarramah',
+          distance: '5 km di utara Masjidil Haram',
+          coords: { lat: 21.4572, lng: 39.8592 },
+          mapsUrl: 'https://maps.google.com/?q=21.4572,39.8592',
+          badge: 'Lokasi Wahyu Pertama',
+          descShort: 'Gunung setinggi 642 meter tempat Rasulullah ﷺ bermunajat dan menerima wahyu pertama Al-Qur\'an (Surah Al-\'Alaq: 1-5).',
+          virtue: 'Tempat bersejarah teragung dimulainya kenabian Muhammad ﷺ dan turunnya Al-Qur\'an melalui Malaikat Jibril AS.',
+          history: 'Sebelum diangkat menjadi Rasul, Nabi Muhammad ﷺ sering menyendiri (tahannuth) di Gua Hira untuk merenungkan keagungan penciptaan alam semesta hingga turunnya wahyu pertama pada usia 40 tahun.',
+          tips: 'Kini tersedia tangga jalur pendakian yang aman. Pendakian memakan waktu 1–1,5 jam. Disarankan mendaki menjelang Subuh atau sore hari agar tidak terik.'
+        },
+        {
+          id: 'masjid-jiranah',
+          city: 'makkah',
+          category: 'miqat',
+          categoryLabel: { id: 'Masjid Bersejarah & Miqat', en: 'Historic Mosque & Miqat' },
+          nameId: 'Masjid Ji\'ranah (Al-Ji\'ranah)',
+          nameAr: 'مسجد الجعرانة',
+          location: 'Desa Ji\'ranah, Makkah Al-Mukarramah',
+          distance: '24 km dari Masjidil Haram',
+          coords: { lat: 21.5642, lng: 39.9575 },
+          mapsUrl: 'https://maps.google.com/?q=21.5642,39.9575',
+          badge: 'Miqat Umrah Rasulullah',
+          descShort: 'Tempat Rasulullah ﷺ membagikan ghanimah Perang Hunain dan ber-ihram untuk Umrah ketiga beliau.',
+          virtue: 'Salah satu miqat yang memiliki keutamaan tinggi karena Rasulullah ﷺ sendiri mengambil ihram langsung dari lokasi ini.',
+          history: 'Setelah kemenangan dalam Perang Hunain dan Thaif pada tahun 8 H, Nabi ﷺ mengumpulkan rampasan perang di Ji\'ranah, lalu mengenakan pakaian ihram dan menuju Makkah untuk Umrah.',
+          tips: 'Di dekat masjid terdapat sumur bersejarah Ji\'ranah. Area masjid kini sangat megah dengan pelataran parkir luas.'
+        },
+        {
+          id: 'jabal-tsur',
+          city: 'makkah',
+          category: 'gua',
+          categoryLabel: { id: 'Gunung & Gua Perlindungan', en: 'Mountain & Cave of Migration' },
+          nameId: 'Jabal Tsur & Gua Tsur (Ghar Thawr)',
+          nameAr: 'جبل ثور وغار ثور',
+          location: 'Kudai, Selatan Makkah Al-Mukarramah',
+          distance: '4 km di selatan Masjidil Haram',
+          coords: { lat: 21.3778, lng: 39.8488 },
+          mapsUrl: 'https://maps.google.com/?q=21.3778,39.8488',
+          badge: 'Situs Mukjizat Hijrah',
+          descShort: 'Gua tempat persembunyian Rasulullah ﷺ dan Abu Bakar Ash-Shiddiq RA selama 3 hari dari kejaran Quraisy saat Hijrah.',
+          virtue: 'Abadi dalam Al-Qur\'an (QS. At-Taubah: 40) saat Allah SWT menurunkan ketenangan pada Rasulullah ﷺ dan sahabatnya.',
+          history: 'Saat kaum Quraisy mengepung mulut gua, Allah SWT memerintahkan laba-laba membuat sarang dan burung merpati bertelur sehingga musuh terkecoh.',
+          tips: 'Medan pendakian Jabal Tsur cukup terjal (tinggi 755 m). Cukup mengamati dari pelataran bawah jika fisik tidak memungkinkan.'
+        },
+        {
+          id: 'masjid-hudaibiyah',
+          city: 'makkah',
+          category: 'miqat',
+          categoryLabel: { id: 'Situs Perjanjian & Miqat', en: 'Pact Site & Miqat Station' },
+          nameId: 'Masjid Hudaibiyah (Al-Hudaibiyah)',
+          nameAr: 'مسجد الحديبية',
+          location: 'Shumaisi, Jalan Makkah - Jeddah',
+          distance: '22 km dari Masjidil Haram',
+          coords: { lat: 21.4386, lng: 39.6381 },
+          mapsUrl: 'https://maps.google.com/?q=21.4386,39.6381',
+          badge: 'Bai\'atur Ridwan',
+          descShort: 'Lokasi terjadinya Perjanjian Hudaibiyah dan ikrar kesetiaan Bai\'atur Ridwan di bawah pohon yang diridhai Allah SWT.',
+          virtue: 'Menjadi saksi sejarah kemenangan diplomasi Islam (Fath Makkah) dan tempat miqat utama bagi jamaah dari arah Jeddah.',
+          history: 'Pada tahun 6 H, 1.400 sahabat tertahan di Hudaibiyah. Di sini lahir perjanjian damai 10 tahun yang membuka jalan penyebaran Islam ke seluruh Jazirah Arab.',
+          tips: 'Berada di sebelah bangunan benteng batu kuno Hudaibiyah. Tempat favorit jamaah umrah untuk ziarah dan berniat ihram.'
+        },
+        {
+          id: 'masjid-jin',
+          city: 'makkah',
+          category: 'masjid',
+          categoryLabel: { id: 'Masjid Bersejarah Kenabian', en: 'Prophetic Historic Mosque' },
+          nameId: 'Masjid Jin (Masjid Al-Bai\'ah)',
+          nameAr: 'مسجد الجن (مسجد البيعة)',
+          location: 'Kawasan Ma\'la, Makkah Al-Mukarramah',
+          distance: '1,5 km dari Masjidil Haram',
+          coords: { lat: 21.4331, lng: 39.8306 },
+          mapsUrl: 'https://maps.google.com/?q=21.4331,39.8306',
+          badge: 'Situs Surah Al-Jin',
+          descShort: 'Tempat berkumpulnya rombongan Jin yang mendengarkan tilawah Al-Qur\'an Rasulullah ﷺ lalu membai\'at beliau.',
+          virtue: 'Lokasi diabadikan dalam Surah Al-Jin (QS. 72: 1-2) sebagai bukti bahwa risalah Islam diutus untuk manusia dan jin.',
+          history: 'Rasulullah ﷺ membuat garis batas di tanah untuk sahabat Ibn Mas\'ud RA lalu mendatangi rombongan jin untuk membacakan ayat-ayat Al-Qur\'an.',
+          tips: 'Terletak di dekat Pemakaman Ma\'la. Sangat mudah dijangkau dengan berjalan kaki atau taksi dari kawasan Syib Amir.'
+        },
+        {
+          id: 'jabal-rahmah-arafah',
+          city: 'makkah',
+          category: 'ziarah',
+          categoryLabel: { id: 'Monumen Wukuf & Doa', en: 'Monument of Wuqoof' },
+          nameId: 'Jabal Rahmah & Padang Arafah',
+          nameAr: 'جبل الرحمة وجبل عرفات',
+          location: 'Padang Arafah, Makkah Al-Mukarramah',
+          distance: '20 km dari Masjidil Haram',
+          coords: { lat: 21.3547, lng: 39.9842 },
+          mapsUrl: 'https://maps.google.com/?q=21.3547,39.9842',
+          badge: 'Puncak Khutbah Wada\'',
+          descShort: 'Bukit batu di tengah Padang Arafah lokasi Rasulullah ﷺ menyampaikan Khutbah Perpisahan (Wada\') pada puncak Haji.',
+          virtue: 'Arafah adalah puncak ritual Haji (Al-Hajju Arafah). Tempat dikabulkannya doa-doa dan pengampunan dosa teragung.',
+          history: 'Di puncak Jabal Rahmah berdiri tugu putih kenangan. Tempat bertemunya kembali Nabi Adam AS dan Siti Hawa setelah diturunkan ke bumi.',
+          tips: 'Tersedia tangga beton yang nyaman menuju puncak tugu. Hindari mencoret-coret tugu batu dan fokuslah berdoa memohon ampunan.'
+        },
+        {
+          id: 'pemakaman-mala',
+          city: 'makkah',
+          category: 'ziarah',
+          categoryLabel: { id: 'Pemakaman Utama Makkah', en: 'Historic Makkah Cemetery' },
+          nameId: 'Pemakaman Ma\'la (Jannat Al-Mu\'alla)',
+          nameAr: 'مقبرة المعلاة',
+          location: 'Kawasan Al-Hujun, Makkah',
+          distance: '1,2 km di utara Masjidil Haram',
+          coords: { lat: 21.4339, lng: 39.8294 },
+          mapsUrl: 'https://maps.google.com/?q=21.4339,39.8294',
+          badge: 'Makam Ibunda Khadijah RA',
+          descShort: 'Pemakaman paling bersejarah Makkah tempat bersemayamnya Ummul Mukminin Khadijah RA dan para keluarga Nabi.',
+          virtue: 'Tempat makam para sahabat utama, ulama Makkah, serta Ummul Mukminin Khadijah binti Khuwailid RA yang dicintai Rasulullah ﷺ.',
+          history: 'Telah dijadikan tempat pemakaman sejak zaman Jahiliyah hingga kini. Putera-putera Nabi (Qasim & Abdullah) juga dimakamkan di sini.',
+          tips: 'Pria dapat berziarah mendekat ke pagar pemakaman setelah shalat Fardhu. Wanita dapat mengucapkan salam ziarah dari luar area.'
+        },
+
+        // MADINAH AL-MUNAWWARAH
+        {
+          id: 'masjid-nabawi',
+          city: 'madinah',
+          category: 'masjid',
+          categoryLabel: { id: 'Masjid Utama & Raudhah', en: 'Prophet\'s Mosque & Rawdah' },
+          nameId: 'Masjid Nabawi (Al-Masjid An-Nabawi)',
+          nameAr: 'المسجد النبوي الشريف',
+          location: 'Pusat Kota Madinah Al-Munawwarah',
+          distance: '0 km (Pusat Utama)',
+          coords: { lat: 24.4686, lng: 39.6142 },
+          mapsUrl: 'https://maps.google.com/?q=24.4686,39.6142',
+          badge: 'Shalat 1.000x Lipat & Raudhah',
+          descShort: 'Masjid suci kedua Islam yang didirikan Rasulullah ﷺ. Di dalamnya terdapat Raudhah Syarifah (Taman Surga) & Makam Rasulullah ﷺ.',
+          virtue: 'Shalat di Masjid Nabawi bernilai 1.000 kali lipat. Raudhah Syarifah adalah salah satu taman dari taman-taman surga.',
+          history: 'Mulai dibangun pada tahun 1 H di atas tanah milik dua anak yatim (Sahl dan Suhail) setelah unta Nabi (Al-Qaswa) berlutut di lokasi ini.',
+          tips: 'Akses masuk Raudhah memerlukan izin resmi aplikasi Nusuk. Pria melalui Pintu Bab As-Salam/Bab Badr, wanita melalui Pintu 37 (Bab Utsman).'
+        },
+        {
+          id: 'masjid-quba',
+          city: 'madinah',
+          category: 'masjid',
+          categoryLabel: { id: 'Masjid Pertama Islam', en: 'First Mosque in Islam' },
+          nameId: 'Masjid Quba (Al-Quba\')',
+          nameAr: 'مسجد قباء',
+          location: 'Kawasan Quba, Madinah Al-Munawwarah',
+          distance: '3,5 km dari Masjid Nabawi',
+          coords: { lat: 24.4392, lng: 39.6172 },
+          mapsUrl: 'https://maps.google.com/?q=24.4392,39.6172',
+          badge: 'Pahala Setara 1x Umrah',
+          descShort: 'Masjid pertama yang dibangun Rasulullah ﷺ dan para sahabat saat tiba di Madinah pada peristiwa Hijrah.',
+          virtue: 'Barangsiapa bersuci di rumahnya lalu datang ke Masjid Quba dan shalat 2 rakaat di dalamnya, baginya pahala seperti pahala Umrah (HR. Ibn Majah).',
+          history: 'Diabadikan dalam Al-Qur\'an (QS. At-Taubah: 108) sebagai masjid yang didirikan atas dasar ketakwaan sejak hari pertama.',
+          tips: 'Sunnah dikunjungi pada hari Sabtu. Kini terhubung dengan jalur pejalan kaki pedestrian teduh (Darb As-Sunnah) dari Masjid Nabawi.'
+        },
+        {
+          id: 'masjid-qiblatain',
+          city: 'madinah',
+          category: 'masjid',
+          categoryLabel: { id: 'Masjid Dua Kiblat', en: 'Mosque of the Two Qiblas' },
+          nameId: 'Masjid Qiblatain (Dua Kiblat)',
+          nameAr: 'مسجد القبلتين',
+          location: 'Kawasan Khalidiyah, Madinah',
+          distance: '5 km dari Masjid Nabawi',
+          coords: { lat: 24.4842, lng: 39.5788 },
+          mapsUrl: 'https://maps.google.com/?q=24.4842,39.5788',
+          badge: 'Perubahan Arah Kiblat',
+          descShort: 'Masjid tempat turunnya wahyu perintah pemindahan arah kiblat dari Baitul Maqdis (Yerusalem) ke Ka\'bah Makkah.',
+          virtue: 'Menjadi saksi sejarah peralihan kiblat umat Islam saat Rasulullah ﷺ memimpin shalat Dzuhur/Ashar (QS. Al-Baqarah: 144).',
+          history: 'Saat rakaat kedua, Malaikat Jibril AS menyampaikan wahyu pemindahan kiblat. Rasulullah ﷺ memutar arah shalat 180 derajat menghadap Ka\'bah.',
+          tips: 'Arsitektur masjid berwarna putih megah dengan menara kembarnya. Area pelataran sangat nyaman untuk ibadah dan foto kenangan.'
+        },
+        {
+          id: 'masjid-sabah-khandaq',
+          city: 'madinah',
+          category: 'ziarah',
+          categoryLabel: { id: 'Kompleks Benteng Khandaq', en: 'Trench Battlefield Site' },
+          nameId: 'Masjid Tujuh (Masjid As-Sab\'ah / Khandaq)',
+          nameAr: 'مساجد الفتح (المساجد السبعة)',
+          location: 'Lereng Gunung Sila\', Madinah',
+          distance: '2,5 km di barat laut Masjid Nabawi',
+          coords: { lat: 24.4764, lng: 39.5986 },
+          mapsUrl: 'https://maps.google.com/?q=24.4764,39.5986',
+          badge: 'Situs Perang Ahzab/Khandaq',
+          descShort: 'Kompleks masjid di bekas pos komando Perang Khandaq (Parit) tempat doa Rasulullah ﷺ dan para sahabat dikabulkan.',
+          virtue: 'Masjid Al-Fath di puncak bukit merupakan tempat Rasulullah ﷺ berdoa selama 3 hari hingga Allah memberi pertolongan kemenangan.',
+          history: 'Pada tahun 5 H, sahabat Salman Al-Farisi RA mengusulkan ide menggali parit raksasa untuk menahan serangan 10.000 pasukan sekutu Ahzab.',
+          tips: 'Kini dibangun Masjid Khandaq Agung yang sangat luas dan nyaman di bagian bawah lereng gunung.'
+        },
+        {
+          id: 'jabal-uhud-syuhada',
+          city: 'madinah',
+          category: 'ziarah',
+          categoryLabel: { id: 'Gunung Surga & Syuhada', en: 'Mountain of Paradise & Martyrs' },
+          nameId: 'Gunung Uhud & Pemakaman Syuhada Uhud',
+          nameAr: 'جبل أحد ومقبرة شهداء أحد',
+          location: 'Utara Kota Madinah Al-Munawwarah',
+          distance: '5 km di utara Masjid Nabawi',
+          coords: { lat: 24.5033, lng: 39.6108 },
+          mapsUrl: 'https://maps.google.com/?q=24.5033,39.6108',
+          badge: 'Gunung yang Mencintai Kita',
+          descShort: 'Gunung batu megah sepanjang 8 km yang dicintai Rasulullah ﷺ serta makam 70 pahlawan syuhada Perang Uhud.',
+          virtue: 'Rasulullah ﷺ bersabda: "Uhud adalah gunung yang mencintai kita dan kita pun mencintainya" (HR. Bukhari & Muslim).',
+          history: 'Lokasi terjadinya Perang Uhud (3 H). Di sini gugur pahlawan Islam Sayyid Asy-Syuhada Hamzah bin Abdul Muthalib RA dan Mush\'ab bin Umair RA.',
+          tips: 'Jamaah dapat menaiki Bukit Rumat (Bukit Memanah) untuk melihat lanskap bekas medan pertempuran dan mengucapkan salam ziarah syuhada.'
+        },
+        {
+          id: 'masjid-ghamamah',
+          city: 'madinah',
+          category: 'masjid',
+          categoryLabel: { id: 'Masjid Awan Naungan', en: 'Cloud Shade Mosque' },
+          nameId: 'Masjid Ghamamah (Al-Ghamamah)',
+          nameAr: 'مسجد الغمامة',
+          location: 'Pelataran Barat Daya Masjid Nabawi',
+          distance: '500 meter dari Masjid Nabawi',
+          coords: { lat: 24.4658, lng: 39.6092 },
+          mapsUrl: 'https://maps.google.com/?q=24.4658,39.6092',
+          badge: 'Situs Shalat Ied Rasulullah',
+          descShort: 'Masjid batu hitam kuno tempat Rasulullah ﷺ memimpin Shalat Hari Raya (Ied) dan Shalat Istisqa di bawah naungan awan.',
+          virtue: 'Tempat dilaksanakannya shalat Iedul Fitri dan Iedul Adha terakhir oleh Rasulullah ﷺ semasa hidup beliau.',
+          history: 'Dinamakan Al-Ghamamah (Awan) karena setiap kali Rasulullah ﷺ shalat Minta Hujan di sini, awan mendung gumpalan selalu menaungi beliau dari terik.',
+          tips: 'Sangat dekat dengan Pintu 6 Masjid Nabawi. Di sekitarnya terdapat juga Masjid Abu Bakar RA dan Masjid Ali bin Abi Thalib RA.'
+        },
+        {
+          id: 'pemakaman-baqi',
+          city: 'madinah',
+          category: 'ziarah',
+          categoryLabel: { id: 'Pemakaman Sahabat & Ahlul Bait', en: 'Prophetic Companions Cemetery' },
+          nameId: 'Pemakaman Baqi\' (Jannat Al-Baqi\')',
+          nameAr: 'مقبرة البقيع',
+          location: 'Sisi Timur Masjid Nabawi',
+          distance: '100 meter dari Masjid Nabawi',
+          coords: { lat: 24.4675, lng: 39.6167 },
+          mapsUrl: 'https://maps.google.com/?q=24.4675,39.6167',
+          badge: 'Makam 10.000 Sahabat Nabi',
+          descShort: 'Pemakaman utama Madinah tempat bersemayam lebih dari 10.000 sahabat Rasulullah ﷺ, Ummul Mukminin, dan Ahlul Bait.',
+          virtue: 'Rasulullah ﷺ sering berziarah dan memohonkan ampunan bagi penghuni Baqi\'. Penghuni Baqi\' termasuk kelompok pertama yang dibangkitkan.',
+          history: 'Sahabat pertama dari Anshar yang dimakamkan di sini adalah As\'ad bin Zurarah RA, dan dari Muhajirin adalah Utsman bin Mazh\'un RA.',
+          tips: 'Pintu pemakaman dibuka untuk ziarah pria setiap selesai shalat Subuh dan shalat Ashar. Wanita dapat mengucapkan salam dari pagar luar.'
+        },
+        {
+          id: 'masjid-bir-ali',
+          city: 'madinah',
+          category: 'miqat',
+          categoryLabel: { id: 'Masjid Miqat Madinah', en: 'Madinah Miqat Station' },
+          nameId: 'Masjid Zulhulaifah / Bir Ali',
+          nameAr: 'مسجد ذو الحليفة (آبار علي)',
+          location: 'Zulhulaifah, Selatan Madinah',
+          distance: '11 km dari Masjid Nabawi',
+          coords: { lat: 24.4128, lng: 39.5442 },
+          mapsUrl: 'https://maps.google.com/?q=24.4128,39.5442',
+          badge: 'Miqat Jamaah dari Madinah',
+          descShort: 'Masjid miqat megah berpohon kurma tempat jamaah dari Madinah berniat ihram dan shalat sunnah ihram sebelum ke Makkah.',
+          virtue: 'Tempat miqat terjauh dari Makkah tempat Rasulullah ﷺ mandi, memakai wewangian, dan berniat ihram untuk Haji Wada\'.',
+          history: 'Dikenal juga sebagai Bir Ali (Sumur Ali) karena Sayyidna Ali bin Abi Thalib RA pernah menggali banyak sumur di kawasan bertanah subur ini.',
+          tips: 'Dilengkapi ratusan kamar mandi, tempat wudhu, dan fasilitas bersuci yang sangat bersih. Disiapkan bus dan pendorong kursi roda.'
+        },
+        {
+          id: 'masjid-jumah',
+          city: 'madinah',
+          category: 'masjid',
+          categoryLabel: { id: 'Situs Shalat Jumat Pertama', en: 'First Friday Prayer Mosque' },
+          nameId: 'Masjid Jum\'at (Al-Jumu\'ah)',
+          nameAr: 'مسجد الجمعة',
+          location: 'Lembah Ranuna, Kawasan Quba',
+          distance: '2,5 km di selatan Masjid Nabawi',
+          coords: { lat: 24.4481, lng: 39.6158 },
+          mapsUrl: 'https://maps.google.com/?q=24.4481,39.6158',
+          badge: 'Shalat Jumat Pertama',
+          descShort: 'Lokasi dilaksanakannya Shalat Jumat pertama dalam sejarah Islam yang dipimpin langsung oleh Rasulullah ﷺ bersama 100 sahabat.',
+          virtue: 'Tempat diutarakannya khutbah Jumat pertama dan shalat Jumat berjejer rapi di Lembah Ranuna.',
+          history: 'Saat Nabi ﷺ beranjak dari Quba menuju pusat Madinah pada hari Jumat, waktu Dzuhur tiba di pemukiman Bani Salim bin Auf.',
+          tips: 'Terletak di antara Masjid Quba dan Masjid Nabawi. Sangat tenang dan indah untuk dikunjungi saat perjalanan ziarah kota Madinah.'
+        }
+      ];
+
+      var currentLandmarkCityFilter = 'all';
+      var currentLandmarkCategoryFilter = 'all';
+      var currentLandmarkSearchQuery = '';
+
+      function filterLandmarkCity(city) {
+        currentLandmarkCityFilter = city;
+        
+        ['all', 'makkah', 'madinah'].forEach(c => {
+          const btn = document.getElementById('landmark-city-' + c);
+          if (btn) {
+            if (c === city) {
+              btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer bg-[#244C3B] text-white shadow-xs';
+            } else {
+              btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24] bg-transparent';
+            }
+          }
+        });
+
+        renderLandmarksGrid();
+      }
+
+      function filterLandmarkCategory(cat) {
+        currentLandmarkCategoryFilter = cat;
+
+        ['all', 'masjid', 'miqat', 'gua', 'ziarah'].forEach(c => {
+          const btn = document.getElementById('landmark-cat-' + c);
+          if (btn) {
+            if (c === cat) {
+              btn.className = 'px-3 py-1 rounded-xl bg-[#244C3B] text-white text-[11px] font-bold cursor-pointer transition';
+            } else {
+              btn.className = 'px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition';
+            }
+          }
+        });
+
+        renderLandmarksGrid();
+      }
+
+      function onLandmarkSearch(val) {
+        currentLandmarkSearchQuery = (val || '').toLowerCase().trim();
+        renderLandmarksGrid();
+      }
+
+      function renderLandmarksGrid() {
+        const grid = document.getElementById('landmarks-grid');
+        if (!grid) return;
+
+        let filtered = HARAMAIN_HISTORIC_LANDMARKS.filter(item => {
+          if (currentLandmarkCityFilter !== 'all' && item.city !== currentLandmarkCityFilter) return false;
+          if (currentLandmarkCategoryFilter !== 'all' && item.category !== currentLandmarkCategoryFilter) return false;
+          if (currentLandmarkSearchQuery) {
+            const haystack = (item.nameId + ' ' + item.nameAr + ' ' + item.descShort + ' ' + item.history + ' ' + item.location).toLowerCase();
+            if (!haystack.includes(currentLandmarkSearchQuery)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-12 text-center bg-[#FFFFFF] border border-[#E5DAC8] rounded-3xl p-6">
+              <div class="w-12 h-12 rounded-2xl bg-[#244C3B]/10 text-[#244C3B] mx-auto flex items-center justify-center mb-3">
+                <i data-lucide="search-x" class="w-6 h-6 text-[#C5A059]"></i>
+              </div>
+              <h4 class="text-sm font-bold text-[#1C2D24]">Tidak Ada Situs Bersejarah yang Cocok</h4>
+              <p class="text-xs text-[#2E4338] mt-1">Coba sesuaikan kata kunci pencarian atau ubah filter kota & kategori.</p>
+              <button onclick="resetLandmarkFilters()" class="mt-4 px-4 py-2 rounded-xl bg-[#244C3B] text-white text-xs font-bold hover:bg-[#1E4333] transition cursor-pointer">
+                Reset Filter
+              </button>
+            </div>
+          `;
+          if (window.lucide) window.lucide.createIcons();
+          return;
+        }
+
+        grid.innerHTML = filtered.map(item => {
+          const isMakkah = item.city === 'makkah';
+          const cityBadgeColor = isMakkah ? 'bg-[#244C3B] text-white' : 'bg-[#0E3D2F] text-[#F5E5C9]';
+          const cityName = isMakkah ? '🕋 Makkah' : '🕌 Madinah';
+          const catLabel = item.categoryLabel[currentLang] || item.categoryLabel['id'];
+
+          return `
+            <article class="p-5 sm:p-6 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#244C3B]/40 transition-all duration-300 shadow-sm flex flex-col justify-between group">
+              <div>
+                <!-- Top Badges Row -->
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold uppercase tracking-wider ${cityBadgeColor}">
+                    ${cityName}
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF6F0] text-[#244C3B] border border-[#E5DAC8] truncate max-w-[170px]">
+                    ${catLabel}
+                  </span>
+                </div>
+
+                <!-- Titles -->
+                <div class="mb-3">
+                  <h3 class="text-base font-bold text-[#1C2D24] group-hover:text-[#244C3B] transition-colors leading-snug">
+                    ${item.nameId}
+                  </h3>
+                  <div class="text-xs font-amiri font-bold text-[#C5A059] mt-0.5 tracking-wide text-right">
+                    ${item.nameAr}
+                  </div>
+                </div>
+
+                <!-- Distance & Badge Tag -->
+                <div class="flex flex-wrap items-center gap-1.5 mb-3 text-[10.5px]">
+                  <span class="px-2 py-0.5 rounded-md bg-[#E4F4EC] text-[#244C3B] font-bold border border-[#244C3B]/20 flex items-center gap-1">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-[#244C3B]"></i>
+                    <span>${item.distance}</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-md bg-[#FAF6F0] text-[#2E4338] font-bold border border-[#E5DAC8] flex items-center gap-1">
+                    <i data-lucide="star" class="w-3 h-3 text-[#C5A059]"></i>
+                    <span>${item.badge}</span>
+                  </span>
+                </div>
+
+                <!-- Short Summary -->
+                <p class="text-xs text-[#2E4338] leading-relaxed font-medium line-clamp-3 mb-3">
+                  ${item.descShort}
+                </p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="pt-3 border-t border-[#E5DAC8] flex items-center justify-between gap-2 text-xs">
+                <button onclick="openLandmarkModal('${item.id}')" class="px-3 py-1.5 rounded-xl bg-[#244C3B] hover:bg-[#1E4333] text-white font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+                  <span>Detail & Tips</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+                <a href="${item.mapsUrl}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-xl bg-[#FAF6F0] hover:bg-[#F0E6D8] border border-[#E5DAC8] text-[#2E4338] font-bold transition flex items-center gap-1 cursor-pointer text-[11px]" title="Buka Lokasi di Google Maps">
+                  <i data-lucide="map" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                  <span>GPS Maps</span>
+                </a>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function resetLandmarkFilters() {
+        currentLandmarkCityFilter = 'all';
+        currentLandmarkCategoryFilter = 'all';
+        currentLandmarkSearchQuery = '';
+        const searchInput = document.getElementById('landmark-search-input');
+        if (searchInput) searchInput.value = '';
+        filterLandmarkCity('all');
+        filterLandmarkCategory('all');
+      }
+
+      function openLandmarkModal(id) {
+        const item = HARAMAIN_HISTORIC_LANDMARKS.find(x => x.id === id);
+        if (!item) return;
+
+        const body = document.getElementById('landmark-modal-body');
+        const modal = document.getElementById('landmark-detail-modal');
+        if (!body || !modal) return;
+
+        const isMakkah = item.city === 'makkah';
+        const cityName = isMakkah ? 'Makkah Al-Mukarramah' : 'Madinah Al-Munawwarah';
+        const catLabel = item.categoryLabel[currentLang] || item.categoryLabel['id'];
+
+        body.innerHTML = `
+          <div class="text-left space-y-5">
+            <!-- Header Badges -->
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-xl text-xs font-bold ${isMakkah ? 'bg-[#244C3B] text-white' : 'bg-[#0E3D2F] text-[#F5E5C9]'}">
+                ${isMakkah ? '🕋' : '🕌'} ${cityName}
+              </span>
+              <span class="px-3 py-1 rounded-xl text-xs font-bold bg-[#FAF6F0] text-[#244C3B] border border-[#E5DAC8]">
+                ${catLabel}
+              </span>
+              <span class="px-3 py-1 rounded-xl text-xs font-bold bg-[#E4F4EC] text-[#244C3B] border border-[#244C3B]/20">
+                📍 ${item.distance}
+              </span>
+            </div>
+
+            <!-- Title & Arabic -->
+            <div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-[#1C2D24]">
+                ${item.nameId}
+              </h3>
+              <div class="text-base sm:text-lg font-amiri font-bold text-[#C5A059] mt-1">
+                ${item.nameAr}
+              </div>
+            </div>
+
+            <!-- Keutamaan Utama Card -->
+            <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8]">
+              <div class="flex items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-1">
+                <i data-lucide="star" class="w-4 h-4 text-[#C5A059]"></i>
+                <span>Keutamaan & Keagungan Situs</span>
+              </div>
+              <p class="text-xs text-[#1C2D24] font-medium leading-relaxed">
+                ${item.virtue}
+              </p>
+            </div>
+
+            <!-- Ringkasan Sejarah -->
+            <div>
+              <h4 class="text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <i data-lucide="book-open" class="w-4 h-4 text-[#C5A059]"></i>
+                <span>Latar Belakang Sejarah Islam</span>
+              </h4>
+              <p class="text-xs text-[#2E4338] leading-relaxed font-medium">
+                ${item.history}
+              </p>
+            </div>
+
+            <!-- Tips Ziarah untuk Jamaah -->
+            <div class="p-4 rounded-2xl bg-[#F5EFE6] border border-[#E5DAC8]">
+              <div class="flex items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-1">
+                <i data-lucide="compass" class="w-4 h-4 text-[#244C3B]"></i>
+                <span>Panduan Praktis & Tips Ziarah Jamaah</span>
+              </div>
+              <p class="text-xs text-[#2C3E35] font-medium leading-relaxed">
+                ${item.tips}
+              </p>
+            </div>
+
+            <!-- Modal Bottom Action -->
+            <div class="pt-4 border-t border-[#E5DAC8] flex items-center justify-between gap-3">
+              <a href="${item.mapsUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-[#244C3B] hover:bg-[#1E4333] text-white text-xs font-bold transition flex items-center gap-2 shadow-sm">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#C5A059]"></i>
+                <span>Buka Petunjuk Arah GPS (Google Maps)</span>
+              </a>
+              <button onclick="closeLandmarkModal()" class="px-4 py-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] text-xs font-bold hover:bg-[#E5DAC8] transition cursor-pointer">
+                Tutup
+              </button>
+            </div>
+          </div>
+        `;
+
+        modal.classList.remove('hidden');
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function closeLandmarkModal() {
+        const modal = document.getElementById('landmark-detail-modal');
+        if (modal) modal.classList.add('hidden');
+      }
+
       function findSyaikhProfile(name) {
         if (!name) return null;
         const target = name.trim();
@@ -9800,11 +10452,15 @@
           setTimeout(initHeroParticles, 250);
         }
 
+        // Render Historic Landmarks Grid (Makkah & Madinah)
+        renderLandmarksGrid();
+
         // Modal event listeners (Escape key & backdrop click)
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
             if (isIbadahModeOpen) toggleIbadahMode(false);
             if (isMosqueModalOpen) closeMosqueModal();
+            closeLandmarkModal();
             closeNotice();
           }
         });
@@ -9814,6 +10470,15 @@
           mosqueModalElem.addEventListener('click', (e) => {
             if (e.target === mosqueModalElem) {
               closeMosqueModal();
+            }
+          });
+        }
+
+        const landmarkModalElem = document.getElementById('landmark-detail-modal');
+        if (landmarkModalElem) {
+          landmarkModalElem.addEventListener('click', (e) => {
+            if (e.target === landmarkModalElem) {
+              closeLandmarkModal();
             }
           });
         }
@@ -9830,5 +10495,47 @@
         initApp();
       }
     </script>
+
+    <!-- PWA Offline Status Indicator Bar -->
+    <div id="pwa-offline-indicator" class="fixed bottom-0 inset-x-0 z-[9990] bg-[#173628] border-t border-[#C5A059]/40 text-white px-4 py-3 text-xs font-semibold shadow-2xl flex items-center justify-between gap-3 transform translate-y-full opacity-0 transition-all duration-300">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b] animate-ping shrink-0"></span>
+        <span><strong>Modus Luring (Offline Mode):</strong> Menggunakan jadwal sholat & peta lokasi masjid tersimpan untuk perjalanan Anda di Arab Saudi.</span>
+      </div>
+      <button onclick="document.getElementById('pwa-offline-indicator').classList.add('translate-y-full')" class="text-[#C5A059] hover:text-white text-xs underline font-bold cursor-pointer shrink-0">
+        Tutup
+      </button>
+    </div>
+
+    <!-- PWA iOS Installation Guide Modal -->
+    <div id="pwa-ios-modal" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <div class="w-full max-w-sm rounded-3xl bg-[#FFFFFF] p-6 shadow-2xl border border-[#E5DAC8] text-center relative">
+        <div class="w-14 h-14 rounded-2xl bg-[#244C3B] border border-[#C5A059] mx-auto flex items-center justify-center text-[#C5A059] mb-4 shadow-lg">
+          <i data-lucide="share" class="w-7 h-7"></i>
+        </div>
+        <h3 class="text-base font-bold text-[#1C2D24]">Instal di iPhone / iPad</h3>
+        <p class="mt-2 text-xs text-[#3B5145] leading-relaxed text-left">
+          1. Ketuk tombol <strong>Bagikan (Share)</strong> <i data-lucide="share" class="inline w-3.5 h-3.5 text-[#C5A059]"></i> di bilah bawah Safari.<br/>
+          2. Gulir ke bawah lalu ketuk <strong>Tambahkan ke Layar Utama (Add to Home Screen)</strong>.<br/>
+          3. Aplikasi HaramainLife siap diakses luring tanpa koneksi internet selama perjalanan Umroh/Haji.
+        </p>
+        <button id="pwa-ios-modal-close" class="mt-5 w-full py-2.5 rounded-xl bg-[#244C3B] hover:bg-[#1E4333] text-white text-xs font-bold transition shadow cursor-pointer">
+          Tutup
+        </button>
+      </div>
+    </div>
+    <!-- LANDMARK DETAIL MODAL -->
+    <div id="landmark-detail-modal" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+      <div class="w-full max-w-2xl rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] p-6 sm:p-8 shadow-2xl relative my-8 animate-fade-in max-h-[90vh] overflow-y-auto">
+        <button onclick="closeLandmarkModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] flex items-center justify-center text-[#2E4338] hover:text-[#1C2D24] transition cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+
+        <div id="landmark-modal-body">
+          <!-- Content rendered dynamically via JS -->
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
