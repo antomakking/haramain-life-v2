@@ -437,6 +437,14 @@
          DARK MODE SYSTEM STYLES (Islamic Emerald & Celestial Gold Palette)
          Recreates the exact signature dark luxury palette from the reference design
          ========================================================================= */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
       html.dark, html.dark body {
         background-color: #011710 !important;
         color: #F3F4F6 !important;
@@ -771,96 +779,103 @@
         <div class="flex items-center justify-between h-16 sm:h-20 gap-1.5 sm:gap-3">
           
           <!-- Brand Logo & Identity -->
-          <a href="#" class="flex items-center gap-2 sm:gap-3.5 group min-w-0 shrink">
-            <div class="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl sm:rounded-2xl bg-[#244C3B] flex items-center justify-center shadow-md shadow-[#244C3B]/20 shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <i data-lucide="compass" class="w-5 h-5 sm:w-6 sm:h-6 text-[#E4CB96] stroke-[2.2]"></i>
+          <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-xl sm:rounded-2xl bg-[#244C3B] flex items-center justify-center shadow-md shadow-[#244C3B]/20 shrink-0 group-hover:scale-105 transition-transform duration-300">
+              <i data-lucide="compass" class="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#E4CB96] stroke-[2.2]"></i>
             </div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-1.5 sm:gap-2">
-                <span class="font-extrabold text-base sm:text-xl md:text-2xl tracking-tight text-[#1C2D24] font-sans truncate">Haramain<span class="text-[#244C3B]">Life</span></span>
+            <div class="shrink-0 flex flex-col justify-center">
+              <div class="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
+                <span class="font-extrabold text-base sm:text-xl md:text-2xl tracking-tight text-[#1C2D24] font-sans">Haramain<span class="text-[#244C3B]">Life</span></span>
                 <!-- LIVE badge hidden on mobile screens to prevent horizontal overflow -->
-                <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#E4F4EC] text-[#244C3B] border border-[#244C3B]/20 font-bold text-[11px] tracking-wider">LIVE</span>
+                <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#E4F4EC] text-[#244C3B] border border-[#244C3B]/20 font-bold text-[11px] tracking-wider whitespace-nowrap">LIVE</span>
               </div>
-              <p class="text-[10px] sm:text-xs text-[#2E4338] font-arabic tracking-wide truncate">بوابة الحرمين الشريفين</p>
+              <p class="text-[10px] sm:text-xs text-[#2E4338] font-arabic tracking-wide whitespace-nowrap">بوابة الحرمين الشريفين</p>
             </div>
           </a>
 
-          <!-- Navigation Links (2-row stacked text with gold/forest icons) -->
-          <nav class="hidden lg:flex items-center gap-8">
-            <a href="#live-streams" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group">
+          <!-- Navigation Links (Horizontal menu visible on Desktop lg & xl & 2xl) -->
+          <nav class="hidden lg:flex items-center gap-3 xl:gap-5 2xl:gap-6 shrink-0">
+            <a href="#live-streams" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group whitespace-nowrap">
               <i data-lucide="tv" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_stream_1">Live</div>
                 <div data-i18n="nav_stream_2">Stream</div>
               </div>
             </a>
-            <a href="#prayer-times" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group">
+            <a href="#prayer-times" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group whitespace-nowrap">
               <i data-lucide="clock" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_prayer_1">Jadwal</div>
                 <div data-i18n="nav_prayer_2">Sholat</div>
               </div>
             </a>
-            <a href="#occupancy-section" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group" title="Tingkat Kepadatan Real-Time & Trend Keramaian Jamaah">
+            <a href="#occupancy-section" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group whitespace-nowrap" title="Tingkat Kepadatan Real-Time & Trend Keramaian Jamaah">
               <i data-lucide="activity" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_occupancy_1">Kepadatan</div>
                 <div data-i18n="nav_occupancy_2">Masjid</div>
               </div>
             </a>
-            <a href="#daily-imams" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group">
+            <a href="#daily-imams" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group whitespace-nowrap">
               <i data-lucide="users" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_imams_1">Imam &</div>
                 <div data-i18n="nav_imams_2">Muadzin</div>
               </div>
             </a>
-            <button type="button" onclick="openMosqueModal(activeModalMosque || 'makkah', true)" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group cursor-pointer" title="Lihat Peta Interaktif & Gerbang">
+            <button type="button" onclick="openMosqueModal(activeModalMosque || 'makkah', true)" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group cursor-pointer whitespace-nowrap" title="Lihat Peta Interaktif & Gerbang">
               <i data-lucide="map-pin" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_map_1">Peta</div>
                 <div data-i18n="nav_map_2">Masjid</div>
               </div>
             </button>
-            <a href="#historic-landmarks" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group" title="Situs Bersejarah & Tempat Ziarah Makkah & Madinah">
+            <a href="#historic-landmarks" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group whitespace-nowrap" title="Situs Bersejarah & Tempat Ziarah Makkah & Madinah">
               <i data-lucide="compass" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_landmarks_1">Situs</div>
                 <div data-i18n="nav_landmarks_2">Bersejarah</div>
               </div>
             </a>
-            <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 text-xs text-[#1C2D24] hover:text-[#244C3B] transition group px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] shadow-sm" title="Beli Pulsa & Roaming Saudi">
+            <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 xl:gap-2 text-xs text-[#1C2D24] hover:text-[#244C3B] transition group px-2.5 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] shadow-xs whitespace-nowrap" title="Beli Pulsa & Roaming Saudi">
               <i data-lucide="smartphone" class="w-4 h-4 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
                 <div data-i18n="nav_pulsa_1" class="text-[#244C3B] font-bold">Beli Pulsa</div>
                 <div data-i18n="nav_pulsa_2" class="text-[10px] text-[#2E4338]">& Roaming Saudi</div>
               </div>
-              <i data-lucide="external-link" class="w-3 h-3 text-[#C5A059] -ml-1"></i>
+              <i data-lucide="external-link" class="w-3 h-3 text-[#C5A059] -ml-0.5"></i>
             </a>
           </nav>
 
-          <!-- Far Right Controls: Mode Ibadah, Dark/Light Toggle, Language Switcher (ID/EN) & Siaran Makkah -->
+          <!-- Far Right Controls: Mode Ibadah, Push Notif, Dark/Light Toggle, Language Switcher (ID/EN) & Mobile Menu Toggle -->
           <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <!-- Push Notification Adzan Reminder Toggle Button -->
+            <button id="notification-toggle-btn" onclick="openNotificationModal()" class="relative h-9 px-2.5 sm:px-3 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] hover:border-[#C5A059] text-[#1C2D24] transition-all duration-200 flex items-center gap-1.5 shadow-xs group cursor-pointer shrink-0 text-xs font-bold" title="Pengingat Push Notification Adzan (10 Menit Sebelum Shalat)" aria-label="Notifikasi Adzan">
+              <i id="notif-btn-icon" data-lucide="bell" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
+              <span id="notif-btn-badge" class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#C5A059] border-2 border-white hidden animate-pulse"></span>
+              <span class="hidden 2xl:inline text-[11px] sm:text-xs">Notifikasi Adzan</span>
+            </button>
+
             <!-- PWA In-App Install Button -->
-            <button id="pwa-install-btn" onclick="triggerPWAInstall()" class="hidden h-9 px-2.5 sm:px-3 rounded-xl bg-gradient-to-r from-[#244C3B] to-[#1E4333] border border-[#C5A059]/50 hover:border-[#C5A059] text-white transition-all duration-200 flex items-center gap-1.5 shadow-sm group cursor-pointer shrink-0 text-xs font-bold" title="Instal Aplikasi HaramainLife untuk Akses Luring di Arab Saudi" aria-label="Instal Aplikasi">
+            <button id="pwa-install-btn" onclick="triggerPWAInstall()" class="hidden h-9 px-2.5 sm:px-3 rounded-xl bg-gradient-to-r from-[#244C3B] to-[#1E4333] border border-[#C5A059]/50 hover:border-[#C5A059] text-white transition-all duration-200 flex items-center gap-1.5 shadow-xs group cursor-pointer shrink-0 text-xs font-bold" title="Instal Aplikasi HaramainLife untuk Akses Luring di Arab Saudi" aria-label="Instal Aplikasi">
               <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
-              <span class="hidden md:inline text-[11px] sm:text-xs">Instal App</span>
+              <span class="hidden 2xl:inline text-[11px] sm:text-xs">Instal App</span>
             </button>
 
             <!-- Theme Toggle Button (Dark / Light Mode - Icon Only) -->
-            <button id="theme-toggle-btn" onclick="toggleTheme()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-sm group cursor-pointer shrink-0" title="Ganti Tema (Gelap / Terang)" aria-label="Ganti Tema">
+            <button id="theme-toggle-btn" onclick="toggleTheme()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#C5A059] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-xs group cursor-pointer shrink-0" title="Ganti Tema (Gelap / Terang)" aria-label="Ganti Tema">
               <i id="theme-toggle-icon" data-lucide="sun" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
             </button>
 
             <!-- Mode Ibadah Toggle Button (Icon Only) -->
-            <button id="toggle-ibadah-mode-btn" onclick="toggleIbadahMode(true)" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#244C3B] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-sm group cursor-pointer shrink-0 relative" title="Mode Ibadah: Redupkan layar & fokus waktu shalat di masjid" aria-label="Mode Ibadah">
+            <button id="toggle-ibadah-mode-btn" onclick="toggleIbadahMode(true)" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#244C3B] text-[#1C2D24] hover:text-[#244C3B] transition-all duration-200 flex items-center justify-center shadow-xs group cursor-pointer shrink-0 relative" title="Mode Ibadah: Redupkan layar & fokus waktu shalat di masjid" aria-label="Mode Ibadah">
               <i data-lucide="sparkles" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#244C3B] group-hover:scale-110 transition-transform"></i>
               <span id="ibadah-active-dot" class="hidden absolute top-1 right-1 w-2 h-2 rounded-full bg-[#244C3B] animate-ping"></span>
             </button>
 
             <!-- Language Switcher (ID / EN) -->
-            <div class="flex items-center p-0.5 sm:p-1 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm text-xs font-bold shrink-0" id="lang-switcher" role="group" aria-label="Language Selector">
-              <button id="lang-btn-id" onclick="setLanguage('id')" class="px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 bg-[#244C3B] text-white shadow-sm font-extrabold cursor-pointer text-[11px] sm:text-xs" title="Bahasa Indonesia">
+            <div class="flex items-center p-0.5 sm:p-1 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-xs text-xs font-bold shrink-0" id="lang-switcher" role="group" aria-label="Language Selector">
+              <button id="lang-btn-id" onclick="setLanguage('id')" class="px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 bg-[#244C3B] text-white shadow-xs font-extrabold cursor-pointer text-[11px] sm:text-xs" title="Bahasa Indonesia">
                 <span>ID</span>
               </button>
               <button id="lang-btn-en" onclick="setLanguage('en')" class="px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#2E4338] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs" title="English">
@@ -868,15 +883,221 @@
               </button>
             </div>
 
-            <!-- Siaran Makkah with Pulsing Red Dot (hidden on mobile, visible on lg and up) -->
-            <a href="#live-streams" onclick="switchStream('makkah')" class="hidden lg:flex px-3.5 sm:px-4 py-2 rounded-xl bg-[#244C3B] border border-[#173628] hover:bg-[#1E4333] items-center gap-2.5 sm:gap-3 transition group shadow-sm shrink-0">
+            <!-- Siaran Makkah with Pulsing Red Dot (visible on 2xl screens) -->
+            <a href="#live-streams" onclick="switchStream('makkah')" class="hidden 2xl:flex px-3.5 py-2 rounded-xl bg-[#244C3B] border border-[#173628] hover:bg-[#1E4333] items-center gap-2.5 transition group shadow-xs shrink-0 whitespace-nowrap">
               <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444] animate-pulse"></span>
               <div class="text-left text-xs font-semibold text-white leading-tight">
                 <div data-i18n="nav_broadcast">Siaran</div>
                 <div class="text-[#E4CB96]">Makkah</div>
               </div>
             </a>
+
+            <!-- Mobile & Tablet Menu Toggle Button (Visible on screens < lg) -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="h-9 px-2.5 sm:px-3 rounded-xl bg-[#244C3B] text-white border border-[#173628] hover:bg-[#1E4333] transition-all flex items-center gap-1.5 shadow-sm cursor-pointer lg:hidden font-bold text-xs shrink-0" aria-label="Buka Menu Navigasi" title="Menu Navigasi">
+              <i id="mobile-menu-icon" data-lucide="menu" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#E4CB96]"></i>
+              <span class="text-xs font-bold text-white" data-i18n="menu_btn">Menu</span>
+            </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Sub-Header Horizontal Navigation Bar (ALWAYS VISIBLE on Mobile, Tablet & Desktop) -->
+      <div class="border-t border-[#E5DAC8]/70 dark:border-[#244C3B]/70 bg-[#FAF6F0]/90 dark:bg-[#11241B]/90 py-2 px-2.5 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar scroll-smooth">
+        <nav class="flex items-center gap-1.5 sm:gap-2 md:gap-3 max-w-7xl mx-auto whitespace-nowrap min-w-max">
+          <a href="#live-streams" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0">
+            <i data-lucide="tv" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_stream_short">Siaran Live</span>
+          </a>
+
+          <a href="#prayer-times" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_prayer_short">Jadwal Sholat</span>
+          </a>
+
+          <a href="#occupancy-section" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0" title="Tingkat Kepadatan Real-Time & Trend Keramaian Jamaah">
+            <i data-lucide="activity" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_occupancy_short">Kepadatan Masjid</span>
+          </a>
+
+          <a href="#daily-imams" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_imams_short">Imam & Muadzin</span>
+          </a>
+
+          <button type="button" onclick="openMosqueModal(activeModalMosque || 'makkah', true)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0 cursor-pointer" title="Lihat Peta Interaktif & Gerbang">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_map_short">Peta Masjid</span>
+          </button>
+
+          <a href="#historic-landmarks" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0" title="Situs Bersejarah & Tempat Ziarah Makkah & Madinah">
+            <i data-lucide="compass" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_landmarks_short">Situs Bersejarah</span>
+          </a>
+
+          <a href="#weekly-trend-chart-root" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition shadow-2xs group shrink-0" title="Grafik Trend Keramaian Mingguan">
+            <i data-lucide="trending-up" class="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_trend_short">Trend Keramaian</span>
+          </a>
+
+          <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#244C3B] to-[#1E4333] border border-[#C5A059]/50 text-xs font-extrabold text-white transition shadow-xs group shrink-0" title="Beli Pulsa & Roaming Saudi">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5 text-[#E4CB96] group-hover:scale-110 transition-transform"></i>
+            <span data-i18n="nav_pulsa_short">Beli Pulsa & Roaming</span>
+            <i data-lucide="external-link" class="w-3 h-3 text-[#E4CB96]"></i>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- MOBILE & TABLET NAVIGATION DRAWER OVERLAY -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-[9990] bg-black/60 backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none hidden" onclick="toggleMobileMenu(false)">
+      <div id="mobile-menu-drawer" class="w-full max-w-xs sm:max-w-md bg-[#FAF6F0] dark:bg-[#11241B] border-l border-[#E5DAC8] dark:border-[#244C3B] h-full shadow-2xl flex flex-col justify-between overflow-hidden relative ml-auto transform translate-x-full transition-transform duration-300" onclick="event.stopPropagation()">
+        
+        <!-- Drawer Header -->
+        <div class="px-4 sm:px-5 py-3.5 sm:py-4 border-b border-[#E5DAC8] dark:border-[#244C3B] flex items-center justify-between bg-[#FFFFFF] dark:bg-[#173628] shrink-0">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-[#244C3B] flex items-center justify-center shadow-sm shrink-0">
+              <i data-lucide="compass" class="w-5 h-5 text-[#E4CB96]"></i>
+            </div>
+            <div>
+              <span class="font-extrabold text-base tracking-tight text-[#1C2D24] dark:text-white font-sans">Haramain<span class="text-[#244C3B] dark:text-[#E4CB96]">Life</span></span>
+              <p class="text-[11px] text-[#2E4338] dark:text-[#9CA3AF] font-medium" data-i18n="mobile_menu_sub">Menu Navigasi Utama</p>
+            </div>
+          </div>
+          <button onclick="toggleMobileMenu(false)" class="w-9 h-9 rounded-xl bg-[#FAF6F0] dark:bg-[#11241B] border border-[#E5DAC8] dark:border-[#2A4A3C] hover:border-[#C5A059] flex items-center justify-center text-[#1C2D24] dark:text-white transition cursor-pointer" aria-label="Tutup Menu">
+            <i data-lucide="x" class="w-5 h-5 text-[#244C3B] dark:text-[#E4CB96]"></i>
+          </button>
+        </div>
+
+        <!-- Drawer Navigation Body (Optimized for Portrait & Landscape) -->
+        <div class="px-3.5 sm:px-4 py-4 overflow-y-auto space-y-4 flex-1">
+          
+          <!-- Primary Navigation Menu Grid (Single column portrait, 2-column landscape/tablet) -->
+          <div class="grid grid-cols-1 landscape:grid-cols-2 gap-2">
+            <a href="#live-streams" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="tv" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_stream_full">Siaran Langsung 24/7</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Saudi Quran & Sunnah TV</div>
+              </div>
+            </a>
+
+            <a href="#prayer-times" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_prayer_full">Jadwal Shalat Fardhu</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Makkah & Madinah</div>
+              </div>
+            </a>
+
+            <a href="#occupancy-section" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="activity" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_occupancy_full">Tingkat Kepadatan Masjid</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Kapasitas Mataf & Pelataran</div>
+              </div>
+            </a>
+
+            <a href="#daily-imams" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="users" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_imams_full">Jadwal Imam & Muadzin</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Syaikh Resmi Dua Masjid Suci</div>
+              </div>
+            </a>
+
+            <button type="button" onclick="toggleMobileMenu(false); openMosqueModal(activeModalMosque || 'makkah', true)" class="w-full flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs text-left cursor-pointer">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_map_full">Peta Interaktif & Gerbang</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Pintu Utama & Akses Umrah</div>
+              </div>
+            </button>
+
+            <a href="#historic-landmarks" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_landmarks_full">Situs Bersejarah & Ziarah</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Masjid & Tempat Bersejarah</div>
+              </div>
+            </a>
+
+            <a href="#weekly-trend-chart-root" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] hover:border-[#C5A059] transition group shadow-2xs">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#E4F4EC] dark:bg-[#03241b] flex items-center justify-center text-[#244C3B] dark:text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="trending-up" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-[#1C2D24] dark:text-white" data-i18n="nav_trend_full">Trend Keramaian Mingguan</div>
+                <div class="text-[10px] text-[#2E4338] dark:text-[#9CA3AF]">Grafik Pola Jamaah</div>
+              </div>
+            </a>
+
+            <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" onclick="toggleMobileMenu(false)" class="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-[#244C3B] to-[#1E4333] border border-[#C5A059]/50 text-white transition group shadow-md">
+              <div class="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-xl bg-[#FFFFFF]/20 flex items-center justify-center text-[#E4CB96] group-hover:scale-105 transition-transform shrink-0">
+                <i data-lucide="smartphone" class="w-4 h-4"></i>
+              </div>
+              <div class="flex-1">
+                <div class="text-xs font-extrabold text-white flex items-center gap-1.5">
+                  <span>Beli Pulsa & Roaming</span>
+                  <i data-lucide="external-link" class="w-3 h-3 text-[#E4CB96]"></i>
+                </div>
+                <div class="text-[10px] text-[#E4CB96]">Paket Data Saudi (STC, Mobily, Zain)</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Quick Actions & Tools inside Mobile Drawer -->
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-[#FFFFFF] dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#244C3B] space-y-2.5">
+            <div class="text-[11px] font-bold text-[#244C3B] dark:text-[#E4CB96] uppercase tracking-wider" data-i18n="quick_tools_title">Pengaturan & Alat Cepat</div>
+            
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="toggleMobileMenu(false); openNotificationModal()" class="flex items-center gap-2 p-2 rounded-xl bg-[#FAF6F0] dark:bg-[#11241B] border border-[#E5DAC8] dark:border-[#2A4A3C] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition cursor-pointer">
+                <i data-lucide="bell" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96] shrink-0"></i>
+                <span class="truncate">Notifikasi Adzan</span>
+              </button>
+
+              <button onclick="toggleMobileMenu(false); toggleIbadahMode(true)" class="flex items-center gap-2 p-2 rounded-xl bg-[#FAF6F0] dark:bg-[#11241B] border border-[#E5DAC8] dark:border-[#2A4A3C] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition cursor-pointer">
+                <i data-lucide="sparkles" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96] shrink-0"></i>
+                <span class="truncate">Mode Ibadah</span>
+              </button>
+
+              <button onclick="toggleTheme()" class="flex items-center gap-2 p-2 rounded-xl bg-[#FAF6F0] dark:bg-[#11241B] border border-[#E5DAC8] dark:border-[#2A4A3C] hover:border-[#C5A059] text-xs font-bold text-[#1C2D24] dark:text-white transition cursor-pointer">
+                <i data-lucide="sun" class="w-4 h-4 text-[#C5A059] shrink-0"></i>
+                <span class="truncate" id="mobile-theme-label">Ganti Tema</span>
+              </button>
+
+              <div class="flex items-center justify-between p-1 rounded-xl bg-[#FAF6F0] dark:bg-[#11241B] border border-[#E5DAC8] dark:border-[#2A4A3C]">
+                <button onclick="setLanguage('id')" id="mobile-lang-id" class="flex-1 py-1 text-center text-xs font-bold rounded-lg bg-[#244C3B] text-white shadow-xs">ID</button>
+                <button onclick="setLanguage('en')" id="mobile-lang-en" class="flex-1 py-1 text-center text-xs font-bold rounded-lg text-[#2E4338] dark:text-[#9CA3AF]">EN</button>
+              </div>
+            </div>
+
+            <a href="#live-streams" onclick="toggleMobileMenu(false); switchStream('makkah')" class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-xl bg-[#244C3B] text-white text-xs font-bold hover:bg-[#1E4333] transition">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span>Siaran Langsung Makkah</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-3 sm:p-3.5 border-t border-[#E5DAC8] dark:border-[#244C3B] bg-[#FFFFFF] dark:bg-[#173628] text-center shrink-0">
+          <p class="text-[11px] text-[#2E4338] dark:text-[#9CA3AF] font-medium">HaramainLife · Portal Kehidupan Dua Tanah Suci</p>
+        </div>
+
+      </div>
+    </div>
         </div>
       </div>
     </header>
@@ -1515,6 +1736,34 @@
           <!-- Populated by JavaScript -->
         </div>
 
+        <!-- Notification Reminder Settings Banner in Prayer Times Section -->
+        <div id="prayer-notif-banner" class="mt-5 p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 reveal-on-scroll">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-[#244C3B]/10 border border-[#244C3B]/20 text-[#244C3B] flex items-center justify-center shrink-0">
+              <i data-lucide="bell-ring" class="w-5 h-5 text-[#244C3B]"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-[#1C2D24] flex items-center gap-2">
+                <span>Pengingat Push Notification Adzan</span>
+                <span id="notif-status-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">Belum Aktif</span>
+              </h4>
+              <p class="text-xs text-[#2E4338] mt-0.5 font-medium">
+                Dapatkan notifikasi browser <strong id="notif-lead-text">10 menit sebelum waktu shalat fardhu</strong> tiba di Makkah & Madinah untuk persiapan menuju masjid.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <button onclick="testPrayerNotification()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#244C3B] bg-[#FAF6F0] border border-[#E5DAC8] hover:border-[#C5A059] transition cursor-pointer flex items-center gap-1.5" title="Uji Notifikasi Browser">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+              <span>Tes Notifikasi</span>
+            </button>
+            <button id="enable-notif-btn" onclick="openNotificationModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#244C3B] hover:bg-[#1C2D24] border border-[#C5A059]/40 transition shadow cursor-pointer flex items-center gap-1.5">
+              <i data-lucide="bell" class="w-3.5 h-3.5 text-[#E4CB96]"></i>
+              <span id="enable-notif-btn-text">Atur Notifikasi Shalat</span>
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1674,6 +1923,9 @@
             <!-- Populated via JS -->
           </div>
         </div>
+
+        <!-- Weekly Prayer Crowd Trend Visualization Container (Recharts Mount) -->
+        <div id="weekly-trend-chart-root" class="mt-8 reveal-on-scroll"></div>
 
       </div>
 
@@ -1872,6 +2124,73 @@
       </div>
     </section>
 
+    <!-- HISTORIC MOSQUES & LANDMARKS SECTION (MAKKAH & MADINAH) -->
+    <section id="historic-landmarks" class="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5DAC8] reveal-on-scroll">
+      <div class="text-center mb-8 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFFFFF] border border-[#E5DAC8] text-[#244C3B] text-[11px] font-bold tracking-wider uppercase mb-3 shadow-xs">
+          <i data-lucide="compass" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+          <span data-i18n="landmarks_badge">PANDUAN ZIARAH DUA TANAH SUCI</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1C2D24] tracking-tight leading-snug">
+          Daftar Masjid & Tempat Bersejarah di Makkah dan Madinah
+        </h2>
+        <p class="mt-2 text-xs sm:text-sm text-[#2E4338] leading-relaxed font-medium">
+          Eksplorasi situs kenabian, tempat miqat umrah, gunung bersejarah, serta masjid-masjid berkeutamaan agung lengkap dengan lokasi GPS & panduan ziarah jamaah.
+        </p>
+      </div>
+
+      <!-- Interactive Filters & Search Control Bar -->
+      <div class="bg-[#FFFFFF] border border-[#E5DAC8] p-4 sm:p-5 rounded-3xl shadow-sm mb-8 space-y-4">
+        <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
+          
+          <!-- Filter Kota (Semua, Makkah, Madinah) -->
+          <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] overflow-x-auto shrink-0" id="landmark-city-filters">
+            <button id="landmark-city-all" onclick="filterLandmarkCity('all')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer bg-[#244C3B] text-white shadow-xs">
+              Semua Kota (18)
+            </button>
+            <button id="landmark-city-makkah" onclick="filterLandmarkCity('makkah')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24]">
+              🕋 Makkah (9)
+            </button>
+            <button id="landmark-city-madinah" onclick="filterLandmarkCity('madinah')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24]">
+              🕌 Madinah (9)
+            </button>
+          </div>
+
+          <!-- Live Search Box -->
+          <div class="relative flex-1 max-w-md">
+            <i data-lucide="search" class="w-4 h-4 text-[#C5A059] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input id="landmark-search-input" type="text" oninput="onLandmarkSearch(this.value)" placeholder="Cari nama masjid, miqat, gunung, atau tempat ziarah..." class="w-full pl-10 pr-4 py-2 text-xs font-medium bg-[#FAF6F0] border border-[#E5DAC8] rounded-2xl focus:outline-none focus:border-[#244C3B] text-[#1C2D24] placeholder:text-[#3B5145]" />
+          </div>
+
+        </div>
+
+        <!-- Filter Kategori Micro-Tags -->
+        <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#E5DAC8] text-xs font-semibold" id="landmark-cat-filters">
+          <span class="text-[11px] text-[#3B5145] uppercase tracking-wider font-bold mr-1">Kategori:</span>
+          <button id="landmark-cat-all" onclick="filterLandmarkCategory('all')" class="px-3 py-1 rounded-xl bg-[#244C3B] text-white text-[11px] font-bold cursor-pointer transition">
+            Semua Kategori
+          </button>
+          <button id="landmark-cat-masjid" onclick="filterLandmarkCategory('masjid')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+            🕌 Masjid Utama & Bersejarah
+          </button>
+          <button id="landmark-cat-miqat" onclick="filterLandmarkCategory('miqat')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+            🕋 Tempat Miqat Umrah
+          </button>
+          <button id="landmark-cat-gua" onclick="filterLandmarkCategory('gua')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+            🏔️ Gunung & Gua Wahyu
+          </button>
+          <button id="landmark-cat-ziarah" onclick="filterLandmarkCategory('ziarah')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
+            🌿 Tempat Ziarah & Makam
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic Grid Container for Landmarks -->
+      <div id="landmarks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Cards rendered dynamically via JS -->
+      </div>
+    </section>
+
     <!-- SEO KNOWLEDGE HUB & FAQ: PANDUAN LENGKAP HAJI, UMRAH, JADWAL SHOLAT, LIVE STREAMING, PETA & PAKET INTERNET SAUDI -->
     <section id="panduan-haji-umrah-faq" class="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5DAC8]">
       
@@ -1887,35 +2206,6 @@
         <p class="mt-3 text-xs sm:text-sm text-[#2E4338] leading-relaxed font-medium">
           Informasi lengkap dan terverifikasi untuk mempermudah ibadah Anda: jadwal sholat real-time Umm Al-Qura, siaran live streaming 24 jam, jadwal imam dan muadzin, denah pintu gerbang, lokasi Raudhah, serta panduan paket internet roaming Arab Saudi.
         </p>
-      </div>
-
-      <!-- Keyword Cloud / Topik Populer Badges -->
-      <div id="keyword-cloud" class="mb-10 p-4 sm:p-5 rounded-3xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-sm transition-colors duration-300 reveal-on-scroll">
-        <div class="flex items-center gap-2 mb-3 text-xs font-bold text-[#244C3B] uppercase tracking-wider">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-[#C5A059]"></i>
-          <span>Topik & Kata Kunci Populer Jamaah:</span>
-        </div>
-        <div class="flex flex-wrap gap-2 text-xs">
-          <a href="#prayer-times" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Sholat Hari Ini</a>
-          <a href="#prayer-times" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Sholat Masjidil Haram Hari Ini</a>
-          <a href="#prayer-times" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Sholat Masjid Nabawi Madinah</a>
-          <a href="#live-streams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Live Makkah 24 Jam</a>
-          <a href="#live-streams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Live Streaming Masjidil Haram</a>
-          <a href="#live-streams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Live Madinah TV Online</a>
-          <a href="#friday-khateeb-card" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Khatib Sholat Jumat Hari Ini</a>
-          <a href="#friday-khateeb-card" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Imam Sholat Jumat Masjidil Haram & Nabawi</a>
-          <a href="#daily-imams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Imam Masjidil Haram</a>
-          <a href="#daily-imams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Imam Masjid Nabawi</a>
-          <a href="#daily-muadzins" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Nama Muadzin Masjidil Haram</a>
-          <button onclick="openMosqueModal('makkah', true)" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Peta Masjidil Haram Lengkap</button>
-          <button onclick="openMosqueModal('madinah', true)" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Denah Pintu Masjid Nabawi</button>
-          <button onclick="openMosqueModal('madinah', false)" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Lokasi Raudhah Masjid Nabawi</button>
-          <a href="#pulsa-section" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Paket Internet Umroh Arab Saudi</a>
-          <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Pulsa Arab Saudi Murah</a>
-          <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">eSIM Saudi Umrah Haji</a>
-          <a href="#pulsa-section" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">STC Zain Mobily Umroh</a>
-          <a href="#hero-section" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Cuaca Makkah & Madinah</a>
-        </div>
       </div>
 
       <!-- 4 Structured Topic Articles Grid -->
@@ -2157,73 +2447,35 @@
         </div>
       </div>
 
-    </section>
-
-    <!-- HISTORIC MOSQUES & LANDMARKS SECTION (MAKKAH & MADINAH) -->
-    <section id="historic-landmarks" class="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5DAC8] reveal-on-scroll">
-      <div class="text-center mb-8 max-w-3xl mx-auto">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFFFFF] border border-[#E5DAC8] text-[#244C3B] text-[11px] font-bold tracking-wider uppercase mb-3 shadow-xs">
-          <i data-lucide="compass" class="w-3.5 h-3.5 text-[#C5A059]"></i>
-          <span data-i18n="landmarks_badge">PANDUAN ZIARAH DUA TANAH SUCI</span>
+      <!-- Keyword Cloud / Topik Populer Badges (Dipindahkan ke bawah di atas footer) -->
+      <div id="keyword-cloud" class="mt-12 p-4 sm:p-5 rounded-3xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-sm transition-colors duration-300 reveal-on-scroll">
+        <div class="flex items-center gap-2 mb-3 text-xs font-bold text-[#244C3B] uppercase tracking-wider">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+          <span>Topik & Kata Kunci Populer Jamaah:</span>
         </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#1C2D24] tracking-tight leading-snug">
-          Daftar Masjid & Tempat Bersejarah di Makkah dan Madinah
-        </h2>
-        <p class="mt-2 text-xs sm:text-sm text-[#2E4338] leading-relaxed font-medium">
-          Eksplorasi situs kenabian, tempat miqat umrah, gunung bersejarah, serta masjid-masjid berkeutamaan agung lengkap dengan lokasi GPS & panduan ziarah jamaah.
-        </p>
-      </div>
-
-      <!-- Interactive Filters & Search Control Bar -->
-      <div class="bg-[#FFFFFF] border border-[#E5DAC8] p-4 sm:p-5 rounded-3xl shadow-sm mb-8 space-y-4">
-        <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
-          
-          <!-- Filter Kota (Semua, Makkah, Madinah) -->
-          <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] overflow-x-auto shrink-0" id="landmark-city-filters">
-            <button id="landmark-city-all" onclick="filterLandmarkCity('all')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer bg-[#244C3B] text-white shadow-xs">
-              Semua Kota (18)
-            </button>
-            <button id="landmark-city-makkah" onclick="filterLandmarkCity('makkah')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24]">
-              🕋 Makkah (9)
-            </button>
-            <button id="landmark-city-madinah" onclick="filterLandmarkCity('madinah')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer text-[#2E4338] hover:text-[#1C2D24]">
-              🕌 Madinah (9)
-            </button>
-          </div>
-
-          <!-- Live Search Box -->
-          <div class="relative flex-1 max-w-md">
-            <i data-lucide="search" class="w-4 h-4 text-[#C5A059] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-            <input id="landmark-search-input" type="text" oninput="onLandmarkSearch(this.value)" placeholder="Cari nama masjid, miqat, gunung, atau tempat ziarah..." class="w-full pl-10 pr-4 py-2 text-xs font-medium bg-[#FAF6F0] border border-[#E5DAC8] rounded-2xl focus:outline-none focus:border-[#244C3B] text-[#1C2D24] placeholder:text-[#3B5145]" />
-          </div>
-
-        </div>
-
-        <!-- Filter Kategori Micro-Tags -->
-        <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#E5DAC8] text-xs font-semibold" id="landmark-cat-filters">
-          <span class="text-[11px] text-[#3B5145] uppercase tracking-wider font-bold mr-1">Kategori:</span>
-          <button id="landmark-cat-all" onclick="filterLandmarkCategory('all')" class="px-3 py-1 rounded-xl bg-[#244C3B] text-white text-[11px] font-bold cursor-pointer transition">
-            Semua Kategori
-          </button>
-          <button id="landmark-cat-masjid" onclick="filterLandmarkCategory('masjid')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
-            🕌 Masjid Utama & Bersejarah
-          </button>
-          <button id="landmark-cat-miqat" onclick="filterLandmarkCategory('miqat')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
-            🕋 Tempat Miqat Umrah
-          </button>
-          <button id="landmark-cat-gua" onclick="filterLandmarkCategory('gua')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
-            🏔️ Gunung & Gua Wahyu
-          </button>
-          <button id="landmark-cat-ziarah" onclick="filterLandmarkCategory('ziarah')" class="px-3 py-1 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] text-[#2E4338] hover:text-[#1C2D24] text-[11px] font-bold cursor-pointer transition">
-            🌿 Tempat Ziarah & Makam
-          </button>
+        <div class="flex flex-wrap gap-2 text-xs">
+          <a href="#prayer-times" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Sholat Hari Ini</a>
+          <a href="#prayer-times" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Sholat Masjidil Haram Hari Ini</a>
+          <a href="#prayer-times" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Sholat Masjid Nabawi Madinah</a>
+          <a href="#live-streams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Live Makkah 24 Jam</a>
+          <a href="#live-streams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Live Streaming Masjidil Haram</a>
+          <a href="#live-streams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Live Madinah TV Online</a>
+          <a href="#friday-khateeb-card" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Khatib Sholat Jumat Hari Ini</a>
+          <a href="#friday-khateeb-card" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Imam Sholat Jumat Masjidil Haram & Nabawi</a>
+          <a href="#daily-imams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Imam Masjidil Haram</a>
+          <a href="#daily-imams" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Jadwal Imam Masjid Nabawi</a>
+          <a href="#daily-muadzins" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Nama Muadzin Masjidil Haram</a>
+          <button onclick="openMosqueModal('makkah', true)" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Peta Masjidil Haram Lengkap</button>
+          <button onclick="openMosqueModal('madinah', true)" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Denah Pintu Masjid Nabawi</button>
+          <button onclick="openMosqueModal('madinah', false)" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Lokasi Raudhah Masjid Nabawi</button>
+          <a href="#pulsa-section" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Paket Internet Umroh Arab Saudi</a>
+          <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Pulsa Arab Saudi Murah</a>
+          <a href="https://pulsa.haramainlife.com/" target="_blank" rel="noopener noreferrer" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">eSIM Saudi Umrah Haji</a>
+          <a href="#pulsa-section" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">STC Zain Mobily Umroh</a>
+          <a href="#hero-section" class="keyword-badge px-3 py-1.5 rounded-xl font-semibold shadow-xs cursor-pointer">Cuaca Makkah & Madinah</a>
         </div>
       </div>
 
-      <!-- Dynamic Grid Container for Landmarks -->
-      <div id="landmarks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Cards rendered dynamically via JS -->
-      </div>
     </section>
     </main>
 
@@ -2701,6 +2953,24 @@
 
       var translations = {
         id: {
+          nav_stream_short: "Siaran Live",
+          nav_prayer_short: "Jadwal Sholat",
+          nav_occupancy_short: "Kepadatan Masjid",
+          nav_imams_short: "Imam & Muadzin",
+          nav_map_short: "Peta Masjid",
+          nav_landmarks_short: "Situs Bersejarah",
+          nav_trend_short: "Trend Keramaian",
+          nav_pulsa_short: "Beli Pulsa & Roaming",
+          menu_btn: "Menu",
+          mobile_menu_sub: "Menu Navigasi Utama",
+          nav_stream_full: "Siaran Langsung 24/7",
+          nav_prayer_full: "Jadwal Shalat Fardhu",
+          nav_occupancy_full: "Tingkat Kepadatan Masjid",
+          nav_imams_full: "Jadwal Imam & Muadzin",
+          nav_map_full: "Peta Interaktif & Gerbang",
+          nav_landmarks_full: "Situs Bersejarah & Ziarah",
+          nav_trend_full: "Trend Keramaian Mingguan",
+          quick_tools_title: "Pengaturan & Alat Cepat",
           nav_stream_1: "Siaran",
           nav_stream_2: "Langsung",
           nav_prayer_1: "Jadwal",
@@ -2855,6 +3125,24 @@
           hero_subtitle: "Makkah Al–Mukarramah & Madinah Al–Munawwarah"
         },
         en: {
+          nav_stream_short: "Live Stream",
+          nav_prayer_short: "Prayer Times",
+          nav_occupancy_short: "Crowd Density",
+          nav_imams_short: "Imams & Muadhins",
+          nav_map_short: "Mosque Map",
+          nav_landmarks_short: "Historic Sites",
+          nav_trend_short: "Weekly Trend",
+          nav_pulsa_short: "Top-Up & Roaming",
+          menu_btn: "Menu",
+          mobile_menu_sub: "Main Navigation Menu",
+          nav_stream_full: "24/7 Live Broadcasts",
+          nav_prayer_full: "Obligatory Prayer Times",
+          nav_occupancy_full: "Mosque Crowd Density",
+          nav_imams_full: "Imams & Muadhins Schedule",
+          nav_map_full: "Interactive Map & Gates",
+          nav_landmarks_full: "Historic & Pilgrimage Sites",
+          nav_trend_full: "Weekly Crowd Trend",
+          quick_tools_title: "Quick Settings & Tools",
           nav_stream_1: "Live",
           nav_stream_2: "Streams",
           nav_prayer_1: "Prayer",
@@ -3978,6 +4266,7 @@
         if (muadzinsTableRange) muadzinsTableRange.innerText = weekInfo.tableRange;
 
         updatePrayerCountdown(astDate);
+        if (typeof checkPrayerNotifications === 'function') checkPrayerNotifications(astDate);
         if (typeof renderOccupancyModule === 'function') renderOccupancyModule();
         updateHaramainRealtimeConditions(astDate);
       }
@@ -7702,6 +7991,392 @@
         if (window.lucide) window.lucide.createIcons();
       }
 
+      /* =========================================================================
+         BROWSER PUSH NOTIFICATION ENGINE FOR PRAYER TIMES
+         ========================================================================= */
+      const NOTIF_STORAGE_KEY = 'haramain_prayer_notif_config';
+      const NOTIF_LOG_KEY = 'haramain_prayer_notif_sent_log';
+
+      let prayerNotifConfig = {
+        enabled: false,
+        leadMinutes: 10,
+        city: 'both',
+        prayers: {
+          fajr: true,
+          dhuhr: true,
+          asr: true,
+          maghrib: true,
+          isha: true
+        },
+        soundEnabled: true
+      };
+
+      function loadPrayerNotifConfig() {
+        try {
+          const saved = localStorage.getItem(NOTIF_STORAGE_KEY);
+          if (saved) {
+            prayerNotifConfig = Object.assign({}, prayerNotifConfig, JSON.parse(saved));
+          }
+        } catch (e) {
+          console.warn('Gagal memuat konfigurasi notifikasi:', e);
+        }
+        updateNotifUIState();
+      }
+
+      function savePrayerNotifConfig() {
+        try {
+          localStorage.setItem(NOTIF_STORAGE_KEY, JSON.stringify(prayerNotifConfig));
+        } catch (e) {
+          console.warn('Gagal menyimpan konfigurasi notifikasi:', e);
+        }
+        updateNotifUIState();
+      }
+
+      function playPrayerNotifChime() {
+        if (!prayerNotifConfig.soundEnabled) return;
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return;
+          const ctx = new AudioContext();
+          if (ctx.state === 'suspended') ctx.resume();
+
+          const now = ctx.currentTime;
+          
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(440, now);
+          osc1.frequency.exponentialRampToValueAtTime(880, now + 1.2);
+          gain1.gain.setValueAtTime(0.3, now);
+          gain1.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start(now);
+          osc1.stop(now + 1.8);
+
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(659.25, now + 0.25);
+          gain2.gain.setValueAtTime(0.25, now + 0.25);
+          gain2.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start(now + 0.25);
+          osc2.stop(now + 2.0);
+        } catch (err) {
+          console.warn("Audio Context playback error:", err);
+        }
+      }
+
+      async function requestNotificationPermission() {
+        if (!('Notification' in window)) {
+          showNotice(
+            currentLang === 'en' ? 'Notifications Not Supported' : 'Notifikasi Tidak Didukung',
+            currentLang === 'en' ? 'Your browser does not support Web Push Notifications.' : 'Browser Anda tidak mendukung Notifikasi Push Browser.'
+          );
+          return false;
+        }
+
+        if (Notification.permission === 'granted') {
+          return true;
+        }
+
+        if (Notification.permission === 'denied') {
+          const alertBox = document.getElementById('notif-denied-alert');
+          if (alertBox) alertBox.classList.remove('hidden');
+          return false;
+        }
+
+        const permission = await Notification.requestPermission();
+        updateNotifUIState();
+        return permission === 'granted';
+      }
+
+      async function sendPrayerNotification(title, body, tagKey, prayerKey, cityKey) {
+        playPrayerNotifChime();
+
+        // Try ServiceWorker registration first
+        if ('serviceWorker' in navigator) {
+          try {
+            const reg = await navigator.serviceWorker.getRegistration();
+            if (reg && reg.showNotification && Notification.permission === 'granted') {
+              reg.showNotification(title, {
+                body: body,
+                icon: '/pwa-192x192.png',
+                badge: '/pwa-192x192.png',
+                tag: tagKey,
+                renotify: true,
+                vibrate: [200, 100, 200, 100, 300],
+                data: {
+                  url: window.location.origin + '/#prayer-times'
+                }
+              });
+              showNotice(title, body);
+              return;
+            }
+          } catch (swErr) {
+            console.warn("ServiceWorker showNotification error:", swErr);
+          }
+        }
+
+        // Standard Web Notification API
+        if (window.Notification && Notification.permission === 'granted') {
+          try {
+            const notif = new Notification(title, {
+              body: body,
+              icon: '/pwa-192x192.png',
+              tag: tagKey,
+              renotify: true
+            });
+            notif.onclick = function() {
+              window.focus();
+              window.location.hash = 'prayer-times';
+              notif.close();
+            };
+          } catch (nErr) {
+            console.warn("Notification API error:", nErr);
+          }
+        }
+
+        // Always show in-app toast fallback
+        showNotice(title, body);
+      }
+
+      function checkPrayerNotifications(astDate) {
+        if (!prayerNotifConfig.enabled) return;
+
+        const currentYear = astDate.getFullYear();
+        const currentMonth = String(astDate.getMonth() + 1).padStart(2, '0');
+        const currentDate = String(astDate.getDate()).padStart(2, '0');
+        const dateKey = `${currentYear}-${currentMonth}-${currentDate}`;
+
+        const currentH = astDate.getHours();
+        const currentM = astDate.getMinutes();
+        const currentS = astDate.getSeconds();
+        const currentTotalSecs = currentH * 3600 + currentM * 60 + currentS;
+
+        const citiesToCheck = prayerNotifConfig.city === 'both' 
+          ? ['makkah', 'madinah'] 
+          : [prayerNotifConfig.city];
+
+        citiesToCheck.forEach(cityKey => {
+          const schedule = prayerSchedules[cityKey];
+          if (!schedule) return;
+
+          schedule.forEach(prayer => {
+            if (prayer.key === 'shuruq') return;
+            if (!prayerNotifConfig.prayers[prayer.key]) return;
+
+            const [pHour, pMin] = prayer.time.split(':').map(Number);
+            const prayerTotalSecs = pHour * 3600 + pMin * 60;
+
+            const leadSecs = (prayerNotifConfig.leadMinutes || 10) * 60;
+            const targetSecs = prayerTotalSecs - leadSecs;
+
+            if (targetSecs < 0) return;
+
+            const logKey = `${dateKey}_${cityKey}_${prayer.key}_${prayerNotifConfig.leadMinutes}m`;
+            const diff = currentTotalSecs - targetSecs;
+
+            if (diff >= 0 && diff < 30) {
+              const sentLog = (function() {
+                try {
+                  return JSON.parse(localStorage.getItem(NOTIF_LOG_KEY) || '{}');
+                } catch (e) {
+                  return {};
+                }
+              })();
+
+              if (!sentLog[logKey]) {
+                sentLog[logKey] = Date.now();
+                try {
+                  localStorage.setItem(NOTIF_LOG_KEY, JSON.stringify(sentLog));
+                } catch (e) {}
+
+                const cityName = cityKey === 'makkah' ? 'Makkah Al-Mukarramah' : 'Madinah Al-Munawwarah';
+                const mosqueName = cityKey === 'makkah' ? 'Masjidil Haram' : 'Masjid Nabawi';
+                const prayerNameTrans = (prayerNamesI18n[currentLang] && prayerNamesI18n[currentLang][prayer.key]) || prayer.name;
+
+                const title = currentLang === 'en' 
+                  ? `🕌 Prayer Reminder (${prayerNotifConfig.leadMinutes}m to Adhan)` 
+                  : `🕌 Pengingat Shalat ${prayerNameTrans} (${prayerNotifConfig.leadMinutes} Menit Lagi)`;
+
+                const body = currentLang === 'en'
+                  ? `${prayerNameTrans} prayer in ${cityName} (${mosqueName}) is at ${prayer.time} AST. Prepare for prayer.`
+                  : `Waktu Shalat ${prayerNameTrans} di ${cityName} (${mosqueName}) pukul ${prayer.time} AST (${prayerNotifConfig.leadMinutes} menit lagi). Bersiap menuju tempat shalat.`;
+
+                sendPrayerNotification(title, body, logKey, prayer.key, cityKey);
+              }
+            }
+          });
+        });
+      }
+
+      async function testPrayerNotification() {
+        const title = currentLang === 'en'
+          ? '🕌 Test Prayer Notification (Haramain Life)'
+          : '🕌 Uji Notifikasi Shalat Haramain';
+
+        const body = currentLang === 'en'
+          ? `Sample ${prayerNotifConfig.leadMinutes}-minute prayer reminder: Adhan Dhuhr at Masjidil Haram Makkah (12:18 AST). Ready for worship!`
+          : `Contoh pengingat ${prayerNotifConfig.leadMinutes} menit sebelum adzan: Shalat Dzuhur di Masjidil Haram Makkah pukul 12:18 AST. Bersiap melaksanakan ibadah!`;
+
+        if (window.Notification && Notification.permission !== 'granted') {
+          const granted = await requestNotificationPermission();
+          if (!granted && Notification.permission === 'denied') {
+            showNotice(title, body);
+            return;
+          }
+        }
+
+        sendPrayerNotification(title, body, 'test_prayer_notif_' + Date.now(), 'dhuhr', 'makkah');
+      }
+
+      function openNotificationModal() {
+        loadPrayerNotifConfig();
+        const modal = document.getElementById('notification-settings-modal');
+        if (modal) modal.classList.remove('hidden');
+      }
+
+      function closeNotificationModal() {
+        const modal = document.getElementById('notification-settings-modal');
+        if (modal) modal.classList.add('hidden');
+      }
+
+      async function toggleNotifMasterSwitch(enabled) {
+        if (enabled) {
+          const granted = await requestNotificationPermission();
+          if (!granted && window.Notification && Notification.permission === 'denied') {
+            prayerNotifConfig.enabled = false;
+            savePrayerNotifConfig();
+            return;
+          }
+          prayerNotifConfig.enabled = true;
+        } else {
+          prayerNotifConfig.enabled = false;
+        }
+        savePrayerNotifConfig();
+      }
+
+      function setNotifLeadTime(mins) {
+        prayerNotifConfig.leadMinutes = mins;
+        savePrayerNotifConfig();
+      }
+
+      function setNotifCity(city) {
+        prayerNotifConfig.city = city;
+        savePrayerNotifConfig();
+      }
+
+      function updateNotifPrayerCheckbox(key, checked) {
+        prayerNotifConfig.prayers[key] = checked;
+        savePrayerNotifConfig();
+      }
+
+      function toggleNotifSound(enabled) {
+        prayerNotifConfig.soundEnabled = enabled;
+        savePrayerNotifConfig();
+      }
+
+      function saveNotificationSettingsModal() {
+        savePrayerNotifConfig();
+        closeNotificationModal();
+        const title = currentLang === 'en' ? 'Notification Settings Saved' : 'Pengaturan Notifikasi Disimpan';
+        const body = currentLang === 'en'
+          ? `Prayer reminders set for ${prayerNotifConfig.leadMinutes} minutes before Adhan.`
+          : `Pengingat shalat berhasil diatur ${prayerNotifConfig.leadMinutes} menit sebelum adzan fardhu.`;
+        showNotice(title, body);
+      }
+
+      function updateNotifUIState() {
+        const isPermGranted = window.Notification && Notification.permission === 'granted';
+        const isPermDenied = window.Notification && Notification.permission === 'denied';
+
+        const masterToggle = document.getElementById('notif-master-toggle');
+        if (masterToggle) masterToggle.checked = !!prayerNotifConfig.enabled;
+
+        const modalBadge = document.getElementById('notif-modal-permission-badge');
+        if (modalBadge) {
+          if (isPermDenied) {
+            modalBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-800 border border-red-300';
+            modalBadge.innerText = 'Diblokir Browser';
+          } else if (isPermGranted) {
+            modalBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
+            modalBadge.innerText = 'Izin Diberikan';
+          } else {
+            modalBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300';
+            modalBadge.innerText = 'Perlu Akses Izin';
+          }
+        }
+
+        const deniedAlert = document.getElementById('notif-denied-alert');
+        if (deniedAlert) {
+          if (isPermDenied) deniedAlert.classList.remove('hidden');
+          else deniedAlert.classList.add('hidden');
+        }
+
+        const statusBadge = document.getElementById('notif-status-badge');
+        if (statusBadge) {
+          if (prayerNotifConfig.enabled && isPermGranted) {
+            statusBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
+            statusBadge.innerText = 'Aktif (' + prayerNotifConfig.leadMinutes + ' m)';
+          } else if (prayerNotifConfig.enabled && !isPermGranted) {
+            statusBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300';
+            statusBadge.innerText = 'Menunggu Izin Browser';
+          } else {
+            statusBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700 border border-gray-300';
+            statusBadge.innerText = 'Belum Aktif';
+          }
+        }
+
+        const leadText = document.getElementById('notif-lead-text');
+        if (leadText) {
+          leadText.innerText = (prayerNotifConfig.leadMinutes || 10) + ' menit sebelum waktu shalat fardhu';
+        }
+
+        const btnText = document.getElementById('enable-notif-btn-text');
+        if (btnText) {
+          btnText.innerText = prayerNotifConfig.enabled ? 'Kelola Notifikasi' : 'Aktifkan Notifikasi';
+        }
+
+        const headerBadge = document.getElementById('notif-btn-badge');
+        if (headerBadge) {
+          if (prayerNotifConfig.enabled) headerBadge.classList.remove('hidden');
+          else headerBadge.classList.add('hidden');
+        }
+
+        [0, 5, 10, 15].forEach(m => {
+          const btn = document.getElementById(`lead-time-${m}`);
+          if (btn) {
+            if (prayerNotifConfig.leadMinutes === m) {
+              btn.className = 'py-2.5 px-3 rounded-xl border text-center transition cursor-pointer bg-[#244C3B] text-white border-[#244C3B] shadow-xs font-bold';
+            } else {
+              btn.className = 'py-2.5 px-3 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059] font-bold';
+            }
+          }
+        });
+
+        ['both', 'makkah', 'madinah'].forEach(c => {
+          const btn = document.getElementById(`notif-city-${c}`);
+          if (btn) {
+            if (prayerNotifConfig.city === c) {
+              btn.className = 'py-2 px-2.5 rounded-xl border text-center transition cursor-pointer bg-[#244C3B] text-white border-[#244C3B] shadow-xs font-bold';
+            } else {
+              btn.className = 'py-2 px-2.5 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059] font-bold';
+            }
+          }
+        });
+
+        ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(k => {
+          const cb = document.getElementById(`notif-prayer-${k}`);
+          if (cb) cb.checked = !!prayerNotifConfig.prayers[k];
+        });
+
+        const soundCb = document.getElementById('notif-sound-toggle');
+        if (soundCb) soundCb.checked = !!prayerNotifConfig.soundEnabled;
+      }
+
       function findSyaikhProfile(name) {
         if (!name) return null;
         const target = name.trim();
@@ -9553,6 +10228,44 @@
       }
 
       /* =========================================================================
+         MOBILE & TABLET NAVIGATION DRAWER CONTROLLER
+         ========================================================================= */
+      function toggleMobileMenu(forceState) {
+        const overlay = document.getElementById('mobile-menu-overlay');
+        const drawer = document.getElementById('mobile-menu-drawer');
+        const icon = document.getElementById('mobile-menu-icon');
+        if (!overlay || !drawer) return;
+
+        const isOpen = !overlay.classList.contains('hidden');
+        const nextState = (typeof forceState === 'boolean') ? forceState : !isOpen;
+
+        if (nextState) {
+          overlay.classList.remove('hidden');
+          setTimeout(() => {
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            drawer.classList.remove('translate-x-full');
+          }, 10);
+          document.body.classList.add('overflow-hidden');
+          if (icon && window.lucide) {
+            icon.setAttribute('data-lucide', 'x');
+            window.lucide.createIcons();
+          }
+        } else {
+          drawer.classList.add('translate-x-full');
+          overlay.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(() => {
+            overlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+          }, 300);
+          if (icon && window.lucide) {
+            icon.setAttribute('data-lucide', 'menu');
+            window.lucide.createIcons();
+          }
+        }
+      }
+      window.toggleMobileMenu = toggleMobileMenu;
+
+      /* =========================================================================
          THEME MANAGER (DARK & LIGHT MODE CONTROLLER)
          ========================================================================= */
       var currentTheme = 'light';
@@ -9568,6 +10281,7 @@
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const themeIcon = document.getElementById('theme-toggle-icon');
         const themeLabel = document.getElementById('theme-toggle-label');
+        const mobileThemeLabel = document.getElementById('mobile-theme-label');
 
         if (theme === 'dark') {
           html.classList.add('dark');
@@ -9578,6 +10292,9 @@
           if (themeLabel) {
             themeLabel.setAttribute('data-i18n', 'nav_theme_light');
             themeLabel.innerText = currentLang === 'en' ? 'Light Mode' : 'Tema Terang';
+          }
+          if (mobileThemeLabel) {
+            mobileThemeLabel.innerText = currentLang === 'en' ? 'Light Mode' : 'Tema Terang';
           }
           if (themeToggleBtn) {
             themeToggleBtn.setAttribute('title', currentLang === 'en' ? 'Switch to Light Mode' : 'Ganti ke Tema Terang');
@@ -9591,6 +10308,9 @@
           if (themeLabel) {
             themeLabel.setAttribute('data-i18n', 'nav_theme_dark');
             themeLabel.innerText = currentLang === 'en' ? 'Dark Mode' : 'Tema Gelap';
+          }
+          if (mobileThemeLabel) {
+            mobileThemeLabel.innerText = currentLang === 'en' ? 'Dark Mode' : 'Tema Gelap';
           }
           if (themeToggleBtn) {
             themeToggleBtn.setAttribute('title', currentLang === 'en' ? 'Switch to Dark Mode' : 'Ganti ke Tema Gelap');
@@ -9624,7 +10344,7 @@
           localStorage.setItem('haramain_lang', lang);
         } catch (e) {}
 
-        // Update button visual styles
+        // Update button visual styles for desktop & mobile
         const btnId = document.getElementById('lang-btn-id');
         const btnEn = document.getElementById('lang-btn-en');
         if (btnId && btnEn) {
@@ -9634,6 +10354,18 @@
           } else {
             btnEn.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 bg-[#244C3B] text-white shadow-sm font-extrabold cursor-pointer text-[11px] sm:text-xs";
             btnId.className = "px-1.5 sm:px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 text-[#2E4338] hover:text-[#1C2D24] font-semibold cursor-pointer text-[11px] sm:text-xs";
+          }
+        }
+
+        const mobBtnId = document.getElementById('mobile-lang-id');
+        const mobBtnEn = document.getElementById('mobile-lang-en');
+        if (mobBtnId && mobBtnEn) {
+          if (lang === 'id') {
+            mobBtnId.className = "flex-1 py-1 text-center text-xs font-bold rounded-lg bg-[#244C3B] text-white shadow-xs";
+            mobBtnEn.className = "flex-1 py-1 text-center text-xs font-bold rounded-lg text-[#2E4338] dark:text-[#9CA3AF]";
+          } else {
+            mobBtnEn.className = "flex-1 py-1 text-center text-xs font-bold rounded-lg bg-[#244C3B] text-white shadow-xs";
+            mobBtnId.className = "flex-1 py-1 text-center text-xs font-bold rounded-lg text-[#2E4338] dark:text-[#9CA3AF]";
           }
         }
 
@@ -9648,12 +10380,20 @@
 
         // Update Theme Toggle button label and title for current language
         const themeLabel = document.getElementById('theme-toggle-label');
+        const mobileThemeLabel = document.getElementById('mobile-theme-label');
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         if (themeLabel) {
           if (currentTheme === 'dark') {
             themeLabel.innerText = lang === 'en' ? 'Light Mode' : 'Tema Terang';
           } else {
             themeLabel.innerText = lang === 'en' ? 'Dark Mode' : 'Tema Gelap';
+          }
+        }
+        if (mobileThemeLabel) {
+          if (currentTheme === 'dark') {
+            mobileThemeLabel.innerText = lang === 'en' ? 'Light Mode' : 'Tema Terang';
+          } else {
+            mobileThemeLabel.innerText = lang === 'en' ? 'Dark Mode' : 'Tema Gelap';
           }
         }
         if (themeToggleBtn) {
@@ -10689,6 +11429,16 @@
       window.switchOccupancyMosque = switchOccupancyMosque;
       window.selectOccupancyHour = selectOccupancyHour;
       window.renderOccupancyModule = renderOccupancyModule;
+      window.openNotificationModal = openNotificationModal;
+      window.closeNotificationModal = closeNotificationModal;
+      window.testPrayerNotification = testPrayerNotification;
+      window.toggleNotifMasterSwitch = toggleNotifMasterSwitch;
+      window.setNotifLeadTime = setNotifLeadTime;
+      window.setNotifCity = setNotifCity;
+      window.updateNotifPrayerCheckbox = updateNotifPrayerCheckbox;
+      window.toggleNotifSound = toggleNotifSound;
+      window.saveNotificationSettingsModal = saveNotificationSettingsModal;
+      window.checkPrayerNotifications = checkPrayerNotifications;
 
       /* =========================================================================
          SCROLL-REVEAL OBSERVER
@@ -11086,15 +11836,29 @@
         // Render Live Occupancy & Crowd Density Indicator
         renderOccupancyModule();
 
+        // Load Push Notification Configuration
+        loadPrayerNotifConfig();
+
         // Modal event listeners (Escape key & backdrop click)
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
+            toggleMobileMenu(false);
             if (isIbadahModeOpen) toggleIbadahMode(false);
             if (isMosqueModalOpen) closeMosqueModal();
             closeLandmarkModal();
+            closeNotificationModal();
             closeNotice();
           }
         });
+
+        const notifModalElem = document.getElementById('notification-settings-modal');
+        if (notifModalElem) {
+          notifModalElem.addEventListener('click', (e) => {
+            if (e.target === notifModalElem) {
+              closeNotificationModal();
+            }
+          });
+        }
 
         const mosqueModalElem = document.getElementById('mosque-info-modal');
         if (mosqueModalElem) {
@@ -11155,6 +11919,151 @@
         </button>
       </div>
     </div>
+    <!-- PRAYER PUSH NOTIFICATION SETTINGS MODAL -->
+    <div id="notification-settings-modal" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+      <div class="w-full max-w-lg rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] p-6 sm:p-8 shadow-2xl relative my-8 animate-fade-in max-h-[92vh] overflow-y-auto text-[#1C2D24]">
+        <button onclick="closeNotificationModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] flex items-center justify-center text-[#2E4338] hover:text-[#1C2D24] transition cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+
+        <div class="flex items-center gap-3.5 mb-5">
+          <div class="w-12 h-12 rounded-2xl bg-[#244C3B]/10 border border-[#244C3B]/20 text-[#244C3B] flex items-center justify-center shrink-0 shadow-sm">
+            <i data-lucide="bell-ring" class="w-6 h-6 text-[#244C3B]"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-[#1C2D24] leading-snug">Pengingat Push Notification Adzan</h3>
+            <p class="text-xs text-[#2E4338] font-medium mt-0.5">Notifikasi browser 10 menit sebelum waktu shalat fardhu Makkah & Madinah.</p>
+          </div>
+        </div>
+
+        <!-- Master Switch Toggle & Permission Status -->
+        <div class="p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] mb-5 flex items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-bold text-[#1C2D24] flex items-center gap-2">
+              <span>Status Notifikasi Push:</span>
+              <span id="notif-modal-permission-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-200 text-gray-700">Mengecek...</span>
+            </div>
+            <p class="text-[11px] text-[#2E4338] mt-0.5 font-medium">Aktifkan untuk menerima pemberitahuan otomatis.</p>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer shrink-0">
+            <input type="checkbox" id="notif-master-toggle" onchange="toggleNotifMasterSwitch(this.checked)" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#244C3B]"></div>
+          </label>
+        </div>
+
+        <!-- Permission Denied Alert Box -->
+        <div id="notif-denied-alert" class="hidden p-3.5 mb-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-medium leading-relaxed">
+          <div class="flex items-start gap-2.5">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
+            <div>
+              <strong>Izin Ditolak/Diblokir Browser:</strong><br/>
+              Untuk mengaktifkan pengingat, buka pengaturan izin situs di browser Anda (klik ikon gembok/setelan di sebelah alamat web) dan izinkan Notifikasi.
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-5">
+          <!-- 1. Lead Time / Timing Setting -->
+          <div>
+            <label class="block text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-2">
+              Waktu Pengingat Sebelum Adzan:
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+              <button type="button" onclick="setNotifLeadTime(10)" id="lead-time-10" class="py-2.5 px-3 rounded-xl border text-center transition cursor-pointer bg-[#244C3B] text-white border-[#244C3B] shadow-xs">
+                10 Menit <span class="block text-[9.5px] font-normal opacity-90">(Rekomendasi)</span>
+              </button>
+              <button type="button" onclick="setNotifLeadTime(15)" id="lead-time-15" class="py-2.5 px-3 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059]">
+                15 Menit <span class="block text-[9.5px] font-normal opacity-70">(Awal)</span>
+              </button>
+              <button type="button" onclick="setNotifLeadTime(5)" id="lead-time-5" class="py-2.5 px-3 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059]">
+                5 Menit <span class="block text-[9.5px] font-normal opacity-70">(Mendekati)</span>
+              </button>
+              <button type="button" onclick="setNotifLeadTime(0)" id="lead-time-0" class="py-2.5 px-3 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059]">
+                0 Menit <span class="block text-[9.5px] font-normal opacity-70">(Pas Adzan)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Holy City Target Location -->
+          <div>
+            <label class="block text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-2">
+              Pilih Lokasi Kota Suci:
+            </label>
+            <div class="grid grid-cols-3 gap-2 text-xs font-bold">
+              <button type="button" onclick="setNotifCity('both')" id="notif-city-both" class="py-2 px-2.5 rounded-xl border text-center transition cursor-pointer bg-[#244C3B] text-white border-[#244C3B] shadow-xs">
+                Dua Tanah Suci
+              </button>
+              <button type="button" onclick="setNotifCity('makkah')" id="notif-city-makkah" class="py-2 px-2.5 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059]">
+                🕋 Makkah
+              </button>
+              <button type="button" onclick="setNotifCity('madinah')" id="notif-city-madinah" class="py-2 px-2.5 rounded-xl border text-center transition cursor-pointer bg-[#FAF6F0] text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059]">
+                🕌 Madinah
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Fardhu Prayer Checkboxes -->
+          <div>
+            <label class="block text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-2">
+              Waktu Shalat Fardhu yang Diingatkan:
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+              <label class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center gap-2 cursor-pointer hover:border-[#C5A059]">
+                <input type="checkbox" id="notif-prayer-fajr" checked class="rounded text-[#244C3B] focus:ring-[#244C3B]" onchange="updateNotifPrayerCheckbox('fajr', this.checked)">
+                <span class="font-bold text-[#1C2D24]">Subuh</span>
+              </label>
+              <label class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center gap-2 cursor-pointer hover:border-[#C5A059]">
+                <input type="checkbox" id="notif-prayer-dhuhr" checked class="rounded text-[#244C3B] focus:ring-[#244C3B]" onchange="updateNotifPrayerCheckbox('dhuhr', this.checked)">
+                <span class="font-bold text-[#1C2D24]">Dzuhur</span>
+              </label>
+              <label class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center gap-2 cursor-pointer hover:border-[#C5A059]">
+                <input type="checkbox" id="notif-prayer-asr" checked class="rounded text-[#244C3B] focus:ring-[#244C3B]" onchange="updateNotifPrayerCheckbox('asr', this.checked)">
+                <span class="font-bold text-[#1C2D24]">Ashar</span>
+              </label>
+              <label class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center gap-2 cursor-pointer hover:border-[#C5A059]">
+                <input type="checkbox" id="notif-prayer-maghrib" checked class="rounded text-[#244C3B] focus:ring-[#244C3B]" onchange="updateNotifPrayerCheckbox('maghrib', this.checked)">
+                <span class="font-bold text-[#1C2D24]">Maghrib</span>
+              </label>
+              <label class="p-2.5 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center gap-2 cursor-pointer hover:border-[#C5A059]">
+                <input type="checkbox" id="notif-prayer-isha" checked class="rounded text-[#244C3B] focus:ring-[#244C3B]" onchange="updateNotifPrayerCheckbox('isha', this.checked)">
+                <span class="font-bold text-[#1C2D24]">Isya</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 4. Sound Alert Switch -->
+          <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="volume-2" class="w-4 h-4 text-[#244C3B]"></i>
+              <div>
+                <span class="font-bold text-[#1C2D24]">Bunyi Suara Pengingat & Chime:</span>
+                <p class="text-[10.5px] text-[#2E4338] font-medium">Mainkan nada panggilan harmonis saat notifikasi tiba.</p>
+              </div>
+            </div>
+            <input type="checkbox" id="notif-sound-toggle" checked onchange="toggleNotifSound(this.checked)" class="rounded text-[#244C3B] focus:ring-[#244C3B] h-4 w-4">
+          </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="mt-7 pt-4 border-t border-[#E5DAC8] flex flex-col sm:flex-row items-center justify-between gap-3">
+          <button type="button" onclick="testPrayerNotification()" class="w-full sm:w-auto py-2.5 px-4 rounded-xl border border-[#E5DAC8] bg-[#FAF6F0] hover:border-[#C5A059] text-[#244C3B] text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer">
+            <i data-lucide="bell-ring" class="w-4 h-4 text-[#C5A059]"></i>
+            <span>Uji Notifikasi Browser</span>
+          </button>
+          <div class="flex gap-2 w-full sm:w-auto">
+            <button type="button" onclick="closeNotificationModal()" class="flex-1 sm:flex-none py-2.5 px-4 rounded-xl border border-[#E5DAC8] text-[#2E4338] text-xs font-bold hover:bg-[#FAF6F0] transition cursor-pointer">
+              Batal
+            </button>
+            <button type="button" onclick="saveNotificationSettingsModal()" class="flex-1 sm:flex-none py-2.5 px-5 rounded-xl bg-[#244C3B] hover:bg-[#1E4333] text-white text-xs font-bold transition shadow cursor-pointer flex items-center justify-center gap-1.5">
+              <i data-lucide="check" class="w-4 h-4 text-[#E4CB96]"></i>
+              <span>Simpan Pengaturan</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- LANDMARK DETAIL MODAL -->
     <div id="landmark-detail-modal" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
       <div class="w-full max-w-2xl rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] p-6 sm:p-8 shadow-2xl relative my-8 animate-fade-in max-h-[90vh] overflow-y-auto">
