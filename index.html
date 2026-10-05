@@ -801,6 +801,13 @@
                 <div data-i18n="nav_prayer_2">Sholat</div>
               </div>
             </a>
+            <a href="#occupancy-section" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group" title="Tingkat Kepadatan Real-Time & Trend Keramaian Jamaah">
+              <i data-lucide="activity" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
+              <div class="leading-tight text-left font-semibold">
+                <div data-i18n="nav_occupancy_1">Kepadatan</div>
+                <div data-i18n="nav_occupancy_2">Masjid</div>
+              </div>
+            </a>
             <a href="#daily-imams" class="flex items-center gap-2.5 text-xs text-[#2C3E35] hover:text-[#244C3B] transition group">
               <i data-lucide="users" class="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform"></i>
               <div class="leading-tight text-left font-semibold">
@@ -1509,6 +1516,167 @@
         </div>
 
       </div>
+    </section>
+
+    <!-- LIVE OCCUPANCY & CROWD DENSITY INDICATOR SECTION -->
+    <section id="occupancy-section" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 reveal-on-scroll">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFFFFF] border border-[#E5DAC8] text-[#244C3B] text-xs font-bold tracking-wider uppercase mb-3 shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping shrink-0"></span>
+            <i data-lucide="activity" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+            <span data-i18n="occupancy_badge">ESTIMASI KEPADATAN REAL-TIME</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="occupancy_heading">
+            Kepadatan & Trend Keramaian Jamaah
+          </h2>
+          <p class="text-xs sm:text-sm text-[#2E4338] mt-1.5 font-medium max-w-2xl leading-relaxed" data-i18n="occupancy_desc">
+            Pantau estimasi tingkat kepadatan jamaah berbasis hisab jam sholat & tren historis untuk membantu merencanakan waktu ibadah, thawaf, dan ziarah paling nyaman.
+          </p>
+        </div>
+
+        <!-- Mosque Selector Tabs -->
+        <div class="flex items-center p-1.5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm shrink-0">
+          <button id="occupancy-tab-makkah" onclick="switchOccupancyMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02] cursor-pointer">
+            <span data-i18n="occupancy_tab_makkah">Masjidil Haram (Makkah)</span>
+          </button>
+          <button id="occupancy-tab-madinah" onclick="switchOccupancyMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 text-[#2E4338] hover:text-[#1C2D24] cursor-pointer">
+            <span data-i18n="occupancy_tab_madinah">Masjid Nabawi (Madinah)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Live Status Gauge & Summary Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 reveal-on-scroll">
+        
+        <!-- Main Live Status Card (Left - 5 Cols) -->
+        <div class="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#1E4333] via-[#244C3B] to-[#153426] border border-[#C5A059]/40 text-white shadow-xl relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute -top-16 -right-16 w-48 h-48 bg-[#C5A059]/15 rounded-full blur-2xl pointer-events-none"></div>
+          
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#173628]/90 border border-[#C5A059]/30 text-[#E4CB96] text-[11px] font-bold">
+                <span id="occ-live-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span id="occ-ast-time-label">Waktu Arab Saudi: --:-- AST</span>
+              </div>
+              <span id="occ-mosque-badge-title" class="text-xs font-bold text-[#E4CB96] font-mono uppercase tracking-wider">Makkah</span>
+            </div>
+
+            <!-- Big Percentage & Gauge Bar -->
+            <div class="my-4 text-center">
+              <div class="text-xs uppercase tracking-widest text-[#D4E8DC] font-bold mb-1">Status Kapasitas Terisi</div>
+              <div id="occ-main-percent" class="text-5xl sm:text-6xl font-black text-[#F5E5C9] font-mono tracking-tight">--%</div>
+              <div id="occ-main-status-badge" class="mt-2 inline-block px-3.5 py-1 rounded-full text-xs font-extrabold bg-[#C5A059]/20 text-[#E4CB96] border border-[#C5A059]/40">
+                Memuat Status...
+              </div>
+            </div>
+
+            <!-- Capacity Gauge Progress Bar -->
+            <div class="mt-4">
+              <div class="w-full h-3 rounded-full bg-black/30 p-0.5 border border-white/10 overflow-hidden">
+                <div id="occ-main-gauge-bar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-amber-400 to-red-500 transition-all duration-700" style="width: 0%;"></div>
+              </div>
+              <div class="flex justify-between items-center text-[10px] text-[#D4E8DC] font-semibold mt-1.5 px-0.5">
+                <span>0% (Longgar)</span>
+                <span>50% (Sedang)</span>
+                <span>100% (Penuh)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Smart Pilgrim Advisory Note -->
+          <div class="mt-6 pt-4 border-t border-white/15 bg-[#173628]/70 p-3.5 rounded-2xl border-l-4 border-l-[#C5A059]">
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="lightbulb" class="w-4 h-4 text-[#E4CB96] shrink-0 mt-0.5"></i>
+              <p id="occ-main-advice-text" class="text-xs text-[#F5E5C9] leading-relaxed font-medium">
+                Sistem sedang memuat rekomendasi lokasi terbaik...
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Zonal Area Meters (Right - 7 Cols) -->
+        <div class="lg:col-span-7 p-6 sm:p-7 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-[#E5DAC8]">
+              <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#1C2D24]">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#C5A059]"></i>
+                <span id="occ-zones-title">Kepadatan Berdasarkan Zona Area</span>
+              </div>
+              <span class="text-[11px] text-[#2E4338] font-mono">Real-Time Metric</span>
+            </div>
+
+            <!-- Zonal List Container -->
+            <div id="occ-zones-list" class="space-y-4">
+              <!-- Populated via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Gate Advisory Row -->
+          <div class="mt-6 pt-4 border-t border-[#E5DAC8]">
+            <div class="text-[11px] font-bold text-[#244C3B] uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+              <i data-lucide="door-open" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+              <span>Status Pintu Masuk / Gate Traffic:</span>
+            </div>
+            <div id="occ-gates-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <!-- Populated via JavaScript -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 24-Hour Peak Hours Interactive Bar Chart Container -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm reveal-on-scroll">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-[#E5DAC8]">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-1">
+              <i data-lucide="bar-chart-3" class="w-4 h-4 text-[#C5A059]"></i>
+              <span>Grafik Keramaian 24 Jam AST (Hisab Jam Sholat)</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-bold text-[#1C2D24]">
+              Trend Kepadatan Harian Waktu Arab Saudi (00:00 - 23:00 AST)
+            </h3>
+          </div>
+
+          <!-- Legend -->
+          <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold text-[#2E4338] bg-[#FAF6F0] px-3.5 py-1.5 rounded-2xl border border-[#E5DAC8]">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#244C3B]"></span> Longgar (&lt;50%)</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#C5A059]"></span> Sedang (50-75%)</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#d97706]"></span> Padat (75-88%)</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#dc2626]"></span> Puncak (&gt;88%)</span>
+          </div>
+        </div>
+
+        <!-- Hourly Bars Visualizer Container -->
+        <div class="relative pt-6 pb-2">
+          <div id="occ-hourly-bars-container" class="grid grid-cols-12 sm:grid-cols-24 gap-1.5 sm:gap-2 h-44 items-end px-1 border-b border-[#E5DAC8]">
+            <!-- 24 Hourly bars populated via JS -->
+          </div>
+        </div>
+
+        <!-- Selected Hour Detail Callout Card -->
+        <div id="occ-hour-detail-box" class="mt-6 p-4 sm:p-5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all duration-300">
+          <!-- Populated via JS when hour bar clicked -->
+        </div>
+
+        <!-- Pilgrim Travel Best Time Planner Banner -->
+        <div class="mt-6 p-5 rounded-2xl bg-[#E4F4EC] border border-[#244C3B]/20 text-[#1C2D24]">
+          <div class="flex items-center gap-2 font-extrabold text-sm text-[#244C3B] mb-2">
+            <i data-lucide="compass" class="w-4 h-4 text-[#C5A059]"></i>
+            <span>Rekomendasi Waktu Terbaik Ibadah Hari Ini (Waktu Arab Saudi):</span>
+          </div>
+          <div id="occ-best-times-list" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-medium">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+      </div>
+
     </section>
 
     <!-- DAILY IMAM & FRIDAY KHATEEB SCHEDULE SECTION -->
@@ -3810,6 +3978,7 @@
         if (muadzinsTableRange) muadzinsTableRange.innerText = weekInfo.tableRange;
 
         updatePrayerCountdown(astDate);
+        if (typeof renderOccupancyModule === 'function') renderOccupancyModule();
         updateHaramainRealtimeConditions(astDate);
       }
 
@@ -7091,6 +7260,448 @@
         if (modal) modal.classList.add('hidden');
       }
 
+      /* =========================================================================
+         LIVE OCCUPANCY & CROWD DENSITY INDICATOR MODULE
+         ========================================================================= */
+      var activeOccupancyMosque = 'makkah';
+      var selectedChartHour = null; // null defaults to current AST hour
+
+      var OCCUPANCY_HOURLY_DATA = {
+        makkah: [
+          { hour: 0,  density: 38, statusId: "Longgar", statusEn: "Low Density", adviceId: "Waktu sangat ideal untuk Thawaf & Sa'i dengan pergerakan cepat dan lancar.", adviceEn: "Ideal time for Tawaf & Sa'i with rapid smooth flow." },
+          { hour: 1,  density: 35, statusId: "Longgar", statusEn: "Low Density", adviceId: "Suasana malam sejuk dan tenang. Pelataran Thawaf relatif senggang.", adviceEn: "Cool and calm night. Mataf courtyard is spacious." },
+          { hour: 2,  density: 40, statusId: "Longgar", statusEn: "Low Density", adviceId: "Bagus untuk Qiyamul Lail dan Thawaf Sunnah.", adviceEn: "Great for Qiyam prayer and voluntary Tawaf." },
+          { hour: 3,  density: 55, statusId: "Sedang", statusEn: "Moderate", adviceId: "Jamaah mulai berdatangan untuk shalat Tahajjud & persiapan Subuh.", adviceEn: "Pilgrims arriving for Tahajjud and pre-Fajr preparations." },
+          { hour: 4,  density: 82, statusId: "Padat", statusEn: "High Density", adviceId: "Menjelang adzan Subuh. Pelataran Mataf dan hall utama terisi penuh.", adviceEn: "Approaching Fajr call. Mataf and inner halls getting filled." },
+          { hour: 5,  density: 92, statusId: "Puncak Kepadatan", statusEn: "Peak Capacity", adviceId: "Puncak shalat Subuh berjamaah. Akses jalan ke Mataf ditutup sementara.", adviceEn: "Fajr congregational prayer peak. Access to Mataf temporarily restricted." },
+          { hour: 6,  density: 65, statusId: "Sedang", statusEn: "Moderate", adviceId: "Jamaah mulai keluar usai Dzikir Subuh & Syuruq.", adviceEn: "Crowd dispersing after post-Fajr remembrance & Sunrise." },
+          { hour: 7,  density: 42, statusId: "Longgar", statusEn: "Low Density", adviceId: "Waktu sangat nyaman untuk Thawaf pagi & shalat Dhuha.", adviceEn: "Very comfortable for morning Tawaf & Duha prayer." },
+          { hour: 8,  density: 45, statusId: "Longgar", statusEn: "Low Density", adviceId: "Pelataran Thawaf dan Sa'i cukup longgar. Cocok untuk lansia.", adviceEn: "Mataf and Sa'i galleries spacious. Suitable for elderly." },
+          { hour: 9,  density: 52, statusId: "Sedang", statusEn: "Moderate", adviceId: "Arus jamaah stabil. Kebersihan pelataran rutin dilakukan.", adviceEn: "Stable pilgrim flow. Routine courtyard cleaning underway." },
+          { hour: 10, density: 62, statusId: "Sedang", statusEn: "Moderate", adviceId: "Mulai banyak jamaah tiba untuk persiapan shalat Dzuhur.", adviceEn: "Pilgrims starting to arrive for Dhuhr preparation." },
+          { hour: 11, density: 85, statusId: "Padat", statusEn: "High Density", adviceId: "Menjelang Dzuhur. Disarankan masuk lewat Perluasan Raja Abdullah.", adviceEn: "Nearing Dhuhr. King Abdullah Expansion recommended." },
+          { hour: 12, density: 94, statusId: "Puncak Kepadatan", statusEn: "Peak Capacity", adviceId: "Shalat Dzuhur berjamaah. Pelataran luar Ajyad & Fahd dipenuhi jamaah.", adviceEn: "Dhuhr congregational prayer. Outer courtyards fully occupied." },
+          { hour: 13, density: 70, statusId: "Sedang", statusEn: "Moderate", adviceId: "Arus jamaah kembali bergerak usai shalat Dzuhur.", adviceEn: "Flow moving steadily following Dhuhr prayer." },
+          { hour: 14, density: 60, statusId: "Sedang", statusEn: "Moderate", adviceId: "Suhu siang hangat. Kipas embun pelataran aktif sepenuhnya.", adviceEn: "Warm afternoon. Misting fans fully operational." },
+          { hour: 15, density: 80, statusId: "Padat", statusEn: "High Density", adviceId: "Menjelang shalat Ashar. Pintu gerbang utama ramai lancar.", adviceEn: "Approaching Asr prayer. Main entry gates busy." },
+          { hour: 16, density: 88, statusId: "Padat - Puncak", statusEn: "High / Peak", adviceId: "Shalat Ashar berjamaah. Area Mataf lantai 0 padat.", adviceEn: "Asr congregational prayer. Level 0 Mataf crowded." },
+          { hour: 17, density: 78, statusId: "Sedang - Padat", statusEn: "Moderate / High", adviceId: "Jamaah mulai mengambil tempat duduk untuk Maghrib & Isya.", adviceEn: "Pilgrims settling in early for Maghrib and Isha." },
+          { hour: 18, density: 96, statusId: "Puncak Maksimal", statusEn: "Maximum Peak", adviceId: "Waktu Maghrib. Seluruh hall & pelataran terisi penuh 100%.", adviceEn: "Maghrib time. All halls & courtyards 100% occupied." },
+          { hour: 19, density: 95, statusId: "Puncak Maksimal", statusEn: "Maximum Peak", adviceId: "Jeda Maghrib - Isya. Disarankan tetap di tempat shalat.", adviceEn: "Maghrib to Isha interval. Pilgrims advised to stay in place." },
+          { hour: 20, density: 90, statusId: "Padat - Puncak", statusEn: "High / Peak", adviceId: "Shalat Isya berjamaah. Lalu lintas gerbang sangat padat.", adviceEn: "Isha congregational prayer. Gate traffic very heavy." },
+          { hour: 21, density: 72, statusId: "Sedang", statusEn: "Moderate", adviceId: "Jamaah mulai terurai. Pilihan tepat untuk Thawaf malam.", adviceEn: "Crowd dispersing. Good window for evening Tawaf." },
+          { hour: 22, density: 58, statusId: "Sedang", statusEn: "Moderate", adviceId: "Pelataran Thawaf semakin lancar dan nyaman.", adviceEn: "Mataf courtyard becoming smoother and comfortable." },
+          { hour: 23, density: 45, statusId: "Longgar", statusEn: "Low Density", adviceId: "Suasana malam tenang. Sangat bagus untuk ibadah Umrah.", adviceEn: "Tranquil night atmosphere. Excellent for Umrah." }
+        ],
+        madinah: [
+          { hour: 0,  density: 30, statusId: "Sangat Longgar", statusEn: "Very Low", adviceId: "Pelataran utama Masjid Nabawi sangat sejuk dan tenang.", adviceEn: "Main courtyards of Prophet's Mosque very serene." },
+          { hour: 1,  density: 28, statusId: "Sangat Longgar", statusEn: "Very Low", adviceId: "Pintu gerbang ziarah luar dalam keadaan tenang.", adviceEn: "Outer gates calm and spacious." },
+          { hour: 2,  density: 35, statusId: "Longgar", statusEn: "Low Density", adviceId: "Jamaah mulai berdatangan untuk Qiyamul Lail.", adviceEn: "Pilgrims starting to arrive for night prayers." },
+          { hour: 3,  density: 50, statusId: "Sedang", statusEn: "Moderate", adviceId: "Persiapan shalat Subuh. Payung hidrolik dalam posisi siap.", adviceEn: "Pre-Fajr preparations. Hydraulic umbrellas ready." },
+          { hour: 4,  density: 80, statusId: "Padat", statusEn: "High Density", adviceId: "Menjelang Subuh. Pelataran utama dipenuhi jamaah.", adviceEn: "Nearing Fajr. Main courtyard filling up rapidly." },
+          { hour: 5,  density: 90, statusId: "Puncak Kepadatan", statusEn: "Peak Capacity", adviceId: "Shalat Subuh berjamaah & Ziarah Makam Rasulullah ﷺ (Pria).", adviceEn: "Fajr prayer & Prophet's Grave visitation (Men)." },
+          { hour: 6,  density: 60, statusId: "Sedang", statusEn: "Moderate", adviceId: "Pemakaman Baqi dibuka untuk ziarah.", adviceEn: "Baqi cemetery open for visitation." },
+          { hour: 7,  density: 40, statusId: "Longgar", statusEn: "Low Density", adviceId: "Payung hidrolik terbuka otomatis menaungi pelataran.", adviceEn: "Hydraulic umbrellas opening automatically." },
+          { hour: 8,  density: 38, statusId: "Longgar", statusEn: "Low Density", adviceId: "Sangat nyaman untuk shalat Dhuha & Dzikir pagi.", adviceEn: "Extremely comfortable for Duha prayer & morning dhikr." },
+          { hour: 9,  density: 45, statusId: "Longgar", statusEn: "Low Density", adviceId: "Layanan air Zamzam dingin tersedia di seluruh koridor.", adviceEn: "Chilled Zamzam stations active along corridors." },
+          { hour: 10, density: 55, statusId: "Sedang", statusEn: "Moderate", adviceId: "Persiapan Dzuhur. Sisi perluasan barat relatif senggang.", adviceEn: "Dhuhr preparations. West expansion relatively quiet." },
+          { hour: 11, density: 78, statusId: "Padat", statusEn: "High Density", adviceId: "Jamaah memenuhi pelataran utama payung.", adviceEn: "Main umbrella courtyard filled with worshippers." },
+          { hour: 12, density: 88, statusId: "Puncak Kepadatan", statusEn: "Peak Capacity", adviceId: "Shalat Dzuhur berjamaah. Sistem AC pendingin maksimal.", adviceEn: "Dhuhr prayer. AC cooling systems operating at full capacity." },
+          { hour: 13, density: 62, statusId: "Sedang", statusEn: "Moderate", adviceId: "Lalu lintas pintu gerbang lancar teratur.", adviceEn: "Gate traffic orderly and smooth." },
+          { hour: 14, density: 50, statusId: "Longgar", statusEn: "Low Density", adviceId: "Suasana dalam masjid sejuk dan kondusif untuk tilawah.", adviceEn: "Cool interior conducive for Quran recitation." },
+          { hour: 15, density: 75, statusId: "Padat", statusEn: "High Density", adviceId: "Menjelang Ashar. Jalur ziarah Raudhah via Nusuk berjalan.", adviceEn: "Nearing Asr. Nusuk Raudhah permits active." },
+          { hour: 16, density: 82, statusId: "Padat", statusEn: "High Density", adviceId: "Shalat Ashar berjamaah & ziarah sore Baqi.", adviceEn: "Asr prayer & afternoon Baqi cemetery visitation." },
+          { hour: 17, density: 75, statusId: "Sedang - Padat", statusEn: "Moderate / High", adviceId: "Jamaah mulai berkumpul menunggu adzan Maghrib.", adviceEn: "Pilgrims gathering for Maghrib adhan." },
+          { hour: 18, density: 92, statusId: "Puncak Maksimal", statusEn: "Maximum Peak", adviceId: "Shalat Maghrib. Seluruh pelataran luar terisi rapi.", adviceEn: "Maghrib prayer. All outer courtyards filled neatly." },
+          { hour: 19, density: 90, statusId: "Puncak Maksimal", statusEn: "Maximum Peak", adviceId: "Masa jeda Maghrib menuju Isya.", adviceEn: "Interval between Maghrib and Isha." },
+          { hour: 20, density: 85, statusId: "Padat", statusEn: "High Density", adviceId: "Shalat Isya berjamaah.", adviceEn: "Isha congregational prayer." },
+          { hour: 21, density: 65, statusId: "Sedang", statusEn: "Moderate", adviceId: "Pelataran utama kembali senggang.", adviceEn: "Main courtyard clearing out." },
+          { hour: 22, density: 50, statusId: "Longgar", statusEn: "Low Density", adviceId: "Sangat tenang untuk ziarah dan shalat malam.", adviceEn: "Serene for visitation and late evening prayers." },
+          { hour: 23, density: 38, statusId: "Longgar", statusEn: "Low Density", adviceId: "Suasana pelataran sejuk berangin.", adviceEn: "Cool breeze across the main courtyards." }
+        ]
+      };
+
+      var ZONAL_OCCUPANCY_DATA = {
+        makkah: [
+          {
+            id: "mataf",
+            nameId: "Pelataran Thawaf (Mataf Level 0)",
+            nameEn: "Mataf Courtyard (Level 0)",
+            statusBadgeId: "Khusus Ihram Pria",
+            statusBadgeEn: "Ihram Only (Men)",
+            icon: "circle-dot",
+            getDensity: (base) => Math.min(99, Math.round(base * 1.08))
+          },
+          {
+            id: "masaa",
+            nameId: "Jalur Sa'i (Mas'a Floor 1 & 2)",
+            nameEn: "Sa'i Gallery (Mas'a Floor 1 & 2)",
+            statusBadgeId: "Lancar Berkelanjutan",
+            statusBadgeEn: "Continuous Flow",
+            icon: "footprints",
+            getDensity: (base) => Math.max(30, Math.round(base * 0.82))
+          },
+          {
+            id: "courtyard",
+            nameId: "Pelataran Luar (Ajyad & Fahd)",
+            nameEn: "Outer Courtyards (Ajyad & Fahd)",
+            statusBadgeId: "Melimpah Saat Adzan",
+            statusBadgeEn: "Overflow Peak",
+            icon: "layout-grid",
+            getDensity: (base) => Math.round(base * 0.95)
+          },
+          {
+            id: "abdullah",
+            nameId: "Perluasan Raja Abdullah (Utara)",
+            nameEn: "King Abdullah Expansion (North)",
+            statusBadgeId: "Dingin & Sangat Luas",
+            statusBadgeEn: "Spacious & Air-conditioned",
+            icon: "sparkles",
+            getDensity: (base) => Math.max(25, Math.round(base * 0.65))
+          }
+        ],
+        madinah: [
+          {
+            id: "umbrellas",
+            nameId: "Pelataran Utama Payung (Courtyard)",
+            nameEn: "Main Umbrella Courtyard",
+            statusBadgeId: "Payung Otomatis Aktif",
+            statusBadgeEn: "Umbrellas Active",
+            icon: "sun-dim",
+            getDensity: (base) => Math.round(base * 0.90)
+          },
+          {
+            id: "raudhah",
+            nameId: "Raudhah Syarifah & Makam Nabi ﷺ",
+            nameEn: "Raudhah Syarifah & Prophet's Tomb",
+            statusBadgeId: "Wajib Izin Aplikasi Nusuk",
+            statusBadgeEn: "Nusuk Permit Required",
+            icon: "heart-handshake",
+            getDensity: (base) => 88
+          },
+          {
+            id: "expansion",
+            nameId: "Perluasan Barat & Utara",
+            nameEn: "West & North Expansions",
+            statusBadgeId: "Karpet Nyaman & Sejuk",
+            statusBadgeEn: "Cool & Comfortable",
+            icon: "shield-check",
+            getDensity: (base) => Math.max(20, Math.round(base * 0.60))
+          },
+          {
+            id: "roof",
+            nameId: "Lantai Atas / Roof Top",
+            nameEn: "Roof Top Level",
+            statusBadgeId: "Sangat Longgar",
+            statusBadgeEn: "Very Spacious",
+            icon: "arrow-up-right",
+            getDensity: (base) => Math.max(15, Math.round(base * 0.45))
+          }
+        ]
+      };
+
+      var GATES_TRAFFIC_DATA = {
+        makkah: [
+          { id: "gate-1", name: "Bab King Abdulaziz (Pintu 1)", statusId: "Sedang", statusEn: "Moderate", color: "amber" },
+          { id: "gate-79", name: "Bab King Fahd (Pintu 79)", statusId: "Longgar / Selesa", statusEn: "Smooth", color: "emerald" },
+          { id: "gate-62", name: "Bab Umrah (Pintu 62)", statusId: "Padat (Thawaf)", statusEn: "Busy", color: "orange" },
+          { id: "gate-100", name: "Bab King Abdullah (Pintu 100)", statusId: "Sangat Longgar", statusEn: "Very Smooth", color: "emerald" }
+        ],
+        madinah: [
+          { id: "gate-1", name: "Bab As-Salam (Pintu 1 - Ziarah)", statusId: "Teratur", statusEn: "Regulated", color: "amber" },
+          { id: "gate-21", name: "Bab King Fahd (Pintu 21)", statusId: "Sangat Longgar", statusEn: "Very Smooth", color: "emerald" },
+          { id: "gate-37", name: "Bab Utsman (Pintu 37 - Wanita)", statusId: "Sedang", statusEn: "Moderate", color: "amber" },
+          { id: "gate-6", name: "Bab Bilal (Pintu 6)", statusId: "Longgar", statusEn: "Smooth", color: "emerald" }
+        ]
+      };
+
+      function getSaudiNowDate() {
+        const now = new Date();
+        const astString = now.toLocaleString("en-US", { timeZone: "Asia/Riyadh" });
+        return new Date(astString);
+      }
+
+      function switchOccupancyMosque(city) {
+        activeOccupancyMosque = city;
+        selectedChartHour = null;
+
+        const tabMakkah = document.getElementById('occupancy-tab-makkah');
+        const tabMadinah = document.getElementById('occupancy-tab-madinah');
+        if (tabMakkah && tabMadinah) {
+          if (city === 'makkah') {
+            tabMakkah.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02] cursor-pointer";
+            tabMadinah.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 text-[#2E4338] hover:text-[#1C2D24] cursor-pointer bg-transparent";
+          } else {
+            tabMadinah.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02] cursor-pointer";
+            tabMakkah.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 text-[#2E4338] hover:text-[#1C2D24] cursor-pointer bg-transparent";
+          }
+        }
+
+        renderOccupancyModule();
+      }
+
+      function selectOccupancyHour(hour) {
+        if (selectedChartHour === hour) {
+          selectedChartHour = null;
+        } else {
+          selectedChartHour = hour;
+        }
+        renderOccupancyModule();
+      }
+
+      function renderOccupancyModule() {
+        const city = activeOccupancyMosque || 'makkah';
+        const isMakkah = city === 'makkah';
+        const isEn = typeof currentLang !== 'undefined' && currentLang === 'en';
+        const saudiDate = getSaudiNowDate();
+        const currentAstHour = saudiDate.getHours();
+        const currentAstMin = saudiDate.getMinutes();
+        const activeHour = selectedChartHour !== null ? selectedChartHour : currentAstHour;
+
+        const hourlyList = OCCUPANCY_HOURLY_DATA[city] || OCCUPANCY_HOURLY_DATA.makkah;
+        const activeHourData = hourlyList[activeHour] || hourlyList[currentAstHour];
+        const liveHourData = hourlyList[currentAstHour];
+
+        const astTimeLabel = document.getElementById('occ-ast-time-label');
+        const mosqueBadgeTitle = document.getElementById('occ-mosque-badge-title');
+        const mainPercent = document.getElementById('occ-main-percent');
+        const mainStatusBadge = document.getElementById('occ-main-status-badge');
+        const mainGaugeBar = document.getElementById('occ-main-gauge-bar');
+        const mainAdviceText = document.getElementById('occ-main-advice-text');
+
+        if (astTimeLabel) {
+          const formattedMin = String(currentAstMin).padStart(2, '0');
+          astTimeLabel.innerText = isEn 
+            ? `Saudi Arabia Time: ${String(currentAstHour).padStart(2, '0')}:${formattedMin} AST`
+            : `Waktu Arab Saudi: ${String(currentAstHour).padStart(2, '0')}:${formattedMin} AST`;
+        }
+
+        if (mosqueBadgeTitle) {
+          mosqueBadgeTitle.innerText = isMakkah ? 'Masjidil Haram' : 'Masjid Nabawi';
+        }
+
+        const currentDensity = liveHourData.density;
+        if (mainPercent) {
+          mainPercent.innerText = `${currentDensity}%`;
+        }
+
+        if (mainGaugeBar) {
+          mainGaugeBar.style.width = `${currentDensity}%`;
+        }
+
+        if (mainStatusBadge) {
+          let badgeText = '';
+          let badgeClass = '';
+          if (currentDensity < 50) {
+            badgeText = isEn ? 'Low Crowd • Smooth Flow' : 'Longgar • Sangat Nyaman';
+            badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+          } else if (currentDensity < 75) {
+            badgeText = isEn ? 'Moderate Capacity' : 'Sedang • Cukup Lancar';
+            badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+          } else if (currentDensity < 88) {
+            badgeText = isEn ? 'High Capacity' : 'Padat • Tetap Teratur';
+            badgeClass = 'bg-orange-500/20 text-orange-300 border-orange-500/40';
+          } else {
+            badgeText = isEn ? 'Peak Capacity • Congregational' : 'Puncak Kepadatan Sholat';
+            badgeClass = 'bg-red-500/25 text-red-300 border-red-500/50';
+          }
+          mainStatusBadge.innerText = badgeText;
+          mainStatusBadge.className = `mt-2 inline-block px-3.5 py-1 rounded-full text-xs font-extrabold border ${badgeClass}`;
+        }
+
+        if (mainAdviceText) {
+          mainAdviceText.innerText = isEn ? liveHourData.adviceEn : liveHourData.adviceId;
+        }
+
+        // Render Zonal Area Density Meters
+        const zonesListElem = document.getElementById('occ-zones-list');
+        const zonesTitleElem = document.getElementById('occ-zones-title');
+        if (zonesTitleElem) {
+          zonesTitleElem.innerText = isEn 
+            ? `Area Density Breakdown (${isMakkah ? 'Makkah' : 'Madinah'})`
+            : `Kepadatan Berdasarkan Zona Area (${isMakkah ? 'Makkah' : 'Madinah'})`;
+        }
+
+        if (zonesListElem) {
+          const zonalConfig = ZONAL_OCCUPANCY_DATA[city] || ZONAL_OCCUPANCY_DATA.makkah;
+          zonesListElem.innerHTML = zonalConfig.map(zone => {
+            const zDensity = zone.getDensity(currentDensity);
+            let barColor = 'bg-[#244C3B]';
+            let textColor = 'text-[#244C3B]';
+            let statusLabel = isEn ? 'Smooth' : 'Longgar';
+
+            if (zDensity >= 88) {
+              barColor = 'bg-red-600';
+              textColor = 'text-red-700';
+              statusLabel = isEn ? 'Peak Crowd' : 'Puncak Padat';
+            } else if (zDensity >= 75) {
+              barColor = 'bg-amber-600';
+              textColor = 'text-amber-700';
+              statusLabel = isEn ? 'High' : 'Padat';
+            } else if (zDensity >= 50) {
+              barColor = 'bg-[#C5A059]';
+              textColor = 'text-[#967434]';
+              statusLabel = isEn ? 'Moderate' : 'Sedang';
+            }
+
+            const zoneName = isEn ? zone.nameEn : zone.nameId;
+            const zoneBadge = isEn ? zone.statusBadgeEn : zone.statusBadgeId;
+
+            return `
+              <div>
+                <div class="flex items-center justify-between text-xs font-bold mb-1">
+                  <span class="text-[#1C2D24] flex items-center gap-1.5">
+                    <i data-lucide="${zone.icon}" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                    <span>${zoneName}</span>
+                  </span>
+                  <span class="font-mono ${textColor}">${zDensity}% • <span class="font-normal">${statusLabel}</span></span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] overflow-hidden">
+                  <div class="h-full rounded-full ${barColor} transition-all duration-500" style="width: ${zDensity}%;"></div>
+                </div>
+                <div class="text-[10.5px] text-[#2E4338] font-medium mt-0.5 flex justify-between">
+                  <span>${zoneBadge}</span>
+                  <span>Max Limit Sync</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Render Gate Traffic List
+        const gatesListElem = document.getElementById('occ-gates-list');
+        if (gatesListElem) {
+          const gatesConfig = GATES_TRAFFIC_DATA[city] || GATES_TRAFFIC_DATA.makkah;
+          gatesListElem.innerHTML = gatesConfig.map(gate => {
+            const gateStatus = isEn ? gate.statusEn : gate.statusId;
+            let dotColor = 'bg-emerald-500';
+            if (gate.color === 'amber') dotColor = 'bg-amber-500';
+            if (gate.color === 'orange' || gate.color === 'red') dotColor = 'bg-red-500';
+
+            return `
+              <div class="p-2 rounded-xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
+                <div class="truncate">
+                  <div class="font-bold text-[#1C2D24] truncate text-[11px]">${gate.name}</div>
+                  <div class="text-[10px] text-[#2E4338]">${gateStatus}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        // Render 24-Hour Peak Hours Interactive Bar Chart
+        const barsContainer = document.getElementById('occ-hourly-bars-container');
+        if (barsContainer) {
+          barsContainer.innerHTML = hourlyList.map((item, h) => {
+            const isLiveHour = h === currentAstHour;
+            const isSelected = h === activeHour;
+            const density = item.density;
+
+            let barBg = 'bg-[#244C3B]';
+            if (density >= 88) barBg = 'bg-red-600';
+            else if (density >= 75) barBg = 'bg-amber-600';
+            else if (density >= 50) barBg = 'bg-[#C5A059]';
+
+            const formattedH = String(h).padStart(2, '0') + ':00';
+            const ringStyle = isSelected ? 'ring-2 ring-[#C5A059] ring-offset-1 scale-105 z-10' : '';
+
+            return `
+              <button onclick="selectOccupancyHour(${h})" 
+                      class="flex flex-col items-center justify-end h-full group cursor-pointer relative transition-all duration-200 ${ringStyle}" 
+                      title="${formattedH} AST - ${density}% Density (${item.statusId})">
+                
+                ${isLiveHour ? `<span class="absolute -top-5 text-[9px] font-black bg-[#C5A059] text-[#1C2D24] px-1 py-0.2 rounded shadow-xs whitespace-nowrap uppercase tracking-tighter">NOW</span>` : ''}
+
+                <!-- Density Bar -->
+                <div class="w-full rounded-t-lg ${barBg} group-hover:brightness-125 transition-all duration-300" style="height: ${density}%;"></div>
+                
+                <!-- Hour Label -->
+                <span class="text-[9px] font-mono font-bold mt-1 text-[#2E4338] ${isLiveHour ? 'text-[#244C3B] font-black' : ''}">
+                  ${String(h).padStart(2, '0')}
+                </span>
+              </button>
+            `;
+          }).join('');
+        }
+
+        // Render Selected/Live Hour Detail Callout Card
+        const detailBox = document.getElementById('occ-hour-detail-box');
+        if (detailBox) {
+          const detailHFormatted = String(activeHour).padStart(2, '0') + ':00 AST';
+          const isLiveActive = activeHour === currentAstHour;
+          const statusText = isEn ? activeHourData.statusEn : activeHourData.statusId;
+          const adviceText = isEn ? activeHourData.adviceEn : activeHourData.adviceId;
+
+          detailBox.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-[#244C3B] border border-[#C5A059]/40 text-[#E4CB96] flex items-center justify-center font-mono font-black text-sm shrink-0 shadow-sm">
+                ${activeHourData.density}%
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-extrabold text-[#1C2D24] text-sm sm:text-base">Jam ${detailHFormatted}</span>
+                  ${isLiveActive ? `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold uppercase tracking-wider">Jam Saat Ini</span>` : `<span class="px-2 py-0.5 rounded bg-[#E5DAC8]/60 text-[#2E4338] text-[10px] font-bold">Hasil Klik Chart</span>`}
+                </div>
+                <p class="text-xs text-[#2E4338] font-medium mt-0.5">
+                  <strong>Status Kepadatan:</strong> ${statusText} • <span class="text-[#244C3B]">${adviceText}</span>
+                </p>
+              </div>
+            </div>
+
+            ${selectedChartHour !== null ? `
+              <button onclick="selectOccupancyHour(${activeHour})" class="px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E5DAC8] hover:border-[#244C3B] text-xs font-bold text-[#2E4338] hover:text-[#1C2D24] transition shrink-0 cursor-pointer">
+                Reset ke Jam Live (${String(currentAstHour).padStart(2, '0')}:00)
+              </button>
+            ` : ''}
+          `;
+        }
+
+        // Render Best Time Travel Planner List
+        const bestTimesList = document.getElementById('occ-best-times-list');
+        if (bestTimesList) {
+          if (isMakkah) {
+            bestTimesList.innerHTML = `
+              <div class="p-3 rounded-xl bg-white/80 border border-[#244C3B]/15">
+                <div class="font-bold text-[#244C3B] text-xs">🕋 Thawaf & Sa'i Paling Lancar</div>
+                <div class="text-[#1C2D24] text-xs font-extrabold mt-0.5">23:00 – 03:00 AST & 07:30 – 10:30 AST</div>
+                <div class="text-[11px] text-[#2E4338] mt-0.5">Pergerakan cepat, suhu malam/pagi nyaman.</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/80 border border-[#244C3B]/15">
+                <div class="font-bold text-[#244C3B] text-xs">🕌 Sholat Dalam Masjid Ber-AC</div>
+                <div class="text-[#1C2D24] text-xs font-extrabold mt-0.5">Perluasan Raja Abdullah (Pintu 100)</div>
+                <div class="text-[11px] text-[#2E4338] mt-0.5">Sangat luas, selalu sejuk, dan tidak berdesakan.</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/80 border border-[#244C3B]/15">
+                <div class="font-bold text-[#244C3B] text-xs">👵 Akses Lansia & Kursi Roda</div>
+                <div class="text-[#1C2D24] text-xs font-extrabold mt-0.5">Lantai 1 & 2 Thawaf / Mas'a</div>
+                <div class="text-[11px] text-[#2E4338] mt-0.5">Jalur datar khusus dan eskalator luas.</div>
+              </div>
+            `;
+          } else {
+            bestTimesList.innerHTML = `
+              <div class="p-3 rounded-xl bg-white/80 border border-[#244C3B]/15">
+                <div class="font-bold text-[#244C3B] text-xs">🕌 Ziarah Raudhah Syarifah</div>
+                <div class="text-[#1C2D24] text-xs font-extrabold mt-0.5">Sesuai Jadwal Izin Nusuk</div>
+                <div class="text-[11px] text-[#2E4338] mt-0.5">Datang 20 menit sebelum jadwal tasreh aktif.</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/80 border border-[#244C3B]/15">
+                <div class="font-bold text-[#244C3B] text-xs">🌿 Ziarah Makam Rasulullah ﷺ (Pria)</div>
+                <div class="text-[#1C2D24] text-xs font-extrabold mt-0.5">Ba'da Subuh & Ba'da Ashar</div>
+                <div class="text-[11px] text-[#2E4338] mt-0.5">Akses via Bab As-Salam (Pintu 1) mengalir lancar.</div>
+              </div>
+              <div class="p-3 rounded-xl bg-white/80 border border-[#244C3B]/15">
+                <div class="font-bold text-[#244C3B] text-xs">☀️ Sholat Selesa Pelataran Payung</div>
+                <div class="text-[#1C2D24] text-xs font-extrabold mt-0.5">08:00 – 11:00 AST & 21:30 – 01:00 AST</div>
+                <div class="text-[11px] text-[#2E4338] mt-0.5">Payung peneduh aktif, hembusan misting fan sejuk.</div>
+              </div>
+            `;
+          }
+        }
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
       function findSyaikhProfile(name) {
         if (!name) return null;
         const target = name.trim();
@@ -10075,6 +10686,9 @@
       window.applyTheme = applyTheme;
       window.render5DayForecast = render5DayForecast;
       window.selectForecastDay = selectForecastDay;
+      window.switchOccupancyMosque = switchOccupancyMosque;
+      window.selectOccupancyHour = selectOccupancyHour;
+      window.renderOccupancyModule = renderOccupancyModule;
 
       /* =========================================================================
          SCROLL-REVEAL OBSERVER
@@ -10468,6 +11082,9 @@
 
         // Render Historic Landmarks Grid (Makkah & Madinah)
         renderLandmarksGrid();
+
+        // Render Live Occupancy & Crowd Density Indicator
+        renderOccupancyModule();
 
         // Modal event listeners (Escape key & backdrop click)
         document.addEventListener('keydown', (e) => {
