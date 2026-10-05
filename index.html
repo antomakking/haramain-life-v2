@@ -3304,6 +3304,140 @@
         return String(num).replace(/\d/g, d => arabicDigits[d]);
       }
 
+      const HIJRI_MONTH_NAMES = {
+        id: [
+          "",
+          "Muharram",
+          "Safar",
+          "Rabi'ul Awwal",
+          "Rabi'ul Akhir",
+          "Jumadil Awwal",
+          "Jumadil Akhir",
+          "Rajab",
+          "Sya'ban",
+          "Ramadhan",
+          "Syawwal",
+          "Dzulqa'dah",
+          "Dzulhijjah"
+        ],
+        en: [
+          "",
+          "Muharram",
+          "Safar",
+          "Rabi' al-Awwal",
+          "Rabi' al-Thani",
+          "Jumada al-Awwal",
+          "Jumada al-Thani",
+          "Rajab",
+          "Sha'ban",
+          "Ramadan",
+          "Shawwal",
+          "Dhu al-Qi'dah",
+          "Dhu al-Hijjah"
+        ],
+        ar: [
+          "",
+          "محرم",
+          "صفر",
+          "ربيع الأول",
+          "ربيع الآخر",
+          "جمادى الأولى",
+          "جمادى الآخرة",
+          "رجب",
+          "شعبان",
+          "رمضان",
+          "شوال",
+          "ذو القعدة",
+          "ذو الحجة"
+        ]
+      };
+
+      /**
+       * Konverter Tanggal Hijriah Presisi Tinggi
+       * Menggunakan penanggalan numeric Intl.DateTimeFormat 'en-u-ca-islamic-umalqura'
+       * untuk memutus risiko bug ICU pada HP Android/iOS WebView yang sering kali memunculkan bulan Masehi (seperti "April").
+       */
+      function getHijriDateParts(dateObj, lang = 'id') {
+        let hijriDay = 0;
+        let hijriMonthNum = 0;
+        let hijriYear = 0;
+
+        try {
+          // Format dengan 'numeric' agar Intl mengembalikan angka murni untuk day, month, dan year
+          const numericFormatter = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+            timeZone: 'Asia/Riyadh',
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric'
+          });
+          const parts = numericFormatter.formatToParts(dateObj);
+          for (const p of parts) {
+            if (p.type === 'day') hijriDay = parseInt(p.value, 10);
+            if (p.type === 'month') hijriMonthNum = parseInt(p.value, 10);
+            if (p.type === 'year') hijriYear = parseInt(p.value, 10);
+          }
+        } catch (e) {
+          hijriDay = 0;
+        }
+
+        // Fallback jika browser seluler gagal memproses numeric Intl
+        if (!hijriDay || !hijriMonthNum || hijriMonthNum < 1 || hijriMonthNum > 12 || !hijriYear) {
+          const calculated = calculateHijriAstronomical(dateObj);
+          hijriDay = calculated.day;
+          hijriMonthNum = calculated.month;
+          hijriYear = calculated.year;
+        }
+
+        const currentArray = HIJRI_MONTH_NAMES[lang] || HIJRI_MONTH_NAMES['id'];
+        const monthName = currentArray[hijriMonthNum] || HIJRI_MONTH_NAMES['id'][hijriMonthNum] || "Rabi'ul Akhir";
+
+        return {
+          day: hijriDay,
+          monthNum: hijriMonthNum,
+          monthName: monthName,
+          year: hijriYear,
+          formatted: `${hijriDay} ${monthName} ${hijriYear} ${lang === 'en' ? 'AH' : 'H'}`
+        };
+      }
+
+      function calculateHijriAstronomical(date) {
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        let m = month + 1;
+        let y = year;
+        if (m < 3) {
+          y -= 1;
+          m += 12;
+        }
+
+        let a = Math.floor(y / 100);
+        let b = 2 - a + Math.floor(a / 4);
+        if (y < 1583) b = 0;
+
+        let jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524.5;
+        let z = Math.floor(jd + 0.5);
+        let i = Math.floor((z - 1867216.25) / 36524.25);
+        let aa = z + 1 + i - Math.floor(i / 4);
+
+        let bb = aa + 1524;
+        let cc = Math.floor((bb - 122.1) / 365.25);
+        let dd = Math.floor(365.25 * cc);
+        let ee = Math.floor((bb - dd) / 30.6001);
+
+        let l = z - 1948440 + 10632;
+        let n = Math.floor((l - 1) / 10631);
+        l = l - 10631 * n + 354;
+        let j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+        l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+        let monthH = Math.floor((24 * l) / 709);
+        let dayH = l - Math.floor((709 * monthH) / 24);
+        let yearH = 30 * n + j - 30;
+
+        return { day: dayH, month: monthH, year: yearH };
+      }
+
       function getRealtimeHijriWeekInfo(lang = (typeof currentLang !== 'undefined' ? currentLang : 'id')) {
         const now = new Date();
         const astString = now.toLocaleString("en-US", { timeZone: "Asia/Riyadh" });
@@ -3314,53 +3448,15 @@
         const dayNamesId = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         const dayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-        const locale = lang === 'en' ? 'en-u-ca-islamic-umalqura' : 'id-u-ca-islamic-umalqura';
-        let hijriFormatter;
-        try {
-          hijriFormatter = new Intl.DateTimeFormat(locale, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            timeZone: 'Asia/Riyadh'
-          });
-        } catch (e) {
-          hijriFormatter = null;
-        }
-
         const weekDays = [];
         for (let i = 0; i < 7; i++) {
           const d = new Date(astDate);
           d.setDate(astDate.getDate() - dayOfWeek + i);
           
-          let hijriDay = '';
-          let hijriMonth = '';
-          let hijriYear = '';
-          if (hijriFormatter) {
-            try {
-              const parts = hijriFormatter.formatToParts(d);
-              for (const p of parts) {
-                if (p.type === 'day') hijriDay = p.value;
-                if (p.type === 'month') hijriMonth = p.value;
-                if (p.type === 'year') hijriYear = p.value;
-              }
-            } catch (e) {
-              hijriDay = String(d.getDate());
-              hijriMonth = lang === 'en' ? "Rabiʻ II" : "Rabi'ul Akhir";
-              hijriYear = "1448";
-            }
-          } else {
-            hijriDay = String(d.getDate());
-            hijriMonth = lang === 'en' ? "Rabiʻ II" : "Rabi'ul Akhir";
-            hijriYear = "1448";
-          }
-
-          if (lang === 'id') {
-            hijriMonth = hijriMonth
-              .replace('Rabiulakhir', "Rabi'ul Akhir")
-              .replace('Rabiulawal', "Rabi'ul Awwal")
-              .replace('Jumadilakhir', "Jumadil Akhir")
-              .replace('Jumadilawal', "Jumadil Awwal");
-          }
+          const hParts = getHijriDateParts(d, lang);
+          const hijriDay = hParts.day;
+          const hijriMonth = hParts.monthName;
+          const hijriYear = hParts.year;
 
           const shortLabel = `${hijriDay} ${hijriMonth}`;
           const fullDate = lang === 'en'
@@ -3583,21 +3679,9 @@
         const gregorianLocale = currentLang === 'en' ? 'en-US' : 'id-ID';
         const gregorianStr = now.toLocaleDateString(gregorianLocale, gregorianOptions);
 
-        // Hijri Conversion using Intl Umm Al-Qura API with reliable astronomical fallback
-        let hijriStr = "";
-        try {
-          const hijriLocale = currentLang === 'en' ? 'en-u-ca-islamic-umalqura' : 'id-u-ca-islamic-umalqura';
-          const hijriFormatter = new Intl.DateTimeFormat(hijriLocale, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            timeZone: 'Asia/Riyadh'
-          });
-          const suffix = currentLang === 'en' ? ' AH' : ' H';
-          hijriStr = hijriFormatter.format(now) + suffix;
-        } catch (e) {
-          hijriStr = currentLang === 'en' ? "8 Rabi' al-Awwal 1448 AH" : "8 Rabi'ul Awwal 1448 H";
-        }
+        // Hijri Conversion using getHijriDateParts for 100% mobile browser accuracy
+        const hNowParts = getHijriDateParts(now, currentLang);
+        const hijriStr = hNowParts.formatted;
 
         const mTime = document.getElementById('makkah-time');
         if (mTime) {
