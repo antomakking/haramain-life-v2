@@ -230,7 +230,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap">
     </noscript>
 
-    <!-- Early Theme Detection to prevent flicker -->
+    <!-- Early Theme Detection & PWA Install Interceptor -->
     <script>
       (function() {
         try {
@@ -245,6 +245,60 @@
           document.documentElement.classList.remove('dark');
         }
       })();
+
+      // Early PWA Install Handler (Guarantees triggerPWAInstall is always available)
+      window._deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        window._deferredPrompt = e;
+        var btn = document.getElementById('pwa-install-btn');
+        if (btn) btn.classList.remove('hidden');
+        var menuBtn = document.getElementById('menu-pwa-install-btn');
+        if (menuBtn) menuBtn.classList.remove('hidden');
+      });
+
+      window.triggerPWAInstall = function() {
+        if (window._pwaModule && typeof window._pwaModule.triggerPWAInstall === 'function') {
+          return window._pwaModule.triggerPWAInstall();
+        }
+        if (window._deferredPrompt) {
+          return window._deferredPrompt.prompt().then(function(choice) {
+            if (choice && choice.outcome === 'accepted') {
+              window._deferredPrompt = null;
+              var btn = document.getElementById('pwa-install-btn');
+              if (btn) btn.classList.add('hidden');
+              var menuBtn = document.getElementById('menu-pwa-install-btn');
+              if (menuBtn) menuBtn.classList.add('hidden');
+            }
+            return choice && choice.outcome === 'accepted';
+          });
+        }
+        var isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+        var iosModal = document.getElementById('pwa-ios-modal');
+        if (isIOS && iosModal) {
+          iosModal.classList.remove('hidden');
+          return false;
+        }
+        var toast = document.getElementById('pwa-toast');
+        if (toast) {
+          toast.classList.remove('translate-y-[-20px]', 'opacity-0');
+          toast.classList.add('translate-y-0', 'opacity-100');
+          setTimeout(function() {
+            toast.classList.add('translate-y-[-20px]', 'opacity-0');
+            toast.classList.remove('translate-y-0', 'opacity-100');
+          }, 3500);
+        } else {
+          var notice = document.createElement('div');
+          notice.id = 'pwa-toast';
+          notice.className = 'fixed top-20 right-4 z-[9999] max-w-md px-4 py-3 rounded-2xl bg-[#244C3B] text-white text-xs font-bold shadow-2xl border border-[#C5A059]/40 flex items-center gap-3 transition-all duration-300';
+          notice.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#C5A059] animate-ping shrink-0"></span><span>Aplikasi sudah terpasang atau gunakan opsi Tambahkan ke Layar Utama di peramban Anda.</span>';
+          document.body.appendChild(notice);
+          setTimeout(function() {
+            if (notice && notice.parentNode) notice.parentNode.removeChild(notice);
+          }, 3500);
+        }
+        return false;
+      };
     </script>
 
     <!-- Compiled Tailwind CSS Bundle via Vite -->
@@ -1031,6 +1085,23 @@
                 <button onclick="setLanguage('en')" id="mobile-lang-en" class="flex-1 py-1 text-center text-xs font-bold rounded-lg text-[#2E4338] dark:text-[#9CA3AF]">EN</button>
               </div>
             </div>
+
+            <!-- Simple, Non-Intrusive PWA 'Install App' Button in Mobile Menu Component -->
+            <button id="menu-pwa-install-btn" onclick="toggleMobileMenu(false); triggerPWAInstall()" class="w-full flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-[#244C3B] to-[#1E4333] hover:from-[#1E4333] hover:to-[#173628] border border-[#C5A059]/50 text-white transition-all duration-200 shadow-xs group cursor-pointer" title="Instal Aplikasi HaramainLife di HP" aria-label="Instal Aplikasi">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-7 h-7 rounded-lg bg-white/15 dark:bg-black/25 flex items-center justify-center text-[#E4CB96] group-hover:scale-110 transition-transform shrink-0">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                </div>
+                <div class="text-left min-w-0">
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5 whitespace-nowrap">
+                    <span data-i18n="menu_install_app">Instal Aplikasi</span>
+                    <span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#C5A059] text-[#143023]">PWA</span>
+                  </div>
+                  <div class="text-[10px] text-[#E4CB96]/90 truncate" data-i18n="menu_install_app_sub">Akses Cepat & Luring di Arab Saudi</div>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-[#C5A059] group-hover:translate-x-0.5 transition-transform shrink-0"></i>
+            </button>
 
             <a href="#live-streams" onclick="toggleMobileMenu(false); switchStream('makkah')" class="flex items-center justify-center gap-2 w-full py-2 px-3 rounded-xl bg-[#244C3B] text-white text-xs font-bold hover:bg-[#1E4333] transition">
               <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
@@ -2920,6 +2991,8 @@
           nav_landmarks_full: "Situs Bersejarah & Ziarah",
           nav_trend_full: "Trend Keramaian Mingguan",
           quick_tools_title: "Pengaturan & Alat Cepat",
+          menu_install_app: "Instal Aplikasi",
+          menu_install_app_sub: "Akses Cepat & Luring di Arab Saudi",
           nav_stream_1: "Siaran",
           nav_stream_2: "Langsung",
           nav_prayer_1: "Jadwal",
@@ -3092,6 +3165,8 @@
           nav_landmarks_full: "Historic & Pilgrimage Sites",
           nav_trend_full: "Weekly Crowd Trend",
           quick_tools_title: "Quick Settings & Tools",
+          menu_install_app: "Install App",
+          menu_install_app_sub: "Fast & Offline Holy Sanctuaries Guide",
           nav_stream_1: "Live",
           nav_stream_2: "Streams",
           nav_prayer_1: "Prayer",
@@ -12026,5 +12101,7 @@
       </div>
     </div>
 
+    <!-- React Application Entry Point (Umrah Manasik Estimator & Crowd Trends) -->
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

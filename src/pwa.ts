@@ -5,7 +5,8 @@ export interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>;
 }
 
-let deferredPrompt: BeforeInstallPromptEvent | null = null;
+let deferredPrompt: BeforeInstallPromptEvent | null =
+  (typeof window !== 'undefined' && (window as unknown as { _deferredPrompt?: BeforeInstallPromptEvent })._deferredPrompt) || null;
 
 export function initPWA() {
   // Register Service Worker via vite-plugin-pwa
@@ -28,11 +29,13 @@ export function initPWA() {
   window.addEventListener('beforeinstallprompt', (e: Event) => {
     e.preventDefault();
     deferredPrompt = e as BeforeInstallPromptEvent;
+    (window as unknown as { _deferredPrompt?: BeforeInstallPromptEvent })._deferredPrompt = deferredPrompt;
     updateInstallUI(true);
   });
 
   window.addEventListener('appinstalled', () => {
     deferredPrompt = null;
+    (window as unknown as { _deferredPrompt?: BeforeInstallPromptEvent | null })._deferredPrompt = null;
     updateInstallUI(false);
     showToast('Aplikasi HaramainLife berhasil terinstal di perangkat Anda!');
   });
@@ -79,6 +82,7 @@ export async function triggerPWAInstall(): Promise<boolean> {
 function updateInstallUI(show: boolean) {
   const installBtn = document.getElementById('pwa-install-btn');
   const installBanner = document.getElementById('pwa-install-banner');
+  const menuInstallBtn = document.getElementById('menu-pwa-install-btn');
   
   const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
   const isStandalone =
@@ -88,7 +92,13 @@ function updateInstallUI(show: boolean) {
   if (isStandalone) {
     if (installBtn) installBtn.classList.add('hidden');
     if (installBanner) installBanner.classList.add('hidden');
+    if (menuInstallBtn) menuInstallBtn.classList.add('hidden');
     return;
+  }
+
+  // Keep menu install button visible in Menu drawer for mobile users unless already installed
+  if (menuInstallBtn) {
+    menuInstallBtn.classList.remove('hidden');
   }
 
   if (show || isIOS) {
@@ -160,5 +170,6 @@ function setupIOSInstallModal() {
 // Auto initialize PWA service worker
 if (typeof window !== 'undefined') {
   initPWA();
-  (window as unknown as { triggerPWAInstall: typeof triggerPWAInstall }).triggerPWAInstall = triggerPWAInstall;
+  (window as unknown as { triggerPWAInstall: typeof triggerPWAInstall; _pwaModule?: { triggerPWAInstall: typeof triggerPWAInstall } }).triggerPWAInstall = triggerPWAInstall;
+  (window as unknown as { _pwaModule?: { triggerPWAInstall: typeof triggerPWAInstall } })._pwaModule = { triggerPWAInstall };
 }
