@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+const fs = require('fs');
+const path = require('path');
+const sharp = require('sharp');
+
+// 1. Master SVG: High-fidelity, perfectly balanced, eye-catching emblem of Haramain Life
+// Featuring:
+// - Outer Deep Imperial Emerald Green medallion with radiant dual gold filigree borders
+// - Islamic 8-point golden stars (Rub El Hizb) flanking the top arc
+// - Perfectly centered curved typography "HARAMAIN LIFE" on top
+// - Centered bottom arc "MAKKAH • MADINAH" with gold stars
+// - Soft ambient celestial radiance in the inner sanctuary
+// - Majestic Holy Ka'bah with 3D depth, lustrous Gold Kiswah calligraphy band, Golden Door (Bab Ka'bah), and white marble Syadzarwan
+// - Iconic Prophet's Mosque Green Dome (Kubah Hijau) with golden crescent finial and authentic ribbed contour
+// - Noble soaring minarets with golden crescents reaching the heavens
+const masterSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     
     
@@ -264,4 +278,71 @@
     
     <path d="M 40,412 C 140,432 372,432 472,412 L 472,480 L 40,480 Z" fill="url(#emeraldRim)" opacity="0.3"/>
   </g>
-</svg>
+</svg>`;
+
+// 2. Maskable version with safe zone margin (80% scale centered on dark green background #0E3521)
+const maskableSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  
+  <rect width="512" height="512" fill="#0E3521"/>
+  
+  <g transform="translate(51.2, 51.2) scale(0.8)">
+    ${masterSvg.replace(/<svg[^>]*>|<\/svg>/g, '')}
+  </g>
+</svg>`;
+
+async function main() {
+  const publicDir = path.resolve(__dirname, '../public');
+  const distDir = path.resolve(__dirname, '../dist');
+  
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+
+  // Save SVGs in public
+  fs.writeFileSync(path.join(publicDir, 'icon.svg'), masterSvg.trim(), 'utf8');
+  fs.writeFileSync(path.join(publicDir, 'favicon.svg'), masterSvg.trim(), 'utf8');
+  console.log('Saved public/icon.svg and public/favicon.svg');
+
+  // Also save in dist if dist exists
+  if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, 'icon.svg'), masterSvg.trim(), 'utf8');
+    fs.writeFileSync(path.join(distDir, 'favicon.svg'), masterSvg.trim(), 'utf8');
+    console.log('Saved dist/icon.svg and dist/favicon.svg');
+  }
+
+  const svgBuffer = Buffer.from(masterSvg);
+  const maskableSvgBuffer = Buffer.from(maskableSvg);
+
+  // Generate PNGs with high quality Lanczos3 filtering
+  const targets = [
+    { file: 'pwa-512x512.png', size: 512, input: svgBuffer },
+    { file: 'pwa-192x192.png', size: 192, input: svgBuffer },
+    { file: 'apple-touch-icon.png', size: 180, input: svgBuffer },
+    { file: 'favicon-32x32.png', size: 32, input: svgBuffer },
+    { file: 'favicon-16x16.png', size: 16, input: svgBuffer },
+    { file: 'favicon.ico', size: 48, input: svgBuffer },
+    { file: 'pwa-maskable-512x512.png', size: 512, input: maskableSvgBuffer },
+  ];
+
+  for (const t of targets) {
+    const outPath = path.join(publicDir, t.file);
+    await sharp(t.input)
+      .resize(t.size, t.size, { kernel: sharp.kernel.lanczos3 })
+      .png({ quality: 100, compressionLevel: 9 })
+      .toFile(outPath);
+    console.log(`Generated public/${t.file} (${t.size}x${t.size})`);
+
+    if (fs.existsSync(distDir)) {
+      const distOutPath = path.join(distDir, t.file);
+      fs.copyFileSync(outPath, distOutPath);
+    }
+  }
+
+  console.log('All icons successfully created and synchronized!');
+}
+
+main().catch(err => {
+  console.error('Generation failed:', err);
+  process.exit(1);
+});
+

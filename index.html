@@ -9,9 +9,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="HaramainLife" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/pwa-512x512.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <!-- Advanced Security & Hardening Meta Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
@@ -779,9 +784,9 @@
         <div class="flex items-center justify-between h-16 sm:h-20 gap-1.5 sm:gap-3">
           
           <!-- Brand Logo & Identity -->
-          <a href="#" class="flex items-center gap-2 sm:gap-3.5 group shrink min-w-0">
-            <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-xl sm:rounded-2xl bg-[#244C3B] flex items-center justify-center shadow-md shadow-[#244C3B]/20 shrink-0 group-hover:scale-105 transition-transform duration-300">
-              <i data-lucide="compass" class="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5 text-[#E4CB96] stroke-[2.2]"></i>
+          <a href="#" class="flex items-center gap-2 sm:gap-3.5 group shrink min-w-0" aria-label="Haramain Life Beranda">
+            <div class="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full p-[2px] bg-gradient-to-tr from-[#9C7730] via-[#FDF2C7] to-[#C5A059] shadow-md shadow-[#0E3521]/25 shrink-0 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#C5A059]/30 transition-all duration-300 flex items-center justify-center ring-2 ring-[#1E5E3D]/30 dark:ring-[#C5A059]/40 overflow-hidden">
+              <img src="/icon.svg" alt="Haramain Life" class="w-full h-full rounded-full object-cover block" width="48" height="48" />
             </div>
             <div class="shrink min-w-0 flex flex-col justify-center">
               <div class="flex items-center gap-1 sm:gap-2 whitespace-nowrap">
@@ -909,8 +914,8 @@
         <!-- Drawer Header -->
         <div class="px-4 sm:px-5 py-3.5 sm:py-4 border-b border-[#E5DAC8] dark:border-[#244C3B] flex items-center justify-between bg-[#FFFFFF] dark:bg-[#173628] shrink-0">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-[#244C3B] flex items-center justify-center shadow-sm shrink-0">
-              <i data-lucide="compass" class="w-5 h-5 text-[#E4CB96]"></i>
+            <div class="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-[#9C7730] via-[#FDF2C7] to-[#C5A059] shadow-md shadow-[#0E3521]/25 shrink-0 flex items-center justify-center ring-2 ring-[#1E5E3D]/30 dark:ring-[#C5A059]/40 overflow-hidden">
+              <img src="/icon.svg" alt="Haramain Life" class="w-full h-full rounded-full object-cover block" width="40" height="40" />
             </div>
             <div>
               <span class="font-extrabold text-base tracking-tight text-[#1C2D24] dark:text-white font-sans">Haramain<span class="text-[#244C3B] dark:text-[#E4CB96]">Life</span></span>
@@ -2427,12 +2432,12 @@
     <footer class="bg-[#1C2D24] border-t border-[#244C3B] py-12 px-4 sm:px-6 lg:px-8 text-xs text-[#A1B3AA]">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 reveal-on-scroll">
         
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-[#244C3B] border border-[#C5A059]/40 flex items-center justify-center text-[#E4CB96] shadow-sm">
-            <i data-lucide="moon-star" class="w-5 h-5"></i>
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#9C7730] via-[#FDF2C7] to-[#C5A059] shadow-md shadow-black/40 flex items-center justify-center shrink-0 ring-1 ring-[#C5A059]/50 overflow-hidden">
+            <img src="/icon.svg" alt="Haramain Life" class="w-full h-full rounded-full object-cover block" width="44" height="44" />
           </div>
           <div>
-            <p class="font-serif font-bold text-sm text-[#F5E5C9]">haramainlife.com</p>
+            <p class="font-sans font-extrabold text-sm text-[#F5E5C9] tracking-tight">Haramain<span class="text-[#E4CB96]">Life</span></p>
             <p class="text-[11px] text-[#A1B3AA]" data-i18n="footer_dedication">Didedikasikan untuk melayani para jamaah haji, umrah, dan pencinta Dua Tanah Suci di seluruh penjuru dunia.</p>
           </div>
         </div>
