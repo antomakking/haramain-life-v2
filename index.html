@@ -1359,6 +1359,9 @@
                 <div id="makkah-5day-gear-box" class="mt-2.5 p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] transition-all duration-300 shadow-sm">
                   <!-- Populated dynamically by JS -->
                 </div>
+
+                <!-- Recharts 5-Day Weather Trend Visualization (Temperature Curve & Humidity) -->
+                <div id="makkah-weather-trend-root" class="mt-2.5"></div>
               </div>
             </div>
           </div>
@@ -1560,11 +1563,17 @@
                 <div id="madinah-5day-gear-box" class="mt-2.5 p-2.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] transition-all duration-300 shadow-sm">
                   <!-- Populated dynamically by JS -->
                 </div>
+
+                <!-- Recharts 5-Day Weather Trend Visualization (Temperature Curve & Humidity) -->
+                <div id="madinah-weather-trend-root" class="mt-2.5"></div>
               </div>
             </div>
           </div>
 
         </div>
+
+        <!-- Comprehensive 5-Day Daily Weather Trend Visualization (Recharts) -->
+        <div id="weather-trend-chart-root" class="mt-8"></div>
 
       </div>
     </section>
@@ -3379,7 +3388,7 @@
 
       let currentStream = 'makkah';
 
-      // Friday Khateeb & Imam schedule (Pekan: 16 - 22 Rabi'ul Akhir 1448 H / 1448 AH)
+      // Friday Khateeb & Imam schedule (Pekan: 23 - 29 Rabi'ul Akhir 1448 H / 1448 AH)
       const fridayKhatibData = {
         makkah: {
           mosqueName: {
@@ -3387,16 +3396,16 @@
             en: "Masjidil Haram • Makkah Al-Mukarramah"
           },
           hijriDate: {
-            id: "21 Rabi'ul Akhir 1448 H",
-            en: "21 Rabi' al-Akhir 1448 AH",
-            arabic: "٢١ ربيع الآخر ١٤٤٨ هـ"
+            id: "28 Rabi'ul Akhir 1448 H",
+            en: "28 Rabi' al-Akhir 1448 AH",
+            arabic: "٢٨ ربيع الآخر ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد الحرام",
           khateebTitleArabic: "إمام وخطيب المسجد الحرام",
-          khateebHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          khateebName: "Syekh Prof. Dr. Abdullah bin Awad Al-Juhany",
-          khateebArabic: "عبدالله بن عواد الجهني",
-          khateebFullArabic: "فضيلة الشيخ الأستاذ الدكتور / عبدالله بن عواد الجهني",
+          khateebHonorific: "فضيلة الشيخ الدكتور",
+          khateebName: "Syekh Dr. Usamah bin Abdullah Khayyath",
+          khateebArabic: "أسامة بن عبدالله خياط",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / أسامة بن عبدالله خياط",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
@@ -3406,17 +3415,17 @@
             en: "Official Imam & Khateeb of Masjidil Haram"
           },
           bio: {
-            id: "Guru Besar Qira'at Umm Al-Qura, qari terkemuka dunia Islam dengan kefasihan khutbah mendalam dan keindahan tilawah yang menggetarkan jutaan jamaah di hadapan Ka'bah.",
-            en: "Professor of Qira'at at Umm Al-Qura University, internationally acclaimed scholar and Qari renowned for eloquent Friday sermons and sublime Quranic recitation."
+            id: "Ulama senior dan pengajar di Masjidil Haram dengan kefasihan khutbah mendalam dan keindahan tilawah yang khusyuk di hadapan jutaan jamaah di Ka'bah.",
+            en: "Senior scholar and lecturer at Masjidil Haram renowned for poignant Friday sermons and profound Quranic recitation."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ أ.د.",
-          backupName: "Syekh Prof. Dr. Yasir bin Rashid Ad-Dausari",
-          backupArabic: "ياسر بن راشد الدوسري",
-          backupFullArabic: "فضيلة الشيخ الأستاذ الدكتور / ياسر بن راشد الدوسري",
+          backupName: "Syekh Prof. Dr. Maher bin Hamad Al-Mu'aiqly",
+          backupArabic: "ماهر بن حمد المعيقلي",
+          backupFullArabic: "فضيلة الشيخ الأستاذ الدكتور / ماهر بن حمد المعيقلي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3430,16 +3439,16 @@
             en: "Prophet's Mosque • Madinah Al-Munawwarah"
           },
           hijriDate: {
-            id: "21 Rabi'uts Tsani 1448 H",
-            en: "21 Rabi' al-Thani 1448 AH",
-            arabic: "٢١ ربيع الثاني ١٤٤٨ هـ"
+            id: "28 Rabi'uts Tsani 1448 H",
+            en: "28 Rabi' al-Thani 1448 AH",
+            arabic: "٢٨ ربيع الثاني ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد النبوي",
           khateebTitleArabic: "إمام وخطيب المسجد النبوي",
           khateebHonorific: "فضيلة الشيخ الدكتور",
-          khateebName: "Syekh Dr. Khalid bin Sulaiman Al-Muhanna",
-          khateebArabic: "خالد بن سليمان المهنا",
-          khateebFullArabic: "فضيلة الشيخ الدكتور / خالد بن سليمان المهنا",
+          khateebName: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
+          khateebArabic: "عبدالباري بن عواض الثبيتي",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
@@ -3449,17 +3458,17 @@
             en: "Official Imam & Khateeb of Prophet's Mosque"
           },
           bio: {
-            id: "Profesor Hadits Nabawi dan pengajar di Raudhah Syarifah dengan gaya khutbah yang menyentuh kalbu serta lantunan tartil yang sangat jernih dan menenangkan jiwa di Masjid Nabawi.",
-            en: "Professor of Prophetic Hadith Sciences, celebrated for poignant Friday sermons and remarkably clear, soothing Quranic recitation at the Prophet's Mosque."
+            id: "Imam senior Masjid Nabawi dengan gaya khutbah yang menyentuh kalbu serta lantunan tartil yang sangat agung dan tenang di Raudhah Syarifah.",
+            en: "Senior Imam of the Prophet's Mosque, celebrated for poignant Friday sermons and remarkably serene Quranic recitation in the Rawdah."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ الدكتور",
-          backupName: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
-          backupArabic: "عبدالله بن عبدالمحسن القرافي",
-          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالله بن عبدالمحسن القرافي",
+          backupName: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
+          backupArabic: "أحمد بن علي الحذيفي",
+          backupFullArabic: "فضيلة الشيخ الدكتور / أحمد بن علي الحذيفي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3469,22 +3478,22 @@
         }
       };
 
-      // Daily Imams schedule (Pekan: 16 - 22 Rabi'ul Akhir 1448 H / 1448 AH)
+      // Daily Imams schedule (Pekan: 23 - 29 Rabi'ul Akhir 1448 H / 1448 AH)
       const imamData = {
         makkah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Prof. Dr. Abdullah bin Awad Al-Juhany",
-            arabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
-            backupName: "Syekh Badr bin Muhammad Al-Turki",
-            backupArabic: "فضيلة الشيخ بدر بن محمد التركي",
+            name: "Syekh Dr. Al-Waleed bin Khalid Asy-Syamsan",
+            arabic: "فضيلة الشيخ د. الوليد بن خالد الشمسان",
+            backupName: "Syekh Prof. Dr. Maher bin Hamad Al-Mu'aiqly",
+            backupArabic: "فضيلة الشيخ أ.د. ماهر بن حمد المعيقلي",
             role: {
-              id: "Imam Shalat Subuh • Imam & Khatib Masjidil Haram",
-              en: "Fajr Prayer Imam • Imam & Khateeb of Masjidil Haram"
+              id: "Imam Shalat Subuh • Pakar Qira'at & Dosen Universitas",
+              en: "Fajr Prayer Imam • Qira'at Specialist & University Scholar"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Guru Besar Qira'at dengan bacaan tilawah bertartil jernih, tartil murattal yang syahdu dan menyejukkan hati ribuan jamaah di hadapan Ka'bah.",
-              en: "Primary Fajr Imam. Renowned for crystal-clear, deeply moving Quranic recitation in front of the Holy Kaaba."
+              id: "Imam Utama Shalat Subuh. Memiliki lantunan tilawah tartil bertajwid mutqin yang jernih, tenang, dan menyejukkan hati jamaah di hadapan Ka'bah Al-Mukarramah.",
+              en: "Primary Fajr Imam. Renowned for crystal-clear, serene, and deeply moving Quranic recitation before the Holy Kaaba."
             },
             tag: {
               id: "Imam Subuh Utama",
@@ -3493,17 +3502,17 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Prof. Dr. Abdullah bin Awad Al-Juhany",
-            arabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
-            backupName: "Syekh Prof. Dr. Yasir bin Rashid Ad-Dausari",
-            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            name: "Syekh Dr. Usamah bin Abdullah Khayyath",
+            arabic: "فضيلة الشيخ د. أسامة بن عبدالله خياط",
+            backupName: "Syekh Dr. Al-Waleed bin Khalid Asy-Syamsan",
+            backupArabic: "فضيلة الشيخ د. الوليد بن خالد الشمسان",
             role: {
-              id: "Imam Shalat Dzuhur • Imam & Khatib Masjidil Haram",
-              en: "Dhuhr Prayer Imam • Imam & Khateeb of Masjidil Haram"
+              id: "Imam Shalat Dzuhur • Imam & Khatib Senior Masjidil Haram",
+              en: "Dhuhr Prayer Imam • Senior Imam & Khateeb of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Dzuhur. Menghadirkan kekhusyukan dan ketenteraman batin di waktu siang di Masjidil Haram.",
-              en: "Primary Dhuhr Imam. Serene, dignified recitation instilling peaceful devotion at the Grand Mosque."
+              id: "Imam Utama Shalat Dzuhur. Ulama karismatik dan pengajar senior di Masjidil Haram dengan gaya tilawah yang agung, fasih, dan teduh di waktu siang.",
+              en: "Primary Dhuhr Imam. Charismatic scholar and senior teacher at Masjidil Haram known for dignified, eloquent, and soothing recitation."
             },
             tag: {
               id: "Imam Dzuhur Utama",
@@ -3512,17 +3521,17 @@
           },
           {
             prayerKey: "asr",
-            name: "Syekh Prof. Dr. Faisal bin Jameel Ghazzawi",
-            arabic: "فضيلة الشيخ أ.د. فيصل بن جميل غزاوي",
-            backupName: "Syekh Prof. Dr. Abdullah bin Awad Al-Juhany",
-            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            name: "Syekh Dr. Saleh bin Abdullah bin Humaid",
+            arabic: "معالي الشيخ د. صالح بن عبدالله بن حميد",
+            backupName: "Syekh Dr. Al-Waleed bin Khalid Asy-Syamsan",
+            backupArabic: "فضيلة الشيخ د. الوليد بن خالد الشمسان",
             role: {
-              id: "Imam Shalat Ashar • Mantan Dekan Fakultas Dakwah & Ushuluddin",
-              en: "Asr Prayer Imam • Former Dean of Dawah & Usuluddin Faculty"
+              id: "Imam Shalat Ashar • Anggota Dewan Ulama Senior & Mantan Ketua Majlis Syura",
+              en: "Asr Prayer Imam • Senior Scholars Council Member & Former Shura Chairman"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. Guru besar tafsir dan qira'at dengan artikulasi tajwid mutqin dan lantunan ayat-ayat suci yang agung.",
-              en: "Primary Asr Imam. Master of Quranic exegesis with pristine tajweed and tranquil cadence."
+              id: "Imam Utama Shalat Ashar. Penasihat Mahkamah Kerajaan dan ulama terkemuka dengan wibawa keilmuan yang tinggi serta tilawah yang penuh kekhusyukan.",
+              en: "Primary Asr Imam. Royal Court Advisor and renowned scholar revered for profound erudition and heartfelt Quranic cadence."
             },
             tag: {
               id: "Imam Ashar Utama",
@@ -3531,17 +3540,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Prof. Dr. Yasir bin Rashid Ad-Dausari",
-            arabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
-            backupName: "Syekh Badr bin Muhammad Al-Turki",
-            backupArabic: "فضيلة الشيخ بدر بن محمد التركي",
+            name: "Syekh Prof. Dr. Maher bin Hamad Al-Mu'aiqly",
+            arabic: "فضيلة الشيخ أ.د. ماهر بن حمد المعيقلي",
+            backupName: "Syekh Dr. Bandar bin Abdul Aziz Balilah",
+            backupArabic: "فضيلة الشيخ د. بندر بن عبدالعزيز بليلة",
             role: {
-              id: "Imam Shalat Maghrib • Guru Besar Fakultas Syariah Umm Al-Qura",
-              en: "Maghrib Prayer Imam • Sharia Faculty Professor"
+              id: "Imam Shalat Maghrib • Imam & Khatib Utama Masjidil Haram",
+              en: "Maghrib Prayer Imam • Primary Imam & Khateeb of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Tilawah yang sangat syahdu, penuh penghayatan, dan menggetarkan hati jamaah saat senja di pelataran Mataf Ka'bah.",
-              en: "Primary Maghrib Imam. Sublime, evocative sunset recitation echoing throughout the Kaaba courtyards."
+              id: "Imam Utama Shalat Maghrib. Lantunan murattal beliau yang sangat merdu, syahdu, dan penuh penghayatan menggetarkan hati jutaan jamaah saat senja di pelataran Mataf Ka'bah.",
+              en: "Primary Maghrib Imam. World-renowned for melodic, deeply emotional, and soul-stirring sunset recitation echoing across the Mataf."
             },
             tag: {
               id: "Imam Maghrib Utama",
@@ -3550,17 +3559,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Badr bin Muhammad Al-Turki",
-            arabic: "فضيلة الشيخ بدر بن محمد التركي",
-            backupName: "Syekh Prof. Dr. Yasir bin Rashid Ad-Dausari",
-            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            name: "Syekh Prof. Dr. Abdurrahman bin Abdul Aziz As-Sudais",
+            arabic: "معالي الشيخ أ.د. عبدالرحمن بن عبدالعزيز السديس",
+            backupName: "Syekh Dr. Bandar bin Abdul Aziz Balilah",
+            backupArabic: "فضيلة الشيخ د. بندر بن عبدالعزيز بليلة",
             role: {
-              id: "Imam Shalat Isya • Imam Masjidil Haram",
-              en: "Isha Prayer Imam • Imam of Masjidil Haram"
+              id: "Imam Shalat Isya • Kepala Presidensi Urusan Agama Dua Masjid Suci",
+              en: "Isha Prayer Imam • President of Religious Affairs of the Two Holy Mosques"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Dikenal dengan lantunan tilawah yang merdu, tertib, dan memimpin shalat Isya serta witir dengan kekhusyukan mendalam.",
-              en: "Primary Isha Imam. Leads evening congregational prayers with melodious cadence and profound serenity."
+              id: "Imam Utama Shalat Isya. Suara emas paling ikonik di dunia Islam dengan tempo tegas, bertenaga, dan penuh kekhusyukan memimpin ribuan jamaah shalat Isya.",
+              en: "Primary Isha Imam. The most iconic voice in the Islamic world leading congregational evening prayer with legendary cadence and devotion."
             },
             tag: {
               id: "Imam Isya Utama",
@@ -3571,17 +3580,17 @@
         madinah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
-            arabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
-            backupName: "Syekh Dr. Abdullah bin Abdurrahman Al-Buhaijan",
+            name: "Syekh Saleh bin Awwad Al-Maghamsi",
+            arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            backupName: "Syekh Dr. Abdullah bin Abdurrahman Al-Baijan",
             backupArabic: "فضيلة الشيخ د. عبدالله بن عبدالرحمن البعيجان",
             role: {
-              id: "Imam Shalat Subuh • Dosen Universitas Islam Madinah",
-              en: "Fajr Prayer Imam • Islamic University of Madinah Professor"
+              id: "Imam Shalat Subuh • Da'i & Pakar Tafsir Terkemuka Madinah",
+              en: "Fajr Prayer Imam • Renowned Islamic Scholar & Exegete of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Qari dan akademisi terkemuka dengan lantunan tilawah Subuh yang lembut dan menenangkan jiwa di samping Raudhah.",
-              en: "Primary Fajr Imam. Renowned scholar and Qari with serene, heartwarming morning recitation beside the Rawdah."
+              id: "Imam Utama Shalat Subuh. Ulama dan ahli tafsir berwawasan mendalam dengan lantunan tilawah Subuh yang penuh tadabbur, lembut, dan menenteramkan jiwa di samping Raudhah.",
+              en: "Primary Fajr Imam. Renowned Madinah exegete and orator known for contemplative, tender, and peaceful morning recitation beside the Rawdah."
             },
             tag: {
               id: "Imam Subuh Masjid Nabawi",
@@ -3590,17 +3599,17 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Dr. Khalid bin Sulaiman Al-Muhanna",
-            arabic: "فضيلة الشيخ د. خالد بن سليمان المهنا",
-            backupName: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
-            backupArabic: "فضيلة الشيخ د. عبدالله بن عبدالمحسن القرافي",
+            name: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
+            arabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
+            backupName: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
+            backupArabic: "فضيلة الشيخ د. أحمد بن علي الحذيفي",
             role: {
-              id: "Imam Shalat Dzuhur • Profesor Hadits Nabawi",
-              en: "Dhuhr Prayer Imam • Prophetic Hadith Professor"
+              id: "Imam Shalat Dzuhur • Imam & Khatib Senior Masjid Nabawi",
+              en: "Dhuhr Prayer Imam • Senior Imam & Khateeb of Prophet's Mosque"
             },
             bio: {
-              id: "Imam Utama Shalat Dzuhur. Pengajar keilmuan Sunnah di Raudhah Syarifah dengan lantunan tartil yang sangat jernih dan teduh di waktu siang.",
-              en: "Primary Dhuhr Imam. Prophetic Sunnah instructor in the Rawdah known for tranquil and pristine Quranic recitation."
+              id: "Imam Utama Shalat Dzuhur. Imam senior berpengalaman puluhan tahun di Masjid Nabawi dengan kefasihan makhraj dan tartil yang agung dan tenang.",
+              en: "Primary Dhuhr Imam. Distinguished senior Imam with decades of service at the Prophet's Mosque, renowned for immaculate articulation and calm cadence."
             },
             tag: {
               id: "Imam Dzuhur Masjid Nabawi",
@@ -3609,17 +3618,17 @@
           },
           {
             prayerKey: "asr",
-            name: "Syekh Dr. Ali bin Abdurrahman Al-Hudhaify",
-            arabic: "فضيلة الشيخ د. علي بن عبدالرحمن الحذيفي",
-            backupName: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
-            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
+            name: "Syekh Dr. Abdul Muhsin bin Muhammad Al-Qasim",
+            arabic: "فضيلة الشيخ د. عبدالمحسن بن محمد القاسم",
+            backupName: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
+            backupArabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
             role: {
-              id: "Imam Shalat Ashar • Imam Tertua & Senior Masjid Nabawi",
-              en: "Asr Prayer Imam • Senior Head Imam of Prophet's Mosque"
+              id: "Imam Shalat Ashar • Hakim Pengadilan Tinggi & Pengajar Masjid Nabawi",
+              en: "Asr Prayer Imam • High Court Judge & Prophet's Mosque Scholar"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. Guru besar ilmu Qira'at; mengimami shalat di Masjid Nabawi sejak 1399 H dengan kharisma dan tilawah Madani klasik.",
-              en: "Primary Asr Imam. Grand master of Qira'at; leading prayers at the Prophet's Mosque since 1399 AH with timeless reverence."
+              id: "Imam Utama Shalat Ashar. Pakar Fiqih dan qari bersuara khas menenangkan yang telah membimbing ribuan santri penghafal Al-Qur'an di Masjid Nabawi.",
+              en: "Primary Asr Imam. Revered jurist and master teacher whose steady, serene cadence echoes under the grand umbrellas of Madinah."
             },
             tag: {
               id: "Imam Ashar Masjid Nabawi",
@@ -3628,17 +3637,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
-            arabic: "فضيلة الشيخ د. عبدالله بن عبدالمحسن القرافي",
-            backupName: "Syekh Dr. Ali bin Abdurrahman Al-Hudhaify",
-            backupArabic: "فضيلة الشيخ د. علي بن عبدالرحمن الحذيفي",
+            name: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
+            arabic: "فضيلة الشيخ د. أحمد بن علي الحذيفي",
+            backupName: "Syekh Dr. Abdul Muhsin bin Muhammad Al-Qasim",
+            backupArabic: "فضيلة الشيخ د. عبدالمحسن بن محمد القاسم",
             role: {
-              id: "Imam Shalat Maghrib • Imam & Khatib Masjid Nabawi",
-              en: "Maghrib Prayer Imam • Imam & Khateeb of Prophet's Mosque"
+              id: "Imam Shalat Maghrib • Dosen Fakultas Hadits Univ. Islam Madinah",
+              en: "Maghrib Prayer Imam • Hadith Faculty Professor at Islamic Univ. of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Lantunan bacaan ayat suci yang tartil, jelas, dan khusyuk menyelimuti pelataran payung Nabawi saat senja.",
-              en: "Primary Maghrib Imam. Clear, melodious sunset recitation echoing across the grand courtyards of the Prophet's Mosque."
+              id: "Imam Utama Shalat Maghrib. Putra dari Syaikhul Qurra Ali Al-Hudhaify yang mewarisi keindahan tartil Madani klasik yang fasih, khusyuk, dan berwibawa.",
+              en: "Primary Maghrib Imam. Inheritor of pristine classical Madani recitation, leading sunset prayers with eloquence and spiritual gravity."
             },
             tag: {
               id: "Imam Maghrib Masjid Nabawi",
@@ -3647,17 +3656,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Dr. Abdullah bin Abdurrahman Al-Buhaijan",
+            name: "Syekh Dr. Abdullah bin Abdurrahman Al-Baijan",
             arabic: "فضيلة الشيخ د. عبدالله بن عبدالرحمن البعيجان",
-            backupName: "Syekh Dr. Khalid bin Sulaiman Al-Muhanna",
-            backupArabic: "فضيلة الشيخ د. خالد بن سليمان المهنا",
+            backupName: "Syekh Saleh bin Awwad Al-Maghamsi",
+            backupArabic: "فضيلة الشيخ صالح بن عواد المغامسي",
             role: {
-              id: "Imam Shalat Isya • Imam & Khatib Masjid Nabawi",
-              en: "Isha Prayer Imam • Imam & Khateeb of Prophet's Mosque"
+              id: "Imam Shalat Isya • Hakim Mahkamah & Dosen Syariah",
+              en: "Isha Prayer Imam • Judiciary Judge & Sharia Law Professor"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Dosen syariah dengan gaya tilawah yang lembut, tartil menyentuh kalbu pada shalat Isya di Masjid Nabawi.",
-              en: "Primary Isha Imam. Revered Islamic jurist known for gentle, heartfelt nighttime recitation in the Prophet's Mosque."
+              id: "Imam Utama Shalat Isya. Dikenal dengan karakter tilawah yang lembut, syahdu, serta lantunan doa witir yang meneteskan air mata jamaah di Masjid Nabawi.",
+              en: "Primary Isha Imam. Celebrated for gentle, moving nighttime recitation that draws tears and spiritual devotion from congregants."
             },
             tag: {
               id: "Imam Isya Masjid Nabawi",
@@ -5330,6 +5339,206 @@
 
       // Comprehensive Profiles for Imams and Muadzins of the Two Holy Mosques
       const syaikhProfiles = {
+        "Syekh Dr. Usamah bin Abdullah Khayyath": {
+          name: "Syekh Dr. Usamah bin Abdullah Khayyath",
+          fullName: "Dr. Usamah bin Abdullah bin Abdul Ghani Khayyath",
+          arabic: "فضيلة الشيخ د. أسامة بن عبدالله خياط",
+          mosqueName: { id: "Masjidil Haram • Makkah Al-Mukarramah", en: "Masjidil Haram • Makkah Al-Mukarramah" },
+          roleBadge: { id: "Imam & Khatib Senior Masjidil Haram • Mantan Anggota Dewan Syura", en: "Senior Imam & Khateeb of Masjidil Haram • Former Shura Council Member" },
+          birth: {
+            short: { id: "Makkah Al-Mukarramah (1375 H / 1956 M)", en: "Makkah Al-Mukarramah (1375 AH / 1956 CE)" },
+            desc: {
+              id: "Putra dari ulama legendaris dan mantan Imam Masjidil Haram Syekh Abdullah Khayyath rahimahullah. Beliau tumbuh dalam halaqah keilmuan Al-Qur'an dan Sunnah di pelataran Ka'bah Al-Mukarramah, menyelesaikan hafalan 30 Juz secara mutqin sejak usia dini.",
+              en: "Son of the legendary scholar and former Imam of Masjidil Haram, Sheikh Abdullah Khayyat. Raised in the sacred Quranic circles of the Holy Kaaba, he mastered the Holy Quran at an early age."
+            }
+          },
+          highestDegree: {
+            id: "Doktor (Ph.D) Hadits & Studi Islam – Univ. Umm Al-Qura Makkah",
+            en: "Ph.D. in Hadith & Islamic Studies – Umm Al-Qura University, Makkah"
+          },
+          education: {
+            id: [
+              "Menuntaskan hafalan Al-Qur'an 30 Juz bersanad mutqin di hadapan sang ayah dan para masyayikh terkemuka Makkah.",
+              "Sarjana & Magister dalam Studi Hadits Nabawi dan Syariah Islam di Universitas Umm Al-Qura.",
+              "Doktor (Ph.D) dalam Ilmu Hadits Nabawi dan Fiqih Islam di Universitas Umm Al-Qura dengan predikat Summa Cum Laude."
+            ],
+            en: [
+              "Completed full memorization of the Quran under his esteemed father and leading Makkah scholars.",
+              "B.A. and M.A. in Prophetic Hadith and Sharia at Umm Al-Qura University.",
+              "Ph.D. in Hadith Sciences and Islamic Studies with highest distinction (Summa Cum Laude) from Umm Al-Qura University."
+            ]
+          },
+          career: {
+            id: [
+              "Diangkat secara resmi sebagai Imam dan Khatib tetap Masjidil Haram Makkah sejak tahun 1418 H (1997 M).",
+              "Guru Besar dan Dosen di Fakultas Dakwah dan Ushuluddin Universitas Umm Al-Qura.",
+              "Pernah dipercaya menjabat sebagai Anggota Majlis Syura (Dewan Pertimbangan Nasional) Kerajaan Arab Saudi.",
+              "Pengajar tetap halaqah kajian Tafsir dan Hadits di pelataran Masjidil Haram."
+            ],
+            en: [
+              "Appointed as permanent Imam and Khateeb of Masjidil Haram in 1418 AH (1997 CE).",
+              "Professor of Hadith and Dawah at Umm Al-Qura University, Makkah.",
+              "Former member of the Consultative Council (Majlis ash-Shura) of the Kingdom of Saudi Arabia.",
+              "Senior instructor of Tafsir and Hadith study circles inside Masjidil Haram."
+            ]
+          },
+          tilawah: {
+            id: "Dikenal dengan gaya tilawah yang sangat agung, tenang, berwibawa, dan fasih bertajwid mutqin. Bacaan tartilnya mengalir teduh dan khusyuk saat memimpin shalat berjamaah lima waktu maupun khutbah Jumat di hadapan jutaan jamaah.",
+            en: "Revered for stately, deeply serene, and immaculate Quranic recitation. His composed cadence and evocative Friday sermons resonate profoundly with millions around the Kaaba."
+          }
+        },
+
+        "Syekh Dr. Saleh bin Abdullah bin Humaid": {
+          name: "Syekh Dr. Saleh bin Abdullah bin Humaid",
+          fullName: "His Excellency Prof. Dr. Saleh bin Abdullah bin Muhammad bin Humaid",
+          arabic: "معالي الشيخ د. صالح بن عبدالله بن حميد",
+          mosqueName: { id: "Masjidil Haram • Makkah Al-Mukarramah", en: "Masjidil Haram • Makkah Al-Mukarramah" },
+          roleBadge: { id: "Imam Senior Masjidil Haram • Anggota Dewan Ulama Senior • Penasihat Kerajaan", en: "Senior Imam of Masjidil Haram • Council of Senior Scholars • Royal Court Advisor" },
+          birth: {
+            short: { id: "Buraidah / Makkah Al-Mukarramah (1369 H / 1950 M)", en: "Buraidah / Makkah Al-Mukarramah (1369 AH / 1950 CE)" },
+            desc: {
+              id: "Putra dari ulama besar dan mantan Ketua Mahkamah Agung Arab Saudi Syekh Abdullah bin Humaid rahimahullah. Menghafal Al-Qur'an sejak belia dan menimba ilmu syariah klasik dari para ulama kibar tanah suci.",
+              en: "Son of the former Chief Justice of Saudi Arabia, Sheikh Abdullah bin Humaid. Memorized the Quran early and studied classical Islamic sciences under foremost scholars."
+            }
+          },
+          highestDegree: {
+            id: "Doktor (Ph.D) Fiqih & Ushul Fiqih (Mumtaz) – Univ. Umm Al-Qura Makkah",
+            en: "Ph.D. in Fiqh & Usul al-Fiqh (First Class Honors) – Umm Al-Qura University"
+          },
+          education: {
+            id: [
+              "Hafalan Al-Qur'an 30 Juz secara sempurna sejak usia muda.",
+              "Sarjana & Magister Fakultas Syariah di Universitas Umm Al-Qura Makkah.",
+              "Doktor (Ph.D) Fiqih dan Ushul Fiqih dengan predikat Cum Laude (Mumtaz) di Univ. Umm Al-Qura (1402 H)."
+            ],
+            en: [
+              "Completed Quranic memorization at an early age.",
+              "B.A. and M.A. from the Faculty of Sharia, Umm Al-Qura University.",
+              "Ph.D. in Islamic Jurisprudence with distinction from Umm Al-Qura University (1402 AH)."
+            ]
+          },
+          career: {
+            id: [
+              "Diangkat sebagai Imam dan Khatib tetap Masjidil Haram sejak tahun 1404 H (1983 M).",
+              "Mantan Ketua Majlis Syura (Parlemen/Dewan Konsultatif) Kerajaan Arab Saudi.",
+              "Mantan Ketua Dewan Kehakiman Tertinggi Kerajaan Arab Saudi (Supreme Judicial Council).",
+              "Penasihat di Mahkamah Kerajaan Arab Saudi dan Anggota Dewan Ulama Senior (Kibaril Ulama).",
+              "Presiden Akademi Fiqih Islam Internasional (International Islamic Fiqh Academy)."
+            ],
+            en: [
+              "Appointed as permanent Imam and Khateeb of Masjidil Haram in 1404 AH (1983 CE).",
+              "Former Chairman of the Consultative Assembly (Majlis ash-Shura) of Saudi Arabia.",
+              "Former President of the Supreme Judicial Council of Saudi Arabia.",
+              "Advisor to the Royal Court and Member of the Council of Senior Scholars.",
+              "President of the International Islamic Fiqh Academy."
+            ]
+          },
+          tilawah: {
+            id: "Gaya tilawah yang penuh keteduhan, karisma keilmuan yang luhur, dan bacaan tartil perlahan yang menggetarkan hati serta khutbah Jumat sarat hikmah dan kedalaman nasehat.",
+            en: "Immensely charismatic, contemplative, and authoritative recitation paired with deeply moving and eloquent sermons that guide the Muslim world."
+          }
+        },
+
+        "Syekh Saleh bin Awwad Al-Maghamsi": {
+          name: "Syekh Saleh bin Awwad Al-Maghamsi",
+          fullName: "Sheikh Saleh bin Awwad bin Saleh Al-Maghamsi",
+          arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+          mosqueName: { id: "Masjid Nabawi • Madinah Al-Munawwarah", en: "Prophet's Mosque • Madinah Al-Munawwarah" },
+          roleBadge: { id: "Imam Masjid Nabawi • Ulama Tafsir & Dai Terkemuka Dunia Islam", en: "Imam of Prophet's Mosque • Renowned Exegete & Preacher" },
+          birth: {
+            short: { id: "Madinah Al-Munawwarah (1383 H / 1963 M)", en: "Madinah Al-Munawwarah (1383 AH / 1963 CE)" },
+            desc: {
+              id: "Lahir dan dibesarkan di kota suci Madinah Al-Munawwarah. Menghafal Al-Qur'an dan mendalami ilmu-ilmu bahasa Arab, tafsir, dan sastra Islam dari para ulama besar Madinah.",
+              en: "Born and raised in the blessed city of Madinah. Memorized the Quran and studied Arabic linguistics, exegesis, and Islamic literature under Madinah's prominent scholars."
+            }
+          },
+          highestDegree: {
+            id: "Sarjana Bahasa Arab & Studi Islam – Universitas Raja Abdulaziz",
+            en: "B.A. in Arabic Language & Islamic Studies – King Abdulaziz University"
+          },
+          education: {
+            id: [
+              "Menghafal Al-Qur'an dan mendalami tafsir Al-Qur'an secara intensif.",
+              "Lulusan Jurusan Bahasa Arab dan Studi Islam Universitas Raja Abdulaziz.",
+              "Berguru langsung kepada Syaikh Muhammad bin Shalih Al-Utsaimin, Syaikh Abdul Aziz bin Baz, dan ulama terkemuka Madinah."
+            ],
+            en: [
+              "Mastered the Quran and extensive study in Quranic hermeneutics.",
+              "Graduate of King Abdulaziz University in Arabic Language and Islamic Studies.",
+              "Studied under prominent scholars including Sheikh Ibn Uthaymeen and Sheikh Ibn Baz."
+            ]
+          },
+          career: {
+            id: [
+              "Mantan Imam dan Khatib tetap Masjid Quba Madinah selama bertahun-tahun.",
+              "Ditugaskan sebagai Imam shalat berjamaah di Masjid Nabawi Madinah.",
+              "Dosen dan pengajar tafsir di Lembaga Tinggi Kehakiman dan Masjid Nabawi.",
+              "Pengasuh program tafsir Qur'an yang sangat dicintai umat Islam di seluruh penjuru dunia."
+            ],
+            en: [
+              "Former long-time Imam and Khateeb of the historic Quba Mosque in Madinah.",
+              "Appointed to lead congregational prayers at Al-Masjid An-Nabawi.",
+              "Senior lecturer of Tafsir at the Higher Judicial Institute and Prophet's Mosque.",
+              "Renowned international scholar and commentator on Quranic exegesis."
+            ]
+          },
+          tilawah: {
+            id: "Lantunan tilawah Subuh yang penuh kelembutan, air mata keharuan, dan tadabbur mendalam yang menyentuh kalbu setiap jamaah yang beribadah di dekat Makam Rasulullah ﷺ.",
+            en: "Gentle, tender, and intensely moving dawn recitation that brings tears and spiritual contemplation to worshippers beside the Prophet's Rawdah."
+          }
+        },
+
+        "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti": {
+          name: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
+          fullName: "Dr. Abdul Bari bin Awadh bin Ismail Ats-Tsubaiti",
+          arabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
+          mosqueName: { id: "Masjid Nabawi • Madinah Al-Munawwarah", en: "Prophet's Mosque • Madinah Al-Munawwarah" },
+          roleBadge: { id: "Imam & Khatib Senior Masjid Nabawi • Mantan Imam Tarawih Masjidil Haram", en: "Senior Imam & Khateeb of Prophet's Mosque • Former Tarawih Imam at Masjidil Haram" },
+          birth: {
+            short: { id: "Makkah Al-Mukarramah (1380 H / 1960 M)", en: "Makkah Al-Mukarramah (1380 AH / 1960 CE)" },
+            desc: {
+              id: "Lahir di Makkah Al-Mukarramah dan menyelesaikan hafalan Al-Qur'an pada usia muda. Beliau meraih Juara 1 Musabaqah Hifzil Qur'an Internasional di Makkah pada tahun 1399 H.",
+              en: "Born in Makkah and completed Quranic memorization at an early age. Won First Prize in the International Quran Memorization Competition in Makkah (1399 AH)."
+            }
+          },
+          highestDegree: {
+            id: "Doktor (Ph.D) Fiqih & Studi Syariah – Univ. Umm Al-Qura / Univ. Islam Madinah",
+            en: "Ph.D. in Islamic Jurisprudence – Umm Al-Qura / Islamic Univ. of Madinah"
+          },
+          education: {
+            id: [
+              "Juara 1 Musabaqah Hifzil Qur'an Internasional Raja Abdulaziz Makkah (1399 H).",
+              "Sarjana Ilmu Falak dan Astronomi Islam di Universitas Raja Abdulaziz Jeddah (1405 H).",
+              "Sarjana & Magister Fakultas Syariah Universitas Umm Al-Qura Makkah (1415 H).",
+              "Doktor (Ph.D) Fiqih Islam di Universitas Islam Madinah dengan predikat Summa Cum Laude."
+            ],
+            en: [
+              "First Prize in the King Abdulaziz International Quran Competition, Makkah (1399 AH).",
+              "B.S. in Astronomy from King Abdulaziz University, Jeddah (1405 AH).",
+              "B.A. and M.A. in Sharia from Umm Al-Qura University, Makkah (1415 AH).",
+              "Ph.D. in Islamic Jurisprudence with highest honors from the Islamic University of Madinah."
+            ]
+          },
+          career: {
+            id: [
+              "Dipercaya memimpin shalat Tarawih di Masjidil Haram Makkah (1410 - 1414 H).",
+              "Diangkat secara resmi sebagai Imam dan Khatib tetap Masjid Nabawi Madinah sejak 1414 H (1994 M).",
+              "Berpengalaman memimpin shalat berjamaah dan menyampaikan khutbah Jumat di Masjid Nabawi selama lebih dari 3 dekade.",
+              "Pengajar aktif kajian Fiqih dan Akidah di halaqah ilmiah Masjid Nabawi."
+            ],
+            en: [
+              "Led Tarawih prayers at Masjidil Haram in Makkah from 1410 to 1414 AH.",
+              "Permanently appointed as official Imam and Khateeb of the Prophet's Mosque in 1414 AH (1994 CE).",
+              "Over three decades of service leading congregational prayers and Friday sermons in Madinah.",
+              "Senior instructor of jurisprudence and theology circles at the Prophet's Mosque."
+            ]
+          },
+          tilawah: {
+            id: "Lantunan murattal klasik yang agung, jelas, berwibawa, dengan artikulasi tajwid sempurna serta kefasihan khutbah Jumat yang sangat menyentuh jiwa para peziarah Masjid Nabawi.",
+            en: "Imposing, pristine, and stately classical recitation with immaculate tajweed, echoing with spiritual gravity across the Prophet's sanctuary."
+          }
+        },
+
         "Syekh Dr. Bandar Baleelah": {
           name: "Syekh Dr. Bandar Baleelah",
           fullName: "Prof. Dr. Bandar bin Abdul Aziz bin Siraj bin Abdul Malik Baleelah",
@@ -8456,7 +8665,23 @@
             profileKey: 'Syekh Dr. Badr At-Turki'
           },
           {
-            keywords: ['humaid', 'thalib', 'talib', 'حميد', 'طالب', 'أحمد بن طالب'],
+            keywords: ['khayyat', 'khayyath', 'usamah', 'osama', 'خياط', 'أسامة خياط', 'أسامة بن عبدالله خياط'],
+            profileKey: 'Syekh Dr. Usamah bin Abdullah Khayyath'
+          },
+          {
+            keywords: ['saleh bin humaid', 'shalih bin humaid', 'صالح بن حميد', 'صالح بن عبدالله بن حميد', 'صالح حميد'],
+            profileKey: 'Syekh Dr. Saleh bin Abdullah bin Humaid'
+          },
+          {
+            keywords: ['maghamsi', 'al-maghamsi', 'saleh al-maghamsi', 'المغامسي', 'صالح المغامسي', 'صالح بن عواد المغامسي'],
+            profileKey: 'Syekh Saleh bin Awwad Al-Maghamsi'
+          },
+          {
+            keywords: ['thubaiti', 'tsubaiti', 'al-thubaiti', 'الثبيتي', 'عبد الباري الثبيتي', 'عبدالباري', 'عبدالبari'],
+            profileKey: 'Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti'
+          },
+          {
+            keywords: ['humaid', 'thalib', 'talib', 'أحمد بن طالب'],
             profileKey: 'Syekh Dr. Ahmad bin Thalib bin Humaid'
           },
           {
