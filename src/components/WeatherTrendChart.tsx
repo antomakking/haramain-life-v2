@@ -347,7 +347,7 @@ export default function WeatherTrendChart({
         <div className="rounded-2xl p-3.5 bg-[#173628] text-white border border-[#C5A059]/40 shadow-2xl max-w-xs text-xs backdrop-blur-md">
           <div className="flex items-center justify-between gap-2 border-b border-[#C5A059]/30 pb-1.5 mb-2">
             <span className="font-bold text-[#F5E5C9] flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-[#C5A059]" />
+              <Calendar className="w-3.5 h-3.5 text-[#806532]" />
               {data.fullDay}
             </span>
             <span className="text-[10px] text-[#A3D9C0] font-mono font-bold bg-white/10 px-1.5 py-0.5 rounded">
@@ -398,7 +398,7 @@ export default function WeatherTrendChart({
           </div>
 
           <div className="pt-2 border-t border-white/10 text-[10.5px] text-[#E4F4EC] leading-relaxed flex items-start gap-1.5">
-            <Info className="w-3.5 h-3.5 text-[#C5A059] shrink-0 mt-0.5" />
+            <Info className="w-3.5 h-3.5 text-[#806532] shrink-0 mt-0.5" />
             <span>{data.worshipAdvice}</span>
           </div>
         </div>
@@ -518,10 +518,10 @@ export default function WeatherTrendChart({
 
         <div className="mt-2 pt-2 border-t border-[#E5DAC8] flex items-center justify-between text-[10px] text-[#2E4338]">
           <span className="font-medium text-[#244C3B] flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-[#C5A059]" />
+            <Sparkles className="w-3 h-3 text-[#806532]" />
             Rentang Suhu 5 Hari: <strong>{stats.lowest}°C – {stats.highest}°C</strong>
           </span>
-          <span className="font-mono text-[#059669] font-bold">
+          <span className="font-mono text-[#047857] font-bold">
             Rata-rata Lembab: {stats.avgHum}%
           </span>
         </div>
@@ -542,7 +542,7 @@ export default function WeatherTrendChart({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#E5DAC8]">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-1">
-            <TrendingUp className="w-4 h-4 text-[#C5A059]" />
+            <TrendingUp className="w-4 h-4 text-[#806532]" />
             <span>Visualisasi Tren Cuaca Recharts • 5 Hari Ke Depan</span>
             <span className="text-[10px] text-[#3B5145] font-mono font-medium hidden sm:inline">
               · {lastUpdated}
@@ -769,7 +769,7 @@ export default function WeatherTrendChart({
       <div className="mt-5 pt-4 border-t border-[#E5DAC8] grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="p-3 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8]">
           <span className="text-[10px] uppercase font-bold text-[#694F12] flex items-center gap-1">
-            <Thermometer className="w-3.5 h-3.5 text-[#C5A059]" />
+            <Thermometer className="w-3.5 h-3.5 text-[#806532]" />
             Suhu Puncak 5 Hari
           </span>
           <div className="flex items-baseline gap-1 mt-1 font-mono">
@@ -792,12 +792,12 @@ export default function WeatherTrendChart({
         </div>
 
         <div className="p-3 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8]">
-          <span className="text-[10px] uppercase font-bold text-[#059669] flex items-center gap-1">
-            <Droplets className="w-3.5 h-3.5 text-[#059669]" />
+          <span className="text-[10px] uppercase font-bold text-[#047857] flex items-center gap-1">
+            <Droplets className="w-3.5 h-3.5 text-[#047857]" />
             Rata-rata Kelembaban
           </span>
           <div className="flex items-baseline gap-1 mt-1 font-mono">
-            <span className="text-xl sm:text-2xl font-black text-[#059669]">{stats.avgHum}%</span>
+            <span className="text-xl sm:text-2xl font-black text-[#047857]">{stats.avgHum}%</span>
             <span className="text-[10px] text-[#2E4338] font-sans">RH</span>
           </div>
           <p className="text-[10px] text-[#2E4338] mt-0.5">
@@ -807,7 +807,7 @@ export default function WeatherTrendChart({
 
         <div className="p-3 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8]">
           <span className="text-[10px] uppercase font-bold text-[#694F12] flex items-center gap-1">
-            <Compass className="w-3.5 h-3.5 text-[#C5A059]" />
+            <Compass className="w-3.5 h-3.5 text-[#806532]" />
             Waktu Thawaf / Ibadah Terbaik
           </span>
           <div className="mt-1">
