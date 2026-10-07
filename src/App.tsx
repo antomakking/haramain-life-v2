@@ -638,7 +638,7 @@ Sumber: https://haramainlife.com/`;
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#244C3B]">
-                <Footprints className="w-4 h-4 text-[#806532]" />
+                <Footprints className="w-4 h-4 text-[#C5A059]" />
                 <span>1. Lokasi / Lantai Thawaf</span>
               </div>
               <span className="text-[10px] text-[#2E4338] font-mono">7 Putaran Ka'bah</span>
@@ -660,7 +660,7 @@ Sumber: https://haramainlife.com/`;
                       <span className={`text-xs font-bold ${isSelected ? 'text-[#244C3B]' : 'text-[#1C2D24]'}`}>
                         {f.name}
                       </span>
-                      <span className="text-[10px] font-mono font-bold text-[#806532]">
+                      <span className="text-[10px] font-mono font-bold text-[#C5A059]">
                         ~{f.distanceKm} km
                       </span>
                     </div>
@@ -677,7 +677,7 @@ Sumber: https://haramainlife.com/`;
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#244C3B]">
-                <Compass className="w-4 h-4 text-[#806532]" />
+                <Compass className="w-4 h-4 text-[#C5A059]" />
                 <span>2. Moda Perjalanan Sa'i</span>
               </div>
               <span className="text-[10px] text-[#2E4338] font-mono">Shafa ⇆ Marwah 3.15 km</span>
@@ -699,7 +699,7 @@ Sumber: https://haramainlife.com/`;
                       <span className={`text-xs font-bold ${isSelected ? 'text-[#244C3B]' : 'text-[#1C2D24]'}`}>
                         {m.name}
                       </span>
-                      <span className="text-[10px] font-mono font-bold text-[#806532]">3.15 km</span>
+                      <span className="text-[10px] font-mono font-bold text-[#C5A059]">3.15 km</span>
                     </div>
                     <span className="text-[10px] text-[#2E4338] line-clamp-1">{m.desc}</span>
                   </button>
@@ -714,7 +714,7 @@ Sumber: https://haramainlife.com/`;
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#244C3B]">
-                <Sparkles className="w-4 h-4 text-[#806532]" />
+                <Sparkles className="w-4 h-4 text-[#C5A059]" />
                 <span>3. Lokasi & Cara Tahallul</span>
               </div>
               <span className="text-[10px] text-[#2E4338] font-mono">Penyempurna Umroh</span>
@@ -736,7 +736,7 @@ Sumber: https://haramainlife.com/`;
                       <span className={`text-xs font-bold ${isSelected ? 'text-[#244C3B]' : 'text-[#1C2D24]'}`}>
                         {t.name}
                       </span>
-                      <span className="text-[10px] font-mono font-bold text-[#806532]">
+                      <span className="text-[10px] font-mono font-bold text-[#C5A059]">
                         ~{t.minutes} m
                       </span>
                     </div>
@@ -748,7 +748,7 @@ Sumber: https://haramainlife.com/`;
           </div>
 
           <div className="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-[#78350F] flex items-start gap-2">
-            <Info className="w-4 h-4 text-[#806532] shrink-0 mt-0.5" />
+            <Info className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
             <span>
               Tahallul di ujung bukit Marwah sah cukup dengan menggunting sedikitnya 3 helai rambut bagi pria & wanita.
             </span>
@@ -782,7 +782,7 @@ Sumber: https://haramainlife.com/`;
               <span className="px-3 py-1 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs font-mono font-bold text-white">
                 Mulai: {calculation.times.start}
               </span>
-              <ChevronRight className="w-4 h-4 text-[#806532]" />
+              <ChevronRight className="w-4 h-4 text-[#C5A059]" />
               <span className="px-3 py-1 rounded-xl bg-[#C5A059] font-mono font-black text-[#0E3521] shadow-xs">
                 Selesai: ~{calculation.times.finish}
               </span>
@@ -850,7 +850,7 @@ Sumber: https://haramainlife.com/`;
       {/* STEP-BY-STEP PROGRESS TIMELINE */}
       <div className="mb-6">
         <h4 className="text-xs font-extrabold text-[#244C3B] uppercase tracking-wider mb-3 flex items-center gap-2">
-          <Activity className="w-4 h-4 text-[#806532]" />
+          <Activity className="w-4 h-4 text-[#C5A059]" />
           <span>Timeline Rincian 5 Tahapan Ibadah Umroh:</span>
         </h4>
 
@@ -872,7 +872,7 @@ Sumber: https://haramainlife.com/`;
                 Mulai dari Hajar Aswad berlawanan arah jarum jam. Ka'bah selalu di sisi kiri.
               </p>
             </div>
-            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#806532] font-bold">
+            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
               {calculation.times.start} - {calculation.times.afterThawaf}
             </div>
           </div>
@@ -893,7 +893,7 @@ Sumber: https://haramainlife.com/`;
                 2 Rakaat di belakang Maqam Ibrahim, doa di Multazam, dan minum air Zamzam segar.
               </p>
             </div>
-            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#806532] font-bold">
+            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
               {calculation.times.afterThawaf} - {calculation.times.afterPrayerZamzam}
             </div>
           </div>
@@ -914,7 +914,7 @@ Sumber: https://haramainlife.com/`;
                 Berjalan dari pelataran Mataf melalui koridor penghubung menuju bukit Shafa.
               </p>
             </div>
-            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#806532] font-bold">
+            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
               {calculation.times.afterPrayerZamzam} - {calculation.times.startSai}
             </div>
           </div>
@@ -935,7 +935,7 @@ Sumber: https://haramainlife.com/`;
                 Shafa ke Marwah dihitung 1 putaran. Selesai putaran ke-7 di bukit Marwah.
               </p>
             </div>
-            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#806532] font-bold">
+            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
               {calculation.times.startSai} - {calculation.times.afterSai}
             </div>
           </div>
@@ -956,7 +956,7 @@ Sumber: https://haramainlife.com/`;
                 Memotong rambut, doa syukur selesai umroh. Seluruh larangan ihram gugur.
               </p>
             </div>
-            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#806532] font-bold">
+            <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
               {calculation.times.afterSai} - {calculation.times.finish}
             </div>
           </div>
@@ -1108,7 +1108,7 @@ export function WeeklyCrowdTrendSection() {
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
         <div>
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] text-[#244C3B] text-[11px] font-bold tracking-wider uppercase mb-2">
-            <Activity className="w-3.5 h-3.5 text-[#806532]" />
+            <Activity className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>POLA HISTORIS KERAMAIAN MINGGUAN (RECHARTS)</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-extrabold text-[#1C2D24]">
@@ -1364,7 +1364,7 @@ export default function App() {
                 : 'text-[#2E4338] hover:text-[#1C2D24]'
             }`}
           >
-            <Clock className="w-3.5 h-3.5 text-[#806532]" />
+            <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>Estimator Waktu Manasik Umroh</span>
           </button>
           <button
@@ -1375,7 +1375,7 @@ export default function App() {
                 : 'text-[#2E4338] hover:text-[#1C2D24]'
             }`}
           >
-            <Activity className="w-3.5 h-3.5 text-[#806532]" />
+            <Activity className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>Pola Keramaian 7 Hari</span>
           </button>
         </div>
