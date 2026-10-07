@@ -1103,15 +1103,15 @@ export function WeeklyCrowdTrendSection() {
   };
 
   return (
-    <div id="weekly-trend-chart" className="p-5 sm:p-7 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm text-[#1C2D24] relative overflow-hidden">
+    <div id="weekly-trend-chart" className="p-3.5 sm:p-6 lg:p-7 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm text-[#1C2D24] relative overflow-x-hidden">
       {/* Top Header & Filter Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5 sm:mb-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] text-[#244C3B] text-[11px] font-bold tracking-wider uppercase mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] text-[#244C3B] text-[10px] sm:text-[11px] font-extrabold tracking-wider uppercase mb-2">
             <Activity className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>POLA HISTORIS KERAMAIAN MINGGUAN (RECHARTS)</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-extrabold text-[#1C2D24]">
+          <h3 className="text-xl sm:text-2xl font-black text-[#1C2D24]">
             Trend Kepadatan Jamaah 7 Hari dalam Seminggu
           </h3>
           <p className="text-xs sm:text-sm text-[#2E4338] font-medium mt-0.5">
@@ -1120,23 +1120,23 @@ export function WeeklyCrowdTrendSection() {
         </div>
 
         {/* View Mode Switcher */}
-        <div className="flex items-center p-1 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs self-start lg:self-auto shrink-0 text-xs font-bold">
+        <div className="w-full sm:w-auto grid grid-cols-2 sm:flex items-center p-1 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs shrink-0 text-xs font-bold">
           <button
             onClick={() => setViewMode('trend')}
-            className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
+            className={`w-full sm:w-auto px-3.5 py-2 sm:py-1.5 rounded-xl transition-all duration-200 cursor-pointer text-center ${
               viewMode === 'trend'
-                ? 'bg-[#244C3B] text-white shadow-xs'
-                : 'text-[#2E4338] hover:text-[#1C2D24]'
+                ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold'
+                : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/50'
             }`}
           >
             📈 Trend 7 Hari (Area)
           </button>
           <button
             onClick={() => setViewMode('prayers')}
-            className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
+            className={`w-full sm:w-auto px-3.5 py-2 sm:py-1.5 rounded-xl transition-all duration-200 cursor-pointer text-center ${
               viewMode === 'prayers'
-                ? 'bg-[#244C3B] text-white shadow-xs'
-                : 'text-[#2E4338] hover:text-[#1C2D24]'
+                ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold'
+                : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/50'
             }`}
           >
             📊 Per Waktu Shalat (Bar)
@@ -1144,77 +1144,145 @@ export function WeeklyCrowdTrendSection() {
         </div>
       </div>
 
-      {/* Secondary Filter Row */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] text-xs">
-        {/* City Filter Segment */}
-        <div className="flex items-center gap-1.5">
-          <span className="font-bold text-[#2E4338] text-[11px] mr-1">Masjid:</span>
-          <button
-            onClick={() => setCityFilter('both')}
-            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-              cityFilter === 'both' ? 'bg-[#244C3B] text-white shadow-xs' : 'bg-white text-[#2E4338] border border-[#E5DAC8]'
-            }`}
-          >
-            Keduanya
-          </button>
-          <button
-            onClick={() => setCityFilter('makkah')}
-            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-              cityFilter === 'makkah' ? 'bg-[#244C3B] text-white shadow-xs' : 'bg-white text-[#2E4338] border border-[#E5DAC8]'
-            }`}
-          >
-            Makkah
-          </button>
-          <button
-            onClick={() => setCityFilter('madinah')}
-            className={`px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-              cityFilter === 'madinah' ? 'bg-[#244C3B] text-white shadow-xs' : 'bg-white text-[#2E4338] border border-[#E5DAC8]'
-            }`}
-          >
-            Madinah
-          </button>
+      {/* Secondary Filter Row - Redesigned for Flawless Mobile & Desktop UX */}
+      <div className="mb-6 p-3 sm:p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs space-y-3.5">
+        {/* Row 1: Pilihan Masjid (Segmented Responsive Group) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="flex items-center justify-between sm:justify-start gap-2">
+            <span className="flex items-center gap-1.5 font-extrabold text-[#2E4338] text-xs uppercase tracking-wider">
+              <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
+              <span>Pilihan Masjid:</span>
+            </span>
+            <span className="text-[10px] text-[#694F12] font-bold sm:hidden">
+              {cityFilter === 'both' ? 'Dua Masjid Suci' : cityFilter === 'makkah' ? 'Masjidil Haram' : 'Masjid Nabawi'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-white border border-[#E5DAC8] shadow-2xs w-full sm:w-auto sm:min-w-[320px]">
+            <button
+              type="button"
+              onClick={() => setCityFilter('both')}
+              className={`py-2 px-2 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-center ${
+                cityFilter === 'both'
+                  ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold ring-1 ring-[#244C3B]'
+                  : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-[#FAF6F0]'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
+              <span>Keduanya</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setCityFilter('makkah')}
+              className={`py-2 px-2 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-center ${
+                cityFilter === 'makkah'
+                  ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold ring-1 ring-[#244C3B]'
+                  : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-[#FAF6F0]'
+              }`}
+            >
+              <span className="text-xs shrink-0">🕋</span>
+              <span>Makkah</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setCityFilter('madinah')}
+              className={`py-2 px-2 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-center ${
+                cityFilter === 'madinah'
+                  ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold ring-1 ring-[#244C3B]'
+                  : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-[#FAF6F0]'
+              }`}
+            >
+              <span className="text-xs shrink-0">🕌</span>
+              <span>Madinah</span>
+            </button>
+          </div>
         </div>
 
-        {/* View Mode Specific Filter */}
+        {/* Divider Line */}
+        <div className="border-t border-[#E5DAC8]/70" />
+
+        {/* Row 2: Filter Waktu Shalat / Hari Observasi */}
         {viewMode === 'trend' ? (
-          <div className="flex flex-wrap items-center gap-1">
-            <span className="font-bold text-[#2E4338] text-[11px] mr-1">Waktu:</span>
-            {(['avg', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha'] as PrayerFilter[]).map((pf) => {
-              const labelMap: Record<PrayerFilter, string> = {
-                avg: 'Rata-Rata',
-                fajr: 'Subuh',
-                dhuhr: 'Dzuhur',
-                asr: 'Ashar',
-                maghrib: 'Maghrib',
-                isha: 'Isya',
-              };
-              return (
-                <button
-                  key={pf}
-                  onClick={() => setPrayerFilter(pf)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
-                    prayerFilter === pf ? 'bg-[#C5A059] text-[#1C2D24] shadow-xs' : 'bg-white text-[#2E4338] border border-[#E5DAC8]'
-                  }`}
-                >
-                  {labelMap[pf]}
-                </button>
-              );
-            })}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center justify-between sm:justify-start gap-2">
+              <span className="flex items-center gap-1.5 font-extrabold text-[#2E4338] text-xs uppercase tracking-wider">
+                <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>Filter Waktu:</span>
+              </span>
+              <span className="text-[10px] text-[#694F12] font-bold sm:hidden">
+                {prayerFilter === 'avg' ? 'Rata-Rata Harian' : `Shalat ${prayerFilter.toUpperCase()}`}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 w-full sm:w-auto">
+              {(['avg', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha'] as PrayerFilter[]).map((pf) => {
+                const labelMap: Record<PrayerFilter, { name: string; icon: string }> = {
+                  avg: { name: 'Rata-Rata', icon: '📊' },
+                  fajr: { name: 'Subuh', icon: '🌙' },
+                  dhuhr: { name: 'Dzuhur', icon: '☀️' },
+                  asr: { name: 'Ashar', icon: '🌤️' },
+                  maghrib: { name: 'Maghrib', icon: '🌅' },
+                  isha: { name: 'Isya', icon: '🌌' },
+                };
+                const isSelected = prayerFilter === pf;
+                return (
+                  <button
+                    key={pf}
+                    type="button"
+                    onClick={() => setPrayerFilter(pf)}
+                    className={`py-2 px-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-1 shadow-2xs text-center ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-[#C5A059] to-[#B08A45] text-[#1C2D24] shadow-xs font-black ring-1 ring-[#C5A059]/60 scale-[1.02]'
+                        : 'bg-white text-[#2E4338] border border-[#E5DAC8] hover:border-[#C5A059] hover:bg-white/90'
+                    }`}
+                  >
+                    <span className="text-[11px] shrink-0">{labelMap[pf].icon}</span>
+                    <span className="truncate">{labelMap[pf].name}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         ) : (
-          <div className="flex flex-wrap items-center gap-1">
-            <span className="font-bold text-[#2E4338] text-[11px] mr-1">Pilih Hari:</span>
-            {WEEKLY_TREND_DATA.map((d, idx) => (
-              <button
-                key={d.dayKey}
-                onClick={() => setSelectedDayIndex(idx)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
-                  selectedDayIndex === idx ? 'bg-[#C5A059] text-[#1C2D24] shadow-xs' : 'bg-white text-[#2E4338] border border-[#E5DAC8]'
-                }`}
-              >
-                {d.dayShort}
-              </button>
-            ))}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center justify-between sm:justify-start gap-2">
+              <span className="flex items-center gap-1.5 font-extrabold text-[#2E4338] text-xs uppercase tracking-wider">
+                <Calendar className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>Pilih Hari:</span>
+              </span>
+              <span className="text-[10px] text-[#694F12] font-bold">
+                {WEEKLY_TREND_DATA[selectedDayIndex]?.dayFull}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-7 gap-1 sm:gap-1.5 w-full sm:w-auto">
+              {WEEKLY_TREND_DATA.map((d, idx) => {
+                const isSelected = selectedDayIndex === idx;
+                const isJumat = d.dayKey === 'fri';
+                return (
+                  <button
+                    key={d.dayKey}
+                    type="button"
+                    onClick={() => setSelectedDayIndex(idx)}
+                    className={`py-2 px-1 sm:px-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer flex flex-col items-center justify-center shadow-2xs text-center ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-[#C5A059] to-[#B08A45] text-[#1C2D24] shadow-xs font-black ring-1 ring-[#C5A059]/60 scale-[1.02]'
+                        : 'bg-white text-[#2E4338] border border-[#E5DAC8] hover:border-[#C5A059] hover:bg-white/90'
+                    }`}
+                    title={d.dayFull}
+                  >
+                    <span className="text-[11px] sm:text-xs font-extrabold truncate">{d.dayShort}</span>
+                    {isJumat ? (
+                      <span className="text-[9px] text-[#244C3B] font-black leading-none mt-0.5">
+                        ⭐
+                      </span>
+                    ) : (
+                      <span className="text-[8px] opacity-0 leading-none mt-0.5">•</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>
@@ -1344,24 +1412,24 @@ export default function App() {
   return (
     <div className="space-y-6">
       {/* Top Section View Tabs */}
-      <div className="flex items-center justify-between gap-3 p-1.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs">
-        <div className="flex flex-wrap items-center gap-1 text-xs font-bold">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-1.5 sm:p-2 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs">
+        <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-1.5 text-xs font-bold w-full sm:w-auto">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer ${
+            className={`w-full sm:w-auto px-3.5 py-2 sm:py-1.5 rounded-xl transition-all duration-200 cursor-pointer text-center ${
               activeTab === 'all'
-                ? 'bg-[#244C3B] text-white shadow-xs'
-                : 'text-[#2E4338] hover:text-[#1C2D24]'
+                ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold'
+                : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/60'
             }`}
           >
             📋 Tampilkan Keduanya
           </button>
           <button
             onClick={() => setActiveTab('estimator')}
-            className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`w-full sm:w-auto px-3.5 py-2 sm:py-1.5 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-center ${
               activeTab === 'estimator'
-                ? 'bg-[#244C3B] text-white shadow-xs'
-                : 'text-[#2E4338] hover:text-[#1C2D24]'
+                ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold'
+                : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/60'
             }`}
           >
             <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
@@ -1369,10 +1437,10 @@ export default function App() {
           </button>
           <button
             onClick={() => setActiveTab('weekly_trend')}
-            className={`px-3.5 py-1.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`w-full sm:w-auto px-3.5 py-2 sm:py-1.5 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 text-center ${
               activeTab === 'weekly_trend'
-                ? 'bg-[#244C3B] text-white shadow-xs'
-                : 'text-[#2E4338] hover:text-[#1C2D24]'
+                ? 'bg-gradient-to-r from-[#244C3B] to-[#1E4333] text-white shadow-xs font-extrabold'
+                : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/60'
             }`}
           >
             <Activity className="w-3.5 h-3.5 text-[#C5A059]" />
@@ -1380,7 +1448,7 @@ export default function App() {
           </button>
         </div>
 
-        <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-[#2E4338] font-medium pr-2">
+        <div className="hidden lg:flex items-center gap-1.5 text-[11px] text-[#2E4338] font-medium pr-2 shrink-0">
           <span>Sinkronisasi Portal Real-Time</span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
         </div>
