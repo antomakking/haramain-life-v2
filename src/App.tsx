@@ -31,246 +31,183 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
+import {
+  Language,
+  reactTranslations,
+  ThawafFloorItem,
+  SaiModeItem,
+  TahallulModeItem,
+} from './translations';
 
 /* =========================================================================
-   1. TYPES & DATA DEFINITIONS
+   1. LANGUAGE REACTIVE HOOK
    ========================================================================= */
 
-// Data Kepadatan Per Jam AST Makkah (Sesuai Portal Hisab Haramain)
-interface HourlyDensity {
-  hour: number;
-  label: string;
-  density: number; // 0 - 100%
-  status: string;
-  isPrayerTime?: string;
-  advice: string;
+export function useLanguage(): Language {
+  const [lang, setLang] = useState<Language>(() => {
+    try {
+      const saved = localStorage.getItem('haramain_lang');
+      if (saved === 'en' || saved === 'id') return saved;
+      if (typeof window !== 'undefined' && (window as unknown as { currentLang?: string }).currentLang) {
+        return (window as unknown as { currentLang?: string }).currentLang === 'en' ? 'en' : 'id';
+      }
+    } catch (e) {}
+    return 'id';
+  });
+
+  useEffect(() => {
+    const handleLangChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ lang?: Language }>;
+      const newLang = customEvent?.detail?.lang || (window as unknown as { currentLang?: Language }).currentLang;
+      if (newLang === 'en' || newLang === 'id') {
+        setLang(newLang);
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'haramain_lang' && (e.newValue === 'id' || e.newValue === 'en')) {
+        setLang(e.newValue as Language);
+      }
+    };
+
+    window.addEventListener('languagechange', handleLangChange);
+    window.addEventListener('haramain_language_change', handleLangChange);
+    window.addEventListener('storage', handleStorage);
+
+    // Backup polling check in case window.currentLang was changed directly
+    const interval = setInterval(() => {
+      const cur = (window as unknown as { currentLang?: string }).currentLang;
+      if ((cur === 'en' || cur === 'id') && cur !== lang) {
+        setLang(cur as Language);
+      }
+    }, 400);
+
+    return () => {
+      window.removeEventListener('languagechange', handleLangChange);
+      window.removeEventListener('haramain_language_change', handleLangChange);
+      window.removeEventListener('storage', handleStorage);
+      clearInterval(interval);
+    };
+  }, [lang]);
+
+  return lang;
 }
 
-const MAKKAH_HOURLY_CROWD: HourlyDensity[] = [
-  { hour: 0, label: '00:00 AST', density: 38, status: 'Longgar', advice: 'Mataf sangat nyaman & sejuk untuk thawaf tenang' },
-  { hour: 1, label: '01:00 AST', density: 35, status: 'Sangat Longgar', advice: 'Waktu emas! Pelataran bawah Ka\'bah sangat lengang' },
-  { hour: 2, label: '02:00 AST', density: 40, status: 'Longgar', advice: 'Sangat ideal untuk Qiyamul Lail & Thawaf' },
-  { hour: 3, label: '03:00 AST', density: 55, status: 'Sedang', advice: 'Mulai banyak jamaah bangun persiapan Subuh' },
-  { hour: 4, label: '04:00 AST', density: 82, status: 'Padat', isPrayerTime: 'Jelang Subuh', advice: 'Akses masuk Mataf mulai diperketat' },
-  { hour: 5, label: '05:00 AST', density: 92, status: 'Puncak', isPrayerTime: 'Shalat Subuh', advice: 'Puncak shalat Subuh berjamaah, Mataf penuh' },
-  { hour: 6, label: '06:00 AST', density: 65, status: 'Sedang', advice: 'Jamaah mulai terurai usai dzikir pagi & syuruq' },
-  { hour: 7, label: '07:00 AST', density: 42, status: 'Longgar', advice: 'Waktu dhuha yang segar, sangat ramah lansia' },
-  { hour: 8, label: '08:00 AST', density: 45, status: 'Longgar', advice: 'Arus teratur, kebersihan lantai rutin dilakukan' },
-  { hour: 9, label: '09:00 AST', density: 52, status: 'Sedang', advice: 'Kondisi stabil sebelum matahari meninggi' },
-  { hour: 10, label: '10:00 AST', density: 62, status: 'Sedang', advice: 'Mulai ramai jamaah bersiap shalat Dzuhur' },
-  { hour: 11, label: '11:00 AST', density: 85, status: 'Padat', isPrayerTime: 'Jelang Dzuhur', advice: 'Jalur Mataf bawah sering dialihkan' },
-  { hour: 12, label: '12:00 AST', density: 94, status: 'Puncak', isPrayerTime: 'Shalat Dzuhur', advice: 'Shalat Dzuhur berjamaah, suhu cuaca panas' },
-  { hour: 13, label: '13:00 AST', density: 70, status: 'Sedang', advice: 'Arus kembali mengalir setelah shalat siang' },
-  { hour: 14, label: '14:00 AST', density: 60, status: 'Sedang', advice: 'Kipas embun aktif, suasana dalam masjid sejuk' },
-  { hour: 15, label: '15:00 AST', density: 80, status: 'Padat', isPrayerTime: 'Jelang Ashar', advice: 'Persiapan shalat Ashar berjamaah' },
-  { hour: 16, label: '16:00 AST', density: 88, status: 'Padat', isPrayerTime: 'Shalat Ashar', advice: 'Mataf terisi penuh jamaah shalat Ashar' },
-  { hour: 17, label: '17:00 AST', density: 78, status: 'Sedang-Padat', advice: 'Jamaah mulai duduk menunggu Maghrib & Isya' },
-  { hour: 18, label: '18:00 AST', density: 96, status: 'Puncak Maksimal', isPrayerTime: 'Shalat Maghrib', advice: 'Kapasitas 100% penuh sesak shalat Maghrib' },
-  { hour: 19, label: '19:00 AST', density: 95, status: 'Puncak Maksimal', isPrayerTime: 'Jeda Isya', advice: 'Jeda Maghrib-Isya, pelataran terkunci rapat' },
-  { hour: 20, label: '20:00 AST', density: 90, status: 'Padat', isPrayerTime: 'Shalat Isya', advice: 'Shalat Isya berjamaah selesai sekitar 20:45' },
-  { hour: 21, label: '21:00 AST', density: 72, status: 'Sedang', advice: 'Arus jamaah mulai keluar, thawaf malam mulai lancar' },
-  { hour: 22, label: '22:00 AST', density: 58, status: 'Sedang', advice: 'Udara malam bersahabat, waktu favorit jamaah' },
-  { hour: 23, label: '23:00 AST', density: 45, status: 'Longgar', advice: 'Suasana tenang berangsur menuju tengah malam' },
-];
+/* =========================================================================
+   2. TYPES & DATA DEFINITIONS
+   ========================================================================= */
 
-// Opsi Lantai / Jalur Thawaf
 type ThawafFloor = 'ground' | 'mezzanine' | 'roof' | 'scooter';
-interface ThawafFloorOption {
-  id: ThawafFloor;
-  name: string;
-  desc: string;
-  distanceKm: number;
-  baseMinutes: number;
-  suitability: string;
-}
-
-const THAWAF_FLOORS: ThawafFloorOption[] = [
-  {
-    id: 'ground',
-    name: "Pelataran Ka'bah (Mataf Bawah)",
-    desc: 'Radius terpendek tepat mengelilingi Ka\'bah. Wajib kain ihram bagi pria.',
-    distanceKm: 1.4,
-    baseMinutes: 32,
-    suitability: 'Paling Afdhal & Cepat (Khusus Jamaah Mandiri / Fisik Prima)',
-  },
-  {
-    id: 'mezzanine',
-    name: 'Lantai 1 / Mezzanine (Indoor AC)',
-    desc: 'Jalur ber-AC sejuk, ramah keluarga & lansia. Radius putaran lebih lebar.',
-    distanceKm: 3.1,
-    baseMinutes: 55,
-    suitability: 'Sangat Nyaman & Sejuk (Bebas Panas Matahari)',
-  },
-  {
-    id: 'roof',
-    name: 'Lantai Atas Terbuka (Roof Top)',
-    desc: 'Area udara terbuka sangat luas. Sangat cocok saat malam hari berangin sejuk.',
-    distanceKm: 4.2,
-    baseMinutes: 75,
-    suitability: 'Lega & Bebas Desakan (Cocok untuk Malam Hari)',
-  },
-  {
-    id: 'scooter',
-    name: 'Jalur Skuter Elektrik (Mezzanine Mas\'a)',
-    desc: 'Layanan sewa skuter resmi Masjidil Haram (Single/Double). Laju konstan.',
-    distanceKm: 2.8,
-    baseMinutes: 24,
-    suitability: 'Tercepat & Ramah Lansia / Sakit / Disabilitas',
-  },
-];
-
-// Opsi Moda Sa'i Shafa-Marwah
 type SaiMode = 'walk_normal' | 'walk_elderly' | 'scooter' | 'wheelchair';
-interface SaiModeOption {
-  id: SaiMode;
-  name: string;
-  desc: string;
-  speedLabel: string;
-  baseMinutes: number;
-}
-
-const SAI_MODES: SaiModeOption[] = [
-  {
-    id: 'walk_normal',
-    name: 'Jalan Kaki Normal (Lantai Dasar / 1)',
-    desc: 'Jarak 7 putaran Shafa-Marwah tetap 3.15 km (7 × 450 meter). Termasuk lari kecil di pilar hijau bagi pria.',
-    speedLabel: 'Kecepatan ~3.5 km/jam',
-    baseMinutes: 50,
-  },
-  {
-    id: 'walk_elderly',
-    name: 'Jalan Santai / Lansia & Rombongan',
-    desc: 'Kecepatan santai dengan istirahat sejenak di setiap putaran Shafa atau Marwah.',
-    speedLabel: 'Kecepatan ~2.2 km/jam',
-    baseMinutes: 75,
-  },
-  {
-    id: 'scooter',
-    name: 'Skuter Elektrik (Jalur Mezzanine Khusus)',
-    desc: 'Jalur layang bebas hambatan pejalan kaki. Kecepatan skuter stabil dan aman.',
-    speedLabel: 'Laju Elektrik ~7-8 km/jam',
-    baseMinutes: 28,
-  },
-  {
-    id: 'wheelchair',
-    name: 'Kursi Roda (Petugas Resmi Pendorong)',
-    desc: 'Layanan resmi pendorong kursi roda berseragam hijau di jalur khusus kursi roda.',
-    speedLabel: 'Dorong Teratur ~4.0 km/jam',
-    baseMinutes: 42,
-  },
-];
-
-// Opsi Lokasi Tahallul
 type TahallulMode = 'self_marwah' | 'barber_outside';
-interface TahallulModeOption {
-  id: TahallulMode;
-  name: string;
-  desc: string;
-  minutes: number;
-}
 
-const TAHALLUL_MODES: TahallulModeOption[] = [
-  {
-    id: 'self_marwah',
-    name: 'Tahallul Mandiri di Bukit Marwah',
-    desc: 'Memotong minimal 3 helai rambut langsung di akhir putaran ke-7 bukit Marwah (bawa gunting kecil sendiri).',
-    minutes: 8,
-  },
-  {
-    id: 'barber_outside',
-    name: 'Barbershop Luar Marwah / Menara Zamzam',
-    desc: 'Cukur gundul licin (Halaq) di barbershop resmi luar gerbang Marwah / Bab Ali. Termasuk antrean.',
-    minutes: 25,
-  },
-];
-
-// Data Mingguan Recharts
 interface DayTrendData {
   dayKey: string;
-  dayShort: string;
-  dayFull: string;
+  dayShort: { id: string; en: string };
+  dayFull: { id: string; en: string };
   makkahAvg: number;
   madinahAvg: number;
   makkahPrayers: { fajr: number; dhuhr: number; asr: number; maghrib: number; isha: number };
   madinahPrayers: { fajr: number; dhuhr: number; asr: number; maghrib: number; isha: number };
-  note: string;
+  note: { id: string; en: string };
 }
 
 const WEEKLY_TREND_DATA: DayTrendData[] = [
   {
     dayKey: 'sun',
-    dayShort: 'Ahad',
-    dayFull: 'Minggu (Sunday)',
+    dayShort: { id: 'Ahad', en: 'Sun' },
+    dayFull: { id: 'Ahad (Sunday)', en: 'Sunday' },
     makkahAvg: 68,
     madinahAvg: 66,
     makkahPrayers: { fajr: 72, dhuhr: 65, asr: 62, maghrib: 75, isha: 70 },
     madinahPrayers: { fajr: 70, dhuhr: 62, asr: 60, maghrib: 73, isha: 68 },
-    note: 'Awal pekan kerja Arab Saudi. Kepadatan tergolong sedang.',
+    note: {
+      id: 'Awal pekan kerja Arab Saudi. Kepadatan tergolong sedang.',
+      en: 'Start of the Saudi work week. Crowd level is generally moderate.',
+    },
   },
   {
     dayKey: 'mon',
-    dayShort: 'Senin',
-    dayFull: 'Senin (Monday)',
+    dayShort: { id: 'Senin', en: 'Mon' },
+    dayFull: { id: 'Senin (Monday)', en: 'Monday' },
     makkahAvg: 72,
     madinahAvg: 70,
     makkahPrayers: { fajr: 78, dhuhr: 68, asr: 65, maghrib: 80, isha: 75 },
     madinahPrayers: { fajr: 75, dhuhr: 66, asr: 63, maghrib: 78, isha: 72 },
-    note: 'Hari puasa sunnah Senin. Ramai jamaah berbuka puasa di pelataran Maghrib.',
+    note: {
+      id: 'Hari puasa sunnah Senin. Ramai jamaah berbuka puasa di pelataran Maghrib.',
+      en: 'Sunnah fasting day. Pilgrims gather for iftar around Maghrib prayer.',
+    },
   },
   {
     dayKey: 'tue',
-    dayShort: 'Selasa',
-    dayFull: 'Selasa (Tuesday)',
+    dayShort: { id: 'Selasa', en: 'Tue' },
+    dayFull: { id: 'Selasa (Tuesday)', en: 'Tuesday' },
     makkahAvg: 58,
     madinahAvg: 55,
     makkahPrayers: { fajr: 65, dhuhr: 54, asr: 52, maghrib: 68, isha: 62 },
     madinahPrayers: { fajr: 62, dhuhr: 52, asr: 50, maghrib: 65, isha: 58 },
-    note: 'Hari terlonggar dalam sepekan! Sangat ideal untuk Thawaf & Ziarah Raudhah.',
+    note: {
+      id: 'Hari terlonggar dalam sepekan! Sangat ideal untuk Thawaf & Ziarah Raudhah.',
+      en: 'Calmest day of the week! Very ideal for Tawaf and Rawdah visitation.',
+    },
   },
   {
     dayKey: 'wed',
-    dayShort: 'Rabu',
-    dayFull: 'Rabu (Wednesday)',
+    dayShort: { id: 'Rabu', en: 'Wed' },
+    dayFull: { id: 'Rabu (Wednesday)', en: 'Wednesday' },
     makkahAvg: 60,
     madinahAvg: 58,
     makkahPrayers: { fajr: 66, dhuhr: 56, asr: 54, maghrib: 70, isha: 64 },
     madinahPrayers: { fajr: 64, dhuhr: 54, asr: 52, maghrib: 68, isha: 60 },
-    note: 'Kepadatan tergolong rendah hingga sedang. Akses pintu utama sangat lancar.',
+    note: {
+      id: 'Kepadatan tergolong rendah hingga sedang. Akses pintu utama sangat lancar.',
+      en: 'Low to moderate crowd density. Main entrance gates are easily accessible.',
+    },
   },
   {
     dayKey: 'thu',
-    dayShort: 'Kamis',
-    dayFull: 'Kamis (Thursday)',
+    dayShort: { id: 'Kamis', en: 'Thu' },
+    dayFull: { id: 'Kamis (Thursday)', en: 'Thursday' },
     makkahAvg: 82,
     madinahAvg: 84,
     makkahPrayers: { fajr: 75, dhuhr: 78, asr: 80, maghrib: 90, isha: 88 },
     madinahPrayers: { fajr: 72, dhuhr: 80, asr: 82, maghrib: 92, isha: 90 },
-    note: 'Malam Jumat (Friday Eve). Lonjakan jamaah lokal & ziarah Raudhah.',
+    note: {
+      id: 'Malam Jumat (Friday Eve). Lonjakan jamaah lokal & ziarah Raudhah.',
+      en: 'Eve of Friday. Notable influx of local visitors and Rawdah pilgrims.',
+    },
   },
   {
     dayKey: 'fri',
-    dayShort: 'Jumat',
-    dayFull: "Jumat (Friday - Jumu'ah)",
+    dayShort: { id: 'Jumat', en: 'Fri' },
+    dayFull: { id: "Jumat (Friday - Jumu'ah)", en: 'Friday (Jumu\'ah)' },
     makkahAvg: 95,
     madinahAvg: 92,
     makkahPrayers: { fajr: 90, dhuhr: 98, asr: 92, maghrib: 96, isha: 94 },
     madinahPrayers: { fajr: 88, dhuhr: 96, asr: 88, maghrib: 94, isha: 92 },
-    note: 'PUNCAK KERAMAIAN MINGGUAN! Pelataran Shalat Jumat penuh sejak 10:00 AST.',
+    note: {
+      id: 'PUNCAK KERAMAIAN MINGGUAN! Pelataran Shalat Jumat penuh sejak 10:00 AST.',
+      en: 'WEEKLY CAPACITY PEAK! Friday congregational rows full from 10:00 AST.',
+    },
   },
   {
     dayKey: 'sat',
-    dayShort: 'Sabtu',
-    dayFull: 'Sabtu (Saturday)',
+    dayShort: { id: 'Sabtu', en: 'Sat' },
+    dayFull: { id: 'Sabtu (Saturday)', en: 'Saturday' },
     makkahAvg: 78,
     madinahAvg: 75,
     makkahPrayers: { fajr: 80, dhuhr: 74, asr: 72, maghrib: 84, isha: 80 },
     madinahPrayers: { fajr: 78, dhuhr: 70, asr: 68, maghrib: 82, isha: 76 },
-    note: 'Akhir pekan lokal. Arus jamaah melandai kembali menjelang malam.',
+    note: {
+      id: 'Akhir pekan lokal. Arus jamaah melandai kembali menjelang malam.',
+      en: 'Local weekend. Pilgrim flows gradually ease into the night.',
+    },
   },
 ];
 
 /* =========================================================================
-   2. UTILITY FUNCTIONS
+   3. UTILITY FUNCTIONS
    ========================================================================= */
 
 function getSaudiNowDate(): Date {
@@ -279,12 +216,13 @@ function getSaudiNowDate(): Date {
   return new Date(astString);
 }
 
-function formatMinutes(totalMins: number): string {
+function formatMinutes(totalMins: number, lang: Language): string {
+  const t = reactTranslations[lang];
   const hours = Math.floor(totalMins / 60);
   const mins = totalMins % 60;
-  if (hours === 0) return `${mins} Menit`;
-  if (mins === 0) return `${hours} Jam`;
-  return `${hours} Jam ${mins} Menit`;
+  if (hours === 0) return `${mins} ${t.time_min_unit}`;
+  if (mins === 0) return `${hours} ${t.time_hour_unit}`;
+  return `${hours} ${t.time_hour_unit} ${mins} ${t.time_min_unit}`;
 }
 
 function addMinutesToTime(startHour: number, startMinute: number, addedMinutes: number): string {
@@ -296,10 +234,13 @@ function addMinutesToTime(startHour: number, startMinute: number, addedMinutes: 
 }
 
 /* =========================================================================
-   3. SECTION 1: KALKULATOR ESTIMASI WAKTU MANASIK UMROH (NEW SECTION)
+   4. SECTION 1: KALKULATOR ESTIMASI WAKTU MANASIK UMROH
    ========================================================================= */
 
 export function UmrahManasikEstimatorSection() {
+  const lang = useLanguage();
+  const t = reactTranslations[lang];
+
   // Saudi Real-Time Clock
   const [currentSaudiTime, setCurrentSaudiTime] = useState<Date>(() => getSaudiNowDate());
   const currentAstHour = currentSaudiTime.getHours();
@@ -335,32 +276,39 @@ export function UmrahManasikEstimatorSection() {
 
   // Data Kepadatan pada jam aktif
   const currentCrowd = useMemo(() => {
-    return MAKKAH_HOURLY_CROWD.find((item) => item.hour === activeHour) || MAKKAH_HOURLY_CROWD[0];
-  }, [activeHour]);
+    return t.hourly_crowd.find((item) => item.hour === activeHour) || t.hourly_crowd[0];
+  }, [activeHour, t.hourly_crowd]);
 
   const densityPercent = currentCrowd.density;
+
+  // Selected floor & modes
+  const selectedThawafFloor = useMemo(() => {
+    return t.thawaf_floors.find((f) => f.id === thawafFloor) || t.thawaf_floors[0];
+  }, [thawafFloor, t.thawaf_floors]);
+
+  const selectedSaiMode = useMemo(() => {
+    return t.sai_modes.find((m) => m.id === saiMode) || t.sai_modes[0];
+  }, [saiMode, t.sai_modes]);
+
+  const selectedTahallul = useMemo(() => {
+    return t.tahallul_modes.find((mode) => mode.id === tahallulMode) || t.tahallul_modes[0];
+  }, [tahallulMode, t.tahallul_modes]);
 
   // Kalkulasi Waktu Tiap Etape
   const calculation = useMemo(() => {
     // 1. Thawaf 7 Putaran
-    const selectedThawafFloor = THAWAF_FLOORS.find((f) => f.id === thawafFloor)!;
     let thawafDuration = 0;
     if (thawafFloor === 'ground') {
-      // Pelataran bawah Ka'bah: base 30m @ 30%, scaling up to 75m @ 95%
       thawafDuration = Math.round(28 + (densityPercent / 100) * 45);
     } else if (thawafFloor === 'mezzanine') {
-      // Lantai 1: base 52m, radius lebih lebar
       thawafDuration = Math.round(50 + (densityPercent / 100) * 32);
     } else if (thawafFloor === 'roof') {
-      // Lantai atas: base 70m
       thawafDuration = Math.round(70 + (densityPercent / 100) * 38);
     } else {
-      // Skuter: kecepatan konstan
       thawafDuration = Math.round(22 + (densityPercent / 100) * 7);
     }
 
     // 2. Shalat Sunnah Thawaf & Minum Air Zamzam
-    // Pada saat sangat padat (>80%), mencari tempat shalat & antre dispenser lebih lama
     const prayerAndZamzamDuration = Math.round(10 + (densityPercent / 100) * 12);
 
     // 3. Transisi Berjalan dari Mataf ke Bukit Shafa
@@ -379,10 +327,9 @@ export function UmrahManasikEstimatorSection() {
     }
 
     // 5. Tahallul
-    const selectedTahallul = TAHALLUL_MODES.find((t) => t.id === tahallulMode)!;
     let tahallulDuration = selectedTahallul.minutes;
     if (tahallulMode === 'barber_outside' && densityPercent > 75) {
-      tahallulDuration += Math.round((densityPercent / 100) * 15); // Tambahan antre barbershop
+      tahallulDuration += Math.round((densityPercent / 100) * 15);
     }
 
     // Total Waktu Tempuh
@@ -396,7 +343,7 @@ export function UmrahManasikEstimatorSection() {
     // Total Jarak Tempuh
     const totalDistanceKm = Number((selectedThawafFloor.distanceKm + 3.15 + 0.3).toFixed(2));
 
-    // Perkiraan Kalori Terbakar (untuk berat badan rata-rata 65kg)
+    // Perkiraan Kalori Terbakar
     const caloriesBurned = Math.round(totalDistanceKm * 65 * 0.95);
 
     // Timeline Jam Tiap Etape
@@ -425,69 +372,69 @@ export function UmrahManasikEstimatorSection() {
         finish: tFinish,
       },
     };
-  }, [thawafFloor, saiMode, tahallulMode, densityPercent, activeHour, activeMinute]);
+  }, [thawafFloor, saiMode, tahallulMode, densityPercent, activeHour, activeMinute, selectedThawafFloor, selectedTahallul]);
 
   // Evaluasi Kelayakan & Rekomendasi Waktu
   const comfortStatus = useMemo(() => {
     if (densityPercent < 50) {
       return {
-        level: 'Sangat Nyaman & Direkomendasikan',
+        level: t.comfort_level_1,
         color: 'text-emerald-700 dark:text-emerald-300',
         bgColor: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800',
         dotColor: 'bg-emerald-500',
         icon: '🌿',
-        note: 'Arus Mataf dan Mas\'a lancar tanpa hambatan desakan. Waktu terbaik untuk jamaah keluarga & lansia.',
+        note: t.comfort_note_1,
       };
     }
     if (densityPercent < 75) {
       return {
-        level: 'Sedang • Cukup Lancar & Tertib',
+        level: t.comfort_level_2,
         color: 'text-amber-700 dark:text-amber-300',
         bgColor: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800',
         dotColor: 'bg-amber-500',
         icon: '🌙',
-        note: 'Arus jamaah stabil dan teratur. Tetap rapatkan barisan rombongan saat melintasi tikungan Rukun Yamani.',
+        note: t.comfort_note_2,
       };
     }
     if (densityPercent < 88) {
       return {
-        level: 'Padat • Diperlukan Kesabaran',
+        level: t.comfort_level_3,
         color: 'text-orange-700 dark:text-orange-300',
         bgColor: 'bg-orange-50 dark:bg-orange-950/40 border-orange-200 dark:border-orange-800',
         dotColor: 'bg-orange-500',
         icon: '⚠️',
-        note: 'Kepadatan tinggi. Bagi lansia atau jamaah berkursi roda, sangat dianjurkan menggunakan jalur Mezzanine / Lantai 1.',
+        note: t.comfort_note_3,
       };
     }
     return {
-      level: 'Puncak Kepadatan Shalat Fardhu',
+      level: t.comfort_level_4,
       color: 'text-red-700 dark:text-red-300',
       bgColor: 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-800',
       dotColor: 'bg-red-500',
       icon: '⛔',
-      note: 'Waktu shalat fardhu berjamaah. Pelataran Mataf bawah sering disterilkan atau ditutup akses masuknya 30 menit sebelum adzan.',
+      note: t.comfort_note_4,
     };
-  }, [densityPercent]);
+  }, [densityPercent, t]);
 
   // Handle Copy Itinerary
   const handleCopyItinerary = () => {
-    const text = `🕋 ESTIMASI JADWAL WAKTU MANASIK UMROH
+    const text = `${t.copy_header}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
-⏱️ Total Durasi : ${formatMinutes(calculation.totalMinutes)}
-📍 Status Kepadatan : ${densityPercent}% (${currentCrowd.status})
-🕒 Jam Mulai   : ${calculation.times.start}
-🏁 Estimasi Selesai : ${calculation.times.finish}
-🚶 Total Jarak  : ~${calculation.totalDistanceKm} km (${calculation.caloriesBurned} kkal)
+⏱️ ${t.copy_total_duration} : ${formatMinutes(calculation.totalMinutes, lang)}
+📍 ${t.copy_density_status} : ${densityPercent}% (${currentCrowd.status})
+🕒 ${t.copy_start_time}   : ${calculation.times.start}
+🏁 ${t.copy_finish_time} : ${calculation.times.finish}
+🚶 ${t.copy_total_distance}  : ~${calculation.totalDistanceKm} km (${calculation.caloriesBurned} kcal)
 
-📌 RINCIAN TAHAPAN MANASIK:
-1. Thawaf 7 Putaran (${thawafFloor === 'ground' ? "Pelataran Ka'bah Bawah" : thawafFloor === 'scooter' ? 'Skuter Elektrik' : 'Lantai Mezzanine'}) : ~${calculation.thawafDuration} m (${calculation.times.start} - ${calculation.times.afterThawaf})
-2. Shalat Sunnah Thawaf & Minum Zamzam : ~${calculation.prayerAndZamzamDuration} m (${calculation.times.afterThawaf} - ${calculation.times.afterPrayerZamzam})
-3. Transisi Menuju Bukit Shafa : ~${calculation.transitionDuration} m (${calculation.times.afterPrayerZamzam} - ${calculation.times.startSai})
-4. Sa'i 7 Putaran (Shafa ⇆ Marwah 3.15 km) : ~${calculation.saiDuration} m (${calculation.times.startSai} - ${calculation.times.afterSai})
-5. Tahallul (Potong Rambut di Marwah) : ~${calculation.tahallulDuration} m (${calculation.times.afterSai} - ${calculation.times.finish})
+📌 ${t.copy_breakdown_title}
+1. ${t.copy_step1} (${selectedThawafFloor.name}) : ~${calculation.thawafDuration} m (${calculation.times.start} - ${calculation.times.afterThawaf})
+2. ${t.copy_step2} : ~${calculation.prayerAndZamzamDuration} m (${calculation.times.afterThawaf} - ${calculation.times.afterPrayerZamzam})
+3. ${t.copy_step3} : ~${calculation.transitionDuration} m (${calculation.times.afterPrayerZamzam} - ${calculation.times.startSai})
+4. ${t.copy_step4} : ~${calculation.saiDuration} m (${calculation.times.startSai} - ${calculation.times.afterSai})
+5. ${t.copy_step5} : ~${calculation.tahallulDuration} m (${calculation.times.afterSai} - ${calculation.times.finish})
 
-💡 Catatan: Estimasi dihitung berdasarkan pantauan kepadatan real-time Masjidil Haram Makkah portal Haramain Life.
-Sumber: https://haramainlife.com/`;
+💡 ${t.copy_note}
+${t.copy_source}`;
 
     navigator.clipboard.writeText(text).then(() => {
       setCopiedToast(true);
@@ -505,17 +452,16 @@ Sumber: https://haramainlife.com/`;
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-wider mb-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#C5A059] animate-pulse" />
-            <span>FITUR BARU · ESTIMATOR WAKTU MANASIK REAL-TIME</span>
+            <span>{t.estimator_badge}</span>
           </div>
           <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#1C2D24] tracking-tight">
-            Estimasi Waktu Tempuh Rangkaian Manasik Umroh
+            {t.estimator_title}
           </h2>
           <p className="text-xs sm:text-sm text-[#2E4338] font-medium mt-1.5 max-w-3xl leading-relaxed">
-            Kalkulator durasi pelaksanaan <strong className="text-[#244C3B]">Thawaf 7 Putaran</strong>,{' '}
-            <strong className="text-[#244C3B]">Shalat Sunnah & Zamzam</strong>,{' '}
-            <strong className="text-[#244C3B]">Sa'i Shafa-Marwah</strong>, hingga{' '}
-            <strong className="text-[#244C3B]">Tahallul</strong> yang disinkronkan langsung dengan persentase kepadatan
-            Masjidil Haram Makkah saat ini.
+            {t.estimator_desc_intro} <strong className="text-[#244C3B]">{t.estimator_desc_thawaf}</strong>,{' '}
+            <strong className="text-[#244C3B]">{t.estimator_desc_prayer}</strong>,{' '}
+            <strong className="text-[#244C3B]">{t.estimator_desc_sai}</strong>, {lang === 'en' ? 'and ' : 'hingga '}
+            <strong className="text-[#244C3B]">{t.estimator_desc_tahallul}</strong> {t.estimator_desc_sync}
           </p>
         </div>
 
@@ -524,7 +470,7 @@ Sumber: https://haramainlife.com/`;
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span className="text-[11px] font-bold text-[#2E4338]">
-              Waktu Arab Saudi: <strong className="text-[#1C2D24] font-mono">{String(currentAstHour).padStart(2, '0')}:{String(currentAstMinute).padStart(2, '0')} AST</strong>
+              {t.saudi_time_label} <strong className="text-[#1C2D24] font-mono">{String(currentAstHour).padStart(2, '0')}:{String(currentAstMinute).padStart(2, '0')} AST</strong>
             </span>
           </div>
 
@@ -537,7 +483,7 @@ Sumber: https://haramainlife.com/`;
                   : 'bg-[#FAF6F0] text-[#2E4338] hover:text-[#1C2D24] border border-[#E5DAC8]'
               }`}
             >
-              🔄 Live Real-Time
+              {t.btn_live_realtime}
             </button>
             <button
               onClick={() => setUseLiveTime(false)}
@@ -547,7 +493,7 @@ Sumber: https://haramainlife.com/`;
                   : 'bg-[#FAF6F0] text-[#2E4338] hover:text-[#1C2D24] border border-[#E5DAC8]'
               }`}
             >
-              ⏱️ Pilih Jam Lain
+              {t.btn_pick_hour}
             </button>
           </div>
         </div>
@@ -563,7 +509,7 @@ Sumber: https://haramainlife.com/`;
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-bold text-[#1C2D24]">
-                  Kepadatan Makkah Jam {String(activeHour).padStart(2, '0')}:00 AST:
+                  {t.density_at_label} {String(activeHour).padStart(2, '0')}:00 AST:
                 </span>
                 <span className="text-xs font-extrabold text-[#244C3B] px-2 py-0.5 rounded-lg bg-[#E4F4EC] border border-[#244C3B]/20">
                   {currentCrowd.status}
@@ -582,14 +528,8 @@ Sumber: https://haramainlife.com/`;
 
           {/* Quick Preset Hours */}
           <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-            <span className="text-[#2E4338] font-bold mr-1">Preset Jam:</span>
-            {[
-              { h: 1, label: '01:00 (Malam)' },
-              { h: 8, label: '08:00 (Dhuha)' },
-              { h: 14, label: '14:00 (Siang)' },
-              { h: 18, label: '18:00 (Maghrib)' },
-              { h: 22, label: '22:00 (Isya)' },
-            ].map((p) => (
+            <span className="text-[#2E4338] font-bold mr-1">{t.preset_hour_label}</span>
+            {t.preset_hours.map((p) => (
               <button
                 key={p.h}
                 onClick={() => {
@@ -613,7 +553,7 @@ Sumber: https://haramainlife.com/`;
         {!useLiveTime && (
           <div className="mt-4 pt-3 border-t border-[#E5DAC8] flex flex-col sm:flex-row sm:items-center gap-3">
             <span className="text-xs font-bold text-[#1C2D24] whitespace-nowrap">
-              Geser Jam Rencana Mulai Manasik:
+              {t.slide_hour_label}
             </span>
             <input
               type="range"
@@ -639,12 +579,12 @@ Sumber: https://haramainlife.com/`;
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#244C3B]">
                 <Footprints className="w-4 h-4 text-[#C5A059]" />
-                <span>1. Lokasi / Lantai Thawaf</span>
+                <span>{t.step1_heading}</span>
               </div>
-              <span className="text-[10px] text-[#2E4338] font-mono">7 Putaran Ka'bah</span>
+              <span className="text-[10px] text-[#2E4338] font-mono">{t.step1_sub}</span>
             </div>
             <div className="space-y-2 mt-3">
-              {THAWAF_FLOORS.map((f) => {
+              {t.thawaf_floors.map((f) => {
                 const isSelected = thawafFloor === f.id;
                 return (
                   <button
@@ -678,12 +618,12 @@ Sumber: https://haramainlife.com/`;
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#244C3B]">
                 <Compass className="w-4 h-4 text-[#C5A059]" />
-                <span>2. Moda Perjalanan Sa'i</span>
+                <span>{t.step2_heading}</span>
               </div>
-              <span className="text-[10px] text-[#2E4338] font-mono">Shafa ⇆ Marwah 3.15 km</span>
+              <span className="text-[10px] text-[#2E4338] font-mono">{t.step2_sub}</span>
             </div>
             <div className="space-y-2 mt-3">
-              {SAI_MODES.map((m) => {
+              {t.sai_modes.map((m) => {
                 const isSelected = saiMode === m.id;
                 return (
                   <button
@@ -715,17 +655,17 @@ Sumber: https://haramainlife.com/`;
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#244C3B]">
                 <Sparkles className="w-4 h-4 text-[#C5A059]" />
-                <span>3. Lokasi & Cara Tahallul</span>
+                <span>{t.step3_heading}</span>
               </div>
-              <span className="text-[10px] text-[#2E4338] font-mono">Penyempurna Umroh</span>
+              <span className="text-[10px] text-[#2E4338] font-mono">{t.step3_sub}</span>
             </div>
             <div className="space-y-2 mt-3">
-              {TAHALLUL_MODES.map((t) => {
-                const isSelected = tahallulMode === t.id;
+              {t.tahallul_modes.map((mode) => {
+                const isSelected = tahallulMode === mode.id;
                 return (
                   <button
-                    key={t.id}
-                    onClick={() => setTahallulMode(t.id)}
+                    key={mode.id}
+                    onClick={() => setTahallulMode(mode.id)}
                     className={`w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col gap-0.5 ${
                       isSelected
                         ? 'bg-[#E4F4EC] border-[#244C3B] shadow-xs'
@@ -734,13 +674,13 @@ Sumber: https://haramainlife.com/`;
                   >
                     <div className="flex items-center justify-between">
                       <span className={`text-xs font-bold ${isSelected ? 'text-[#244C3B]' : 'text-[#1C2D24]'}`}>
-                        {t.name}
+                        {mode.name}
                       </span>
                       <span className="text-[10px] font-mono font-bold text-[#C5A059]">
-                        ~{t.minutes} m
+                        ~{mode.minutes} m
                       </span>
                     </div>
-                    <span className="text-[10px] text-[#2E4338] line-clamp-2">{t.desc}</span>
+                    <span className="text-[10px] text-[#2E4338] line-clamp-2">{mode.desc}</span>
                   </button>
                 );
               })}
@@ -749,9 +689,7 @@ Sumber: https://haramainlife.com/`;
 
           <div className="mt-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-[#78350F] flex items-start gap-2">
             <Info className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
-            <span>
-              Tahallul di ujung bukit Marwah sah cukup dengan menggunting sedikitnya 3 helai rambut bagi pria & wanita.
-            </span>
+            <span>{t.tahallul_info_note}</span>
           </div>
         </div>
 
@@ -766,25 +704,25 @@ Sumber: https://haramainlife.com/`;
           <div>
             <div className="flex items-center gap-2 text-xs text-[#E4CB96] font-bold uppercase tracking-wider mb-1">
               <Clock className="w-4 h-4" />
-              <span>TOTAL ESTIMASI DURASI MANASIK UMROH LENGKAP</span>
+              <span>{t.summary_total_badge}</span>
             </div>
             <div className="flex items-baseline gap-3">
               <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white font-sans">
-                {formatMinutes(calculation.totalMinutes)}
+                {formatMinutes(calculation.totalMinutes, lang)}
               </span>
               <span className="text-xs sm:text-sm text-[#F5DF95] font-semibold">
-                (Tergantung Kepadatan Mataf)
+                {t.summary_density_dependency}
               </span>
             </div>
 
             {/* Start -> Finish Timeline Tag */}
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
               <span className="px-3 py-1 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs font-mono font-bold text-white">
-                Mulai: {calculation.times.start}
+                {t.summary_start}: {calculation.times.start}
               </span>
               <ChevronRight className="w-4 h-4 text-[#C5A059]" />
               <span className="px-3 py-1 rounded-xl bg-[#C5A059] font-mono font-black text-[#0E3521] shadow-xs">
-                Selesai: ~{calculation.times.finish}
+                {t.summary_finish}: ~{calculation.times.finish}
               </span>
             </div>
           </div>
@@ -794,7 +732,7 @@ Sumber: https://haramainlife.com/`;
             <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs">
               <div className="flex items-center gap-1 text-[11px] text-[#E4CB96] font-medium">
                 <Navigation className="w-3.5 h-3.5" />
-                <span>Total Jarak</span>
+                <span>{t.metric_total_dist}</span>
               </div>
               <div className="text-lg font-black text-white mt-0.5">
                 ~{calculation.totalDistanceKm} <span className="text-xs font-normal">km</span>
@@ -804,15 +742,15 @@ Sumber: https://haramainlife.com/`;
             <div className="p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs">
               <div className="flex items-center gap-1 text-[11px] text-[#E4CB96] font-medium">
                 <Flame className="w-3.5 h-3.5" />
-                <span>Kalori Fisik</span>
+                <span>{t.metric_calories}</span>
               </div>
               <div className="text-lg font-black text-white mt-0.5">
-                ~{calculation.caloriesBurned} <span className="text-xs font-normal">kkal</span>
+                ~{calculation.caloriesBurned} <span className="text-xs font-normal">kcal</span>
               </div>
             </div>
 
             <div className="col-span-2 sm:col-span-1 p-3 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs flex flex-col justify-center">
-              <div className="text-[11px] text-[#E4CB96] font-medium">Kelancaran</div>
+              <div className="text-[11px] text-[#E4CB96] font-medium">{t.summary_smoothness}</div>
               <div className="text-sm font-bold text-[#F5DF95] mt-0.5 truncate">
                 {currentCrowd.status} ({densityPercent}%)
               </div>
@@ -821,7 +759,7 @@ Sumber: https://haramainlife.com/`;
         </div>
 
         {/* Status Evaluasi Kenyamanan Bar */}
-        <div className={`mt-4 pt-3 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs`}>
+        <div className="mt-4 pt-3 border-t border-white/15 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
           <div className="flex items-center gap-2">
             <span className="text-base">{comfortStatus.icon}</span>
             <span className="font-extrabold text-[#E4CB96]">{comfortStatus.level}:</span>
@@ -835,12 +773,12 @@ Sumber: https://haramainlife.com/`;
             {copiedToast ? (
               <>
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-800" />
-                <span>Itinerary Tersalin!</span>
+                <span>{t.copy_btn_copied}</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span>Salin Jadwal ke WhatsApp</span>
+                <span>{t.copy_btn_text}</span>
               </>
             )}
           </button>
@@ -851,11 +789,10 @@ Sumber: https://haramainlife.com/`;
       <div className="mb-6">
         <h4 className="text-xs font-extrabold text-[#244C3B] uppercase tracking-wider mb-3 flex items-center gap-2">
           <Activity className="w-4 h-4 text-[#C5A059]" />
-          <span>Timeline Rincian 5 Tahapan Ibadah Umroh:</span>
+          <span>{t.timeline_heading}</span>
         </h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-          
           {/* Etape 1 */}
           <div className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex flex-col justify-between relative group hover:border-[#244C3B] transition-all">
             <div>
@@ -864,12 +801,12 @@ Sumber: https://haramainlife.com/`;
                   1
                 </span>
                 <span className="text-[11px] font-mono font-bold text-[#244C3B]">
-                  ~{calculation.thawafDuration} Menit
+                  ~{calculation.thawafDuration} {t.time_min_unit}
                 </span>
               </div>
-              <h5 className="font-extrabold text-[#1C2D24] text-xs">Thawaf 7 Putaran</h5>
+              <h5 className="font-extrabold text-[#1C2D24] text-xs">{t.timeline_steps[0]?.title}</h5>
               <p className="text-[10px] text-[#2E4338] mt-1 leading-relaxed">
-                Mulai dari Hajar Aswad berlawanan arah jarum jam. Ka'bah selalu di sisi kiri.
+                {t.timeline_steps[0]?.desc}
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
@@ -885,12 +822,12 @@ Sumber: https://haramainlife.com/`;
                   2
                 </span>
                 <span className="text-[11px] font-mono font-bold text-[#244C3B]">
-                  ~{calculation.prayerAndZamzamDuration} Menit
+                  ~{calculation.prayerAndZamzamDuration} {t.time_min_unit}
                 </span>
               </div>
-              <h5 className="font-extrabold text-[#1C2D24] text-xs">Shalat Sunnah & Zamzam</h5>
+              <h5 className="font-extrabold text-[#1C2D24] text-xs">{t.timeline_steps[1]?.title}</h5>
               <p className="text-[10px] text-[#2E4338] mt-1 leading-relaxed">
-                2 Rakaat di belakang Maqam Ibrahim, doa di Multazam, dan minum air Zamzam segar.
+                {t.timeline_steps[1]?.desc}
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
@@ -906,12 +843,12 @@ Sumber: https://haramainlife.com/`;
                   3
                 </span>
                 <span className="text-[11px] font-mono font-bold text-[#244C3B]">
-                  ~{calculation.transitionDuration} Menit
+                  ~{calculation.transitionDuration} {t.time_min_unit}
                 </span>
               </div>
-              <h5 className="font-extrabold text-[#1C2D24] text-xs">Menuju Bukit Shafa</h5>
+              <h5 className="font-extrabold text-[#1C2D24] text-xs">{t.timeline_steps[2]?.title}</h5>
               <p className="text-[10px] text-[#2E4338] mt-1 leading-relaxed">
-                Berjalan dari pelataran Mataf melalui koridor penghubung menuju bukit Shafa.
+                {t.timeline_steps[2]?.desc}
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
@@ -927,12 +864,12 @@ Sumber: https://haramainlife.com/`;
                   4
                 </span>
                 <span className="text-[11px] font-mono font-bold text-[#244C3B]">
-                  ~{calculation.saiDuration} Menit
+                  ~{calculation.saiDuration} {t.time_min_unit}
                 </span>
               </div>
-              <h5 className="font-extrabold text-[#1C2D24] text-xs">Sa'i 7 Putaran (3.15 km)</h5>
+              <h5 className="font-extrabold text-[#1C2D24] text-xs">{t.timeline_steps[3]?.title}</h5>
               <p className="text-[10px] text-[#2E4338] mt-1 leading-relaxed">
-                Shafa ke Marwah dihitung 1 putaran. Selesai putaran ke-7 di bukit Marwah.
+                {t.timeline_steps[3]?.desc}
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
@@ -948,67 +885,43 @@ Sumber: https://haramainlife.com/`;
                   5
                 </span>
                 <span className="text-[11px] font-mono font-bold text-[#244C3B]">
-                  ~{calculation.tahallulDuration} Menit
+                  ~{calculation.tahallulDuration} {t.time_min_unit}
                 </span>
               </div>
-              <h5 className="font-extrabold text-[#1C2D24] text-xs">Tahallul & Syukur</h5>
+              <h5 className="font-extrabold text-[#1C2D24] text-xs">{t.timeline_steps[4]?.title}</h5>
               <p className="text-[10px] text-[#2E4338] mt-1 leading-relaxed">
-                Memotong rambut, doa syukur selesai umroh. Seluruh larangan ihram gugur.
+                {t.timeline_steps[4]?.desc}
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-[#E5DAC8] text-[10px] font-mono text-[#C5A059] font-bold">
               {calculation.times.afterSai} - {calculation.times.finish}
             </div>
           </div>
-
         </div>
       </div>
 
       {/* 3 TIPS PRAKTIS & WAKTU EMAS (GOLDEN HOURS) */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4 border-t border-[#E5DAC8] text-xs">
-        <div className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-start gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center shrink-0 font-bold">
-            🌟
+        {t.golden_tips.map((tip, idx) => (
+          <div key={idx} className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-start gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center shrink-0 font-bold">
+              {tip.icon}
+            </div>
+            <div>
+              <h4 className="font-extrabold text-[#1C2D24] text-xs">{tip.title}</h4>
+              <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
+                {tip.desc}
+              </p>
+            </div>
           </div>
-          <div>
-            <h4 className="font-extrabold text-[#1C2D24] text-xs">Waktu Emas Thawaf Paling Cepat</h4>
-            <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
-              Pukul <strong>01:00 - 03:00 AST</strong> dini hari atau <strong>07:30 - 09:30 AST</strong> pagi setelah Dhuha.
-              Pelataran Mataf bawah longgar dan tidak terdesak.
-            </p>
-          </div>
-        </div>
-
-        <div className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-start gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 border border-amber-200 flex items-center justify-center shrink-0 font-bold">
-            💧
-          </div>
-          <div>
-            <h4 className="font-extrabold text-[#1C2D24] text-xs">Manajemen Wudhu & Hidrasi</h4>
-            <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
-              Wudhu wajib sah saat Thawaf. Minum air Zamzam secukupnya dan gunakan toilet pelataran luar sebelum masuk pintu gerbang utama.
-            </p>
-          </div>
-        </div>
-
-        <div className="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-start gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 border border-blue-200 flex items-center justify-center shrink-0 font-bold">
-            🛵
-          </div>
-          <div>
-            <h4 className="font-extrabold text-[#1C2D24] text-xs">Layanan Skuter Ramah Lansia</h4>
-            <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
-              Tersedia tiket sewa skuter resmi di lantai Mezzanine untuk jamaah lansia atau yang memiliki kendala fisik kaki/lutut.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
 }
 
 /* =========================================================================
-   4. SECTION 2: POLA HISTORIS KERAMAIAN MINGGUAN (RECHARTS)
+   5. SECTION 2: POLA HISTORIS KERAMAIAN MINGGUAN (RECHARTS)
    ========================================================================= */
 
 type CityFilter = 'both' | 'makkah' | 'madinah';
@@ -1016,70 +929,78 @@ type PrayerFilter = 'avg' | 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha';
 type ViewMode = 'trend' | 'prayers';
 
 export function WeeklyCrowdTrendSection() {
+  const lang = useLanguage();
+  const t = reactTranslations[lang];
+
   const [cityFilter, setCityFilter] = useState<CityFilter>('both');
   const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>('avg');
   const [viewMode, setViewMode] = useState<ViewMode>('trend');
   const [selectedDayIndex, setSelectedDayIndex] = useState<number>(5);
 
-  const chartData = WEEKLY_TREND_DATA.map((d) => {
-    let makkahVal = d.makkahAvg;
-    let madinahVal = d.madinahAvg;
+  const chartData = useMemo(() => {
+    return WEEKLY_TREND_DATA.map((d) => {
+      let makkahVal = d.makkahAvg;
+      let madinahVal = d.madinahAvg;
 
-    if (prayerFilter !== 'avg') {
-      makkahVal = d.makkahPrayers[prayerFilter];
-      madinahVal = d.madinahPrayers[prayerFilter];
-    }
+      if (prayerFilter !== 'avg') {
+        makkahVal = d.makkahPrayers[prayerFilter];
+        madinahVal = d.madinahPrayers[prayerFilter];
+      }
 
-    return {
-      name: d.dayShort,
-      dayFull: d.dayFull,
-      makkah: makkahVal,
-      madinah: madinahVal,
-      note: d.note,
-    };
-  });
+      return {
+        name: d.dayShort[lang] || d.dayShort.id,
+        dayFull: d.dayFull[lang] || d.dayFull.id,
+        makkah: makkahVal,
+        madinah: madinahVal,
+        note: d.note[lang] || d.note.id,
+      };
+    });
+  }, [prayerFilter, lang]);
 
   const selectedDay = WEEKLY_TREND_DATA[selectedDayIndex];
-  const prayerBreakdownData = [
-    {
-      prayer: 'Subuh',
-      makkah: selectedDay.makkahPrayers.fajr,
-      madinah: selectedDay.madinahPrayers.fajr,
-    },
-    {
-      prayer: selectedDay.dayKey === 'fri' ? 'Jumat' : 'Dzuhur',
-      makkah: selectedDay.makkahPrayers.dhuhr,
-      madinah: selectedDay.madinahPrayers.dhuhr,
-    },
-    {
-      prayer: 'Ashar',
-      makkah: selectedDay.makkahPrayers.asr,
-      madinah: selectedDay.madinahPrayers.asr,
-    },
-    {
-      prayer: 'Maghrib',
-      makkah: selectedDay.makkahPrayers.maghrib,
-      madinah: selectedDay.madinahPrayers.maghrib,
-    },
-    {
-      prayer: 'Isya',
-      makkah: selectedDay.makkahPrayers.isha,
-      madinah: selectedDay.madinahPrayers.isha,
-    },
-  ];
+  const prayerBreakdownData = useMemo(() => {
+    const isFri = selectedDay.dayKey === 'fri';
+    return [
+      {
+        prayer: t.prayer_fajr,
+        makkah: selectedDay.makkahPrayers.fajr,
+        madinah: selectedDay.madinahPrayers.fajr,
+      },
+      {
+        prayer: isFri ? (lang === 'en' ? 'Jumu\'ah' : 'Jumat') : t.prayer_dhuhr,
+        makkah: selectedDay.makkahPrayers.dhuhr,
+        madinah: selectedDay.madinahPrayers.dhuhr,
+      },
+      {
+        prayer: t.prayer_asr,
+        makkah: selectedDay.makkahPrayers.asr,
+        madinah: selectedDay.madinahPrayers.asr,
+      },
+      {
+        prayer: t.prayer_maghrib,
+        makkah: selectedDay.makkahPrayers.maghrib,
+        madinah: selectedDay.madinahPrayers.maghrib,
+      },
+      {
+        prayer: t.prayer_isha,
+        makkah: selectedDay.makkahPrayers.isha,
+        madinah: selectedDay.madinahPrayers.isha,
+      },
+    ];
+  }, [selectedDay, t, lang]);
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ dataKey: string; color: string; value: number }>; label?: string }) => {
     if (active && payload && payload.length) {
-      const dayData = WEEKLY_TREND_DATA.find((d) => d.dayShort === label);
+      const dayData = WEEKLY_TREND_DATA.find((d) => (d.dayShort[lang] || d.dayShort.id) === label);
       return (
         <div className="p-3.5 bg-white border border-[#E5DAC8] rounded-2xl shadow-xl text-xs max-w-xs text-[#1C2D24]">
           <div className="font-extrabold text-sm border-b border-[#E5DAC8] pb-1.5 mb-2 text-[#244C3B]">
-            {dayData ? dayData.dayFull : label}
+            {dayData ? (dayData.dayFull[lang] || dayData.dayFull.id) : label}
           </div>
           <div className="space-y-1.5">
-            {payload.map((entry: any, index: number) => {
+            {payload.map((entry, index: number) => {
               const isMakkah = entry.dataKey === 'makkah';
-              const name = isMakkah ? '🕋 Makkah (Masjidil Haram)' : '🕌 Madinah (Masjid Nabawi)';
+              const name = isMakkah ? t.tooltip_makkah : t.tooltip_madinah;
               return (
                 <div key={`item-${index}`} className="flex items-center justify-between gap-3">
                   <span className="font-bold flex items-center gap-1.5" style={{ color: entry.color }}>
@@ -1093,7 +1014,7 @@ export function WeeklyCrowdTrendSection() {
           </div>
           {dayData && (
             <div className="mt-2.5 pt-2 border-t border-[#E5DAC8]/60 text-[11px] text-[#2E4338] font-medium leading-relaxed bg-[#FAF6F0] p-2 rounded-xl">
-              💡 {dayData.note}
+              💡 {dayData.note[lang] || dayData.note.id}
             </div>
           )}
         </div>
@@ -1109,13 +1030,13 @@ export function WeeklyCrowdTrendSection() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] text-[#244C3B] text-[10px] sm:text-[11px] font-extrabold tracking-wider uppercase mb-2">
             <Activity className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>POLA HISTORIS KERAMAIAN MINGGUAN (RECHARTS)</span>
+            <span>{t.trend_badge}</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-[#1C2D24]">
-            Trend Kepadatan Jamaah 7 Hari dalam Seminggu
+            {t.trend_heading}
           </h3>
           <p className="text-xs sm:text-sm text-[#2E4338] font-medium mt-0.5">
-            Analisis grafik historis untuk membantu merencanakan hari terbaik kunjungan ibadah, thawaf, dan ziarah Raudhah.
+            {t.trend_subheading}
           </p>
         </div>
 
@@ -1129,7 +1050,7 @@ export function WeeklyCrowdTrendSection() {
                 : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/50'
             }`}
           >
-            📈 Trend 7 Hari (Area)
+            {t.trend_view_area}
           </button>
           <button
             onClick={() => setViewMode('prayers')}
@@ -1139,22 +1060,22 @@ export function WeeklyCrowdTrendSection() {
                 : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/50'
             }`}
           >
-            📊 Per Waktu Shalat (Bar)
+            {t.trend_view_bar}
           </button>
         </div>
       </div>
 
-      {/* Secondary Filter Row - Redesigned for Flawless Mobile & Desktop UX */}
+      {/* Secondary Filter Row */}
       <div className="mb-6 p-3 sm:p-4 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] shadow-2xs space-y-3.5">
-        {/* Row 1: Pilihan Masjid (Segmented Responsive Group) */}
+        {/* Row 1: Pilihan Masjid */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center justify-between sm:justify-start gap-2">
             <span className="flex items-center gap-1.5 font-extrabold text-[#2E4338] text-xs uppercase tracking-wider">
               <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Pilihan Masjid:</span>
+              <span>{t.filter_mosque_label}</span>
             </span>
             <span className="text-[10px] text-[#694F12] font-bold sm:hidden">
-              {cityFilter === 'both' ? 'Dua Masjid Suci' : cityFilter === 'makkah' ? 'Masjidil Haram' : 'Masjid Nabawi'}
+              {cityFilter === 'both' ? t.mosque_status_both : cityFilter === 'makkah' ? t.mosque_status_makkah : t.mosque_status_madinah}
             </span>
           </div>
 
@@ -1169,7 +1090,7 @@ export function WeeklyCrowdTrendSection() {
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
-              <span>Keduanya</span>
+              <span>{t.filter_both}</span>
             </button>
             <button
               type="button"
@@ -1181,7 +1102,7 @@ export function WeeklyCrowdTrendSection() {
               }`}
             >
               <span className="text-xs shrink-0">🕋</span>
-              <span>Makkah</span>
+              <span>{t.filter_makkah}</span>
             </button>
             <button
               type="button"
@@ -1193,7 +1114,7 @@ export function WeeklyCrowdTrendSection() {
               }`}
             >
               <span className="text-xs shrink-0">🕌</span>
-              <span>Madinah</span>
+              <span>{t.filter_madinah}</span>
             </button>
           </div>
         </div>
@@ -1207,22 +1128,22 @@ export function WeeklyCrowdTrendSection() {
             <div className="flex items-center justify-between sm:justify-start gap-2">
               <span className="flex items-center gap-1.5 font-extrabold text-[#2E4338] text-xs uppercase tracking-wider">
                 <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Filter Waktu:</span>
+                <span>{t.filter_time_label}</span>
               </span>
               <span className="text-[10px] text-[#694F12] font-bold sm:hidden">
-                {prayerFilter === 'avg' ? 'Rata-Rata Harian' : `Shalat ${prayerFilter.toUpperCase()}`}
+                {prayerFilter === 'avg' ? t.prayer_daily_avg_label : `${t.prayer_specific_label} ${prayerFilter.toUpperCase()}`}
               </span>
             </div>
 
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 w-full sm:w-auto">
               {(['avg', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha'] as PrayerFilter[]).map((pf) => {
                 const labelMap: Record<PrayerFilter, { name: string; icon: string }> = {
-                  avg: { name: 'Rata-Rata', icon: '📊' },
-                  fajr: { name: 'Subuh', icon: '🌙' },
-                  dhuhr: { name: 'Dzuhur', icon: '☀️' },
-                  asr: { name: 'Ashar', icon: '🌤️' },
-                  maghrib: { name: 'Maghrib', icon: '🌅' },
-                  isha: { name: 'Isya', icon: '🌌' },
+                  avg: { name: t.prayer_avg, icon: '📊' },
+                  fajr: { name: t.prayer_fajr, icon: '🌙' },
+                  dhuhr: { name: t.prayer_dhuhr, icon: '☀️' },
+                  asr: { name: t.prayer_asr, icon: '🌤️' },
+                  maghrib: { name: t.prayer_maghrib, icon: '🌅' },
+                  isha: { name: t.prayer_isha, icon: '🌌' },
                 };
                 const isSelected = prayerFilter === pf;
                 return (
@@ -1248,10 +1169,10 @@ export function WeeklyCrowdTrendSection() {
             <div className="flex items-center justify-between sm:justify-start gap-2">
               <span className="flex items-center gap-1.5 font-extrabold text-[#2E4338] text-xs uppercase tracking-wider">
                 <Calendar className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Pilih Hari:</span>
+                <span>{t.filter_day_label}</span>
               </span>
               <span className="text-[10px] text-[#694F12] font-bold">
-                {WEEKLY_TREND_DATA[selectedDayIndex]?.dayFull}
+                {WEEKLY_TREND_DATA[selectedDayIndex]?.dayFull[lang] || WEEKLY_TREND_DATA[selectedDayIndex]?.dayFull.id}
               </span>
             </div>
 
@@ -1259,6 +1180,8 @@ export function WeeklyCrowdTrendSection() {
               {WEEKLY_TREND_DATA.map((d, idx) => {
                 const isSelected = selectedDayIndex === idx;
                 const isJumat = d.dayKey === 'fri';
+                const dayLabel = d.dayShort[lang] || d.dayShort.id;
+                const dayTitle = d.dayFull[lang] || d.dayFull.id;
                 return (
                   <button
                     key={d.dayKey}
@@ -1269,9 +1192,9 @@ export function WeeklyCrowdTrendSection() {
                         ? 'bg-gradient-to-r from-[#C5A059] to-[#B08A45] text-[#1C2D24] shadow-xs font-black ring-1 ring-[#C5A059]/60 scale-[1.02]'
                         : 'bg-white text-[#2E4338] border border-[#E5DAC8] hover:border-[#C5A059] hover:bg-white/90'
                     }`}
-                    title={d.dayFull}
+                    title={dayTitle}
                   >
-                    <span className="text-[11px] sm:text-xs font-extrabold truncate">{d.dayShort}</span>
+                    <span className="text-[11px] sm:text-xs font-extrabold truncate">{dayLabel}</span>
                     {isJumat ? (
                       <span className="text-[9px] text-[#244C3B] font-black leading-none mt-0.5">
                         ⭐
@@ -1315,7 +1238,7 @@ export function WeeklyCrowdTrendSection() {
                 <Area
                   type="monotone"
                   dataKey="makkah"
-                  name="Makkah Al-Mukarramah"
+                  name={t.legend_makkah}
                   stroke="#244C3B"
                   strokeWidth={3}
                   fillOpacity={1}
@@ -1326,7 +1249,7 @@ export function WeeklyCrowdTrendSection() {
                 <Area
                   type="monotone"
                   dataKey="madinah"
-                  name="Madinah Al-Munawwarah"
+                  name={t.legend_madinah}
                   stroke="#C5A059"
                   strokeWidth={3}
                   fillOpacity={1}
@@ -1348,10 +1271,10 @@ export function WeeklyCrowdTrendSection() {
                 wrapperStyle={{ paddingBottom: '10px', fontSize: '11px', fontWeight: 700 }}
               />
               {(cityFilter === 'both' || cityFilter === 'makkah') && (
-                <Bar dataKey="makkah" name="Makkah Al-Mukarramah" fill="#244C3B" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="makkah" name={t.legend_makkah} fill="#244C3B" radius={[8, 8, 0, 0]} />
               )}
               {(cityFilter === 'both' || cityFilter === 'madinah') && (
-                <Bar dataKey="madinah" name="Madinah Al-Munawwarah" fill="#C5A059" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="madinah" name={t.legend_madinah} fill="#C5A059" radius={[8, 8, 0, 0]} />
               )}
             </BarChart>
           )}
@@ -1365,9 +1288,9 @@ export function WeeklyCrowdTrendSection() {
             🕌
           </div>
           <div>
-            <h4 className="font-extrabold text-[#1C2D24] text-xs">Hari Jumat (Puncak Jumu'ah)</h4>
+            <h4 className="font-extrabold text-[#1C2D24] text-xs">{t.insight1_title}</h4>
             <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
-              Shalat Jumat mencapai 98% kapasitas di Makkah & 95% di Madinah. Datang pukul 10:00 AST untuk barisan awal.
+              {t.insight1_desc}
             </p>
           </div>
         </div>
@@ -1377,9 +1300,9 @@ export function WeeklyCrowdTrendSection() {
             🌿
           </div>
           <div>
-            <h4 className="font-extrabold text-[#1C2D24] text-xs">Selasa & Rabu (Paling Longgar)</h4>
+            <h4 className="font-extrabold text-[#1C2D24] text-xs">{t.insight2_title}</h4>
             <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
-              Kepadatan terendah mingguan (55-60%). Waktu terbaik untuk Thawaf dekat Ka'bah & Ziarah Raudhah Syarifah.
+              {t.insight2_desc}
             </p>
           </div>
         </div>
@@ -1389,9 +1312,9 @@ export function WeeklyCrowdTrendSection() {
             🌙
           </div>
           <div>
-            <h4 className="font-extrabold text-[#1C2D24] text-xs">Kamis Malam (Malam Jumat)</h4>
+            <h4 className="font-extrabold text-[#1C2D24] text-xs">{t.insight3_title}</h4>
             <p className="text-[11px] text-[#2E4338] font-medium mt-0.5 leading-relaxed">
-              Lonjakan jamaah lokal & peziarah antar-kota. Area pelataran Isya & Maghrib memadat hingga 88-92%.
+              {t.insight3_desc}
             </p>
           </div>
         </div>
@@ -1401,12 +1324,14 @@ export function WeeklyCrowdTrendSection() {
 }
 
 /* =========================================================================
-   5. MAIN APP COMPONENT (UNIFIED CONTAINER)
+   6. MAIN APP COMPONENT (UNIFIED CONTAINER)
    ========================================================================= */
 
 type AppViewTab = 'all' | 'estimator' | 'weekly_trend';
 
 export default function App() {
+  const lang = useLanguage();
+  const t = reactTranslations[lang];
   const [activeTab, setActiveTab] = useState<AppViewTab>('all');
 
   return (
@@ -1422,7 +1347,7 @@ export default function App() {
                 : 'text-[#2E4338] hover:text-[#1C2D24] hover:bg-white/60'
             }`}
           >
-            📋 Tampilkan Keduanya
+            {t.app_tab_both}
           </button>
           <button
             onClick={() => setActiveTab('estimator')}
@@ -1433,7 +1358,7 @@ export default function App() {
             }`}
           >
             <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>Estimator Waktu Manasik Umroh</span>
+            <span>{t.app_tab_estimator}</span>
           </button>
           <button
             onClick={() => setActiveTab('weekly_trend')}
@@ -1444,12 +1369,12 @@ export default function App() {
             }`}
           >
             <Activity className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>Pola Keramaian 7 Hari</span>
+            <span>{t.app_tab_weekly}</span>
           </button>
         </div>
 
         <div className="hidden lg:flex items-center gap-1.5 text-[11px] text-[#2E4338] font-medium pr-2 shrink-0">
-          <span>Sinkronisasi Portal Real-Time</span>
+          <span>{t.app_sync_portal}</span>
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
         </div>
       </div>
