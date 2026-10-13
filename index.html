@@ -307,6 +307,9 @@
     <!-- Lucide Icons CDN (Deferred) -->
     <script defer src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- GSAP (GreenSock Animation Platform) CDN for high-performance smooth counter & gauge bar transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
     <style>
       /* Starry Dot Grid Background with warm ivory cream & sand gold ambient */
       .bg-arabesque, .hero-dot-grid {
@@ -3693,7 +3696,7 @@
 
       let currentStream = 'makkah';
 
-      // Friday Khateeb & Imam schedule (Pekan: 23 - 29 Rabi'ul Akhir 1448 H / 1448 AH)
+      // Friday Khateeb & Imam schedule (Pekan: 30 Rabi'ul Akhir - 06 Jumadil Ula 1448 H)
       const fridayKhatibData = {
         makkah: {
           mosqueName: {
@@ -3701,27 +3704,27 @@
             en: "Masjidil Haram • Makkah Al-Mukarramah"
           },
           hijriDate: {
-            id: "28 Rabi'ul Akhir 1448 H",
-            en: "28 Rabi' al-Akhir 1448 AH",
-            arabic: "٢٨ ربيع الآخر ١٤٤٨ هـ"
+            id: "30 Rabi'ul Akhir – 06 Jumadil Ula 1448 H",
+            en: "30 Rabi' al-Akhir – 06 Jumada al-Ula 1448 AH",
+            arabic: "٣٠ ربيع الآخر – ٠٦ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد الحرام",
           khateebTitleArabic: "إمام وخطيب المسجد الحرام",
-          khateebHonorific: "معالي الشيخ الأستاذ الدكتور",
-          khateebName: "Syekh Prof. Dr. Abdul Rahman Al-Sudais",
-          khateebArabic: "عبدالرحمن بن عبدالعزيز السديس",
-          khateebFullArabic: "معالي الشيخ الأستاذ الدكتور / عبدالرحمن بن عبدالعزيز السديس",
+          khateebHonorific: "فضيلة الشيخ الأستاذ الدكتور",
+          khateebName: "Syekh Prof. Dr. Yasser Al-Dossary",
+          khateebArabic: "ياسر بن راشد الدوسري",
+          khateebFullArabic: "فضيلة الشيخ الأستاذ الدكتور / ياسر بن راشد الدوسري",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Kepala Presidensi Urusan Agama Dua Masjid Suci • Imam & Khatib Masjidil Haram",
-            en: "President of Religious Affairs of the Two Holy Mosques • Senior Imam & Khateeb"
+            id: "Imam & Khatib Resmi Masjidil Haram • Guru Besar Fiqih Perbandingan",
+            en: "Official Imam & Khateeb of Masjidil Haram • Professor of Comparative Fiqh"
           },
           bio: {
-            id: "Kepala Urusan Keagamaan Dua Masjid Suci dan imam paling ikonik di dunia Islam dengan khutbah yang sarat pesan persatuan umat serta lantunan tilawah tartil bertajwid mutqin yang agung di depan Ka'bah.",
-            en: "President of Religious Affairs of the Two Holy Mosques and globally revered senior Imam, renowned for inspiring Friday sermons and legendary soulful Quranic recitation before the Kaaba."
+            id: "Imam & Khatib Masjidil Haram dengan khutbah yang menggetarkan jiwa dan tilawah bertajwid mutqin pada Maqam Bayati, Hijaz, dan Sikah di hadapan ribuan jamaah di depan Ka'bah Al-Mukarramah.",
+            en: "Imam & Khateeb of Masjidil Haram renowned for inspiring, resonant Friday sermons and masterly classical Maqam recitations before the Holy Kaaba."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
@@ -3744,9 +3747,9 @@
             en: "Prophet's Mosque • Madinah Al-Munawwarah"
           },
           hijriDate: {
-            id: "28 Rabi'uts Tsani 1448 H",
-            en: "28 Rabi' al-Thani 1448 AH",
-            arabic: "٢٨ ربيع الثاني ١٤٤٨ هـ"
+            id: "30 Rabi'ul Akhir – 06 Jumadil Ula 1448 H",
+            en: "30 Rabi' al-Akhir – 06 Jumada al-Ula 1448 AH",
+            arabic: "٣٠ ربيع الآخر – ٠٦ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد النبوي",
           khateebTitleArabic: "إمام وخطيب المسجد النبوي",
@@ -3759,7 +3762,7 @@
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Resmi Masjid Nabawi",
+            id: "Imam & Khatib Senior Masjid Nabawi",
             en: "Official Imam & Khateeb of Prophet's Mosque"
           },
           bio: {
@@ -3771,9 +3774,9 @@
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ الدكتور",
-          backupName: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
-          backupArabic: "أحمد بن علي الحذيفي",
-          backupFullArabic: "فضيلة الشيخ الدكتور / أحمد بن علي الحذيفي",
+          backupName: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
+          backupArabic: "عبدالله بن عبدالمحسن القرافي",
+          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالله بن عبدالمحسن القرافي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3783,18 +3786,18 @@
         }
       };
 
-      // Daily Imams schedule (Pekan: 23 - 29 Rabi'ul Akhir 1448 H / 1448 AH)
+      // Daily Imams schedule (Pekan: 30 Rabi'ul Akhir - 06 Jumadil Ula 1448 H)
       const imamData = {
         makkah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Dr. Al-Waleed bin Khalid Asy-Syamsan",
-            arabic: "فضيلة الشيخ د. الوليد بن خالد الشمسان",
-            backupName: "Syekh Prof. Dr. Maher bin Hamad Al-Mu'aiqly",
-            backupArabic: "فضيلة الشيخ أ.د. ماهر بن حمد المعيقلي",
+            name: "Syekh Dr. Badr At-Turki",
+            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
+            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
+            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
             role: {
-              id: "Imam Shalat Subuh • Pakar Qira'at & Dosen Universitas",
-              en: "Fajr Prayer Imam • Qira'at Specialist & University Scholar"
+              id: "Imam Shalat Subuh • Pengajar Al-Qur'an & Dosen Syariah",
+              en: "Fajr Prayer Imam • Quranic Scholar & Sharia Professor"
             },
             bio: {
               id: "Imam Utama Shalat Subuh. Memiliki lantunan tilawah tartil bertajwid mutqin yang jernih, tenang, dan menyejukkan hati jamaah di hadapan Ka'bah Al-Mukarramah.",
@@ -3807,36 +3810,36 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Prof. Dr. Abdul Rahman Al-Sudais",
-            arabic: "معالي الشيخ أ.د. عبدالرحمن بن عبدالعزيز السديس",
+            name: "Syekh Prof. Dr. Yasser Al-Dossary",
+            arabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
             backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
             backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
             role: {
-              id: "Khatib & Imam Shalat Jumat / Dzuhur • Kepala Presidensi Urusan Agama Dua Masjid Suci",
-              en: "Friday / Dhuhr Prayer Khateeb & Imam • President of Religious Affairs of the Two Holy Mosques"
+              id: "Imam Shalat Dzuhur • Guru Besar Fiqih Perbandingan & Khatib Jumat",
+              en: "Dhuhr Prayer Imam • Professor of Comparative Fiqh & Friday Khateeb"
             },
             bio: {
-              id: "Khatib & Imam Utama Shalat Jumat / Dzuhur. Suara emas paling ikonik di dunia Islam dengan khutbah mendalam dan tilawah bertajwid mutqin di depan Ka'bah Al-Mukarramah.",
-              en: "Primary Friday / Dhuhr Khateeb & Imam. The iconic voice in the Islamic world leading prayer and profound Friday sermon before the Holy Kaaba."
+              id: "Imam Utama Shalat Dzuhur. Ulama terkemuka dan pengajar di Masjidil Haram dengan gaya tilawah yang agung, fasih, dan bertenaga di waktu siang.",
+              en: "Primary Dhuhr Imam. Leading scholar and lecturer at Masjidil Haram known for powerful, eloquent, and soul-stirring recitation."
             },
             tag: {
-              id: "Khatib & Imam Jumat Utama",
-              en: "Primary Friday Khateeb & Imam"
+              id: "Imam Dzuhur Utama",
+              en: "Primary Dhuhr Imam"
             }
           },
           {
             prayerKey: "asr",
-            name: "Syekh Dr. Saleh bin Abdullah bin Humaid",
-            arabic: "معالي الشيخ د. صالح بن عبدالله بن حميد",
-            backupName: "Syekh Dr. Al-Waleed bin Khalid Asy-Syamsan",
-            backupArabic: "فضيلة الشيخ د. الوليد بن خالد الشمسان",
+            name: "Syekh Dr. Badr At-Turki",
+            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
+            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
+            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
             role: {
-              id: "Imam Shalat Ashar • Anggota Dewan Ulama Senior & Mantan Ketua Majlis Syura",
-              en: "Asr Prayer Imam • Senior Scholars Council Member & Former Shura Chairman"
+              id: "Imam Shalat Ashar • Pengajar Al-Qur'an & Dosen Syariah",
+              en: "Asr Prayer Imam • Quranic Scholar & Sharia Professor"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. Penasihat Mahkamah Kerajaan dan ulama terkemuka dengan wibawa keilmuan yang tinggi serta tilawah yang penuh kekhusyukan.",
-              en: "Primary Asr Imam. Royal Court Advisor and renowned scholar revered for profound erudition and heartfelt Quranic cadence."
+              id: "Imam Utama Shalat Ashar. Dikenal dengan karakter tilawah yang lembut, syahdu, serta penuh kekhusyukan di pelataran Mataf Ka'bah.",
+              en: "Primary Asr Imam. Revered for gentle, tranquil, and emotionally moving afternoon recitation before the Kaaba."
             },
             tag: {
               id: "Imam Ashar Utama",
@@ -3845,17 +3848,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Prof. Dr. Maher bin Hamad Al-Mu'aiqly",
-            arabic: "فضيلة الشيخ أ.د. ماهر بن حمد المعيقلي",
-            backupName: "Syekh Dr. Bandar bin Abdul Aziz Balilah",
-            backupArabic: "فضيلة الشيخ د. بندر بن عبدالعزيز بليلة",
+            name: "Syekh Prof. Dr. Faisal bin Jameel Ghazzawi",
+            arabic: "فضيلة الشيخ أ.د. فيصل بن جميل غزاوي",
+            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
+            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
             role: {
-              id: "Imam Shalat Maghrib • Imam & Khatib Utama Masjidil Haram",
-              en: "Maghrib Prayer Imam • Primary Imam & Khateeb of Masjidil Haram"
+              id: "Imam Shalat Maghrib • Guru Besar Qira'at & Imam Senior Masjidil Haram",
+              en: "Maghrib Prayer Imam • Professor of Qira'at & Senior Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Lantunan murattal beliau yang sangat merdu, syahdu, dan penuh penghayatan menggetarkan hati jutaan jamaah saat senja di pelataran Mataf Ka'bah.",
-              en: "Primary Maghrib Imam. World-renowned for melodic, deeply emotional, and soul-stirring sunset recitation echoing across the Mataf."
+              id: "Imam Utama Shalat Maghrib. Ulama senior dengan lantunan murattal yang sangat merdu, syahdu, dan penuh penghayatan saat senja di pelataran Mataf.",
+              en: "Primary Maghrib Imam. World-renowned senior scholar leading sunset prayers with melodic and deeply devotional recitation."
             },
             tag: {
               id: "Imam Maghrib Utama",
@@ -3864,17 +3867,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Prof. Dr. Abdurrahman bin Abdul Aziz As-Sudais",
-            arabic: "معالي الشيخ أ.د. عبدالرحمن بن عبدالعزيز السديس",
-            backupName: "Syekh Dr. Bandar bin Abdul Aziz Balilah",
-            backupArabic: "فضيلة الشيخ د. بندر بن عبدالعزيز بليلة",
+            name: "Syekh Prof. Dr. Abdullah Al-Juhany",
+            arabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            backupName: "Syekh Dr. Badr At-Turki",
+            backupArabic: "فضيلة الشيخ د. بدر بن محمد التركي",
             role: {
-              id: "Imam Shalat Isya • Kepala Presidensi Urusan Agama Dua Masjid Suci",
-              en: "Isha Prayer Imam • President of Religious Affairs of the Two Holy Mosques"
+              id: "Imam Shalat Isya • Pakar Qira'at & Imam Senior Masjidil Haram",
+              en: "Isha Prayer Imam • Qira'at Scholar & Senior Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Suara emas paling ikonik di dunia Islam dengan tempo tegas, bertenaga, dan penuh kekhusyukan memimpin ribuan jamaah shalat Isya.",
-              en: "Primary Isha Imam. The most iconic voice in the Islamic world leading congregational evening prayer with legendary cadence and devotion."
+              id: "Imam Utama Shalat Isya. Salah satu qari paling terkemuka dengan ketelitian tajwid mutqin, intonasi tegas, dan bacaan khas Hijazi yang mengagumkan.",
+              en: "Primary Isha Imam. Master of Quranic recitations leading congregational evening prayers with crisp Tajweed and stately Hijazi cadence."
             },
             tag: {
               id: "Imam Isya Utama",
@@ -3885,17 +3888,17 @@
         madinah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Saleh bin Awwad Al-Maghamsi",
-            arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
-            backupName: "Syekh Dr. Abdullah bin Abdurrahman Al-Baijan",
-            backupArabic: "فضيلة الشيخ د. عبدالله بن عبدالرحمن البعيجان",
+            name: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
+            arabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
+            backupName: "Syekh Saleh bin Awwad Al-Maghamsi",
+            backupArabic: "فضيلة الشيخ صالح بن عواد المغامسي",
             role: {
-              id: "Imam Shalat Subuh • Da'i & Pakar Tafsir Terkemuka Madinah",
-              en: "Fajr Prayer Imam • Renowned Islamic Scholar & Exegete of Madinah"
+              id: "Imam Shalat Subuh • Dosen Fakultas Hadits Univ. Islam Madinah",
+              en: "Fajr Prayer Imam • Hadith Faculty Professor at Islamic Univ. of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Ulama dan ahli tafsir berwawasan mendalam dengan lantunan tilawah Subuh yang penuh tadabbur, lembut, dan menenteramkan jiwa di samping Raudhah.",
-              en: "Primary Fajr Imam. Renowned Madinah exegete and orator known for contemplative, tender, and peaceful morning recitation beside the Rawdah."
+              id: "Imam Utama Shalat Subuh. Akademisi dan qari berwawasan luas dengan lantunan tilawah Subuh yang jernih, tenang, dan menenteramkan jiwa di Raudhah Syarifah.",
+              en: "Primary Fajr Imam. Islamic scholar and Quranic reciter known for serene, peaceful morning recitation beside the Rawdah."
             },
             tag: {
               id: "Imam Subuh Masjid Nabawi",
@@ -3906,8 +3909,8 @@
             prayerKey: "dhuhr",
             name: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
             arabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
-            backupName: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
-            backupArabic: "فضيلة الشيخ د. أحمد بن علي الحذيفي",
+            backupName: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
+            backupArabic: "فضيلة الشيخ د. عبدالله بن عبدالمحسن القرافي",
             role: {
               id: "Imam Shalat Dzuhur • Imam & Khatib Senior Masjid Nabawi",
               en: "Dhuhr Prayer Imam • Senior Imam & Khateeb of Prophet's Mosque"
@@ -3923,17 +3926,17 @@
           },
           {
             prayerKey: "asr",
-            name: "Syekh Dr. Abdul Muhsin bin Muhammad Al-Qasim",
-            arabic: "فضيلة الشيخ د. عبدالمحسن بن محمد القاسم",
+            name: "Syekh Dr. Ali bin Abdurrahman Al-Hudhaify",
+            arabic: "فضيلة الشيخ أ.د. علي بن عبدالرحمن الحذيفي",
             backupName: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
             backupArabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
             role: {
-              id: "Imam Shalat Ashar • Hakim Pengadilan Tinggi & Pengajar Masjid Nabawi",
-              en: "Asr Prayer Imam • High Court Judge & Prophet's Mosque Scholar"
+              id: "Imam Shalat Ashar • Syekh Para Imam Masjid Nabawi",
+              en: "Asr Prayer Imam • Chief Senior Imam of Al-Masjid An-Nabawi"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. Pakar Fiqih dan qari bersuara khas menenangkan yang telah membimbing ribuan santri penghafal Al-Qur'an di Masjid Nabawi.",
-              en: "Primary Asr Imam. Revered jurist and master teacher whose steady, serene cadence echoes under the grand umbrellas of Madinah."
+              id: "Imam Utama Shalat Ashar. 'Syaikhul Aimmah' yang paling dihormati di Madinah dengan makhraj huruf dan hukum tajwid paling sempurna dalam dunia Islam.",
+              en: "Primary Asr Imam. Revered Dean of the Haramain Imams whose gold-standard Tajweed and measured cadence inspire millions worldwide."
             },
             tag: {
               id: "Imam Ashar Masjid Nabawi",
@@ -3942,17 +3945,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
-            arabic: "فضيلة الشيخ د. أحمد بن علي الحذيفي",
-            backupName: "Syekh Dr. Abdul Muhsin bin Muhammad Al-Qasim",
-            backupArabic: "فضيلة الشيخ د. عبدالمحسن بن محمد القاسم",
+            name: "Syekh Saleh bin Awwad Al-Maghamsi",
+            arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            backupName: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
+            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
             role: {
-              id: "Imam Shalat Maghrib • Dosen Fakultas Hadits Univ. Islam Madinah",
-              en: "Maghrib Prayer Imam • Hadith Faculty Professor at Islamic Univ. of Madinah"
+              id: "Imam Shalat Maghrib • Da'i & Pakar Tafsir Terkemuka Madinah",
+              en: "Maghrib Prayer Imam • Renowned Islamic Scholar & Exegete of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Putra dari Syaikhul Qurra Ali Al-Hudhaify yang mewarisi keindahan tartil Madani klasik yang fasih, khusyuk, dan berwibawa.",
-              en: "Primary Maghrib Imam. Inheritor of pristine classical Madani recitation, leading sunset prayers with eloquence and spiritual gravity."
+              id: "Imam Utama Shalat Maghrib. Tokoh tafsir ternama Madinah dengan tilawah Maghrib yang sangat lembut, menyentuh kalbu, dan penuh penghayatan makna Al-Qur'an.",
+              en: "Primary Maghrib Imam. Celebrated Quranic commentator leading sunset prayers with gentle, heart-touching, and deeply reflective cadence."
             },
             tag: {
               id: "Imam Maghrib Masjid Nabawi",
@@ -3961,17 +3964,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Dr. Abdullah bin Abdurrahman Al-Baijan",
-            arabic: "فضيلة الشيخ د. عبدالله بن عبدالرحمن البعيجان",
-            backupName: "Syekh Saleh bin Awwad Al-Maghamsi",
-            backupArabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            name: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
+            arabic: "فضيلة الشيخ د. عبدالله بن عبدالمحسن القرافي",
+            backupName: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
+            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
             role: {
-              id: "Imam Shalat Isya • Hakim Mahkamah & Dosen Syariah",
-              en: "Isha Prayer Imam • Judiciary Judge & Sharia Law Professor"
+              id: "Imam Shalat Isya • Pengajar Syariah & Dosen Universitas",
+              en: "Isha Prayer Imam • Sharia Instructor & University Scholar"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Dikenal dengan karakter tilawah yang lembut, syahdu, serta lantunan doa witir yang meneteskan air mata jamaah di Masjid Nabawi.",
-              en: "Primary Isha Imam. Celebrated for gentle, moving nighttime recitation that draws tears and spiritual devotion from congregants."
+              id: "Imam Utama Shalat Isya. Dikenal dengan karakter tilawah yang syahdu, merdu, serta penuh ketenangan saat memimpin jamaah di pelataran Masjid Nabawi.",
+              en: "Primary Isha Imam. Celebrated for gentle, moving nighttime recitation that inspires deep spiritual devotion from congregants."
             },
             tag: {
               id: "Imam Isya Masjid Nabawi",
@@ -8308,12 +8311,39 @@
         }
 
         const currentDensity = liveHourData.density;
-        if (mainPercent) {
-          mainPercent.innerText = `${currentDensity}%`;
-        }
+        
+        // GSAP Smooth Count-Up Animation for Main Percentage Counter & Gauge Bar
+        if (typeof window.gsap !== 'undefined') {
+          // Kill any active tweens on the gauge element & counter object to prevent overlap
+          if (window._occGaugeTween) window._occGaugeTween.kill();
+          if (window._occPercentTween) window._occPercentTween.kill();
 
-        if (mainGaugeBar) {
-          mainGaugeBar.style.width = `${currentDensity}%`;
+          // Get initial start value from current element text if numeric, default 0
+          const startVal = parseInt((mainPercent && mainPercent.innerText) ? mainPercent.innerText.replace('%', '') : '0', 10) || 0;
+          const counterObj = { value: startVal };
+
+          window._occPercentTween = window.gsap.to(counterObj, {
+            value: currentDensity,
+            duration: 1.2,
+            ease: "power2.out",
+            onUpdate: function() {
+              if (mainPercent) {
+                mainPercent.innerText = `${Math.round(counterObj.value)}%`;
+              }
+            }
+          });
+
+          if (mainGaugeBar) {
+            window._occGaugeTween = window.gsap.to(mainGaugeBar, {
+              width: `${currentDensity}%`,
+              duration: 1.2,
+              ease: "power2.out"
+            });
+          }
+        } else {
+          // Fallback if GSAP hasn't loaded yet
+          if (mainPercent) mainPercent.innerText = `${currentDensity}%`;
+          if (mainGaugeBar) mainGaugeBar.style.width = `${currentDensity}%`;
         }
 
         if (mainStatusBadge) {
@@ -8351,7 +8381,7 @@
 
         if (zonesListElem) {
           const zonalConfig = ZONAL_OCCUPANCY_DATA[city] || ZONAL_OCCUPANCY_DATA.makkah;
-          zonesListElem.innerHTML = zonalConfig.map(zone => {
+          zonesListElem.innerHTML = zonalConfig.map((zone, zIdx) => {
             const zDensity = zone.getDensity(currentDensity);
             let barColor = 'bg-[#244C3B]';
             let textColor = 'text-[#244C3B]';
@@ -8381,10 +8411,12 @@
                     <i data-lucide="${zone.icon}" class="w-3.5 h-3.5 text-[#C5A059]"></i>
                     <span>${zoneName}</span>
                   </span>
-                  <span class="font-mono ${textColor}">${zDensity}% • <span class="font-normal">${statusLabel}</span></span>
+                  <span class="font-mono ${textColor}">
+                    <span id="occ-zone-percent-${zIdx}">0%</span> • <span class="font-normal">${statusLabel}</span>
+                  </span>
                 </div>
                 <div class="w-full h-2 rounded-full bg-[#FAF6F0] border border-[#E5DAC8] overflow-hidden">
-                  <div class="h-full rounded-full ${barColor} transition-all duration-500" style="width: ${zDensity}%;"></div>
+                  <div id="occ-zone-bar-${zIdx}" class="h-full rounded-full ${barColor}" style="width: 0%;"></div>
                 </div>
                 <div class="text-[10.5px] text-[#2E4338] font-medium mt-0.5 flex justify-between">
                   <span>${zoneBadge}</span>
@@ -8393,6 +8425,48 @@
               </div>
             `;
           }).join('');
+
+          // Animate Zonal Bars & Percentage Numbers with GSAP
+          if (typeof window.gsap !== 'undefined') {
+            const zonalConfig = ZONAL_OCCUPANCY_DATA[city] || ZONAL_OCCUPANCY_DATA.makkah;
+            zonalConfig.forEach((zone, zIdx) => {
+              const targetZDensity = zone.getDensity(currentDensity);
+              const barElem = document.getElementById(`occ-zone-bar-${zIdx}`);
+              const numElem = document.getElementById(`occ-zone-percent-${zIdx}`);
+
+              if (barElem) {
+                window.gsap.to(barElem, {
+                  width: `${targetZDensity}%`,
+                  duration: 1.0,
+                  delay: zIdx * 0.08,
+                  ease: "power2.out"
+                });
+              }
+
+              if (numElem) {
+                const zCounter = { val: 0 };
+                window.gsap.to(zCounter, {
+                  val: targetZDensity,
+                  duration: 1.0,
+                  delay: zIdx * 0.08,
+                  ease: "power2.out",
+                  onUpdate: function() {
+                    numElem.innerText = `${Math.round(zCounter.val)}%`;
+                  }
+                });
+              }
+            });
+          } else {
+            // Fallback for Zonal Bars
+            const zonalConfig = ZONAL_OCCUPANCY_DATA[city] || ZONAL_OCCUPANCY_DATA.makkah;
+            zonalConfig.forEach((zone, zIdx) => {
+              const targetZDensity = zone.getDensity(currentDensity);
+              const barElem = document.getElementById(`occ-zone-bar-${zIdx}`);
+              const numElem = document.getElementById(`occ-zone-percent-${zIdx}`);
+              if (barElem) barElem.style.width = `${targetZDensity}%`;
+              if (numElem) numElem.innerText = `${targetZDensity}%`;
+            });
+          }
         }
 
         // Render Gate Traffic List
