@@ -1790,8 +1790,100 @@
       </div>
     </section>
 
+    <!-- DAILY IMAM & FRIDAY KHATEEB SCHEDULE SECTION -->
+    <section id="daily-imams" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4 reveal-on-scroll">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-widest mb-1.5">
+            <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+            <span data-i18n="imams_badge">Jadwal Resmi Presidensi Urusan Keagamaan</span>
+            <span id="imams-week-badge" class="px-2 py-0.5 rounded bg-[#FAF6F0] dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#C5A059]/30 text-[10px] text-[#244C3B] dark:text-[#E4CB96] font-bold tracking-normal">--</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="imams_heading">Jadwal Khatib & Imam Sholat Jumat</h2>
+          <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="imams_desc">Daftar Syekh resmi yang ditugaskan memimpin Khutbah & Shalat Jumat serta shalat berjamaah lima waktu beserta Imam Cadangan (الاحتياطي).</p>
+        </div>
+
+        <!-- Mosque Switcher for Imams -->
+        <div class="flex items-center p-1.5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm shrink-0">
+          <button id="imam-tab-makkah" onclick="switchImamMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02] cursor-pointer">
+            <span data-i18n="imams_tab_makkah">Masjidil Haram (Makkah)</span>
+          </button>
+          <button id="imam-tab-madinah" onclick="switchImamMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300 cursor-pointer">
+            <span data-i18n="imams_tab_madinah">Masjid Nabawi (Madinah)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SPECIAL FRIDAY KHATEEB & IMAM ANNOUNCEMENT BANNER -->
+      <div id="friday-khateeb-container" class="mb-8 reveal-on-scroll reveal-delay-1">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+
+      <!-- Subheading for 5 Daily Prayers -->
+      <div class="flex items-center justify-between mb-4 pt-3 border-t border-[#E5DAC8]">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#244C3B]"></span>
+          <h3 class="text-base sm:text-lg font-extrabold text-[#1C2D24]" data-i18n="daily_prayers_subheading">Jadwal Imam Shalat 5 Waktu Hari Ini</h3>
+        </div>
+        <span class="text-xs text-[#2E4338] font-medium hidden sm:inline" data-i18n="daily_prayers_note">Termasuk Imam Cadangan (الاحتياطي)</span>
+      </div>
+
+      <!-- Imams List Grid with Smooth Transition -->
+      <div id="imams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300 min-h-[320px] reveal-on-scroll reveal-delay-2">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- DAILY MUADZIN SCHEDULE SECTION -->
+    <section id="daily-muadzins" class="py-14 bg-[#FAF6F0] border-t border-[#E5DAC8]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4 reveal-on-scroll">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-widest mb-1.5">
+              <i data-lucide="mic" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+              <span data-i18n="muadzins_badge">Suara dari Menara Suci</span>
+              <span id="muadzins-week-badge" class="px-2 py-0.5 rounded bg-[#FFFFFF] dark:bg-[#132A20] border border-[#E5DAC8] dark:border-[#244C3B] text-[10px] text-[#244C3B] dark:text-[#E4CB96] font-bold tracking-normal">--</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="muadzins_heading">Jadwal Muadzin Bertugas Hari Ini</h2>
+            <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="muadzins_desc">Para muadzin mulia pengumandang Adzan 1 & 2 serta Iqamah di menara-menara suci.</p>
+          </div>
+
+          <!-- Mosque Switcher for Muadzins -->
+          <div class="flex items-center p-1.5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
+            <button id="muadzin-tab-makkah" onclick="switchMuadzinMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]">
+              <span data-i18n="muadzins_tab_makkah">Masjidil Haram (Makkah)</span>
+            </button>
+            <button id="muadzin-tab-madinah" onclick="switchMuadzinMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300">
+              <span data-i18n="muadzins_tab_madinah">Masjid Nabawi (Madinah)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Weekly Day Selector for Muadzins (Available for both Makkah & Madinah) -->
+        <div id="muadzin-day-picker-wrap" class="mb-6 p-3.5 sm:p-5 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3.5">
+            <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#1C2D24]">
+              <i data-lucide="calendar" class="w-4 h-4 text-[#244C3B]"></i>
+              <span id="muadzin-picker-title">Pilih Hari Penugasan Muadzin:</span>
+            </div>
+            <span id="muadzins-table-range" class="text-xs text-[#2E4338] dark:text-[#E4CB96]/90 font-mono font-medium tracking-tight">Tabel Resmi: --</span>
+          </div>
+          <div id="muadzin-days-btn-group" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Muadzins Table / Cards with Smooth Transition -->
+        <div id="muadzins-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 transition-all duration-300 min-h-[160px] reveal-on-scroll reveal-delay-1">
+          <!-- Rendered dynamically via JavaScript -->
+        </div>
+
+      </div>
+    </section>
+
     <!-- LIVE OCCUPANCY & CROWD DENSITY INDICATOR SECTION -->
-    <section id="occupancy-section" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="occupancy-section" class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#E5DAC8]">
       
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 reveal-on-scroll">
@@ -1952,98 +2044,6 @@
 
       </div>
 
-    </section>
-
-    <!-- DAILY IMAM & FRIDAY KHATEEB SCHEDULE SECTION -->
-    <section id="daily-imams" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4 reveal-on-scroll">
-        <div>
-          <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-widest mb-1.5">
-            <i data-lucide="book-open" class="w-3.5 h-3.5 text-[#C5A059]"></i>
-            <span data-i18n="imams_badge">Jadwal Resmi Presidensi Urusan Keagamaan</span>
-            <span id="imams-week-badge" class="px-2 py-0.5 rounded bg-[#FAF6F0] dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#C5A059]/30 text-[10px] text-[#244C3B] dark:text-[#E4CB96] font-bold tracking-normal">--</span>
-          </div>
-          <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="imams_heading">Jadwal Khatib & Imam Sholat Jumat</h2>
-          <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="imams_desc">Daftar Syekh resmi yang ditugaskan memimpin Khutbah & Shalat Jumat serta shalat berjamaah lima waktu beserta Imam Cadangan (الاحتياطي).</p>
-        </div>
-
-        <!-- Mosque Switcher for Imams -->
-        <div class="flex items-center p-1.5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm shrink-0">
-          <button id="imam-tab-makkah" onclick="switchImamMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02] cursor-pointer">
-            <span data-i18n="imams_tab_makkah">Masjidil Haram (Makkah)</span>
-          </button>
-          <button id="imam-tab-madinah" onclick="switchImamMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300 cursor-pointer">
-            <span data-i18n="imams_tab_madinah">Masjid Nabawi (Madinah)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- SPECIAL FRIDAY KHATEEB & IMAM ANNOUNCEMENT BANNER -->
-      <div id="friday-khateeb-container" class="mb-8 reveal-on-scroll reveal-delay-1">
-        <!-- Rendered dynamically via JavaScript -->
-      </div>
-
-      <!-- Subheading for 5 Daily Prayers -->
-      <div class="flex items-center justify-between mb-4 pt-3 border-t border-[#E5DAC8]">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#244C3B]"></span>
-          <h3 class="text-base sm:text-lg font-extrabold text-[#1C2D24]" data-i18n="daily_prayers_subheading">Jadwal Imam Shalat 5 Waktu Hari Ini</h3>
-        </div>
-        <span class="text-xs text-[#2E4338] font-medium hidden sm:inline" data-i18n="daily_prayers_note">Termasuk Imam Cadangan (الاحتياطي)</span>
-      </div>
-
-      <!-- Imams List Grid with Smooth Transition -->
-      <div id="imams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300 min-h-[320px] reveal-on-scroll reveal-delay-2">
-        <!-- Rendered dynamically via JavaScript -->
-      </div>
-    </section>
-
-    <!-- DAILY MUADZIN SCHEDULE SECTION -->
-    <section id="daily-muadzins" class="py-14 bg-[#FAF6F0] border-t border-[#E5DAC8]">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4 reveal-on-scroll">
-          <div>
-            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#244C3B] uppercase tracking-widest mb-1.5">
-              <i data-lucide="mic" class="w-3.5 h-3.5 text-[#C5A059]"></i>
-              <span data-i18n="muadzins_badge">Suara dari Menara Suci</span>
-              <span id="muadzins-week-badge" class="px-2 py-0.5 rounded bg-[#FFFFFF] dark:bg-[#132A20] border border-[#E5DAC8] dark:border-[#244C3B] text-[10px] text-[#244C3B] dark:text-[#E4CB96] font-bold tracking-normal">--</span>
-            </div>
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-[#1C2D24]" data-i18n="muadzins_heading">Jadwal Muadzin Bertugas Hari Ini</h2>
-            <p class="text-sm text-[#2E4338] mt-1 font-medium" data-i18n="muadzins_desc">Para muadzin mulia pengumandang Adzan 1 & 2 serta Iqamah di menara-menara suci.</p>
-          </div>
-
-          <!-- Mosque Switcher for Muadzins -->
-          <div class="flex items-center p-1.5 rounded-2xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
-            <button id="muadzin-tab-makkah" onclick="switchMuadzinMosque('makkah')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow scale-[1.02]">
-              <span data-i18n="muadzins_tab_makkah">Masjidil Haram (Makkah)</span>
-            </button>
-            <button id="muadzin-tab-madinah" onclick="switchMuadzinMosque('madinah')" class="px-4 py-2 rounded-xl text-xs font-semibold text-[#2E4338] hover:text-[#1C2D24] transition-all duration-300">
-              <span data-i18n="muadzins_tab_madinah">Masjid Nabawi (Madinah)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Weekly Day Selector for Muadzins (Available for both Makkah & Madinah) -->
-        <div id="muadzin-day-picker-wrap" class="mb-6 p-3.5 sm:p-5 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3.5">
-            <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#1C2D24]">
-              <i data-lucide="calendar" class="w-4 h-4 text-[#244C3B]"></i>
-              <span id="muadzin-picker-title">Pilih Hari Penugasan Muadzin:</span>
-            </div>
-            <span id="muadzins-table-range" class="text-xs text-[#2E4338] dark:text-[#E4CB96]/90 font-mono font-medium tracking-tight">Tabel Resmi: --</span>
-          </div>
-          <div id="muadzin-days-btn-group" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3">
-            <!-- Populated via JS -->
-          </div>
-        </div>
-
-        <!-- Muadzins Table / Cards with Smooth Transition -->
-        <div id="muadzins-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 transition-all duration-300 min-h-[160px] reveal-on-scroll reveal-delay-1">
-          <!-- Rendered dynamically via JavaScript -->
-        </div>
-
-      </div>
     </section>
 
     <!-- HARAMAIN CONNECT: ROAMING UMRAH & HAJI SECTION -->
@@ -3696,7 +3696,7 @@
 
       let currentStream = 'makkah';
 
-      // Friday Khateeb & Imam schedule (Pekan: 30 Rabi'ul Akhir - 06 Jumadil Ula 1448 H)
+      // Friday Khateeb & Imam schedule (Official Flyer: 5 Jumadil Ula 1448 H)
       const fridayKhatibData = {
         makkah: {
           mosqueName: {
@@ -3704,36 +3704,36 @@
             en: "Masjidil Haram • Makkah Al-Mukarramah"
           },
           hijriDate: {
-            id: "30 Rabi'ul Akhir – 06 Jumadil Ula 1448 H",
-            en: "30 Rabi' al-Akhir – 06 Jumada al-Ula 1448 AH",
-            arabic: "٣٠ ربيع الآخر – ٠٦ جمادى الأولى ١٤٤٨ هـ"
+            id: "5 Jumadil Ula 1448 H",
+            en: "5 Jumada al-Ula 1448 AH",
+            arabic: "٥ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد الحرام",
           khateebTitleArabic: "إمام وخطيب المسجد الحرام",
           khateebHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          khateebName: "Syekh Prof. Dr. Yasser Al-Dossary",
-          khateebArabic: "ياسر بن راشد الدوسري",
-          khateebFullArabic: "فضيلة الشيخ الأستاذ الدكتور / ياسر بن راشد الدوسري",
+          khateebName: "Syekh Prof. Dr. Abdullah Al-Juhany",
+          khateebArabic: "عبدالله بن عواد الجهني",
+          khateebFullArabic: "فضيلة الشيخ الأستاذ الدكتور / عبدالله بن عواد الجهني",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Resmi Masjidil Haram • Guru Besar Fiqih Perbandingan",
-            en: "Official Imam & Khateeb of Masjidil Haram • Professor of Comparative Fiqh"
+            id: "Imam & Khatib Resmi Masjidil Haram • Pakar Qira'at",
+            en: "Official Imam & Khateeb of Masjidil Haram • Qira'at Master"
           },
           bio: {
-            id: "Imam & Khatib Masjidil Haram dengan khutbah yang menggetarkan jiwa dan tilawah bertajwid mutqin pada Maqam Bayati, Hijaz, dan Sikah di hadapan ribuan jamaah di depan Ka'bah Al-Mukarramah.",
-            en: "Imam & Khateeb of Masjidil Haram renowned for inspiring, resonant Friday sermons and masterly classical Maqam recitations before the Holy Kaaba."
+            id: "Imam & Khatib Masjidil Haram dengan ketelitian tajwid mutqin, intonasi khas Hijazi yang anggun, serta khutbah Jumat yang membangkitkan keimanan jutaan jamaah di Ka'bah Al-Mukarramah.",
+            en: "Official Imam & Khateeb of Masjidil Haram renowned for masterly Quranic recitation, crisp Hijazi cadence, and inspiring Friday sermons before the Kaaba."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
-          backupArabic: "عبدالله بن عواد الجهني",
-          backupFullArabic: "فضيلة الشيخ الأستاذ الدكتور / عبدالله بن عواد الجهني",
+          backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
+          backupArabic: "ياسر بن راشد الدوسري",
+          backupFullArabic: "فضيلة الشيخ الأستاذ الدكتور / ياسر بن راشد الدوسري",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3747,36 +3747,36 @@
             en: "Prophet's Mosque • Madinah Al-Munawwarah"
           },
           hijriDate: {
-            id: "30 Rabi'ul Akhir – 06 Jumadil Ula 1448 H",
-            en: "30 Rabi' al-Akhir – 06 Jumada al-Ula 1448 AH",
-            arabic: "٣٠ ربيع الآخر – ٠٦ جمادى الأولى ١٤٤٨ هـ"
+            id: "5 Jumadil Ula 1448 H",
+            en: "5 Jumada al-Ula 1448 AH",
+            arabic: "٠٥ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد النبوي",
           khateebTitleArabic: "إمام وخطيب المسجد النبوي",
           khateebHonorific: "فضيلة الشيخ الدكتور",
-          khateebName: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
-          khateebArabic: "عبدالباري بن عواض الثبيتي",
-          khateebFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
+          khateebName: "Syekh Dr. Ahmad bin Ali Al-Hudhaifi",
+          khateebArabic: "أحمد بن علي الحذيفي",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / أحمد بن علي الحذيفي",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Senior Masjid Nabawi",
-            en: "Official Imam & Khateeb of Prophet's Mosque"
+            id: "Imam & Khatib Resmi Masjid Nabawi • Akademisi Sastra Al-Qur'an",
+            en: "Official Imam & Khateeb of Prophet's Mosque • Quranic Rhetoric Scholar"
           },
           bio: {
-            id: "Imam senior Masjid Nabawi dengan gaya khutbah yang menyentuh kalbu serta lantunan tartil yang sangat agung dan tenang di Raudhah Syarifah.",
-            en: "Senior Imam of the Prophet's Mosque, celebrated for poignant Friday sermons and remarkably serene Quranic recitation in the Rawdah."
+            id: "Imam & Khatib Masjid Nabawi yang mewarisi keagungan tartil Madani klasik dengan artikulasi bahasa Arab fushah yang tinggi serta khutbah yang mencerahkan di Raudhah Syarifah.",
+            en: "Official Imam & Khateeb of the Prophet's Mosque inheriting pristine classical Madani recitation, celebrated for inspiring sermons in the Rawdah."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ الدكتور",
-          backupName: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
-          backupArabic: "عبدالله بن عبدالمحسن القرافي",
-          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالله بن عبدالمحسن القرافي",
+          backupName: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
+          backupArabic: "عبدالباري بن عواض الثبيتي",
+          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -5245,10 +5245,10 @@
         const data = fridayKhatibData[currentImamMosque] || fridayKhatibData.makkah;
         const weekInfo = getRealtimeHijriWeekInfo(currentLang);
         const mosqueName = typeof data.mosqueName === 'object' ? data.mosqueName[currentLang] || data.mosqueName.id : data.mosqueName;
-        const hijriDate = weekInfo.fridayDate || (typeof data.hijriDate === 'object' ? data.hijriDate[currentLang] || data.hijriDate.id : data.hijriDate);
-        const hijriArabic = (weekInfo.friday && weekInfo.friday.hijriDay)
-          ? `${toArabicNumerals(weekInfo.friday.hijriDay)} ربيع الآخر ${toArabicNumerals(weekInfo.friday.hijriYear)} هـ`
-          : (data.hijriDate && data.hijriDate.arabic ? data.hijriDate.arabic : '');
+        const hijriDate = (typeof data.hijriDate === 'object' ? data.hijriDate[currentLang] || data.hijriDate.id : data.hijriDate) || weekInfo.fridayDate;
+        const hijriArabic = (data.hijriDate && data.hijriDate.arabic) 
+          ? data.hijriDate.arabic 
+          : ((weekInfo.friday && weekInfo.friday.hijriDay) ? `${toArabicNumerals(weekInfo.friday.hijriDay)} جمادى الأولى ${toArabicNumerals(weekInfo.friday.hijriYear)} هـ` : '');
         const roleText = typeof data.role === 'object' ? data.role[currentLang] || data.role.id : data.role;
         const posText = typeof data.position === 'object' ? data.position[currentLang] || data.position.id : data.position;
         const bioText = typeof data.bio === 'object' ? data.bio[currentLang] || data.bio.id : data.bio;
