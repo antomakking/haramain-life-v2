@@ -2040,7 +2040,7 @@
         </div>
 
         <!-- Weekly Prayer Crowd Trend Visualization Container (Recharts Mount) -->
-        <div id="weekly-trend-chart-root" class="mt-8 reveal-on-scroll"></div>
+        <div id="weekly-trend-chart-root" class="mt-8 reveal-on-scroll hidden" style="display: none;"></div>
 
       </div>
 
@@ -4633,6 +4633,21 @@
         return list[0];
       }
 
+      function animateCountdownDigit(elementId, newValue) {
+        const el = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
+        if (!el) return;
+        const currentVal = el.innerText;
+        if (currentVal !== newValue) {
+          if (typeof window.gsap !== 'undefined') {
+            window.gsap.fromTo(el,
+              { y: -5, scale: 0.9, opacity: 0.5 },
+              { y: 0, scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.7)", overwrite: "auto" }
+            );
+          }
+          el.innerText = newValue;
+        }
+      }
+
       function updatePrayerCountdown(astDate) {
         const next = getNextPrayer();
         if (!next) return;
@@ -4657,9 +4672,9 @@
           const mins = Math.floor((diffSecs % 3600) / 60);
           const secs = diffSecs % 60;
 
-          document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-          document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
-          document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+          animateCountdownDigit('cd-hours', String(hours).padStart(2, '0'));
+          animateCountdownDigit('cd-mins', String(mins).padStart(2, '0'));
+          animateCountdownDigit('cd-secs', String(secs).padStart(2, '0'));
         }
 
         // Real-time synchronization for Mode Ibadah HUD if elements exist
@@ -4690,12 +4705,9 @@
             const imins = Math.floor((idiffSecs % 3600) / 60);
             const isecs = idiffSecs % 60;
 
-            const icdHours = document.getElementById('ibadah-cd-hours');
-            if (icdHours) icdHours.innerText = String(ihours).padStart(2, '0');
-            const icdMins = document.getElementById('ibadah-cd-mins');
-            if (icdMins) icdMins.innerText = String(imins).padStart(2, '0');
-            const icdSecs = document.getElementById('ibadah-cd-secs');
-            if (icdSecs) icdSecs.innerText = String(isecs).padStart(2, '0');
+            animateCountdownDigit('ibadah-cd-hours', String(ihours).padStart(2, '0'));
+            animateCountdownDigit('ibadah-cd-mins', String(imins).padStart(2, '0'));
+            animateCountdownDigit('ibadah-cd-secs', String(isecs).padStart(2, '0'));
           }
 
           const ibadahTimeElem = document.getElementById('ibadah-current-time');

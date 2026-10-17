@@ -1024,7 +1024,7 @@ export function WeeklyCrowdTrendSection() {
   };
 
   return (
-    <div id="weekly-trend-chart" className="p-3.5 sm:p-6 lg:p-7 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm text-[#1C2D24] relative overflow-x-hidden">
+    <div id="weekly-trend-chart" className="hidden p-3.5 sm:p-6 lg:p-7 rounded-3xl bg-[#FFFFFF] border border-[#E5DAC8] shadow-sm text-[#1C2D24] relative overflow-x-hidden" style={{ display: 'none' }}>
       {/* Top Header & Filter Controls */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5 sm:mb-6">
         <div>
