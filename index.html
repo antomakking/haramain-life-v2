@@ -495,6 +495,60 @@
         border: none !important;
       }
 
+      /* Interactive Mosque Map Marker Pulse Animation */
+      @keyframes markerPulseRing {
+        0% {
+          transform: scale(0.92);
+          opacity: 0.85;
+          box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.6);
+        }
+        60% {
+          transform: scale(1.5);
+          opacity: 0;
+          box-shadow: 0 0 0 14px rgba(197, 160, 89, 0);
+        }
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+          box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+        }
+      }
+
+      .map-marker-pulse {
+        position: absolute;
+        inset: -3px;
+        border-radius: 9999px;
+        pointer-events: none;
+        z-index: 0;
+        animation: markerPulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+      }
+
+      .map-marker-pulse-gate {
+        border: 1.5px solid rgba(52, 211, 153, 0.85);
+        background: rgba(16, 185, 129, 0.22);
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+      }
+
+      .map-marker-pulse-sacred {
+        border: 1.5px solid rgba(251, 191, 36, 0.9);
+        background: rgba(245, 158, 11, 0.22);
+        box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+        animation-delay: 0.3s;
+      }
+
+      .map-marker-pulse-health {
+        border: 1.5px solid rgba(244, 63, 94, 0.85);
+        background: rgba(244, 63, 94, 0.22);
+        box-shadow: 0 0 12px rgba(244, 63, 94, 0.5);
+        animation-delay: 0.6s;
+      }
+
+      /* Custom Leaflet Marker Cluster Icon Styling */
+      .custom-leaflet-cluster-icon {
+        background: transparent !important;
+        border: none !important;
+      }
+
       /* =========================================================================
          DARK MODE SYSTEM STYLES (Islamic Emerald & Celestial Gold Palette)
          Recreates the exact signature dark luxury palette from the reference design
@@ -3786,22 +3840,22 @@
         }
       };
 
-      // Daily Imams schedule (Pekan: 30 Rabi'ul Akhir - 06 Jumadil Ula 1448 H)
+      // Daily Imams schedule (Pekan: 14 - 20 Jumada Al-Ula 1448 H / 14 - 20 Jumadil Ula 1448 H)
       const imamData = {
         makkah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Dr. Badr At-Turki",
-            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
-            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
-            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            name: "Syekh Prof. Dr. Yasser Al-Dossary",
+            arabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            backupName: "Syekh Dr. Badr At-Turki",
+            backupArabic: "فضيلة الشيخ د. بدر بن محمد التركي",
             role: {
-              id: "Imam Shalat Subuh • Pengajar Al-Qur'an & Dosen Syariah",
-              en: "Fajr Prayer Imam • Quranic Scholar & Sharia Professor"
+              id: "Imam Shalat Subuh • Guru Besar Fiqih Perbandingan & Khatib Jumat",
+              en: "Fajr Prayer Imam • Professor of Comparative Fiqh & Friday Khateeb"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Memiliki lantunan tilawah tartil bertajwid mutqin yang jernih, tenang, dan menyejukkan hati jamaah di hadapan Ka'bah Al-Mukarramah.",
-              en: "Primary Fajr Imam. Renowned for crystal-clear, serene, and deeply moving Quranic recitation before the Holy Kaaba."
+              id: "Imam Utama Shalat Subuh. Memiliki bacaan Subuh yang sangat merdu, bertenaga, dan menggetarkan jiwa jamaah di pelataran Ka'bah Al-Mukarramah.",
+              en: "Primary Fajr Imam. Renowned for powerful, emotionally stirring dawn recitations before the Holy Kaaba."
             },
             tag: {
               id: "Imam Subuh Utama",
@@ -3810,17 +3864,17 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Prof. Dr. Yasser Al-Dossary",
-            arabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
-            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
-            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            name: "Syekh Prof. Dr. Faisal bin Jameel Ghazzawi",
+            arabic: "فضيلة الشيخ أ.د. فيصل بن جميل غزاوي",
+            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
+            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
             role: {
-              id: "Imam Shalat Dzuhur • Guru Besar Fiqih Perbandingan & Khatib Jumat",
-              en: "Dhuhr Prayer Imam • Professor of Comparative Fiqh & Friday Khateeb"
+              id: "Imam Shalat Dzuhur • Guru Besar Qira'at & Imam Senior Masjidil Haram",
+              en: "Dhuhr Prayer Imam • Professor of Qira'at & Senior Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Dzuhur. Ulama terkemuka dan pengajar di Masjidil Haram dengan gaya tilawah yang agung, fasih, dan bertenaga di waktu siang.",
-              en: "Primary Dhuhr Imam. Leading scholar and lecturer at Masjidil Haram known for powerful, eloquent, and soul-stirring recitation."
+              id: "Imam Utama Shalat Dzuhur. Ulama terkemuka dan pengajar di Masjidil Haram dengan gaya tilawah yang agung dan tartil fasih di waktu siang.",
+              en: "Primary Dhuhr Imam. Senior scholar leading afternoon prayers with noble, crystal-clear recitation."
             },
             tag: {
               id: "Imam Dzuhur Utama",
@@ -3829,17 +3883,17 @@
           },
           {
             prayerKey: "asr",
-            name: "Syekh Dr. Badr At-Turki",
-            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
-            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
-            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            name: "Syekh Prof. Dr. Yasser Al-Dossary",
+            arabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
+            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
             role: {
-              id: "Imam Shalat Ashar • Pengajar Al-Qur'an & Dosen Syariah",
-              en: "Asr Prayer Imam • Quranic Scholar & Sharia Professor"
+              id: "Imam Shalat Ashar • Guru Besar Fiqih Perbandingan & Khatib Jumat",
+              en: "Asr Prayer Imam • Professor of Comparative Fiqh & Friday Khateeb"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. Dikenal dengan karakter tilawah yang lembut, syahdu, serta penuh kekhusyukan di pelataran Mataf Ka'bah.",
-              en: "Primary Asr Imam. Revered for gentle, tranquil, and emotionally moving afternoon recitation before the Kaaba."
+              id: "Imam Utama Shalat Ashar. Dikenal dengan bacaan tartil yang merdu, penuh kekhusyukan, dan menggetarkan hati di pelataran Mataf.",
+              en: "Primary Asr Imam. Revered for deeply moving and melodious afternoon recitation before the Kaaba."
             },
             tag: {
               id: "Imam Ashar Utama",
@@ -3848,17 +3902,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Prof. Dr. Faisal bin Jameel Ghazzawi",
-            arabic: "فضيلة الشيخ أ.د. فيصل بن جميل غزاوي",
-            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
-            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            name: "Syekh Prof. Dr. Abdullah Al-Juhany",
+            arabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            backupName: "Syekh Dr. Badr At-Turki",
+            backupArabic: "فضيلة الشيخ د. بدر بن محمد التركي",
             role: {
-              id: "Imam Shalat Maghrib • Guru Besar Qira'at & Imam Senior Masjidil Haram",
-              en: "Maghrib Prayer Imam • Professor of Qira'at & Senior Imam of Masjidil Haram"
+              id: "Imam Shalat Maghrib • Pakar Qira'at & Imam Senior Masjidil Haram",
+              en: "Maghrib Prayer Imam • Qira'at Scholar & Senior Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Ulama senior dengan lantunan murattal yang sangat merdu, syahdu, dan penuh penghayatan saat senja di pelataran Mataf.",
-              en: "Primary Maghrib Imam. World-renowned senior scholar leading sunset prayers with melodic and deeply devotional recitation."
+              id: "Imam Utama Shalat Maghrib. Master qira'at dengan ketelitian tajwid mutqin, makhraj fasih, dan bacaan khas Hijazi saat senja di pelataran Mataf.",
+              en: "Primary Maghrib Imam. World-renowned Qira'at master leading sunset prayers with pristine Tajweed and stately Hijazi cadence."
             },
             tag: {
               id: "Imam Maghrib Utama",
@@ -3867,17 +3921,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Prof. Dr. Abdullah Al-Juhany",
-            arabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
-            backupName: "Syekh Dr. Badr At-Turki",
-            backupArabic: "فضيلة الشيخ د. بدر بن محمد التركي",
+            name: "Syekh Dr. Badr At-Turki",
+            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
+            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
+            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
             role: {
-              id: "Imam Shalat Isya • Pakar Qira'at & Imam Senior Masjidil Haram",
-              en: "Isha Prayer Imam • Qira'at Scholar & Senior Imam of Masjidil Haram"
+              id: "Imam Shalat Isya • Pengajar Al-Qur'an & Dosen Syariah",
+              en: "Isha Prayer Imam • Quranic Scholar & Sharia Professor"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Salah satu qari paling terkemuka dengan ketelitian tajwid mutqin, intonasi tegas, dan bacaan khas Hijazi yang mengagumkan.",
-              en: "Primary Isha Imam. Master of Quranic recitations leading congregational evening prayers with crisp Tajweed and stately Hijazi cadence."
+              id: "Imam Utama Shalat Isya. Memiliki lantunan tilawah yang sangat tenang, jernih, dan menyejukkan hati jamaah di malam hari di hadapan Ka'bah.",
+              en: "Primary Isha Imam. Revered for tranquil, clear, and peaceful nighttime Quranic recitation."
             },
             tag: {
               id: "Imam Isya Utama",
@@ -3888,17 +3942,17 @@
         madinah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
-            arabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
-            backupName: "Syekh Saleh bin Awwad Al-Maghamsi",
-            backupArabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            name: "Syekh Dr. Abdullah bin Abdurrahman Al-Baijan",
+            arabic: "فضيلة الشيخ د. عبدالله بن عبدالرحمن البعيجان",
+            backupName: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
+            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
             role: {
-              id: "Imam Shalat Subuh • Dosen Fakultas Hadits Univ. Islam Madinah",
-              en: "Fajr Prayer Imam • Hadith Faculty Professor at Islamic Univ. of Madinah"
+              id: "Imam Shalat Subuh • Dosen Ushul Fiqih & Imam-Khatib Masjid Nabawi",
+              en: "Fajr Prayer Imam • Usul Fiqh Professor & Imam of Prophet's Mosque"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Akademisi dan qari berwawasan luas dengan lantunan tilawah Subuh yang jernih, tenang, dan menenteramkan jiwa di Raudhah Syarifah.",
-              en: "Primary Fajr Imam. Islamic scholar and Quranic reciter known for serene, peaceful morning recitation beside the Rawdah."
+              id: "Imam Utama Shalat Subuh. Memiliki karakter suara sangat lembut, hening, dan penuh penghayatan mendalam khas Raudhah Syarifah.",
+              en: "Primary Fajr Imam. Renowned for profoundly tranquil, soulful recitation beside the Noble Rawdah."
             },
             tag: {
               id: "Imam Subuh Masjid Nabawi",
@@ -3907,17 +3961,17 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
-            arabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
-            backupName: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
-            backupArabic: "فضيلة الشيخ د. عبدالله بن عبدالمحسن القرافي",
+            name: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
+            arabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
+            backupName: "Syekh Saleh bin Awwad Al-Maghamsi",
+            backupArabic: "فضيلة الشيخ صالح بن عواد المغامسي",
             role: {
-              id: "Imam Shalat Dzuhur • Imam & Khatib Senior Masjid Nabawi",
-              en: "Dhuhr Prayer Imam • Senior Imam & Khateeb of Prophet's Mosque"
+              id: "Imam Shalat Dzuhur • Dosen Fakultas Hadits Univ. Islam Madinah",
+              en: "Dhuhr Prayer Imam • Hadith Faculty Professor at Islamic Univ. of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Dzuhur. Imam senior berpengalaman puluhan tahun di Masjid Nabawi dengan kefasihan makhraj dan tartil yang agung dan tenang.",
-              en: "Primary Dhuhr Imam. Distinguished senior Imam with decades of service at the Prophet's Mosque, renowned for immaculate articulation and calm cadence."
+              id: "Imam Utama Shalat Dzuhur. Akademisi dan qari berwawasan luas dengan lantunan tilawah yang jernih dan tenang di Masjid Nabawi.",
+              en: "Primary Dhuhr Imam. Islamic scholar and Quranic reciter known for serene, peaceful recitation at the Prophet's Mosque."
             },
             tag: {
               id: "Imam Dzuhur Masjid Nabawi",
@@ -3935,8 +3989,8 @@
               en: "Asr Prayer Imam • Chief Senior Imam of Al-Masjid An-Nabawi"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. 'Syaikhul Aimmah' yang paling dihormati di Madinah dengan makhraj huruf dan hukum tajwid paling sempurna dalam dunia Islam.",
-              en: "Primary Asr Imam. Revered Dean of the Haramain Imams whose gold-standard Tajweed and measured cadence inspire millions worldwide."
+              id: "Imam Utama Shalat Ashar. 'Syaikhul Aimmah' yang paling dihormati di Madinah dengan makhraj huruf dan hukum tajwid paling sempurna.",
+              en: "Primary Asr Imam. Revered Dean of the Haramain Imams whose gold-standard Tajweed and measured cadence inspire millions."
             },
             tag: {
               id: "Imam Ashar Masjid Nabawi",
@@ -3945,17 +3999,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Saleh bin Awwad Al-Maghamsi",
-            arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            name: "Syekh Dr. Abdul Bari bin Awadh Ats-Tsubaiti",
+            arabic: "فضيلة الشيخ د. عبدالباري بن عواض الثبيتي",
             backupName: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
             backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
             role: {
-              id: "Imam Shalat Maghrib • Da'i & Pakar Tafsir Terkemuka Madinah",
-              en: "Maghrib Prayer Imam • Renowned Islamic Scholar & Exegete of Madinah"
+              id: "Imam Shalat Maghrib • Imam & Khatib Senior Masjid Nabawi",
+              en: "Maghrib Prayer Imam • Senior Imam & Khateeb of Prophet's Mosque"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Tokoh tafsir ternama Madinah dengan tilawah Maghrib yang sangat lembut, menyentuh kalbu, dan penuh penghayatan makna Al-Qur'an.",
-              en: "Primary Maghrib Imam. Celebrated Quranic commentator leading sunset prayers with gentle, heart-touching, and deeply reflective cadence."
+              id: "Imam Utama Shalat Maghrib. Imam senior berpengalaman puluhan tahun di Masjid Nabawi dengan kefasihan makhraj dan tartil yang agung saat senja.",
+              en: "Primary Maghrib Imam. Senior Imam with decades of service at the Prophet's Mosque, leading sunset prayers with stately cadence."
             },
             tag: {
               id: "Imam Maghrib Masjid Nabawi",
@@ -3964,17 +4018,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Dr. Abdullah bin Abdul Muhsin Al-Qarafi",
-            arabic: "فضيلة الشيخ د. عبدالله بن عبدالمحسن القرافي",
-            backupName: "Syekh Prof. Dr. Muhammad bin Ahmad Barhaji",
-            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
+            name: "Syekh Saleh bin Awwad Al-Maghamsi",
+            arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            backupName: "Syekh Dr. Abdullah bin Abdurrahman Al-Baijan",
+            backupArabic: "فضيلة الشيخ د. عبدالله بن عبدالرحمن البعيجان",
             role: {
-              id: "Imam Shalat Isya • Pengajar Syariah & Dosen Universitas",
-              en: "Isha Prayer Imam • Sharia Instructor & University Scholar"
+              id: "Imam Shalat Isya • Da'i & Pakar Tafsir Terkemuka Madinah",
+              en: "Isha Prayer Imam • Renowned Islamic Scholar & Exegete of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Dikenal dengan karakter tilawah yang syahdu, merdu, serta penuh ketenangan saat memimpin jamaah di pelataran Masjid Nabawi.",
-              en: "Primary Isha Imam. Celebrated for gentle, moving nighttime recitation that inspires deep spiritual devotion from congregants."
+              id: "Imam Utama Shalat Isya. Tokoh tafsir ternama Madinah dengan tilawah Isya yang sangat lembut, menyentuh kalbu, dan penuh penghayatan.",
+              en: "Primary Isha Imam. Celebrated Quranic commentator leading evening prayers with gentle, heart-touching, and deeply reflective cadence."
             },
             tag: {
               id: "Imam Isya Masjid Nabawi",
@@ -9910,6 +9964,7 @@
       var mosqueMapInstance = null;
       var mosqueTileLayerInstance = null;
       var mosqueMapMarkers = [];
+      var mosqueClusterGroup = null;
 
       var tileLayerConfigs = {
         voyager: {
@@ -10242,25 +10297,30 @@
         let colorBg = '';
         let badgeHtml = '';
         let iconSvg = '';
+        let pulseClass = '';
 
         if (poi.category === 'health') {
           colorBg = 'bg-gradient-to-br from-rose-600 to-red-800 border-rose-300 text-white shadow-[0_0_16px_rgba(244,63,94,0.75)]';
-          badgeHtml = '<span class="absolute -bottom-2 px-1.5 py-0.2 bg-red-950 border border-red-400 text-[8.5px] font-bold rounded-full text-white tracking-wider">MEDIS</span>';
+          badgeHtml = '<span class="absolute -bottom-2 px-1.5 py-0.2 bg-red-950 border border-red-400 text-[8.5px] font-bold rounded-full text-white tracking-wider z-20">MEDIS</span>';
           iconSvg = '<svg class="w-3.5 h-3.5 stroke-[2.8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>';
+          pulseClass = 'map-marker-pulse map-marker-pulse-health';
         } else if (poi.category === 'gate') {
           colorBg = 'bg-gradient-to-br from-emerald-600 to-emerald-800 border-gold-300 text-amber-200 shadow-[0_0_16px_rgba(16,185,129,0.7)]';
-          badgeHtml = poi.gateNo ? `<span class="absolute -bottom-2 px-1.5 py-0.2 bg-[#021f17] border border-gold-400 text-[8.5px] font-bold rounded-full text-gold-300">P.${poi.gateNo}</span>` : '';
+          badgeHtml = poi.gateNo ? `<span class="absolute -bottom-2 px-1.5 py-0.2 bg-[#021f17] border border-gold-400 text-[8.5px] font-bold rounded-full text-gold-300 z-20">P.${poi.gateNo}</span>` : '';
           iconSvg = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 21V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v12"></path></svg>';
+          pulseClass = 'map-marker-pulse map-marker-pulse-gate';
         } else {
           // sacred
           colorBg = 'bg-gradient-to-br from-amber-400 via-yellow-400 to-gold-600 border-white text-emerald-950 shadow-[0_0_20px_rgba(245,183,49,0.9)]';
-          badgeHtml = '<span class="absolute -bottom-2 px-1.5 py-0.2 bg-[#021410] border border-amber-300 text-[8.5px] font-bold rounded-full text-yellow-300">SUCI</span>';
+          badgeHtml = '<span class="absolute -bottom-2 px-1.5 py-0.2 bg-[#021410] border border-amber-300 text-[8.5px] font-bold rounded-full text-yellow-300 z-20">SUCI</span>';
           iconSvg = '<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"></polygon></svg>';
+          pulseClass = 'map-marker-pulse map-marker-pulse-sacred';
         }
 
         const html = `
           <div class="relative flex items-center justify-center cursor-pointer group hover:scale-125 transition-transform duration-200">
-            <div class="w-8 h-8 rounded-full border-2 flex items-center justify-center ${colorBg}">
+            <div class="${pulseClass}"></div>
+            <div class="relative z-10 w-8 h-8 rounded-full border-2 flex items-center justify-center ${colorBg}">
               ${iconSvg}
             </div>
             ${badgeHtml}
@@ -10331,10 +10391,11 @@
       }
 
       function loadLeafletAssets(callback) {
-        if (typeof L !== 'undefined') {
+        if (typeof L !== 'undefined' && typeof L.markerClusterGroup !== 'undefined') {
           if (callback) callback();
           return;
         }
+
         if (!document.getElementById('leaflet-css')) {
           const link = document.createElement('link');
           link.id = 'leaflet-css';
@@ -10342,21 +10403,63 @@
           link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
           document.head.appendChild(link);
         }
-        if (!document.getElementById('leaflet-js')) {
-          const script = document.createElement('script');
-          script.id = 'leaflet-js';
-          script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-          script.onload = () => {
+
+        if (!document.getElementById('leaflet-cluster-css')) {
+          const linkClusterCss = document.createElement('link');
+          linkClusterCss.id = 'leaflet-cluster-css';
+          linkClusterCss.rel = 'stylesheet';
+          linkClusterCss.href = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css';
+          document.head.appendChild(linkClusterCss);
+
+          const linkClusterDefaultCss = document.createElement('link');
+          linkClusterDefaultCss.id = 'leaflet-cluster-default-css';
+          linkClusterDefaultCss.rel = 'stylesheet';
+          linkClusterDefaultCss.href = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css';
+          document.head.appendChild(linkClusterDefaultCss);
+        }
+
+        const loadClusterJs = () => {
+          if (typeof L !== 'undefined' && typeof L.markerClusterGroup !== 'undefined') {
             if (callback) callback();
-          };
-          document.head.appendChild(script);
-        } else {
-          const poll = setInterval(() => {
-            if (typeof L !== 'undefined') {
-              clearInterval(poll);
+            return;
+          }
+          if (!document.getElementById('leaflet-cluster-js')) {
+            const clusterScript = document.createElement('script');
+            clusterScript.id = 'leaflet-cluster-js';
+            clusterScript.src = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js';
+            clusterScript.onload = () => {
               if (callback) callback();
-            }
-          }, 30);
+            };
+            document.head.appendChild(clusterScript);
+          } else {
+            const pollCluster = setInterval(() => {
+              if (typeof L !== 'undefined' && typeof L.markerClusterGroup !== 'undefined') {
+                clearInterval(pollCluster);
+                if (callback) callback();
+              }
+            }, 30);
+          }
+        };
+
+        if (typeof L === 'undefined') {
+          if (!document.getElementById('leaflet-js')) {
+            const script = document.createElement('script');
+            script.id = 'leaflet-js';
+            script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+            script.onload = () => {
+              loadClusterJs();
+            };
+            document.head.appendChild(script);
+          } else {
+            const poll = setInterval(() => {
+              if (typeof L !== 'undefined') {
+                clearInterval(poll);
+                loadClusterJs();
+              }
+            }, 30);
+          }
+        } else {
+          loadClusterJs();
         }
       }
 
@@ -10369,10 +10472,14 @@
             // If map instance exists, remove it cleanly to avoid leaflet re-initialization errors
             if (mosqueMapInstance) {
               try {
+                if (mosqueClusterGroup) {
+                  mosqueMapInstance.removeLayer(mosqueClusterGroup);
+                }
                 mosqueMapInstance.remove();
               } catch (e) {}
               mosqueMapInstance = null;
               mosqueTileLayerInstance = null;
+              mosqueClusterGroup = null;
               mosqueMapMarkers = [];
             }
 
@@ -10388,9 +10495,84 @@
             // Zoom control on top right
             L.control.zoom({ position: 'topright' }).addTo(mosqueMapInstance);
 
+            // Leaflet Control UI Fullscreen Toggle Button
+            const LeafletFullscreenControl = L.Control.extend({
+              options: { position: 'topright' },
+              onAdd: function() {
+                const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+                const btn = L.DomUtil.create('a', 'leaflet-control-fullscreen-btn', container);
+                btn.href = '#';
+                btn.title = currentLang === 'en' ? 'Full Screen' : 'Layar Penuh';
+                btn.role = 'button';
+                btn.id = 'leaflet-control-fullscreen-btn';
+                btn.setAttribute('aria-label', currentLang === 'en' ? 'Full Screen' : 'Layar Penuh');
+                btn.style.display = 'flex';
+                btn.style.alignItems = 'center';
+                btn.style.justifyContent = 'center';
+                btn.innerHTML = `<i data-lucide="${isMapFullscreen ? 'minimize-2' : 'maximize-2'}" id="leaflet-ctrl-fullscreen-icon" class="w-4 h-4"></i>`;
+
+                L.DomEvent.disableClickPropagation(container);
+                L.DomEvent.on(btn, 'click', function(e) {
+                  L.DomEvent.preventDefault(e);
+                  toggleMosqueMapFullscreen();
+                });
+
+                return container;
+              }
+            });
+            (new LeafletFullscreenControl()).addTo(mosqueMapInstance);
+
             // Default tile layer (No watermarks / No API key requirements)
             const defaultLayerCfg = tileLayerConfigs[currentMapTileLayer] || tileLayerConfigs.voyager;
             mosqueTileLayerInstance = L.tileLayer(defaultLayerCfg.url, defaultLayerCfg.options).addTo(mosqueMapInstance);
+
+            // Subtle Zoom Level Text Label Control
+            const LeafletZoomLabelControl = L.Control.extend({
+              options: { position: 'bottomleft' },
+              onAdd: function(map) {
+                const container = L.DomUtil.create('div', 'leaflet-control mosque-zoom-label-badge');
+                container.style.backgroundColor = 'rgba(1, 23, 16, 0.85)';
+                container.style.backdropFilter = 'blur(8px)';
+                container.style.color = '#E4CB96';
+                container.style.border = '1px solid rgba(197, 160, 89, 0.4)';
+                container.style.borderRadius = '10px';
+                container.style.padding = '4px 10px';
+                container.style.fontSize = '11px';
+                container.style.fontWeight = '700';
+                container.style.letterSpacing = '0.02em';
+                container.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.3)';
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.gap = '6px';
+                container.style.pointerEvents = 'none';
+
+                const updateZoomLabel = () => {
+                  const currentZoom = map.getZoom();
+                  const lang = currentLang === 'en' ? 'en' : 'id';
+                  let detailText = '';
+                  if (currentZoom >= 18) {
+                    detailText = lang === 'en' ? 'Gate Detail' : 'Detail Pintu';
+                  } else if (currentZoom >= 16) {
+                    detailText = lang === 'en' ? 'Courtyard View' : 'Skala Pelataran';
+                  } else {
+                    detailText = lang === 'en' ? 'Overview' : 'Skala Kawasan';
+                  }
+                  container.innerHTML = `
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block shrink-0"></span>
+                    <span>${lang === 'en' ? 'Zoom' : 'Skala'}: <strong style="color: #ffffff;">${currentZoom}x</strong></span>
+                    <span style="opacity: 0.4; font-weight: 400;">|</span>
+                    <span style="color: #6ee7b7; font-size: 10px; font-weight: 600;">${detailText}</span>
+                  `;
+                };
+
+                map.on('zoomend', updateZoomLabel);
+                map.on('zoom', updateZoomLabel);
+                updateZoomLabel();
+
+                return container;
+              }
+            });
+            (new LeafletZoomLabelControl()).addTo(mosqueMapInstance);
 
             // Minimal attribution
             L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap • Presidensi Haramain' }).addTo(mosqueMapInstance);
@@ -10401,15 +10583,83 @@
             // Render markers & cards
             renderMapMarkers(mosqueKey, currentMapFilter);
             renderPoiListCards(mosqueKey, currentMapFilter);
+            renderGateQuickNav(mosqueKey);
           }, 140);
         });
+      }
+
+      function renderGateQuickNav(mosqueKey = activeModalMosque) {
+        const container = document.getElementById('mosque-gates-chips-container');
+        if (!container) return;
+
+        const lang = currentLang === 'en' ? 'en' : 'id';
+        const data = mosqueMapData[mosqueKey] || mosqueMapData.makkah;
+        const gates = data.pois.filter(p => p.category === 'gate');
+
+        const gatesCountEl = document.getElementById('mosque-gates-count');
+        if (gatesCountEl) {
+          gatesCountEl.textContent = `${gates.length} ${lang === 'en' ? 'Gates' : 'Pintu Gerbang'}`;
+        }
+
+        container.innerHTML = gates.map(gate => {
+          const gateName = gate.name[lang] || gate.name.id;
+          const gateNoBadge = gate.gateNo ? `#${gate.gateNo}` : '';
+          const distanceText = gate.distance || '';
+
+          return `
+            <button type="button" onclick="flyToPoi('${gate.id}')" class="px-3 py-2 rounded-xl bg-[#03241b] hover:bg-emerald-900/60 border border-emerald-500/35 hover:border-gold-400 text-left flex items-center gap-2.5 transition-all duration-200 cursor-pointer group shrink-0 shadow-sm hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#C5A059]">
+              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-800 text-amber-200 border border-gold-400/60 flex items-center justify-center font-mono font-extrabold text-xs shrink-0 shadow-xs group-hover:scale-110 transition-transform">
+                ${gateNoBadge || 'P'}
+              </div>
+              <div class="leading-tight">
+                <div class="text-xs font-bold text-white group-hover:text-gold-300 transition-colors flex items-center gap-1.5">
+                  <span class="truncate max-w-[170px]">${gateName}</span>
+                  <i data-lucide="crosshair" class="w-3 h-3 text-gold-400 opacity-60 group-hover:opacity-100 transition-opacity"></i>
+                </div>
+                ${distanceText ? `<div class="text-[10px] text-amber-200/60 mt-0.5">${distanceText}</div>` : ''}
+              </div>
+            </button>
+          `;
+        }).join('');
+
+        if (window.lucide) window.lucide.createIcons();
       }
 
       function renderMapMarkers(mosqueKey = activeModalMosque, filter = currentMapFilter) {
         if (!mosqueMapInstance || typeof L === 'undefined') return;
 
-        // Clear existing markers
-        mosqueMapMarkers.forEach(m => mosqueMapInstance.removeLayer(m));
+        // Clear existing markers & cluster group
+        if (mosqueClusterGroup) {
+          mosqueClusterGroup.clearLayers();
+        } else if (typeof L.markerClusterGroup === 'function') {
+          mosqueClusterGroup = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true,
+            spiderfyOnMaxZoom: true,
+            maxClusterRadius: 40,
+            iconCreateFunction: function(cluster) {
+              const count = cluster.getChildCount();
+              return L.divIcon({
+                html: `
+                  <div class="relative flex items-center justify-center cursor-pointer group">
+                    <span class="absolute -inset-1.5 rounded-full animate-pulse bg-gold-400/35"></span>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#03241b] via-[#094838] to-[#011710] border-2 border-gold-400 text-gold-200 shadow-xl flex flex-col items-center justify-center font-extrabold group-hover:scale-110 transition-transform">
+                      <span class="text-xs font-mono font-bold text-amber-200">${count}</span>
+                      <span class="text-[7.5px] uppercase tracking-wider text-gold-300/90 font-semibold -mt-0.5">Lokasi</span>
+                    </div>
+                  </div>
+                `,
+                className: 'custom-leaflet-cluster-icon',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+              });
+            }
+          });
+          mosqueMapInstance.addLayer(mosqueClusterGroup);
+        } else {
+          mosqueMapMarkers.forEach(m => mosqueMapInstance.removeLayer(m));
+        }
+
         mosqueMapMarkers = [];
 
         const lang = currentLang === 'en' ? 'en' : 'id';
@@ -10430,8 +10680,13 @@
           });
 
           marker.poiId = poi.id;
-          marker.addTo(mosqueMapInstance);
           mosqueMapMarkers.push(marker);
+
+          if (mosqueClusterGroup) {
+            mosqueClusterGroup.addLayer(marker);
+          } else {
+            marker.addTo(mosqueMapInstance);
+          }
         });
       }
 
@@ -10558,18 +10813,24 @@
         const poi = data.pois.find(p => p.id === poiId);
         if (!poi) return;
 
-        mosqueMapInstance.flyTo(poi.coords, 18, {
-          animate: true,
-          duration: 1.0
-        });
+        const marker = mosqueMapMarkers.find(m => m.poiId === poiId);
 
-        // Find marker and open popup
-        setTimeout(() => {
-          const marker = mosqueMapMarkers.find(m => m.poiId === poiId);
-          if (marker) {
+        if (mosqueClusterGroup && marker && typeof mosqueClusterGroup.zoomToShowLayer === 'function') {
+          mosqueClusterGroup.zoomToShowLayer(marker, () => {
             marker.openPopup();
-          }
-        }, 600);
+          });
+        } else {
+          mosqueMapInstance.flyTo(poi.coords, 18, {
+            animate: true,
+            duration: 1.0
+          });
+
+          setTimeout(() => {
+            if (marker) {
+              marker.openPopup();
+            }
+          }, 600);
+        }
 
         // Scroll modal body to map container if needed
         const mapSec = document.getElementById('mosque-interactive-map-sec');
@@ -10608,7 +10869,125 @@
         }
       }
 
+      let isMapFullscreen = false;
+      let isMapLegendOpen = false;
+
+      function toggleMosqueMapLegend(forceState) {
+        const modal = document.getElementById('mosque-map-legend-modal');
+        if (!modal) return;
+        if (typeof forceState === 'boolean') {
+          isMapLegendOpen = forceState;
+        } else {
+          isMapLegendOpen = !isMapLegendOpen;
+        }
+
+        if (isMapLegendOpen) {
+          modal.classList.remove('hidden');
+        } else {
+          modal.classList.add('hidden');
+        }
+        if (window.lucide) window.lucide.createIcons();
+      }
+      window.toggleMosqueMapLegend = toggleMosqueMapLegend;
+
+      function toggleMosqueMapFullscreen() {
+        const mapWrapper = document.getElementById('mosque-map-wrapper');
+        const mapElement = document.getElementById('mosque-leaflet-map');
+        const btnIcon = document.getElementById('map-fullscreen-icon');
+        const btnText = document.getElementById('map-fullscreen-text');
+        const fullBtn = document.getElementById('map-fullscreen-btn');
+        const ctrlBtnIcon = document.getElementById('leaflet-ctrl-fullscreen-icon');
+        const ctrlBtn = document.getElementById('leaflet-control-fullscreen-btn');
+        if (!mapWrapper || !mapElement) return;
+
+        isMapFullscreen = !isMapFullscreen;
+
+        if (isMapFullscreen) {
+          mapWrapper.classList.add('fixed', 'inset-0', '!z-[99999]', 'w-screen', 'h-screen', '!rounded-none', 'p-2', 'sm:p-4', 'bg-[#011710]');
+          mapWrapper.classList.remove('relative', 'rounded-2xl');
+          mapElement.classList.add('!h-full', '!w-full');
+          mapElement.classList.remove('h-[380px]', 'sm:h-[440px]');
+
+          if (btnIcon) btnIcon.setAttribute('data-lucide', 'minimize-2');
+          if (ctrlBtnIcon) ctrlBtnIcon.setAttribute('data-lucide', 'minimize-2');
+          if (btnText) btnText.textContent = currentLang === 'en' ? 'Exit Full Screen' : 'Keluar Layar Penuh';
+          if (fullBtn) fullBtn.title = currentLang === 'en' ? 'Exit Full Screen' : 'Keluar Layar Penuh';
+          if (ctrlBtn) ctrlBtn.title = currentLang === 'en' ? 'Exit Full Screen' : 'Keluar Layar Penuh';
+
+          // Try native browser fullscreen API
+          if (mapWrapper.requestFullscreen) {
+            mapWrapper.requestFullscreen().catch(() => {});
+          } else if (mapWrapper.webkitRequestFullscreen) {
+            mapWrapper.webkitRequestFullscreen();
+          }
+        } else {
+          exitMosqueMapFullscreen();
+        }
+
+        if (mosqueMapInstance) {
+          setTimeout(() => {
+            mosqueMapInstance.invalidateSize();
+          }, 150);
+        }
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function exitMosqueMapFullscreen() {
+        const mapWrapper = document.getElementById('mosque-map-wrapper');
+        const mapElement = document.getElementById('mosque-leaflet-map');
+        const btnIcon = document.getElementById('map-fullscreen-icon');
+        const btnText = document.getElementById('map-fullscreen-text');
+        const fullBtn = document.getElementById('map-fullscreen-btn');
+        const ctrlBtnIcon = document.getElementById('leaflet-ctrl-fullscreen-icon');
+        const ctrlBtn = document.getElementById('leaflet-control-fullscreen-btn');
+        if (!mapWrapper || !mapElement) return;
+
+        isMapFullscreen = false;
+
+        mapWrapper.classList.remove('fixed', 'inset-0', '!z-[99999]', 'w-screen', 'h-screen', '!rounded-none', 'p-2', 'sm:p-4', 'bg-[#011710]');
+        mapWrapper.classList.add('relative', 'rounded-2xl');
+        mapElement.classList.remove('!h-full', '!w-full');
+        mapElement.classList.add('h-[380px]', 'sm:h-[440px]');
+
+        if (btnIcon) btnIcon.setAttribute('data-lucide', 'maximize-2');
+        if (ctrlBtnIcon) ctrlBtnIcon.setAttribute('data-lucide', 'maximize-2');
+        if (btnText) btnText.textContent = currentLang === 'en' ? 'Full Screen' : 'Layar Penuh';
+        if (fullBtn) fullBtn.title = currentLang === 'en' ? 'Full Screen' : 'Layar Penuh';
+        if (ctrlBtn) ctrlBtn.title = currentLang === 'en' ? 'Full Screen' : 'Layar Penuh';
+
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+
+        if (mosqueMapInstance) {
+          setTimeout(() => {
+            mosqueMapInstance.invalidateSize();
+          }, 150);
+        }
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && isMapFullscreen) {
+          exitMosqueMapFullscreen();
+        }
+      });
+      document.addEventListener('webkitfullscreenchange', () => {
+        if (!document.webkitFullscreenElement && isMapFullscreen) {
+          exitMosqueMapFullscreen();
+        }
+      });
+
       function closeMosqueModal() {
+        if (isMapFullscreen) {
+          exitMosqueMapFullscreen();
+        }
         isMosqueModalOpen = false;
         if (mosqueMapInstance) {
           try {
@@ -10884,23 +11263,139 @@
             </div>
 
             <!-- Leaflet Interactive Map Canvas -->
-            <div class="relative w-full rounded-2xl overflow-hidden border border-gold-500/25 shadow-2xl bg-[#031713]">
+            <div id="mosque-map-wrapper" class="relative w-full rounded-2xl overflow-hidden border border-gold-500/25 shadow-2xl bg-[#031713] transition-all duration-300">
               <div id="mosque-leaflet-map" class="w-full h-[380px] sm:h-[440px] z-0"></div>
 
-              <!-- Live Map Legend Overlay -->
-              <div class="absolute bottom-3 left-3 z-[400] px-3 py-2 rounded-xl bg-[#031713]/90 backdrop-blur-md border border-gold-500/30 text-[11px] space-y-1 shadow-lg pointer-events-auto">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-gold-300 shrink-0"></span>
-                  <span class="text-white font-medium">${dict.map_filter_gates}</span>
+              <!-- Fullscreen Toggle Button Overlay -->
+              <button id="map-fullscreen-btn" type="button" onclick="toggleMosqueMapFullscreen()" class="absolute top-3 left-3 z-[400] px-3 py-2 rounded-xl bg-[#031713]/90 backdrop-blur-md hover:bg-[#063328] border border-gold-500/40 text-gold-300 hover:text-white text-xs font-bold flex items-center gap-1.5 shadow-xl transition-all duration-200 cursor-pointer group pointer-events-auto" title="Layar Penuh (Fullscreen)">
+                <i id="map-fullscreen-icon" data-lucide="maximize-2" class="w-4 h-4 text-gold-400 group-hover:scale-110 transition-transform"></i>
+                <span id="map-fullscreen-text" class="hidden sm:inline">${lang === 'en' ? 'Full Screen' : 'Layar Penuh'}</span>
+              </button>
+
+              <!-- Floating Map Legend Toggle Button Overlay -->
+              <button id="map-legend-toggle-btn" type="button" onclick="toggleMosqueMapLegend()" class="absolute bottom-3 left-3 z-[400] px-3 py-2 rounded-xl bg-[#031713]/95 backdrop-blur-md hover:bg-[#063328] border border-gold-500/40 text-gold-300 hover:text-white text-xs font-bold flex items-center gap-2 shadow-xl transition-all duration-200 cursor-pointer group pointer-events-auto" title="${lang === 'en' ? 'Toggle Map Legend & Category Guide' : 'Buka Legenda & Panduan Marker Peta'}">
+                <i data-lucide="info" class="w-4 h-4 text-gold-400 group-hover:scale-110 transition-transform"></i>
+                <span>${lang === 'en' ? 'Map Legend' : 'Legenda Peta'}</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              </button>
+
+              <!-- Clean Map Legend Modal Overlay -->
+              <div id="mosque-map-legend-modal" class="hidden absolute inset-0 z-[450] bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 transition-all duration-300 animate-fade-in pointer-events-auto">
+                <div class="w-full max-w-md bg-gradient-to-b from-[#04221b] to-[#021712] border border-gold-500/40 rounded-2xl p-4 sm:p-5 shadow-2xl relative text-amber-100 max-h-[95%] overflow-y-auto">
+                  <!-- Close Button -->
+                  <button type="button" onclick="toggleMosqueMapLegend(false)" class="absolute top-3.5 right-3.5 w-7 h-7 rounded-xl bg-[#031713] border border-gold-500/30 flex items-center justify-center text-amber-200/70 hover:text-white hover:border-gold-400 transition cursor-pointer">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+
+                  <!-- Modal Header -->
+                  <div class="flex items-center gap-2.5 mb-4 pb-3 border-b border-gold-500/20">
+                    <div class="w-9 h-9 rounded-xl bg-gold-500/20 border border-gold-500/35 flex items-center justify-center text-gold-300 shrink-0">
+                      <i data-lucide="map" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <span>${lang === 'en' ? 'Map Legend & Marker Guide' : 'Legenda & Panduan Marker Peta'}</span>
+                      </h4>
+                      <p class="text-[11px] text-amber-200/60">${lang === 'en' ? 'Interactive symbols for holy sanctuaries' : 'Keterangan simbol & lokasi penting di tanah suci'}</p>
+                    </div>
+                  </div>
+
+                  <!-- Category Markers Breakdown -->
+                  <div class="space-y-3 text-xs">
+                    <!-- Gates Legend -->
+                    <div class="p-3 rounded-xl bg-[#031713]/80 border border-emerald-500/30 space-y-1.5">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                          <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 border border-gold-300 flex items-center justify-center text-[8px] text-emerald-950 font-bold shrink-0">🚪</span>
+                          <span class="font-bold text-emerald-300">${dict.map_filter_gates || (lang === 'en' ? 'Mosque Gates' : 'Pintu Gerbang Utama')}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-500/30 font-bold">Category: Gate</span>
+                      </div>
+                      <p class="text-[11px] text-amber-100/80 leading-relaxed">
+                        ${lang === 'en' 
+                          ? 'Main entrances to Mataf, multi-level tawaf galleries, and main prayer halls equipped with escalators and accessibility paths.' 
+                          : 'Gerbang akses utama jamaah menuju area Mataf, koridor thawaf bertingkat, dan aula utama yang dilengkapi eskalator & akses ramah disabilitas.'}
+                      </p>
+                    </div>
+
+                    <!-- Health Services Legend -->
+                    <div class="p-3 rounded-xl bg-[#031713]/80 border border-rose-500/30 space-y-1.5">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                          <span class="w-3.5 h-3.5 rounded-full bg-rose-500 border border-rose-300 flex items-center justify-center text-[8px] text-white font-bold shrink-0">✚</span>
+                          <span class="font-bold text-rose-300">${dict.map_filter_health || (lang === 'en' ? 'Health Centers' : 'Pos Medis & Darurat')}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-950 text-rose-300 border border-rose-500/30 font-bold">Category: Health</span>
+                      </div>
+                      <p class="text-[11px] text-amber-100/80 leading-relaxed">
+                        ${lang === 'en' 
+                          ? '24/7 free emergency medical posts, first-aid centers, ambulance access points, and field clinic teams around the sanctuary.' 
+                          : 'Posko pertolongan medis 24 jam nonstop, pertolongan pertama, titik penjemputan ambulans, dan tim medis lapangan gratis untuk seluruh jamaah.'}
+                      </p>
+                    </div>
+
+                    <!-- Sacred Sites Legend -->
+                    <div class="p-3 rounded-xl bg-[#031713]/80 border border-amber-500/30 space-y-1.5">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                          <span class="w-3.5 h-3.5 rounded-full bg-amber-400 border border-yellow-200 flex items-center justify-center text-[8px] text-amber-950 font-bold shrink-0">🕋</span>
+                          <span class="font-bold text-amber-300">${dict.map_filter_sacred || (lang === 'en' ? 'Sacred Sites' : 'Situs Suci & Landmark')}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-950 text-amber-300 border border-amber-500/30 font-bold">Category: Sacred</span>
+                      </div>
+                      <p class="text-[11px] text-amber-100/80 leading-relaxed">
+                        ${lang === 'en' 
+                          ? 'Spiritual landmarks including Kaaba, Maqam Ibrahim, Hijr Ismail, Safa-Marwah, Rawdah Syarifah, and the Prophet\'s Chamber.' 
+                          : 'Landmark spiritual utama meliputi Ka\'bah, Maqam Ibrahim, Hijr Ismail, Bukit Shafa-Marwah, Raudhah Syarifah, dan Makam Nabi SAW.'}
+                      </p>
+                    </div>
+
+                    <!-- Pulse Marker Visual Animation Note -->
+                    <div class="p-3 rounded-xl bg-gold-500/10 border border-gold-500/25 flex items-start gap-2.5">
+                      <div class="w-5 h-5 rounded-full bg-gold-500/20 text-gold-300 flex items-center justify-center shrink-0 mt-0.5">
+                        <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+                      </div>
+                      <div class="text-[11px] text-amber-100/85">
+                        <strong class="text-gold-300">${lang === 'en' ? 'Glow & Pulse Indicators:' : 'Indikator Animasi Pulsa:'}</strong>
+                        ${lang === 'en' 
+                          ? 'Markers with subtle pulsing halos highlight active key locations for quick recognition during crowded conditions.' 
+                          : 'Marker dengan efek animasi pulsa halus menandai lokasi vital utama agar mudah terpantau jamaah di tengah kepadatan.'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Modal Footer Action -->
+                  <div class="mt-4 pt-3 border-t border-gold-500/20 flex justify-end">
+                    <button type="button" onclick="toggleMosqueMapLegend(false)" class="px-4 py-2 rounded-xl bg-[#244C3B] hover:bg-emerald-800 text-white font-bold text-xs transition shadow cursor-pointer flex items-center gap-1.5">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-gold-300"></i>
+                      <span>${lang === 'en' ? 'Close Legend' : 'Tutup Legenda'}</span>
+                    </button>
+                  </div>
                 </div>
+              </div>
+            </div>
+
+            <!-- Interactive Mosque Gates Quick Access Navigation Strip -->
+            <div id="mosque-gates-nav-section" class="p-3.5 rounded-xl bg-[#021812] border border-gold-500/20 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 border border-rose-300 shrink-0"></span>
-                  <span class="text-rose-200 font-medium">${dict.map_filter_health}</span>
+                  <span class="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                    <i data-lucide="door-open" class="w-3.5 h-3.5"></i>
+                  </span>
+                  <div>
+                    <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+                      <span>${lang === 'en' ? 'Direct Mosque Gate Zoom & Focus' : 'Navigasi Pintu Gerbang Masjid'}</span>
+                      <span id="mosque-gates-count" class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+                        ${lang === 'en' ? 'Gates' : 'Pintu Gerbang'}
+                      </span>
+                    </h4>
+                    <p class="text-[10.5px] text-amber-200/60">${lang === 'en' ? 'Click any gate below to auto-zoom & center map' : 'Klik pintu di bawah untuk perbesar & pusatkan peta otomatis'}</p>
+                  </div>
                 </div>
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400 border border-yellow-200 shrink-0"></span>
-                  <span class="text-amber-200 font-medium">${dict.map_filter_sacred}</span>
-                </div>
+              </div>
+
+              <div id="mosque-gates-chips-container" class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                <!-- Gate items rendered dynamically by renderGateQuickNav -->
               </div>
             </div>
 
@@ -12577,6 +13072,7 @@
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
             toggleMobileMenu(false);
+            if (isMapLegendOpen) toggleMosqueMapLegend(false);
             if (isIbadahModeOpen) toggleIbadahMode(false);
             if (isMosqueModalOpen) closeMosqueModal();
             closeLandmarkModal();
