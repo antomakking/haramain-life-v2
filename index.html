@@ -457,29 +457,30 @@
         font-family: 'Plus Jakarta Sans', sans-serif !important;
       }
       .leaflet-popup-content-wrapper {
-        background: rgba(255, 255, 255, 0.98) !important;
-        backdrop-filter: blur(14px) !important;
-        color: #1C2D24 !important;
-        border: 1px solid rgba(197, 160, 89, 0.4) !important;
+        background: #021a14 !important;
+        backdrop-filter: blur(16px) !important;
+        color: #FFFFFF !important;
+        border: 1.5px solid rgba(197, 160, 89, 0.65) !important;
         border-radius: 18px !important;
-        box-shadow: 0 16px 40px rgba(36, 76, 59, 0.15) !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65) !important;
         padding: 0 !important;
       }
       .leaflet-popup-tip {
-        background: #FFFFFF !important;
-        border: 1px solid rgba(197, 160, 89, 0.4) !important;
+        background: #021a14 !important;
+        border: 1.5px solid rgba(197, 160, 89, 0.65) !important;
       }
       .leaflet-popup-content {
         margin: 12px 14px !important;
         line-height: 1.4 !important;
       }
       .leaflet-container a.leaflet-popup-close-button {
-        color: #C5A059 !important;
+        color: #F5B731 !important;
         padding: 8px !important;
-        font-size: 16px !important;
+        font-size: 18px !important;
+        font-weight: bold !important;
       }
       .leaflet-container a.leaflet-popup-close-button:hover {
-        color: #244C3B !important;
+        color: #FFFFFF !important;
       }
       .leaflet-bar a {
         background-color: #FFFFFF !important;
@@ -10416,13 +10417,13 @@
         const desc = poi.desc[lang] || poi.desc.id;
         const gmapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${poi.coords[0]},${poi.coords[1]}`;
 
-        let catBadge = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+        let catBadge = 'bg-[#063b2c] text-[#34d399] border-[#10b981]/50';
         let catText = isEn ? 'Main Entrance Gate' : 'Gerbang Masuk Utama';
         if (poi.category === 'health') {
-          catBadge = 'bg-rose-500/20 text-rose-300 border-rose-500/40';
-          catText = isEn ? '24/7 Healthcare Facility' : 'Fasilitas Medis Darurat 24 Jam';
+          catBadge = 'bg-[#4c0519] text-[#fecdd3] border-[#f43f5e]/50';
+          catText = isEn ? '24/7 Healthcare Facility' : 'Fasilitas Medis 24 Jam';
         } else if (poi.category === 'sacred') {
-          catBadge = 'bg-gold-500/20 text-gold-300 border-gold-500/40';
+          catBadge = 'bg-[#3a2202] text-[#fde047] border-[#f5b731]/50';
           catText = isEn ? 'Core Sanctuary' : 'Situs Suci Utama';
         }
 
@@ -10447,68 +10448,49 @@
         const peakLabel = isEn ? 'Peak Hours' : 'Jam Padat';
 
         return `
-          <div class="min-w-[250px] max-w-[290px] text-xs font-sans p-1">
-            <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-gold-500/20">
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${catBadge}">
+          <div class="min-w-[260px] max-w-[300px] text-xs font-sans p-1 leading-snug">
+            <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-[#C5A059]/40">
+              <span class="px-2.5 py-1 rounded-md text-[10.5px] font-extrabold border ${catBadge} shadow-2xs">
                 ${catText}
               </span>
-              ${poi.gateNo ? `<span class="text-[11px] font-mono font-bold text-gold-300 bg-[#021410] px-2 py-0.5 rounded-md border border-gold-500/30">Pintu #${poi.gateNo}</span>` : ''}
+              ${poi.gateNo ? `<span class="px-2.5 py-1 rounded-md text-[11px] font-mono font-extrabold text-[#fde047] bg-[#0d2a20] border border-[#f5b731]/60 shadow-2xs">Pintu #${poi.gateNo}</span>` : ''}
             </div>
 
-            <h3 class="font-bold text-sm text-white leading-tight mb-0.5">${name}</h3>
-            ${poi.arabic ? `<p class="text-[12px] text-gold-300/90 font-arabic mb-2">${poi.arabic}</p>` : ''}
+            <h3 class="font-extrabold text-sm text-[#ffffff] leading-snug tracking-tight mb-1">${name}</h3>
+            ${poi.arabic ? `<p class="text-[13px] text-[#fde047] font-arabic font-bold mb-2 tracking-wide">${poi.arabic}</p>` : ''}
             
-            ${poi.category === 'gate' ? `
-              <div class="relative w-full h-28 mb-2.5 rounded-lg overflow-hidden border border-gold-500/30 group shadow-md">
-                <img 
-                  src="${isMadinah ? 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=80'}" 
-                  alt="${name}" 
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                  onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542856391-010fb87dcfed?auto=format&fit=crop&w=600&q=80';"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-[#021410] via-black/20 to-transparent opacity-85"></div>
-                <div class="absolute bottom-1.5 left-2 right-2 flex items-center justify-between text-[10px]">
-                  <span class="px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-xs text-gold-300 font-bold border border-gold-500/30">
-                    🏛️ Arsitektur Pintu ${poi.gateNo ? '#' + poi.gateNo : 'Haramain'}
-                  </span>
-                  <span class="text-white/90 font-mono text-[9px] bg-emerald-950/80 px-1.5 py-0.5 rounded border border-emerald-500/30">Marmer & Lengkungan</span>
-                </div>
-              </div>
-            ` : ''}
-
-            <p class="text-[11px] text-amber-100/80 leading-relaxed mb-2.5 p-2 rounded-lg bg-[#02130f]/80 border border-gold-500/15">
+            <p class="text-[11px] text-[#f3f4f6] font-medium leading-relaxed mb-2.5 p-2.5 rounded-xl bg-[#082a20] border border-[#10b981]/30 shadow-inner">
               ${desc}
             </p>
 
-            <div class="p-2 mb-2.5 rounded-xl bg-[#031d16] border border-emerald-500/30 space-y-1.5 shadow-inner">
-              <div class="flex items-start gap-1.5 text-[10.5px]">
-                <span class="text-gold-400 shrink-0 mt-0.5">🚶</span>
+            <div class="p-2.5 mb-2.5 rounded-xl bg-[#03221a] border border-[#C5A059]/40 space-y-2 shadow-inner">
+              <div class="flex items-start gap-2 text-[10.5px]">
+                <span class="text-[#fde047] shrink-0 text-sm leading-none mt-0.5">🚶</span>
                 <div>
-                  <span class="text-emerald-300 font-bold block">${proximityLabel}:</span>
-                  <span class="text-gold-300 font-extrabold text-[11px] block mt-0.5">${walkBadgeText}</span>
-                  ${poi.distance ? `<span class="text-amber-200/70 text-[9.5px] block mt-0.5">${poi.distance}</span>` : ''}
+                  <span class="text-[#34d399] font-bold block">${proximityLabel}:</span>
+                  <span class="text-[#fde047] font-extrabold text-[11.5px] block mt-0.5">${walkBadgeText}</span>
+                  ${poi.distance ? `<span class="text-[#d1d5db] text-[10px] block mt-0.5 font-medium">${poi.distance}</span>` : ''}
                 </div>
               </div>
 
-              <div class="flex items-start gap-1.5 text-[10.5px] pt-1.5 border-t border-emerald-500/20">
-                <span class="text-amber-400 shrink-0 mt-0.5">⏰</span>
+              <div class="flex items-start gap-2 text-[10.5px] pt-2 border-t border-[#10b981]/25">
+                <span class="text-[#f5b731] shrink-0 text-sm leading-none mt-0.5">⏰</span>
                 <div>
-                  <span class="text-amber-300 font-bold block">${peakLabel}:</span>
-                  <span class="text-amber-100/80 leading-tight block">${peakHoursText}</span>
+                  <span class="text-[#f5b731] font-bold block">${peakLabel}:</span>
+                  <span class="text-[#f3f4f6] font-medium leading-normal block mt-0.5">${peakHoursText}</span>
                 </div>
               </div>
             </div>
 
             ${poi.phone ? `
-              <div class="flex items-center gap-1.5 text-[11px] text-rose-300 mb-2 font-mono font-bold">
+              <div class="flex items-center gap-1.5 text-[11px] text-[#fecdd3] mb-2 font-mono font-extrabold bg-[#4c0519]/70 px-2.5 py-1 rounded-lg border border-[#f43f5e]/40">
                 <span>📞 Hotline:</span>
                 <span>${poi.phone}</span>
               </div>
             ` : ''}
 
-            <a href="${gmapsUrl}" target="_blank" rel="noopener noreferrer" class="mt-2 w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl bg-gradient-to-r from-[#f5b731] to-gold-600 text-[#021410] font-bold text-[11px] hover:brightness-110 transition shadow-md">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <a href="${gmapsUrl}" target="_blank" rel="noopener noreferrer" class="mt-2.5 w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-gradient-to-r from-[#f5b731] via-[#fde047] to-[#c5a059] text-[#011a14] font-extrabold text-[11.5px] hover:brightness-110 active:scale-[0.98] transition-all shadow-md">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               <span>${isEn ? 'Directions in Google Maps' : 'Petunjuk Arah (Google Maps)'}</span>
             </a>
           </div>
