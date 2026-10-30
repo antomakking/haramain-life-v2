@@ -549,6 +549,65 @@
         border: none !important;
       }
 
+      /* Animated Gate-to-Sanctuary Polyline Route with Flow & Pulsing Glow Effect */
+      .gate-route-polyline-animated {
+        stroke-dasharray: 8, 10;
+        animation: dashPolylineFlow 16s linear infinite;
+      }
+
+      .gate-route-polyline-gold {
+        animation: dashPolylineFlow 16s linear infinite, polylinePulseGlowGold 2s ease-in-out infinite alternate;
+      }
+
+      .gate-route-polyline-emerald {
+        animation: dashPolylineFlow 16s linear infinite, polylinePulseGlowEmerald 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes dashPolylineFlow {
+        from {
+          stroke-dashoffset: 200;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes polylinePulseGlowGold {
+        0% {
+          opacity: 0.65;
+          stroke-width: 3.5px;
+          filter: drop-shadow(0 0 2px rgba(245, 183, 49, 0.4));
+        }
+        50% {
+          opacity: 1;
+          stroke-width: 5.5px;
+          filter: drop-shadow(0 0 10px rgba(245, 183, 49, 0.95));
+        }
+        100% {
+          opacity: 0.65;
+          stroke-width: 3.5px;
+          filter: drop-shadow(0 0 2px rgba(245, 183, 49, 0.4));
+        }
+      }
+
+      @keyframes polylinePulseGlowEmerald {
+        0% {
+          opacity: 0.65;
+          stroke-width: 3.5px;
+          filter: drop-shadow(0 0 2px rgba(52, 211, 153, 0.4));
+        }
+        50% {
+          opacity: 1;
+          stroke-width: 5.5px;
+          filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.95));
+        }
+        100% {
+          opacity: 0.65;
+          stroke-width: 3.5px;
+          filter: drop-shadow(0 0 2px rgba(52, 211, 153, 0.4));
+        }
+      }
+
       /* =========================================================================
          DARK MODE SYSTEM STYLES (Islamic Emerald & Celestial Gold Palette)
          Recreates the exact signature dark luxury palette from the reference design
@@ -3750,7 +3809,7 @@
 
       let currentStream = 'makkah';
 
-      // Friday Khateeb & Imam schedule (Official Flyer: 12 Jumadil Ula 1448 H)
+      // Friday Khateeb & Imam schedule (Official Announcement: 19 Jumada Al-Ula 1448 AH)
       const fridayKhatibData = {
         makkah: {
           mosqueName: {
@@ -3758,36 +3817,36 @@
             en: "Masjidil Haram • Makkah Al-Mukarramah"
           },
           hijriDate: {
-            id: "12 Jumadil Ula 1448 H",
-            en: "12 Jumada al-Ula 1448 AH",
-            arabic: "١٢ جمادى الأولى ١٤٤٨ هـ"
+            id: "19 Jumadil Ula 1448 H",
+            en: "19 Jumada al-Ula 1448 AH",
+            arabic: "١٩ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد الحرام",
           khateebTitleArabic: "إمام وخطيب المسجد الحرام",
-          khateebHonorific: "معالي الشيخ الأستاذ الدكتور",
-          khateebName: "Syekh Prof. Dr. Saleh bin Humaid",
-          khateebArabic: "صالح بن عبدالله بن حميد",
-          khateebFullArabic: "معالي الشيخ الأستاذ الدكتور / صالح بن عبدالله بن حميد",
+          khateebHonorific: "فضيلة الشيخ الدكتور",
+          khateebName: "Syekh Dr. Usamah Khayyath",
+          khateebArabic: "أسامة بن عبدالله خياط",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / أسامة بن عبدالله خياط",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Resmi Masjidil Haram • Anggota Dewan Ulama Senior",
-            en: "Official Senior Imam & Khateeb of Masjidil Haram • Member of Senior Scholars Council"
+            id: "Imam & Khatib Resmi Masjidil Haram • Ulama & Pengajar Kitab Syar'i",
+            en: "Official Senior Imam & Khateeb of Masjidil Haram • Islamic Scholar & Instructor"
           },
           bio: {
-            id: "Imam & Khatib Senior Masjidil Haram, Anggota Dewan Ulama Senior Arab Saudi, serta Penasihat Mahkamah Agung Kerajaan dengan khutbah yang sarat ilmu, hikmah, dan bimbingan syariah di Ka'bah Al-Mukarramah.",
-            en: "Senior Imam & Khateeb of Masjidil Haram, Member of the Council of Senior Scholars, renowned for deeply erudite Friday sermons before the Kaaba."
+            id: "Imam & Khatib Senior Masjidil Haram dengan penyampaian khutbah yang sarat ilmu, hikmah, dan bimbingan syariah di Ka'bah Al-Musyarrafah.",
+            en: "Senior Imam & Khateeb of Masjidil Haram known for deeply erudite Friday sermons before the Holy Kaaba."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          backupName: "Syekh Prof. Dr. Bandar Baleelah",
-          backupArabic: "بندر بن عبدالعزيز بليلة",
-          backupFullArabic: "فضيلة الشيخ الأستاذ الدكتور / بندر بن عبدالعزيز بليلة",
+          backupName: "Syekh Prof. Dr. Maher Al-Muaiqly",
+          backupArabic: "ماهر بن حمد المعيقلي",
+          backupFullArabic: "فضيلة الشيخ أ.د. / ماهر بن حمد المعيقلي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3801,36 +3860,36 @@
             en: "Prophet's Mosque • Madinah Al-Munawwarah"
           },
           hijriDate: {
-            id: "12 Jumadil Ula 1448 H",
-            en: "12 Jumada al-Ula 1448 AH",
-            arabic: "١٢ جمادى الأولى ١٤٤٨ هـ"
+            id: "19 Jumadil Ula 1448 H",
+            en: "19 Jumada al-Ula 1448 AH",
+            arabic: "١٩ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد النبوي",
           khateebTitleArabic: "إمام وخطيب المسجد النبوي",
-          khateebHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          khateebName: "Syekh Prof. Dr. Ali Al-Hudhaify",
-          khateebArabic: "علي بن عبدالرحمن الحذيفي",
-          khateebFullArabic: "فضيلة الشيخ الأستاذ الدكتور / علي بن عبدالرحمن الحذيفي",
+          khateebHonorific: "فضيلة الشيخ الدكتور",
+          khateebName: "Syekh Dr. Abdul Bari Ats-Tsubaiti",
+          khateebArabic: "عبدالباري بن عواض الثبيتي",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Syekh Para Imam Masjid Nabawi • Imam & Khatib Senior",
-            en: "Chief Senior Imam & Khateeb of Al-Masjid An-Nabawi"
+            id: "Imam & Khatib Senior Masjid Nabawi • Pakar Fiqih & Syariah",
+            en: "Senior Imam & Khateeb of Prophet's Mosque • Fiqh & Sharia Scholar"
           },
           bio: {
-            id: "Syaikhul Aimmah Masjid Nabawi yang paling dihormati dengan makhraj huruf mutqin, tartil Madani klasik yang agung, serta khutbah yang mendalam dan menenteramkan jiwa di Raudhah Syarifah.",
-            en: "Chief Senior Imam of the Prophet's Mosque whose gold-standard Tajweed, classic Madani recitation, and profound sermons inspire millions."
+            id: "Imam & Khatib Senior Masjid Nabawi berpengalaman lebih dari tiga dekade dengan khutbah yang menyentuh jiwa dan penuh penafsiran hikmah Nabawiyyah di Raudhah Syarifah.",
+            en: "Senior Imam & Khateeb of the Prophet's Mosque with over three decades of distinguished service leading Friday sermons beside the Noble Rawdah."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
-          backupHonorific: "فضيلة الشيخ الدكتور",
-          backupName: "Syekh Dr. Abdullah Al-Buayjaan",
-          backupArabic: "عبدالله بن عبدالرحمن البعيجان",
-          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالله بن عبدالرحمن البعيجان",
+          backupHonorific: "فضيلة الشيخ الأستاذ الدكتور",
+          backupName: "Syekh Prof. Dr. Ali Al-Hudhaify",
+          backupArabic: "علي بن عبدالرحمن الحذيفي",
+          backupFullArabic: "فضيلة الشيخ أ.د. / علي بن عبدالرحمن الحذيفي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -9965,6 +10024,7 @@
       var mosqueTileLayerInstance = null;
       var mosqueMapMarkers = [];
       var mosqueClusterGroup = null;
+      var mosqueRoutePolyline = null;
 
       var tileLayerConfigs = {
         voyager: {
@@ -10336,6 +10396,20 @@
         });
       }
 
+      function calculateHaversineDistanceMeters(lat1, lon1, lat2, lon2) {
+        if (!lat1 || !lon1 || !lat2 || !lon2) return 0;
+        const R = 6371000;
+        const rad = Math.PI / 180;
+        const dLat = (lat2 - lat1) * rad;
+        const dLon = (lon2 - lon1) * rad;
+        const a = 
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * 
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return Math.round(R * c);
+      }
+
       function createPoiPopupHtml(poi, lang) {
         const isEn = lang === 'en';
         const name = poi.name[lang] || poi.name.id;
@@ -10352,28 +10426,79 @@
           catText = isEn ? 'Core Sanctuary' : 'Situs Suci Utama';
         }
 
+        // Peak Hours details
+        const peakHoursText = poi.category === 'gate'
+          ? (isEn 
+              ? '45 mins before & after Fardhu Prayers (Fajr, Dhuhr, Asr, Maghrib, Isha) & Friday Khutbah'
+              : '45 menit sebelum & sesudah Shalat Fardhu (Subuh, Dzuhur, Ashar, Maghrib, Isya) & Khutbah Jumat')
+          : (isEn ? '24/7 Open Access' : 'Akses Buka 24 Jam Nonstop');
+
+        // Target proximity context & exact geodesic walking distance calculation
+        const isMadinah = poi.id && poi.id.startsWith('madinah');
+        const targetLocation = isMadinah ? (isEn ? 'Rawdah Syarifah' : 'Raudhah Syarifah') : (isEn ? 'The Holy Kaaba' : 'Ka\'bah Al-Musyarrafah');
+        const targetCoords = isMadinah ? [24.46738, 39.61118] : [21.422487, 39.826206];
+        const distMeters = calculateHaversineDistanceMeters(poi.coords[0], poi.coords[1], targetCoords[0], targetCoords[1]);
+        const approxWalkMins = Math.max(1, Math.round(distMeters / 70));
+
+        const proximityLabel = isEn ? `Distance to ${targetLocation}` : `Jarak ke ${targetLocation}`;
+        const walkBadgeText = distMeters > 0 
+          ? (isEn ? `~${distMeters} meters (${approxWalkMins} min walk)` : `~${distMeters} meter (${approxWalkMins} mnt jalan kaki)`)
+          : (isEn ? 'Core Sanctuary' : 'Pusat Utama');
+        const peakLabel = isEn ? 'Peak Hours' : 'Jam Padat';
+
         return `
-          <div class="min-w-[240px] max-w-[280px] text-xs font-sans">
+          <div class="min-w-[250px] max-w-[290px] text-xs font-sans p-1">
             <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-gold-500/20">
               <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${catBadge}">
                 ${catText}
               </span>
-              ${poi.gateNo ? `<span class="text-[11px] font-mono font-bold text-gold-400">Pintu #${poi.gateNo}</span>` : ''}
+              ${poi.gateNo ? `<span class="text-[11px] font-mono font-bold text-gold-300 bg-[#021410] px-2 py-0.5 rounded-md border border-gold-500/30">Pintu #${poi.gateNo}</span>` : ''}
             </div>
 
             <h3 class="font-bold text-sm text-white leading-tight mb-0.5">${name}</h3>
             ${poi.arabic ? `<p class="text-[12px] text-gold-300/90 font-arabic mb-2">${poi.arabic}</p>` : ''}
             
+            ${poi.category === 'gate' ? `
+              <div class="relative w-full h-28 mb-2.5 rounded-lg overflow-hidden border border-gold-500/30 group shadow-md">
+                <img 
+                  src="${isMadinah ? 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80' : 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=80'}" 
+                  alt="${name}" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                  onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1542856391-010fb87dcfed?auto=format&fit=crop&w=600&q=80';"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#021410] via-black/20 to-transparent opacity-85"></div>
+                <div class="absolute bottom-1.5 left-2 right-2 flex items-center justify-between text-[10px]">
+                  <span class="px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-xs text-gold-300 font-bold border border-gold-500/30">
+                    🏛️ Arsitektur Pintu ${poi.gateNo ? '#' + poi.gateNo : 'Haramain'}
+                  </span>
+                  <span class="text-white/90 font-mono text-[9px] bg-emerald-950/80 px-1.5 py-0.5 rounded border border-emerald-500/30">Marmer & Lengkungan</span>
+                </div>
+              </div>
+            ` : ''}
+
             <p class="text-[11px] text-amber-100/80 leading-relaxed mb-2.5 p-2 rounded-lg bg-[#02130f]/80 border border-gold-500/15">
               ${desc}
             </p>
 
-            ${poi.distance ? `
-              <div class="flex items-center gap-1.5 text-[10.5px] text-amber-200/70 mb-1.5">
-                <span class="text-gold-400">📍</span>
-                <span>${poi.distance}</span>
+            <div class="p-2 mb-2.5 rounded-xl bg-[#031d16] border border-emerald-500/30 space-y-1.5 shadow-inner">
+              <div class="flex items-start gap-1.5 text-[10.5px]">
+                <span class="text-gold-400 shrink-0 mt-0.5">🚶</span>
+                <div>
+                  <span class="text-emerald-300 font-bold block">${proximityLabel}:</span>
+                  <span class="text-gold-300 font-extrabold text-[11px] block mt-0.5">${walkBadgeText}</span>
+                  ${poi.distance ? `<span class="text-amber-200/70 text-[9.5px] block mt-0.5">${poi.distance}</span>` : ''}
+                </div>
               </div>
-            ` : ''}
+
+              <div class="flex items-start gap-1.5 text-[10.5px] pt-1.5 border-t border-emerald-500/20">
+                <span class="text-amber-400 shrink-0 mt-0.5">⏰</span>
+                <div>
+                  <span class="text-amber-300 font-bold block">${peakLabel}:</span>
+                  <span class="text-amber-100/80 leading-tight block">${peakHoursText}</span>
+                </div>
+              </div>
+            </div>
 
             ${poi.phone ? `
               <div class="flex items-center gap-1.5 text-[11px] text-rose-300 mb-2 font-mono font-bold">
@@ -10475,11 +10600,15 @@
                 if (mosqueClusterGroup) {
                   mosqueMapInstance.removeLayer(mosqueClusterGroup);
                 }
+                if (mosqueRoutePolyline) {
+                  mosqueMapInstance.removeLayer(mosqueRoutePolyline);
+                }
                 mosqueMapInstance.remove();
               } catch (e) {}
               mosqueMapInstance = null;
               mosqueTileLayerInstance = null;
               mosqueClusterGroup = null;
+              mosqueRoutePolyline = null;
               mosqueMapMarkers = [];
             }
 
@@ -10575,7 +10704,7 @@
             (new LeafletZoomLabelControl()).addTo(mosqueMapInstance);
 
             // Minimal attribution
-            L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap • Presidensi Haramain' }).addTo(mosqueMapInstance);
+            L.control.attribution({ position: 'bottomright', prefix: '© OpenStreetMap • Haramain Life' }).addTo(mosqueMapInstance);
 
             // Ensure container dimensions are recognized by Leaflet
             mosqueMapInstance.invalidateSize();
@@ -10604,7 +10733,12 @@
         container.innerHTML = gates.map(gate => {
           const gateName = gate.name[lang] || gate.name.id;
           const gateNoBadge = gate.gateNo ? `#${gate.gateNo}` : '';
-          const distanceText = gate.distance || '';
+          const isMadinah = gate.id && gate.id.startsWith('madinah');
+          const targetCoords = isMadinah ? [24.46738, 39.61118] : [21.422487, 39.826206];
+          const distM = calculateHaversineDistanceMeters(gate.coords[0], gate.coords[1], targetCoords[0], targetCoords[1]);
+          const distanceText = distM > 0 
+            ? `~${distM}m ke ${isMadinah ? 'Raudhah' : "Ka'bah"}` 
+            : (gate.distance || '');
 
           return `
             <button type="button" onclick="flyToPoi('${gate.id}')" class="px-3 py-2 rounded-xl bg-[#03241b] hover:bg-emerald-900/60 border border-emerald-500/35 hover:border-gold-400 text-left flex items-center gap-2.5 transition-all duration-200 cursor-pointer group shrink-0 shadow-sm hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#C5A059]">
@@ -10616,7 +10750,7 @@
                   <span class="truncate max-w-[170px]">${gateName}</span>
                   <i data-lucide="crosshair" class="w-3 h-3 text-gold-400 opacity-60 group-hover:opacity-100 transition-opacity"></i>
                 </div>
-                ${distanceText ? `<div class="text-[10px] text-amber-200/60 mt-0.5">${distanceText}</div>` : ''}
+                ${distanceText ? `<div class="text-[10px] text-amber-200/80 font-semibold mt-0.5">${distanceText}</div>` : ''}
               </div>
             </button>
           `;
@@ -10677,6 +10811,18 @@
           marker.bindPopup(popupHtml, {
             maxWidth: 300,
             className: 'custom-popup-wrapper'
+          });
+
+          // Snap-to-gate & polyline route drawing functionality
+          marker.on('click', function(e) {
+            if (mosqueMapInstance) {
+              const targetZoom = poi.category === 'gate' ? 18 : Math.max(mosqueMapInstance.getZoom(), 17);
+              mosqueMapInstance.flyTo(e.latlng || poi.coords, targetZoom, {
+                animate: true,
+                duration: 0.8
+              });
+              drawGateRoutePolyline(poi);
+            }
           });
 
           marker.poiId = poi.id;
@@ -10801,8 +10947,44 @@
         });
       }
 
+      function drawGateRoutePolyline(poi) {
+        if (!mosqueMapInstance || typeof L === 'undefined' || !poi || !poi.coords) return;
+
+        if (mosqueRoutePolyline) {
+          try {
+            mosqueMapInstance.removeLayer(mosqueRoutePolyline);
+          } catch (e) {}
+          mosqueRoutePolyline = null;
+        }
+
+        const isMadinah = (poi.id && poi.id.startsWith('madinah')) || activeModalMosque === 'madinah';
+        const destinationCoords = isMadinah ? [24.46738, 39.61118] : [21.422487, 39.826206];
+
+        const distLat = Math.abs(poi.coords[0] - destinationCoords[0]);
+        const distLng = Math.abs(poi.coords[1] - destinationCoords[1]);
+
+        if (distLat > 0.0001 || distLng > 0.0001) {
+          const strokeColor = isMadinah ? '#34d399' : '#f5b731';
+          const themePulseClass = isMadinah ? 'gate-route-polyline-emerald' : 'gate-route-polyline-gold';
+
+          mosqueRoutePolyline = L.polyline([poi.coords, destinationCoords], {
+            color: strokeColor,
+            weight: 4,
+            opacity: 0.9,
+            dashArray: '8, 10',
+            lineCap: 'round',
+            lineJoin: 'round',
+            className: `gate-route-polyline-animated ${themePulseClass}`
+          }).addTo(mosqueMapInstance);
+        }
+      }
+
       function recenterMosqueMap() {
         if (!mosqueMapInstance) return;
+        if (mosqueRoutePolyline) {
+          try { mosqueMapInstance.removeLayer(mosqueRoutePolyline); } catch (e) {}
+          mosqueRoutePolyline = null;
+        }
         const data = mosqueMapData[activeModalMosque] || mosqueMapData.makkah;
         mosqueMapInstance.flyTo(data.center, data.defaultZoom, { duration: 1.0 });
       }
@@ -10814,6 +10996,8 @@
         if (!poi) return;
 
         const marker = mosqueMapMarkers.find(m => m.poiId === poiId);
+
+        drawGateRoutePolyline(poi);
 
         if (mosqueClusterGroup && marker && typeof mosqueClusterGroup.zoomToShowLayer === 'function') {
           mosqueClusterGroup.zoomToShowLayer(marker, () => {
