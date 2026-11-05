@@ -496,6 +496,31 @@
         border: none !important;
       }
 
+      /* Selected Gate Marker Pop-Open Scaling & Attention Animation */
+      @keyframes markerPopScale {
+        0% {
+          transform: scale(1);
+        }
+        40% {
+          transform: scale(1.42);
+        }
+        70% {
+          transform: scale(1.18);
+        }
+        100% {
+          transform: scale(1.3);
+        }
+      }
+
+      .custom-map-pin.marker-active-scale {
+        z-index: 1000 !important;
+      }
+
+      .custom-map-pin.marker-active-scale > div {
+        animation: markerPopScale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        filter: drop-shadow(0 0 16px rgba(245, 183, 49, 0.95)) drop-shadow(0 0 6px rgba(52, 211, 153, 0.8)) !important;
+      }
+
       /* Interactive Mosque Map Marker Pulse Animation */
       @keyframes markerPulseRing {
         0% {
@@ -3810,7 +3835,7 @@
 
       let currentStream = 'makkah';
 
-      // Friday Khateeb & Imam schedule (Official Announcement: 19 Jumada Al-Ula 1448 AH)
+      // Friday Khateeb & Imam schedule (Official Announcement: 26 Jumada Al-Ula 1448 AH)
       const fridayKhatibData = {
         makkah: {
           mosqueName: {
@@ -3818,36 +3843,36 @@
             en: "Masjidil Haram • Makkah Al-Mukarramah"
           },
           hijriDate: {
-            id: "19 Jumadil Ula 1448 H",
-            en: "19 Jumada al-Ula 1448 AH",
-            arabic: "١٩ جمادى الأولى ١٤٤٨ هـ"
+            id: "26 Jumadil Ula 1448 H",
+            en: "26 Jumada al-Ula 1448 AH",
+            arabic: "٢٦ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد الحرام",
           khateebTitleArabic: "إمام وخطيب المسجد الحرام",
-          khateebHonorific: "فضيلة الشيخ الدكتور",
-          khateebName: "Syekh Dr. Usamah Khayyath",
-          khateebArabic: "أسامة بن عبدالله خياط",
-          khateebFullArabic: "فضيلة الشيخ الدكتور / أسامة بن عبدالله خياط",
+          khateebHonorific: "فضيلة الشيخ الأستاذ الدكتور",
+          khateebName: "Syekh Prof. Dr. Maher Al-Muaiqly",
+          khateebArabic: "ماهر بن حمد المعيقلي",
+          khateebFullArabic: "فضيلة الشيخ أ.د. / ماهر بن حمد المعيقلي",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Resmi Masjidil Haram • Ulama & Pengajar Kitab Syar'i",
-            en: "Official Senior Imam & Khateeb of Masjidil Haram • Islamic Scholar & Instructor"
+            id: "Imam & Khatib Resmi Masjidil Haram • Guru Besar Fiqih",
+            en: "Official Senior Imam & Khateeb of Masjidil Haram • Professor of Fiqh"
           },
           bio: {
-            id: "Imam & Khatib Senior Masjidil Haram dengan penyampaian khutbah yang sarat ilmu, hikmah, dan bimbingan syariah di Ka'bah Al-Musyarrafah.",
-            en: "Senior Imam & Khateeb of Masjidil Haram known for deeply erudite Friday sermons before the Holy Kaaba."
+            id: "Imam & Khatib Utama Shalat Jumat di Masjidil Haram dengan khutbah yang menyentuh jiwa dan penuh bimbingan Al-Qur'an dan Sunnah di pelataran Ka'bah Al-Musyarrafah.",
+            en: "Primary Friday Khateeb & Imam at Masjidil Haram renowned for eloquent, inspiring sermons before the Holy Kaaba."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
-          backupHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          backupName: "Syekh Prof. Dr. Maher Al-Muaiqly",
-          backupArabic: "ماهر بن حمد المعيقلي",
-          backupFullArabic: "فضيلة الشيخ أ.د. / ماهر بن حمد المعيقلي",
+          backupHonorific: "فضيلة الشيخ الدكتور",
+          backupName: "Syekh Dr. Bandar Baleelah",
+          backupArabic: "بندر بن عبدالعزيز بليلة",
+          backupFullArabic: "فضيلة الشيخ الدكتور / بندر بن عبدالعزيز بليلة",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3861,36 +3886,36 @@
             en: "Prophet's Mosque • Madinah Al-Munawwarah"
           },
           hijriDate: {
-            id: "19 Jumadil Ula 1448 H",
-            en: "19 Jumada al-Ula 1448 AH",
-            arabic: "١٩ جمادى الأولى ١٤٤٨ هـ"
+            id: "26 Jumadil Ula 1448 H",
+            en: "26 Jumada al-Ula 1448 AH",
+            arabic: "٢٦ جمادى الأولى ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد النبوي",
           khateebTitleArabic: "إمام وخطيب المسجد النبوي",
           khateebHonorific: "فضيلة الشيخ الدكتور",
-          khateebName: "Syekh Dr. Abdul Bari Ats-Tsubaiti",
-          khateebArabic: "عبدالباري بن عواض الثبيتي",
-          khateebFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
+          khateebName: "Syekh Dr. Hussain Aal Al-Sheikh",
+          khateebArabic: "حسين بن عبدالعزيز آل الشيخ",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / حسين بن عبدالعزيز آل الشيخ",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Senior Masjid Nabawi • Pakar Fiqih & Syariah",
-            en: "Senior Imam & Khateeb of Prophet's Mosque • Fiqh & Sharia Scholar"
+            id: "Imam & Khatib Senior Masjid Nabawi • Pakar Hukum Syariah",
+            en: "Senior Imam & Khateeb of Prophet's Mosque • Sharia Scholar"
           },
           bio: {
-            id: "Imam & Khatib Senior Masjid Nabawi berpengalaman lebih dari tiga dekade dengan khutbah yang menyentuh jiwa dan penuh penafsiran hikmah Nabawiyyah di Raudhah Syarifah.",
-            en: "Senior Imam & Khateeb of the Prophet's Mosque with over three decades of distinguished service leading Friday sermons beside the Noble Rawdah."
+            id: "Imam & Khatib Senior Masjid Nabawi dengan penyampaian khutbah Jumat yang sarat akan pesan persatuan, kedamaian, dan nilai-nilai luhur Islam di Mimbar Masjid Nabawi.",
+            en: "Senior Imam & Khateeb at Al-Masjid An-Nabawi delivering profoundly inspiring Friday sermons from the Prophet's Pulpit."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
-          backupHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          backupName: "Syekh Prof. Dr. Ali Al-Hudhaify",
-          backupArabic: "علي بن عبدالرحمن الحذيفي",
-          backupFullArabic: "فضيلة الشيخ أ.د. / علي بن عبدالرحمن الحذيفي",
+          backupHonorific: "فضيلة الشيخ الدكتور",
+          backupName: "Syekh Dr. Abdul Bari Ats-Tsubaiti",
+          backupArabic: "عبدالباري بن عواض الثبيتي",
+          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -10804,6 +10829,27 @@
                 duration: 0.8
               });
               drawGateRoutePolyline(poi);
+            }
+          });
+
+          // Subtle scaling animation when info pane / popup opens
+          marker.on('popupopen', function() {
+            mosqueMapMarkers.forEach(m => {
+              const el = m.getElement();
+              if (el) el.classList.remove('marker-active-scale');
+            });
+            const elem = marker.getElement();
+            if (elem) {
+              elem.classList.remove('marker-active-scale');
+              void elem.offsetWidth; // force DOM reflow to restart animation seamlessly
+              elem.classList.add('marker-active-scale');
+            }
+          });
+
+          marker.on('popupclose', function() {
+            const elem = marker.getElement();
+            if (elem) {
+              elem.classList.remove('marker-active-scale');
             }
           });
 
