@@ -438,6 +438,58 @@
         animation: ambientGlowPulse 10s ease-in-out infinite reverse;
       }
 
+      /* Mode Ibadah (Worship & Serenity HUD) Gentle Non-Startling Fade Transitions */
+      #ibadah-mode-overlay {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+          visibility 0s linear 0.65s,
+          background-color 0.6s ease;
+        will-change: opacity;
+      }
+
+      #ibadah-mode-overlay.ibadah-active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+          opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0s,
+          background-color 0.6s ease;
+      }
+
+      #ibadah-mode-overlay .ibadah-fade-layer {
+        opacity: 0;
+        transform: translateY(6px);
+        transition:
+          opacity 0.45s ease-out,
+          transform 0.45s ease-out;
+      }
+
+      #ibadah-mode-overlay.ibadah-active .ibadah-fade-layer {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.16s,
+          transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.16s;
+      }
+
+      #ibadah-mode-overlay .ibadah-bottom-dock {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+      }
+
+      #ibadah-mode-overlay.ibadah-active .ibadah-bottom-dock {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+          opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
+          transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .reveal-on-scroll {
           opacity: 1 !important;
@@ -448,6 +500,11 @@
         .animate-ambient-glow-emerald {
           animation: none !important;
           opacity: 0.5 !important;
+        }
+        #ibadah-mode-overlay .ibadah-fade-layer,
+        #ibadah-mode-overlay .ibadah-bottom-dock {
+          transform: none !important;
+          transition-delay: 0s !important;
         }
       }
 
@@ -2782,10 +2839,10 @@
     </div>
 
     <!-- MODE IBADAH (WORSHIP & SERENITY FOCUS HUD) -->
-    <div id="ibadah-mode-overlay" class="fixed inset-0 z-[100] flex flex-col bg-[#051f17]/96 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-700 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="ibadah-overlay-title">
+    <div id="ibadah-mode-overlay" class="fixed inset-0 z-[100] flex flex-col bg-[#051f17]/96 backdrop-blur-xl overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="ibadah-overlay-title" aria-hidden="true">
       
       <!-- Top Sticky Serenity Bar -->
-      <div class="sticky top-0 z-20 px-3.5 sm:px-8 py-3 sm:py-3.5 bg-[#07241b]/95 border-b border-gold-500/20 backdrop-blur-md flex items-center justify-between gap-2.5 sm:gap-4">
+      <div class="ibadah-fade-layer sticky top-0 z-20 px-3.5 sm:px-8 py-3 sm:py-3.5 bg-[#07241b]/95 border-b border-gold-500/20 backdrop-blur-md flex items-center justify-between gap-2.5 sm:gap-4">
         <div class="flex items-center gap-2.5 sm:gap-3">
           <div class="w-8 h-8 rounded-xl bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 shrink-0">
             <i data-lucide="moon-star" class="w-4 h-4"></i>
@@ -2801,30 +2858,30 @@
         <div class="flex items-center gap-1.5 sm:gap-2.5">
           <!-- City Switcher in Ibadah Mode -->
           <div class="flex items-center p-0.5 sm:p-1 rounded-xl bg-[#0b3327] border border-gold-500/25">
-            <button id="ibadah-city-makkah" onclick="switchIbadahCity('makkah')" class="px-2 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-gold-500 text-white shadow">
+            <button id="ibadah-city-makkah" onclick="switchIbadahCity('makkah')" class="px-2 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-gold-500 text-white shadow cursor-pointer">
               <span>Makkah</span>
             </button>
-            <button id="ibadah-city-madinah" onclick="switchIbadahCity('madinah')" class="px-2 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-medium text-amber-200/70 hover:text-white transition">
+            <button id="ibadah-city-madinah" onclick="switchIbadahCity('madinah')" class="px-2 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-medium text-amber-200/70 hover:text-white transition cursor-pointer">
               <span>Madinah</span>
             </button>
           </div>
 
           <!-- Dim Level Adjuster (Soft / OLED Deep) -->
-          <button id="ibadah-dim-btn" onclick="toggleIbadahDimDepth()" class="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#0e3d2f] border border-gold-500/25 text-amber-200/80 hover:text-white text-xs font-medium transition" title="Pilih tingkat kegelapan latar">
+          <button id="ibadah-dim-btn" onclick="toggleIbadahDimDepth()" class="hidden md:flex items-center gap-1.5 px-2.5 py-2 rounded-xl bg-[#0e3d2f] border border-gold-500/25 text-amber-200/80 hover:text-white text-xs font-medium transition cursor-pointer" title="Pilih tingkat kegelapan latar">
             <i data-lucide="sun-dim" class="w-3.5 h-3.5 text-gold-400"></i>
             <span id="ibadah-dim-label">Redup 85%</span>
           </button>
 
-          <!-- Exit Button -->
-          <button type="button" onclick="toggleIbadahMode(false)" class="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 hover:brightness-110 text-white font-bold text-xs shadow-md transition cursor-pointer" title="Keluar Mode Ibadah (Tekan ESC)">
-            <i data-lucide="x" class="w-4 h-4"></i>
+          <!-- Top Exit Button (High-Contrast & Generous Touch Target) -->
+          <button id="ibadah-exit-top-btn" type="button" onclick="toggleIbadahMode(false)" class="flex items-center gap-1.5 min-h-[40px] sm:min-h-[42px] px-3.5 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#E4CB96] hover:brightness-110 active:scale-95 text-[#041D17] font-extrabold text-xs sm:text-sm shadow-md transition cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-[#E4CB96]" title="Keluar Mode Ibadah (Tekan ESC)">
+            <i data-lucide="x" class="w-4 h-4 stroke-[2.5]"></i>
             <span data-i18n="ibadah_exit_btn">Keluar (ESC)</span>
           </button>
         </div>
       </div>
 
       <!-- Main Focus Canvas Content -->
-      <div class="flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-6">
+      <div class="ibadah-fade-layer flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-6">
         
         <!-- Mosque Etiquette & Phone Silence Notice Banner -->
         <div class="flex items-center gap-3 sm:gap-3.5 p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-emerald-950/90 via-[#03241c]/90 to-emerald-950/90 border border-gold-500/30 shadow-lg text-xs">
@@ -2939,6 +2996,14 @@
 
         </div>
 
+      </div>
+
+      <!-- Ergonomic Bottom Thumb-Zone Exit Bar (Always Easy to Reach in One-Handed Mosque Use) -->
+      <div id="ibadah-bottom-exit-dock" class="ibadah-bottom-dock sticky bottom-4 sm:bottom-6 z-30 mt-auto px-4 pb-[max(0.5rem,env(safe-area-inset-bottom))] flex justify-center pointer-events-none">
+        <button id="ibadah-exit-bottom-btn" type="button" onclick="toggleIbadahMode(false)" class="pointer-events-auto min-h-[46px] px-6 py-2.5 rounded-full bg-[#06261c]/95 hover:bg-[#093527] active:scale-95 border border-[#C5A059]/60 text-[#E4CB96] hover:text-white font-bold text-xs sm:text-sm shadow-[0_12px_32px_rgba(0,0,0,0.8)] backdrop-blur-md flex items-center gap-2 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C5A059]" title="Keluar dari Mode Ibadah">
+          <i data-lucide="log-out" class="w-4 h-4 text-[#C5A059]"></i>
+          <span data-i18n="ibadah_exit_bottom_btn">Keluar dari Mode Ibadah</span>
+        </button>
       </div>
     </div>
 
@@ -3270,6 +3335,7 @@
           ibadah_silence_title: "Adab di Dalam Masjid",
           ibadah_silence_desc: "Harap pastikan ponsel dalam mode hening (silent) dan jaga ketenangan selama berada di rumah Allah.",
           ibadah_exit_btn: "Keluar (ESC)",
+          ibadah_exit_bottom_btn: "Keluar dari Mode Ibadah",
           ibadah_dhikr_title: "Kumpulan Dzikir & Doa Ringkas Ramah Mata",
           ibadah_dhikr_subtitle: "Teks kontras tinggi dengan harakat jelas untuk dibaca di dalam masjid.",
           ibadah_tab_wirid: "Wirid Ba'da Shalat",
@@ -3603,6 +3669,7 @@
           ibadah_silence_title: "Mosque Etiquette & Reverence",
           ibadah_silence_desc: "Please ensure your device is silenced and maintain tranquility inside the House of Allah.",
           ibadah_exit_btn: "Exit (ESC)",
+          ibadah_exit_bottom_btn: "Exit Worship Mode",
           ibadah_dhikr_title: "Eye-Safe Supplications & Night Reminders",
           ibadah_dhikr_subtitle: "High-contrast legible text with clear Arabic tashkeel for reciting in the mosque.",
           ibadah_tab_wirid: "Post-Prayer Wirid",
@@ -3835,7 +3902,7 @@
 
       let currentStream = 'makkah';
 
-      // Friday Khateeb & Imam schedule (Official Announcement: 26 Jumada Al-Ula 1448 AH)
+      // Friday Khateeb & Imam schedule (Official Announcement: 03 Jumada Al-Akhirah 1448 AH)
       const fridayKhatibData = {
         makkah: {
           mosqueName: {
@@ -3843,36 +3910,37 @@
             en: "Masjidil Haram • Makkah Al-Mukarramah"
           },
           hijriDate: {
-            id: "26 Jumadil Ula 1448 H",
-            en: "26 Jumada al-Ula 1448 AH",
-            arabic: "٢٦ جمادى الأولى ١٤٤٨ هـ"
+            id: "03 Jumadil Akhir 1448 H",
+            en: "03 Jumada al-Akhirah 1448 AH",
+            arabic: "٠٣ جمادى الآخرة ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد الحرام",
           khateebTitleArabic: "إمام وخطيب المسجد الحرام",
-          khateebHonorific: "فضيلة الشيخ الأستاذ الدكتور",
-          khateebName: "Syekh Prof. Dr. Maher Al-Muaiqly",
-          khateebArabic: "ماهر بن حمد المعيقلي",
-          khateebFullArabic: "فضيلة الشيخ أ.د. / ماهر بن حمد المعيقلي",
+          khateebHonorific: "فضيلة الشيخ الدكتور",
+          khateebName: "Syekh Dr. Bandar Baleelah",
+          khateebArabic: "بندر بن عبدالعزيز بليلة",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / بندر بن عبدالعزيز بليلة",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Resmi Masjidil Haram • Guru Besar Fiqih",
-            en: "Official Senior Imam & Khateeb of Masjidil Haram • Professor of Fiqh"
+            id: "Imam & Khatib Resmi Masjidil Haram • Anggota Dewan Ulama Senior",
+            en: "Official Imam & Khateeb of Masjidil Haram • Council of Senior Scholars"
           },
           bio: {
-            id: "Imam & Khatib Utama Shalat Jumat di Masjidil Haram dengan khutbah yang menyentuh jiwa dan penuh bimbingan Al-Qur'an dan Sunnah di pelataran Ka'bah Al-Musyarrafah.",
-            en: "Primary Friday Khateeb & Imam at Masjidil Haram renowned for eloquent, inspiring sermons before the Holy Kaaba."
+            id: "Imam & Khatib Utama Shalat Jumat di Masjidil Haram serta Anggota Dewan Ulama Senior Arab Saudi dengan khutbah yang sarat hikmah dan ketenangan di hadapan Ka'bah Al-Musyarrafah.",
+            en: "Primary Friday Khateeb & Imam at Masjidil Haram and Member of the Council of Senior Scholars delivering deeply inspiring sermons before the Holy Kaaba."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
-          backupHonorific: "فضيلة الشيخ الدكتور",
-          backupName: "Syekh Dr. Bandar Baleelah",
-          backupArabic: "بندر بن عبدالعزيز بليلة",
-          backupFullArabic: "فضيلة الشيخ الدكتور / بندر بن عبدالعزيز بليلة",
+          backupPending: true,
+          backupHonorific: "فضيلة الشيخ",
+          backupName: "",
+          backupArabic: "",
+          backupFullArabic: "وفق إعلان رئاسة الشؤون الدينية",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -3886,36 +3954,36 @@
             en: "Prophet's Mosque • Madinah Al-Munawwarah"
           },
           hijriDate: {
-            id: "26 Jumadil Ula 1448 H",
-            en: "26 Jumada al-Ula 1448 AH",
-            arabic: "٢٦ جمادى الأولى ١٤٤٨ هـ"
+            id: "03 Jumadil Akhir 1448 H",
+            en: "03 Jumada al-Akhirah 1448 AH",
+            arabic: "٠٣ جمادى الآخرة ١٤٤٨ هـ"
           },
           titleArabic: "خطيب الجمعة بالمسجد النبوي",
           khateebTitleArabic: "إمام وخطيب المسجد النبوي",
           khateebHonorific: "فضيلة الشيخ الدكتور",
-          khateebName: "Syekh Dr. Hussain Aal Al-Sheikh",
-          khateebArabic: "حسين بن عبدالعزيز آل الشيخ",
-          khateebFullArabic: "فضيلة الشيخ الدكتور / حسين بن عبدالعزيز آل الشيخ",
+          khateebName: "Syekh Dr. Abdul Muhsin Al-Qasim",
+          khateebArabic: "عبدالمحسن بن محمد القاسم",
+          khateebFullArabic: "فضيلة الشيخ الدكتور / عبدالمحسن بن محمد القاسم",
           role: {
             id: "Khatib & Imam Utama Shalat Jumat",
             en: "Primary Friday Khateeb & Imam"
           },
           position: {
-            id: "Imam & Khatib Senior Masjid Nabawi • Pakar Hukum Syariah",
-            en: "Senior Imam & Khateeb of Prophet's Mosque • Sharia Scholar"
+            id: "Imam & Khatib Senior Masjid Nabawi • Hakim Pengadilan Tinggi Madinah",
+            en: "Senior Imam & Khateeb of Prophet's Mosque • Madinah High Court Judge"
           },
           bio: {
-            id: "Imam & Khatib Senior Masjid Nabawi dengan penyampaian khutbah Jumat yang sarat akan pesan persatuan, kedamaian, dan nilai-nilai luhur Islam di Mimbar Masjid Nabawi.",
-            en: "Senior Imam & Khateeb at Al-Masjid An-Nabawi delivering profoundly inspiring Friday sermons from the Prophet's Pulpit."
+            id: "Imam & Khatib Senior Masjid Nabawi yang juga menjabat Hakim Pengadilan Umum Madinah serta pengampu halaqah tahfiz Al-Qur'an terbesar di Masjid Nabawi.",
+            en: "Senior Imam & Khateeb at Al-Masjid An-Nabawi, Judge of the Madinah Court, and supervisor of the Prophet's Mosque Quranic memorization circles."
           },
           backupTitle: {
             id: "Khatib & Imam Cadangan (الخطيب الاحتياطي)",
             en: "Reserve Friday Khateeb (الخطيب الاحتياطي)"
           },
           backupHonorific: "فضيلة الشيخ الدكتور",
-          backupName: "Syekh Dr. Abdul Bari Ats-Tsubaiti",
-          backupArabic: "عبدالباري بن عواض الثبيتي",
-          backupFullArabic: "فضيلة الشيخ الدكتور / عبدالباري بن عواض الثبيتي",
+          backupName: "Syekh Dr. Salah Al-Budair",
+          backupArabic: "صلاح بن محمد البدير",
+          backupFullArabic: "فضيلة الشيخ الدكتور / صلاح بن محمد البدير",
           sourceAgency: "وكالة شؤون الأئمة والمؤذنين",
           sourcePresidency: "رئاسة الشؤون الدينية بالمسجد الحرام والمسجد النبوي",
           badgeText: {
@@ -4973,6 +5041,7 @@
         const overlay = document.getElementById('ibadah-mode-overlay');
         const activeDot = document.getElementById('ibadah-active-dot');
         const btn = document.getElementById('toggle-ibadah-mode-btn');
+        const exitTopBtn = document.getElementById('ibadah-exit-top-btn');
         if (!overlay) return;
 
         if (typeof forcedState === 'boolean') {
@@ -4982,25 +5051,42 @@
         }
 
         if (isIbadahModeOpen) {
-          overlay.classList.remove('opacity-0', 'pointer-events-none');
-          overlay.classList.add('opacity-100', 'pointer-events-auto');
-          document.body.classList.add('overflow-hidden');
-          if (activeDot) activeDot.classList.remove('hidden');
-          if (btn) {
-            btn.classList.add('bg-gold-500/20', 'border-gold-400', 'text-white');
-          }
           renderIbadahPrayerGrid();
           renderIbadahDhikr();
           const now = new Date();
           const astString = now.toLocaleString("en-US", { timeZone: "Asia/Riyadh" });
           updatePrayerCountdown(new Date(astString));
+
+          overlay.scrollTop = 0;
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('overflow-hidden');
+          if (activeDot) activeDot.classList.remove('hidden');
+          if (btn) {
+            btn.classList.add('bg-gold-500/20', 'border-gold-400', 'text-white');
+          }
+
+          // Trigger gentle non-startling fade-in on next animation frame
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              overlay.classList.add('ibadah-active');
+            });
+          });
+
+          if (exitTopBtn) {
+            setTimeout(() => {
+              if (isIbadahModeOpen) exitTopBtn.focus({ preventScroll: true });
+            }, 350);
+          }
         } else {
-          overlay.classList.remove('opacity-100', 'pointer-events-auto');
-          overlay.classList.add('opacity-0', 'pointer-events-none');
+          overlay.classList.remove('ibadah-active');
+          overlay.setAttribute('aria-hidden', 'true');
           document.body.classList.remove('overflow-hidden');
           if (activeDot) activeDot.classList.add('hidden');
           if (btn) {
             btn.classList.remove('bg-gold-500/20', 'border-gold-400', 'text-white');
+            if (btn.offsetParent !== null) {
+              btn.focus({ preventScroll: true });
+            }
           }
         }
       }
@@ -5011,11 +5097,11 @@
         const makkahBtn = document.getElementById('ibadah-city-makkah');
         const madinahBtn = document.getElementById('ibadah-city-madinah');
         if (city === 'makkah') {
-          if (makkahBtn) makkahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-gold-400 text-emerald-950 shadow";
-          if (madinahBtn) madinahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold text-emerald-100 hover:text-white transition";
+          if (makkahBtn) makkahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-gold-400 text-emerald-950 shadow cursor-pointer";
+          if (madinahBtn) madinahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold text-emerald-100 hover:text-white transition cursor-pointer";
         } else {
-          if (madinahBtn) madinahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-gold-400 text-emerald-950 shadow";
-          if (makkahBtn) makkahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold text-emerald-100 hover:text-white transition";
+          if (madinahBtn) madinahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold transition bg-gold-400 text-emerald-950 shadow cursor-pointer";
+          if (makkahBtn) makkahBtn.className = "px-2.5 sm:px-3 py-1 rounded-lg text-[11px] sm:text-xs font-bold text-emerald-100 hover:text-white transition cursor-pointer";
         }
         renderIbadahPrayerGrid();
         const now = new Date();
@@ -5030,13 +5116,13 @@
 
         if (ibadahDimDepth === 'soft') {
           ibadahDimDepth = 'deep';
-          overlay.classList.remove('bg-[#010907]/96');
+          overlay.classList.remove('bg-[#051f17]/96');
           overlay.classList.add('bg-black/99');
           if (label) label.innerText = currentLang === 'en' ? 'OLED Dark 98%' : 'OLED Gelap 98%';
         } else {
           ibadahDimDepth = 'soft';
           overlay.classList.remove('bg-black/99');
-          overlay.classList.add('bg-[#010907]/96');
+          overlay.classList.add('bg-[#051f17]/96');
           if (label) label.innerText = currentLang === 'en' ? 'Redup 85%' : 'Redup 85%';
         }
       }
@@ -5544,21 +5630,29 @@
                       <i data-lucide="user-check" class="w-5 h-5"></i>
                     </div>
                     <div>
-                      <h4 class="font-serif font-bold text-sm text-[#1C2D24] leading-tight">${data.backupName}</h4>
+                      <h4 class="font-serif font-bold text-sm text-[#1C2D24] leading-tight">
+                        ${data.backupPending ? (currentLang === 'en' ? 'According to Official Presidency Schedule' : 'Sesuai Jadwal Resmi Presidensi') : data.backupName}
+                      </h4>
                       <p class="font-arabic text-xs font-bold text-[#C5A059] mt-0.5">${data.backupFullArabic}</p>
                     </div>
                   </div>
                   <p class="text-[11px] text-[#2E4338] leading-relaxed font-medium">
-                    ${emergencyDutyText}
+                    ${data.backupPending
+                      ? (currentLang === 'en'
+                          ? 'Reserve Khateeb assignment is managed directly by the Presidency for Religious Affairs of the Two Holy Mosques.'
+                          : 'Penugasan khatib cadangan diatur langsung oleh Presidensi Urusan Keagamaan Dua Masjid Suci.')
+                      : emergencyDutyText}
                   </p>
                 </div>
 
                 <div class="mt-3.5 pt-2.5 border-t border-[#E5DAC8] flex items-center justify-between text-xs">
                   <span class="text-[10px] text-[#3B5145] font-mono font-medium">${data.sourceAgency}</span>
-                  <button onclick="previewAdhanNotice('${data.backupName}')" class="text-[#244C3B] hover:text-[#C5A059] font-bold text-xs flex items-center gap-0.5 transition cursor-pointer">
-                    <span>${viewProfileText}</span>
-                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                  </button>
+                  ${data.backupPending ? '' : `
+                    <button onclick="previewAdhanNotice('${data.backupName}')" class="text-[#244C3B] hover:text-[#C5A059] font-bold text-xs flex items-center gap-0.5 transition cursor-pointer">
+                      <span>${viewProfileText}</span>
+                      <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                  `}
                 </div>
               </div>
             </div>
