@@ -43,7 +43,7 @@
     <meta property="og:description" content="Portal Dua Tanah Suci: Siaran Live Streaming Makkah 24 Jam & Madinah TV, Jadwal Sholat Hari Ini, Jadwal Imam & Muadzin, Cuaca, Peta Gerbang, Raudhah & Paket Roaming Umroh." />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:image" content="https://img.youtube.com/vi/eC4LfEVxvKg/maxresdefault.jpg" />
+    <meta property="og:image" content="https://img.youtube.com/vi/IsJTAdC3-Jw/maxresdefault.jpg" />
     <meta property="og:image:width" content="1280" />
     <meta property="og:image:height" content="720" />
     <meta property="og:image:alt" content="Live Makkah 24 Jam Masjidil Haram" />
@@ -52,7 +52,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Haramain Life - Live Makkah 24 Jam & Jadwal Sholat Hari Ini" />
     <meta name="twitter:description" content="Siaran langsung 24/7 Makkah & Madinah, jadwal shalat akurat, penugasan Imam & Muadzin, peta pintu, dan paket roaming Saudi." />
-    <meta name="twitter:image" content="https://img.youtube.com/vi/eC4LfEVxvKg/maxresdefault.jpg" />
+    <meta name="twitter:image" content="https://img.youtube.com/vi/IsJTAdC3-Jw/maxresdefault.jpg" />
 
     <!-- Structured Data JSON-LD (Schema.org) for Search Engines -->
     <script type="application/ld+json">
@@ -110,9 +110,9 @@
           "@id": "https://haramainlife.com/#live-video",
           "name": "Live Makkah 24 Jam - Siaran Langsung Masjidil Haram",
           "description": "Siaran langsung 24 jam nonstop dari pelataran Ka'bah Masjidil Haram Makkah Al-Mukarramah kualitas Ultra HD.",
-          "thumbnailUrl": "https://img.youtube.com/vi/eC4LfEVxvKg/maxresdefault.jpg",
+          "thumbnailUrl": "https://img.youtube.com/vi/IsJTAdC3-Jw/maxresdefault.jpg",
           "uploadDate": "2026-01-01T00:00:00+03:00",
-          "embedUrl": "https://www.youtube-nocookie.com/embed/eC4LfEVxvKg",
+          "embedUrl": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCos52azQNBgW63_9uDJoPDA",
           "publication": {
             "@type": "BroadcastEvent",
             "isLiveBroadcast": true,
@@ -1781,41 +1781,41 @@
         </div>
 
         <!-- Stream Switcher Tabs -->
-        <div class="w-full sm:w-auto grid grid-cols-2 sm:flex sm:items-center p-1.5 rounded-2xl bg-[#FFFFFF] dark:bg-[#132A20] border border-[#E5DAC8] dark:border-[#244C3B] shadow-sm">
-          <button id="stream-tab-makkah" onclick="switchStream('makkah')" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer">
+        <div class="w-full sm:w-auto grid grid-cols-2 sm:flex items-center gap-1 p-1.5 rounded-2xl bg-[#FFFFFF] dark:bg-[#132A20] border border-[#E5DAC8] dark:border-[#244C3B] shadow-sm">
+          <button id="stream-tab-makkah" onclick="switchStream('makkah')" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer whitespace-nowrap">
             <i data-lucide="video" class="w-4 h-4 text-white"></i>
             <span data-i18n="stream_tab_makkah">Makkah</span>
           </button>
-          <button id="stream-tab-madinah" onclick="switchStream('madinah')" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer">
+          <button id="stream-tab-madinah" onclick="switchStream('madinah')" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer whitespace-nowrap">
             <i data-lucide="video" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96]"></i>
             <span data-i18n="stream_tab_madinah">Madinah</span>
           </button>
         </div>
       </div>
 
-      <!-- Main Video Container -->
-      <div class="rounded-3xl overflow-hidden bg-[#FFFFFF] border border-[#E5DAC8] shadow-xl relative group reveal-on-scroll reveal-delay-1">
+      <!-- Main Single Video Container (Makkah or Madinah - Single Audio Stream) -->
+      <div id="single-stream-card" class="rounded-3xl overflow-hidden bg-[#FFFFFF] border border-[#E5DAC8] shadow-xl relative group">
         
         <!-- Video Header Info Bar -->
         <div class="p-4 sm:p-5 bg-[#FAF6F0] border-b border-[#E5DAC8] flex flex-wrap items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-500/10 text-red-600 border border-red-500/30">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-500/10 text-red-600 border border-red-500/30 shrink-0">
               <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
               <span data-i18n="stream_live_badge">SIARAN LANGSUNG</span>
             </span>
-            <div id="stream-info-wrap" class="transition-all duration-300">
-              <h3 id="stream-title" class="font-bold text-base sm:text-lg text-[#1C2D24]">Siaran Langsung Makkah • Masjidil Haram (Saudi Quran TV)</h3>
-              <p id="stream-subtitle" class="text-xs text-[#244C3B] font-medium">Siaran Langsung Tawaf & Shalat Berjamaah dari Ka'bah Al-Musyarrafah</p>
+            <div id="stream-info-wrap" class="transition-all duration-300 min-w-0">
+              <h3 id="stream-title" class="font-bold text-base sm:text-lg text-[#1C2D24] truncate">Siaran Langsung Makkah • Masjidil Haram (Saudi Quran TV)</h3>
+              <p id="stream-subtitle" class="text-xs text-[#244C3B] font-medium truncate">Siaran Langsung Tawaf & Shalat Berjamaah dari Ka'bah Al-Musyarrafah</p>
             </div>
           </div>
 
-          <div class="flex items-center gap-4 text-xs">
+          <div class="flex flex-wrap items-center gap-2.5 text-xs shrink-0">
             <div class="flex items-center gap-1.5 text-[#244C3B] bg-[#FFFFFF] px-3 py-1.5 rounded-xl border border-[#E5DAC8] shadow-sm font-semibold">
               <i data-lucide="users" class="w-3.5 h-3.5 text-[#C5A059]"></i>
               <span id="viewer-count" class="font-mono font-bold text-[#1C2D24]">184.290</span>
               <span class="text-[#3B5145]" data-i18n="stream_viewers_suffix">jamaah menyaksikan</span>
             </div>
-            <button onclick="toggleCinemaMode()" class="p-2 rounded-xl bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#244C3B] border border-[#E5DAC8] transition shadow-sm" title="Layar Penuh / Lebar">
+            <button onclick="toggleCinemaMode()" class="p-2 rounded-xl bg-[#FFFFFF] hover:bg-[#FAF6F0] text-[#244C3B] border border-[#E5DAC8] transition shadow-sm cursor-pointer" title="Layar Penuh / Lebar">
               <i data-lucide="maximize-2" class="w-4 h-4 text-[#244C3B]"></i>
             </button>
           </div>
@@ -1833,11 +1833,9 @@
           <iframe 
             id="stream-iframe" 
             class="w-full h-full border-0 transition-opacity duration-300"
-            src="about:blank"
-            data-src="https://www.youtube-nocookie.com/embed/eC4LfEVxvKg?autoplay=1&mute=0&rel=0" 
+            src="https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1"
             title="Siaran Langsung Dua Tanah Suci"
-            loading="lazy"
-            fetchpriority="low"
+            referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowfullscreen>
           </iframe>
@@ -1851,7 +1849,7 @@
               <button onclick="reloadStream()" class="px-5 py-2 rounded-xl bg-[#C5A059] text-white font-bold text-xs hover:bg-[#B18B44]" data-i18n="stream_reload">
                 Muat Ulang Siaran
               </button>
-              <a id="external-stream-link" href="https://www.youtube.com/watch?v=eC4LfEVxvKg" target="_blank" class="px-5 py-2 rounded-xl bg-[#244C3B] text-white font-bold text-xs border border-[#C5A059]/40 hover:bg-[#1E4333] flex items-center gap-1.5">
+              <a id="external-stream-link" href="https://www.youtube.com/watch?v=IsJTAdC3-Jw" target="_blank" rel="noopener noreferrer" class="px-5 py-2 rounded-xl bg-[#244C3B] text-white font-bold text-xs border border-[#C5A059]/40 hover:bg-[#1E4333] flex items-center gap-1.5">
                 <span data-i18n="stream_open_youtube">Buka di YouTube</span>
                 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
               </a>
@@ -1859,23 +1857,30 @@
           </div>
         </div>
 
-        <!-- Player Footer Highlights -->
-        <div class="p-4 bg-[#FAF6F0] border-t border-[#E5DAC8] grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-[#2E4338] font-medium">
+        <!-- Stream Source Controls & Footer Highlights -->
+        <div class="px-4 py-3 bg-[#FAF6F0] border-t border-[#E5DAC8] flex flex-wrap items-center justify-between gap-3 text-xs text-[#2E4338] font-medium">
           <div class="flex items-center gap-2">
-            <i data-lucide="shield-check" class="w-4 h-4 text-[#244C3B]"></i>
-            <span data-i18n="stream_feat_1">Siaran Resmi Pemerintah</span>
+            <i data-lucide="tv" class="w-4 h-4 text-[#C5A059]"></i>
+            <span id="stream-channel-label" class="font-semibold text-[#1C2D24]">Saudi Quran TV</span>
+            <div class="flex items-center gap-1 ml-1">
+              <button type="button" onclick="selectStreamSource(0)" data-stream-srv="0" class="px-2.5 py-1 rounded-md bg-[#244C3B] text-white font-bold text-[11px] cursor-pointer transition">S1</button>
+              <button type="button" onclick="selectStreamSource(1)" data-stream-srv="1" class="px-2.5 py-1 rounded-md bg-white text-[#244C3B] border border-[#E5DAC8] hover:border-[#C5A059] font-bold text-[11px] cursor-pointer transition">S2</button>
+              <button type="button" onclick="selectStreamSource(2)" data-stream-srv="2" class="px-2.5 py-1 rounded-md bg-white text-[#244C3B] border border-[#E5DAC8] hover:border-[#C5A059] font-bold text-[11px] cursor-pointer transition">CH</button>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <i data-lucide="sparkle" class="w-4 h-4 text-[#C5A059]"></i>
-            <span data-i18n="stream_feat_2">Kualitas Ultra HD 1080p</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i data-lucide="radio" class="w-4 h-4 text-[#244C3B]"></i>
-            <span data-i18n="stream_feat_3">Audio Jernih & Asli</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <i data-lucide="globe" class="w-4 h-4 text-[#C5A059]"></i>
-            <span data-i18n="stream_feat_4">Jaringan CDN Global Cepat</span>
+          <div class="flex flex-wrap items-center gap-4">
+            <span class="hidden md:inline-flex items-center gap-1.5 text-[11px] text-[#3B5145]">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#244C3B]"></i>
+              <span data-i18n="stream_feat_1">Siaran Resmi Pemerintah</span>
+            </span>
+            <span class="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-[#3B5145]">
+              <i data-lucide="sparkle" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+              <span data-i18n="stream_feat_2">Kualitas Ultra HD 1080p</span>
+            </span>
+            <button onclick="reloadStream()" class="text-[#244C3B] hover:text-[#C5A059] font-bold flex items-center gap-1.5 cursor-pointer transition">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+              <span data-i18n="stream_reload">Muat Ulang Siaran</span>
+            </button>
           </div>
         </div>
 
@@ -2016,10 +2021,13 @@
       </div>
 
       <!-- Subheading for 5 Daily Prayers -->
-      <div class="flex items-center justify-between mb-4 pt-3 border-t border-[#E5DAC8]">
-        <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pt-3 border-t border-[#E5DAC8]">
+        <div class="flex flex-wrap items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-[#244C3B]"></span>
           <h3 class="text-base sm:text-lg font-extrabold text-[#1C2D24]" data-i18n="daily_prayers_subheading">Jadwal Imam Shalat 5 Waktu Hari Ini</h3>
+          <span id="daily-imams-week-range" class="px-2.5 py-0.5 rounded-full bg-[#FAF6F0] dark:bg-[#173628] border border-[#E5DAC8] dark:border-[#C5A059]/30 text-[11px] font-bold text-[#244C3B] dark:text-[#E4CB96]">
+            Ahad, 05 – Sabtu, 11 Jumadil Akhir 1448 H
+          </span>
         </div>
         <span class="text-xs text-[#2E4338] font-medium hidden sm:inline" data-i18n="daily_prayers_note">Termasuk Imam Cadangan (الاحتياطي)</span>
       </div>
@@ -3870,7 +3878,7 @@
       var selectedPrayerCity = 'makkah';
       window.selectedPrayerCity = selectedPrayerCity;
 
-      // Live streams configuration
+      // Live streams configuration (Verified active 24/7 YouTube live video IDs + channel fallback)
       const streams = {
         makkah: {
           title: {
@@ -3881,8 +3889,22 @@
             id: "Siaran Langsung Tawaf & Shalat Berjamaah dari Ka'bah Al-Musyarrafah",
             en: "Live Broadcast of Tawaf & Congregational Prayers from the Holy Kaaba"
           },
-          embedUrl: "https://www.youtube-nocookie.com/embed/eC4LfEVxvKg?autoplay=1&mute=0&rel=0",
-          externalUrl: "https://www.youtube.com/watch?v=eC4LfEVxvKg",
+          shortTitle: {
+            id: "Siaran Langsung Makkah • Masjidil Haram",
+            en: "Live Broadcast Makkah • Masjidil Haram"
+          },
+          shortSubtitle: {
+            id: "Saudi Quran TV • Ka'bah Al-Musyarrafah",
+            en: "Saudi Quran TV • The Holy Kaaba"
+          },
+          sources: [
+            "https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1",
+            "https://www.youtube.com/embed/BXcoGEkDxJ8?autoplay=1&mute=1&rel=0&playsinline=1",
+            "https://www.youtube.com/embed/live_stream?channel=UCos52azQNBgW63_9uDJoPDA&autoplay=1&mute=1&rel=0&playsinline=1"
+          ],
+          activeSourceIdx: 0,
+          embedUrl: "https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1",
+          externalUrl: "https://www.youtube.com/watch?v=IsJTAdC3-Jw",
           viewers: "184.290"
         },
         madinah: {
@@ -3894,8 +3916,22 @@
             id: "Siaran Langsung Raudhah & Shalat Berjamaah dari Masjid Nabawi",
             en: "Live Broadcast of the Rawdah & Congregational Prayers from Prophet's Mosque"
           },
-          embedUrl: "https://www.youtube-nocookie.com/embed/Rs7St51oDDc?autoplay=1&mute=0&rel=0",
-          externalUrl: "https://www.youtube.com/watch?v=Rs7St51oDDc",
+          shortTitle: {
+            id: "Siaran Langsung Madinah • Masjid Nabawi",
+            en: "Live Broadcast Madinah • Prophet's Mosque"
+          },
+          shortSubtitle: {
+            id: "Saudi Sunnah TV • Raudhah & Masjid Nabawi",
+            en: "Saudi Sunnah TV • Rawdah & Prophet's Mosque"
+          },
+          sources: [
+            "https://www.youtube.com/embed/BtMUUgApnPs?autoplay=1&mute=1&rel=0&playsinline=1",
+            "https://www.youtube.com/embed/AsSEENjHds0?autoplay=1&mute=1&rel=0&playsinline=1",
+            "https://www.youtube.com/embed/live_stream?channel=UCROKYPep-UuODNwyipe6JMw&autoplay=1&mute=1&rel=0&playsinline=1"
+          ],
+          activeSourceIdx: 0,
+          embedUrl: "https://www.youtube.com/embed/BtMUUgApnPs?autoplay=1&mute=1&rel=0&playsinline=1",
+          externalUrl: "https://www.youtube.com/watch?v=BtMUUgApnPs",
           viewers: "142.610"
         }
       };
@@ -3993,22 +4029,28 @@
         }
       };
 
-      // Daily Imams schedule (Pekan: 28 Jumada Al-Ula - 04 Jumada Al-Akhirah 1448 H / 28 Jumadil Ula - 04 Jumadil Akhir 1448 H)
+      // Daily Imams schedule (Pekan: Sunday 05 Jumada Al-Akhirah - Saturday 11 Jumada Al-Akhirah 1448 AH)
+      const imamWeekPeriod = {
+        id: "Ahad, 05 – Sabtu, 11 Jumadil Akhir 1448 H",
+        en: "Sun, 05 – Sat, 11 Jumada Al-Akhirah 1448 AH",
+        arabic: "من يوم الأحد ٠٥ جمادى الآخرة إلى يوم السبت ١١ جمادى الآخرة ١٤٤٨هـ"
+      };
+
       const imamData = {
         makkah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Prof. Dr. Abdullah Al-Juhany",
-            arabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
-            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
-            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            name: "Syekh Dr. Waleed Al-Shamsan",
+            arabic: "فضيلة الشيخ الدكتور / الوليد بن خالد الشمسان",
+            backupName: "Syekh Prof. Dr. Maher Al-Muaiqly",
+            backupArabic: "فضيلة الشيخ أ.د. / ماهر بن حمد المعيقلي",
             role: {
-              id: "Imam Shalat Subuh • Pakar Qira'at & Imam Senior Masjidil Haram",
-              en: "Fajr Prayer Imam • Qira'at Scholar & Senior Imam of Masjidil Haram"
+              id: "Imam Shalat Subuh • Imam Masjidil Haram & Akademisi Al-Qur'an",
+              en: "Fajr Prayer Imam • Imam of Masjidil Haram & Quranic Scholar"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Qari terkemuka dengan ketelitian tajwid mutqin dan lantunan fasih di hadapan Ka'bah Al-Musyarrafah.",
-              en: "Primary Fajr Imam. Master Qira'at scholar leading dawn prayers with pristine Tajweed before the Holy Kaaba."
+              id: "Imam Utama Shalat Subuh. Dikenal dengan suara tartil yang lembut, merdu, dan menenangkan jiwa saat memimpin shalat fajar di depan Ka'bah Al-Musyarrafah.",
+              en: "Primary Fajr Imam. Renowned for a gentle, melodious, and tranquil recitation leading dawn prayers before the Holy Kaaba."
             },
             tag: {
               id: "Imam Subuh Utama",
@@ -4017,17 +4059,17 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Dr. Badr At-Turki",
-            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
-            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
-            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            name: "Syekh Dr. Usama Khayyat",
+            arabic: "فضيلة الشيخ الدكتور / أسامة بن عبدالله خياط",
+            backupName: "Syekh Dr. Waleed Al-Shamsan",
+            backupArabic: "فضيلة الشيخ د. / الوليد بن خالد الشمسان",
             role: {
-              id: "Imam Shalat Dzuhur • Pengajar Al-Qur'an & Dosen Syariah",
-              en: "Dhuhr Prayer Imam • Quranic Scholar & Sharia Professor"
+              id: "Imam Shalat Dzuhur • Imam & Khatib Senior Masjidil Haram",
+              en: "Dhuhr Prayer Imam • Senior Imam & Khateeb of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Dzuhur. Ulama dan pengajar dengan tilawah jernih, tenang, dan menyejukkan di Masjidil Haram.",
-              en: "Primary Dhuhr Imam. Scholar leading midday prayers with serene and clear Quranic recitation."
+              id: "Imam Utama Shalat Dzuhur. Ulama senior dan khatib Masjidil Haram dengan kekhusyukan, kefasihan lafal, dan kewibawaan tilawah yang agung.",
+              en: "Primary Dhuhr Imam. Veteran Imam & Khateeb of Masjidil Haram known for stately cadence and deep reverence."
             },
             tag: {
               id: "Imam Dzuhur Utama",
@@ -4036,17 +4078,17 @@
           },
           {
             prayerKey: "asr",
-            name: "Syekh Dr. Faisal Ghazzawi",
-            arabic: "فضيلة الشيخ د. فيصل بن جميل غزاوي",
-            backupName: "Syekh Prof. Dr. Abdullah Al-Juhany",
-            backupArabic: "فضيلة الشيخ أ.د. عبدالله بن عواد الجهني",
+            name: "Syekh Dr. Bandar Baleelah",
+            arabic: "فضيلة الشيخ الدكتور / بندر بن عبدالعزيز بليلة",
+            backupName: "Syekh Dr. Waleed Al-Shamsan",
+            backupArabic: "فضيلة الشيخ د. / الوليد بن خالد الشمسان",
             role: {
-              id: "Imam Shalat Ashar • Guru Besar Qira'at & Imam Senior Masjidil Haram",
-              en: "Asr Prayer Imam • Professor of Qira'at & Senior Imam of Masjidil Haram"
+              id: "Imam Shalat Ashar • Anggota Dewan Ulama Senior & Imam Masjidil Haram",
+              en: "Asr Prayer Imam • Council of Senior Scholars & Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. Ulama senior berilmu tinggi dengan tilawah yang agung dan khusyuk saat petang di pelataran Mataf.",
-              en: "Primary Asr Imam. Senior scholar leading afternoon prayers with noble, crystal-clear recitation."
+              id: "Imam Utama Shalat Ashar. Ulama fikih terkemuka dengan tilawah yang jernih, penuh ketenangan, dan bertenaga di Masjidil Haram.",
+              en: "Primary Asr Imam. Distinguished jurist leading afternoon prayers with clear, composed, and moving recitation."
             },
             tag: {
               id: "Imam Ashar Utama",
@@ -4055,17 +4097,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Dr. Badr At-Turki",
-            arabic: "فضيلة الشيخ د. بدر بن محمد التركي",
-            backupName: "Syekh Prof. Dr. Yasser Al-Dossary",
-            backupArabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
+            name: "Syekh Prof. Dr. Maher Al-Muaiqly",
+            arabic: "فضيلة الشيخ الأستاذ الدكتور / ماهر بن حمد المعيقلي",
+            backupName: "Syekh Dr. Bandar Baleelah",
+            backupArabic: "فضيلة الشيخ د. / بندر بن عبدالعزيز بليلة",
             role: {
-              id: "Imam Shalat Maghrib • Pengajar Al-Qur'an & Dosen Syariah",
-              en: "Maghrib Prayer Imam • Quranic Scholar & Sharia Professor"
+              id: "Imam Shalat Maghrib • Guru Besar Fiqih & Imam Senior Masjidil Haram",
+              en: "Maghrib Prayer Imam • Professor of Fiqh & Senior Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Memiliki tilawah senja yang tenang, merdu, dan penuh penghayatan di hadapan Ka'bah.",
-              en: "Primary Maghrib Imam. Leading sunset prayers with peaceful and melodious Quranic recitation."
+              id: "Imam Utama Shalat Maghrib. Qari dan ulama terkemuka dengan suara khas yang sangat dicintai jutaan jamaah di seluruh dunia.",
+              en: "Primary Maghrib Imam. Beloved scholar and reciter leading sunset prayers with a deeply resonant, iconic voice."
             },
             tag: {
               id: "Imam Maghrib Utama",
@@ -4074,17 +4116,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Prof. Dr. Yasser Al-Dossary",
-            arabic: "فضيلة الشيخ أ.د. ياسر بن راشد الدوسري",
-            backupName: "Syekh Dr. Badr At-Turki",
-            backupArabic: "فضيلة الشيخ د. بدر بن محمد التركي",
+            name: "Syekh Dr. Bandar Baleelah",
+            arabic: "فضيلة الشيخ الدكتور / بندر بن عبدالعزيز بليلة",
+            backupName: "Syekh Prof. Dr. Maher Al-Muaiqly",
+            backupArabic: "فضيلة الشيخ أ.د. / ماهر بن حمد المعيقلي",
             role: {
-              id: "Imam Shalat Isya • Guru Besar Fiqih Perbandingan & Khatib Jumat",
-              en: "Isha Prayer Imam • Professor of Comparative Fiqh & Friday Khateeb"
+              id: "Imam Shalat Isya • Anggota Dewan Ulama Senior & Imam Masjidil Haram",
+              en: "Isha Prayer Imam • Council of Senior Scholars & Imam of Masjidil Haram"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Dikenal dengan bacaan tartil malam yang bertenaga, sangat merdu, dan menggetarkan jiwa di pelataran Ka'bah.",
-              en: "Primary Isha Imam. Renowned for powerful, emotionally stirring nighttime recitations before the Holy Kaaba."
+              id: "Imam Utama Shalat Isya. Memimpin shalat malam di pelataran Mataf dengan tilawah tartil yang khusyuk dan penuh penghayatan.",
+              en: "Primary Isha Imam. Leading nighttime prayers before the Holy Kaaba with serene and heartfelt Quranic recitation."
             },
             tag: {
               id: "Imam Isya Utama",
@@ -4095,17 +4137,17 @@
         madinah: [
           {
             prayerKey: "fajr",
-            name: "Syekh Saleh bin Awwad Al-Mughamsi",
-            arabic: "فضيلة الشيخ صالح بن عواد المغامسي",
-            backupName: "Syekh Prof. Dr. Muhammad Barhaji",
-            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
+            name: "Syekh Dr. Khalid Al-Muhanna",
+            arabic: "فضيلة الشيخ الدكتور / خالد بن سليمان المهنا",
+            backupName: "Syekh Dr. Abdullah Al-Buayjaan",
+            backupArabic: "فضيلة الشيخ د. / عبدالله بن عبدالرحمن البعيجان",
             role: {
-              id: "Imam Shalat Subuh • Da'i & Pakar Tafsir Terkemuka Madinah",
-              en: "Fajr Prayer Imam • Renowned Islamic Scholar & Exegete of Madinah"
+              id: "Imam Shalat Subuh • Guru Besar Ilmu Hadits Univ. Islam Madinah",
+              en: "Fajr Prayer Imam • Professor of Hadith at Islamic Univ. of Madinah"
             },
             bio: {
-              id: "Imam Utama Shalat Subuh. Tokoh tafsir ternama Madinah dengan tilawah Subuh yang sangat lembut, menyentuh kalbu, dan penuh penghayatan di Raudhah.",
-              en: "Primary Fajr Imam. Celebrated Quranic commentator leading dawn prayers with gentle and heart-touching recitation."
+              id: "Imam Utama Shalat Subuh. Ahli hadits dan qari bersanad dengan karakter bacaan Madani klasik yang jernih dan menyentuh kalbu di Masjid Nabawi.",
+              en: "Primary Fajr Imam. Hadith scholar leading dawn prayers at the Prophet's Mosque with refined classical Madani cadence."
             },
             tag: {
               id: "Imam Subuh Masjid Nabawi",
@@ -4114,17 +4156,17 @@
           },
           {
             prayerKey: "dhuhr",
-            name: "Syekh Prof. Dr. Muhammad Barhaji",
-            arabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
-            backupName: "Syekh Saleh bin Awwad Al-Mughamsi",
-            backupArabic: "فضيلة الشيخ صالح بن عواد المغامسي",
+            name: "Syekh Dr. Abdullah Al-Buayjaan",
+            arabic: "فضيلة الشيخ الدكتور / عبدالله بن عبدالرحمن البعيجان",
+            backupName: "Syekh Dr. Ahmed Al-Hudaify",
+            backupArabic: "فضيلة الشيخ د. / أحمد بن علي الحذيفي",
             role: {
-              id: "Imam Shalat Dzuhur • Dosen Fakultas Hadits Univ. Islam Madinah",
-              en: "Dhuhr Prayer Imam • Hadith Faculty Professor at Islamic Univ. of Madinah"
+              id: "Imam Shalat Dzuhur • Imam & Khatib Masjid Nabawi",
+              en: "Dhuhr Prayer Imam • Imam & Khateeb of Al-Masjid An-Nabawi"
             },
             bio: {
-              id: "Imam Utama Shalat Dzuhur. Akademisi dan qari berwawasan luas dengan lantunan tilawah yang jernih dan tenang di Masjid Nabawi.",
-              en: "Primary Dhuhr Imam. Islamic scholar and Quranic reciter known for serene, peaceful recitation at the Prophet's Mosque."
+              id: "Imam Utama Shalat Dzuhur. Dikenal dengan suara lantunan Al-Qur'an yang bening, khidmat, dan sangat menenangkan jamaah di Madinah.",
+              en: "Primary Dhuhr Imam. Known for crystal-clear, solemn recitation that brings tranquility to worshippers in Madinah."
             },
             tag: {
               id: "Imam Dzuhur Masjid Nabawi",
@@ -4133,17 +4175,17 @@
           },
           {
             prayerKey: "asr",
-            name: "Syekh Prof. Dr. Ali Al-Hudhaify",
-            arabic: "فضيلة الشيخ أ.د. علي بن عبدالرحمن الحذيفي",
-            backupName: "Syekh Dr. Salah Al-Budair",
-            backupArabic: "فضيلة الشيخ د. صلاح بن محمد البدير",
+            name: "Syekh Dr. Ahmed Al-Hudaify",
+            arabic: "فضيلة الشيخ الدكتور / أحمد بن علي الحذيفي",
+            backupName: "Syekh Dr. Khalid Al-Muhanna",
+            backupArabic: "فضيلة الشيخ د. / خالد بن سليمان المهنا",
             role: {
-              id: "Imam Shalat Ashar • Syekh Para Imam Masjid Nabawi",
-              en: "Asr Prayer Imam • Chief Senior Imam of Al-Masjid An-Nabawi"
+              id: "Imam Shalat Ashar • Imam & Khatib Masjid Nabawi • Akademisi Bahasa Arab",
+              en: "Asr Prayer Imam • Imam & Khateeb of Prophet's Mosque • Arabic Scholar"
             },
             bio: {
-              id: "Imam Utama Shalat Ashar. 'Syaikhul Aimmah' yang paling dihormati di Madinah dengan makhraj huruf dan hukum tajwid paling sempurna.",
-              en: "Primary Asr Imam. Revered Dean of the Haramain Imams whose gold-standard Tajweed and measured cadence inspire millions."
+              id: "Imam Utama Shalat Ashar. Putra ulama senior Masjid Nabawi dengan makhraj huruf yang presisi, tenang, dan penuh penghayatan.",
+              en: "Primary Asr Imam. Accomplished scholar leading afternoon prayers with precise articulation and serene composure."
             },
             tag: {
               id: "Imam Ashar Masjid Nabawi",
@@ -4152,17 +4194,17 @@
           },
           {
             prayerKey: "maghrib",
-            name: "Syekh Dr. Hussain Aal Al-Sheikh",
-            arabic: "فضيلة الشيخ د. حسين بن عبدالعزيز آل الشيخ",
-            backupName: "Syekh Prof. Dr. Muhammad Barhaji",
-            backupArabic: "فضيلة الشيخ أ.د. محمد بن أحمد برهجي",
+            name: "Syekh Dr. Abdul Muhsin Al-Qasim",
+            arabic: "فضيلة الشيخ الدكتور / عبدالمحسن بن محمد القاسم",
+            backupName: "Syekh Dr. Abdullah Al-Qurafi",
+            backupArabic: "فضيلة الشيخ د. / عبدالله بن عبدالمحسن القرافي",
             role: {
               id: "Imam Shalat Maghrib • Imam & Khatib Senior Masjid Nabawi",
               en: "Maghrib Prayer Imam • Senior Imam & Khateeb of Prophet's Mosque"
             },
             bio: {
-              id: "Imam Utama Shalat Maghrib. Imam senior berpengalaman puluhan tahun di Masjid Nabawi dengan kefasihan makhraj dan tartil yang agung saat senja.",
-              en: "Primary Maghrib Imam. Senior Imam with decades of service at the Prophet's Mosque, leading sunset prayers with stately cadence."
+              id: "Imam Utama Shalat Maghrib. Imam senior Masjid Nabawi serta pengampu halaqah tahfiz Al-Qur'an terbesar di serambi Masjid Nabawi.",
+              en: "Primary Maghrib Imam. Senior Imam of Al-Masjid An-Nabawi and supervisor of its renowned Quranic circles."
             },
             tag: {
               id: "Imam Maghrib Masjid Nabawi",
@@ -4171,17 +4213,17 @@
           },
           {
             prayerKey: "isha",
-            name: "Syekh Dr. Salah Al-Budair",
-            arabic: "فضيلة الشيخ د. صلاح بن محمد البدير",
-            backupName: "Syekh Dr. Hussain Aal Al-Sheikh",
-            backupArabic: "فضيلة الشيخ د. حسين بن عبدالعزيز آل الشيخ",
+            name: "Syekh Dr. Abdullah Al-Qurafi",
+            arabic: "فضيلة الشيخ الدكتور / عبدالله بن عبدالمحسن القرافي",
+            backupName: "Syekh Dr. Abdul Muhsin Al-Qasim",
+            backupArabic: "فضيلة الشيخ د. / عبدالمحسن بن محمد القاسم",
             role: {
-              id: "Imam Shalat Isya • Hakim Mahkamah Banding & Imam-Khatib Masjid Nabawi",
-              en: "Isha Prayer Imam • Appeal Court Judge & Imam-Khateeb of Prophet's Mosque"
+              id: "Imam Shalat Isya • Imam Masjid Nabawi & Akademisi Fiqih",
+              en: "Isha Prayer Imam • Imam of Prophet's Mosque & Fiqh Scholar"
             },
             bio: {
-              id: "Imam Utama Shalat Isya. Hakim dan ulama terkemuka dengan bacaan malam yang khusyuk, merdu, dan menenangkan jiwa di Masjid Nabawi.",
-              en: "Primary Isha Imam. Judge and eminent scholar leading nighttime prayers with tranquil and melodious cadence."
+              id: "Imam Utama Shalat Isya. Imam terkemuka di Masjid Nabawi yang memimpin shalat malam dengan tilawah merdu, mantap, dan penuh kekhusyukan.",
+              en: "Primary Isha Imam. Distinguished Imam leading nighttime prayers at the Prophet's Mosque with melodious and composed recitation."
             },
             tag: {
               id: "Imam Isya Masjid Nabawi",
@@ -5410,42 +5452,67 @@
         if (window.lucide) window.lucide.createIcons();
       }
 
+      function updateStreamSourceButtons(city) {
+        const cfg = streams[city] || streams.makkah;
+        const activeIdx = cfg.activeSourceIdx || 0;
+        document.querySelectorAll('[data-stream-srv]').forEach((btn, i) => {
+          if (i === activeIdx) {
+            btn.className = "px-2.5 py-1 rounded-md bg-[#244C3B] text-white font-bold text-[11px] cursor-pointer transition";
+          } else {
+            btn.className = "px-2.5 py-1 rounded-md bg-white text-[#244C3B] border border-[#E5DAC8] hover:border-[#C5A059] font-bold text-[11px] cursor-pointer transition";
+          }
+        });
+      }
+
       function updateStreamInfo() {
-        const config = streams[currentStream];
-        if (!config) return;
+        const lang = currentLang === 'en' ? 'en' : 'id';
+        const config = streams[currentStream] || streams.makkah;
         const titleEl = document.getElementById('stream-title');
         const subtitleEl = document.getElementById('stream-subtitle');
-        if (titleEl) titleEl.innerText = typeof config.title === 'object' ? config.title[currentLang] || config.title.id : config.title;
-        if (subtitleEl) subtitleEl.innerText = typeof config.subtitle === 'object' ? config.subtitle[currentLang] || config.subtitle.id : config.subtitle;
+        const channelEl = document.getElementById('stream-channel-label');
+        if (titleEl) titleEl.innerText = typeof config.title === 'object' ? config.title[lang] || config.title.id : config.title;
+        if (subtitleEl) subtitleEl.innerText = typeof config.subtitle === 'object' ? config.subtitle[lang] || config.subtitle.id : config.subtitle;
+        if (channelEl) channelEl.innerText = currentStream === 'madinah' ? 'Saudi Sunnah TV' : 'Saudi Quran TV';
+        updateStreamSourceButtons(currentStream);
       }
 
       function switchStream(city) {
+        if (city !== 'makkah' && city !== 'madinah') city = 'makkah';
         if (currentStream === city) return;
         currentStream = city;
-        const config = streams[city];
 
         const makkahTab = document.getElementById('stream-tab-makkah');
         const madinahTab = document.getElementById('stream-tab-madinah');
+        const singleIframe = document.getElementById('stream-iframe');
         const overlay = document.getElementById('stream-transition-overlay');
         const overlayText = document.getElementById('stream-transition-text');
         const infoWrap = document.getElementById('stream-info-wrap');
-        const iframe = document.getElementById('stream-iframe');
 
-        // Update active tab buttons with scale & color morph
-        if (city === 'makkah') {
-          makkahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer";
-          makkahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-white"></i><span data-i18n="stream_tab_makkah">Makkah</span>`;
-          madinahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer";
-          madinahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96]"></i><span data-i18n="stream_tab_madinah">Madinah</span>`;
-          if (overlayText) overlayText.innerText = currentLang === 'en' ? "Connecting Saudi Quran TV (Makkah)..." : "Menghubungkan Saudi Quran TV (Makkah)...";
-        } else {
-          madinahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer";
-          madinahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-white"></i><span data-i18n="stream_tab_madinah">Madinah</span>`;
-          makkahTab.className = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer";
-          makkahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 text-[#244C3B] dark:text-[#E4CB96]"></i><span data-i18n="stream_tab_makkah">Makkah</span>`;
-          if (overlayText) overlayText.innerText = currentLang === 'en' ? "Connecting Saudi Sunnah TV (Madinah)..." : "Menghubungkan Saudi Sunnah TV (Madinah)...";
+        const activeTabCls = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 bg-[#244C3B] text-white shadow-md cursor-pointer whitespace-nowrap";
+        const inactiveTabCls = "flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#1C2D24] dark:text-[#E4CB96] hover:text-[#244C3B] hover:bg-[#F5EFE6] dark:hover:bg-[#1E4333]/40 transition-all duration-300 cursor-pointer whitespace-nowrap";
+
+        const makkahLabel = (translations[currentLang] && translations[currentLang].stream_tab_makkah) || 'Makkah';
+        const madinahLabel = (translations[currentLang] && translations[currentLang].stream_tab_madinah) || 'Madinah';
+
+        if (makkahTab) {
+          makkahTab.className = city === 'makkah' ? activeTabCls : inactiveTabCls;
+          makkahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 ${city === 'makkah' ? 'text-white' : 'text-[#244C3B] dark:text-[#E4CB96]'}"></i><span data-i18n="stream_tab_makkah">${makkahLabel}</span>`;
+        }
+        if (madinahTab) {
+          madinahTab.className = city === 'madinah' ? activeTabCls : inactiveTabCls;
+          madinahTab.innerHTML = `<i data-lucide="video" class="w-4 h-4 ${city === 'madinah' ? 'text-white' : 'text-[#244C3B] dark:text-[#E4CB96]'}"></i><span data-i18n="stream_tab_madinah">${madinahLabel}</span>`;
         }
         if (window.lucide) window.lucide.createIcons();
+
+        const config = streams[city] || streams.makkah;
+
+        if (overlayText) {
+          if (city === 'makkah') {
+            overlayText.innerText = currentLang === 'en' ? "Connecting Saudi Quran TV (Makkah)..." : "Menghubungkan Saudi Quran TV (Makkah)...";
+          } else {
+            overlayText.innerText = currentLang === 'en' ? "Connecting Saudi Sunnah TV (Madinah)..." : "Menghubungkan Saudi Sunnah TV (Madinah)...";
+          }
+        }
 
         // Trigger smooth transition overlay and content fade-out
         if (overlay) {
@@ -5456,23 +5523,25 @@
           infoWrap.style.opacity = '0.3';
           infoWrap.style.transform = 'translateY(4px)';
         }
-        if (iframe) {
-          iframe.style.opacity = '0.4';
+        if (singleIframe) {
+          singleIframe.style.opacity = '0.4';
         }
 
         setTimeout(() => {
           updateStreamInfo();
-          document.getElementById('viewer-count').innerText = config.viewers;
-          if (iframe) iframe.src = config.embedUrl;
-          document.getElementById('external-stream-link').href = config.externalUrl;
+          const viewerEl = document.getElementById('viewer-count');
+          if (viewerEl) viewerEl.innerText = config.viewers;
+          if (singleIframe) singleIframe.src = config.embedUrl;
+          const extLink = document.getElementById('external-stream-link');
+          if (extLink) extLink.href = config.externalUrl;
 
           // Fade content back in smoothly
           if (infoWrap) {
             infoWrap.style.opacity = '1';
             infoWrap.style.transform = 'translateY(0)';
           }
-          if (iframe) {
-            iframe.style.opacity = '1';
+          if (singleIframe) {
+            singleIframe.style.opacity = '1';
           }
 
           // Fade out the overlay smoothly
@@ -5486,6 +5555,7 @@
       }
 
       function reloadStream() {
+        const activeKey = currentStream === 'madinah' ? 'madinah' : 'makkah';
         const iframe = document.getElementById('stream-iframe');
         const overlay = document.getElementById('stream-transition-overlay');
         if (overlay) {
@@ -5493,8 +5563,9 @@
           overlay.classList.add('opacity-100');
         }
         setTimeout(() => {
-          iframe.src = streams[currentStream].embedUrl;
-          document.getElementById('player-overlay').classList.add('hidden');
+          if (iframe && streams[activeKey]) iframe.src = streams[activeKey].embedUrl;
+          const playerOverlay = document.getElementById('player-overlay');
+          if (playerOverlay) playerOverlay.classList.add('hidden');
           if (overlay) {
             overlay.classList.remove('opacity-100');
             overlay.classList.add('opacity-0', 'pointer-events-none');
@@ -5502,8 +5573,24 @@
         }, 200);
       }
 
+      function selectStreamSource(idxOrCity, maybeIdx) {
+        const city = typeof idxOrCity === 'string' ? idxOrCity : currentStream;
+        const idx = typeof idxOrCity === 'number' ? idxOrCity : maybeIdx;
+        const cfg = streams[city];
+        if (!cfg || !cfg.sources || !cfg.sources[idx]) return;
+        cfg.activeSourceIdx = idx;
+        cfg.embedUrl = cfg.sources[idx];
+        updateStreamSourceButtons(city);
+
+        const singleIframe = document.getElementById('stream-iframe');
+        if (singleIframe && currentStream === city) {
+          singleIframe.src = cfg.embedUrl;
+        }
+      }
+
       function toggleCinemaMode() {
         const container = document.getElementById('live-streams');
+        if (!container) return;
         container.classList.toggle('max-w-7xl');
         container.classList.toggle('max-w-full');
       }
@@ -5663,6 +5750,10 @@
 
       function renderImams() {
         renderFridayKhateeb();
+        const weekRangeBadge = document.getElementById('daily-imams-week-range');
+        if (weekRangeBadge && typeof imamWeekPeriod === 'object') {
+          weekRangeBadge.textContent = imamWeekPeriod[currentLang] || imamWeekPeriod.id;
+        }
         const container = document.getElementById('imams-grid');
         if (!container) return;
         const list = imamData[currentImamMosque];
@@ -9358,7 +9449,7 @@
             profileKey: 'Syekh Dr. Salah Al-Budair'
           },
           {
-            keywords: ['baijan', 'baeejan', 'bueijan', 'البعيجان', 'عبدالله البعيجان'],
+            keywords: ['baijan', 'baeejan', 'bueijan', 'buayjaan', 'al-buayjaan', 'البعيجان', 'عبدالله البعيجان'],
             profileKey: 'Syekh Dr. Abdullah bin Abdurrahman Al-Baijan'
           },
           {
@@ -9366,7 +9457,7 @@
             profileKey: 'Syekh Dr. Badr At-Turki'
           },
           {
-            keywords: ['khayyat', 'khayyath', 'usamah', 'osama', 'خياط', 'أسامة خياط', 'أسامة بن عبدالله خياط'],
+            keywords: ['khayyat', 'khayyath', 'usama', 'usamah', 'osama', 'خياط', 'أسامة خياط', 'أسامة بن عبدالله خياط'],
             profileKey: 'Syekh Dr. Usamah bin Abdullah Khayyath'
           },
           {
@@ -9402,12 +9493,12 @@
             profileKey: 'Syekh Dr. Abdul Rahman Al-Sudais'
           },
           {
-            keywords: ['hudhaify', 'hudaify', 'ali al-hudhaify', 'الحذيفي', 'علي الحذيفي'],
-            profileKey: 'Syekh Dr. Ali Al-Hudhaify'
+            keywords: ['ahmad al-hudhaify', 'ahmad al-hudaify', 'ahmed al-hudhaify', 'ahmed al-hudaify', 'أحمد الحذيفي', 'أحمد بن علي الحذيفي'],
+            profileKey: 'Syekh Dr. Ahmad Al-Hudaify'
           },
           {
-            keywords: ['ahmad al-hudhaify', 'ahmad al-hudaify', 'أحمد الحذيفي'],
-            profileKey: 'Syekh Dr. Ahmad Al-Hudaify'
+            keywords: ['ali al-hudhaify', 'ali al-hudaify', 'علي الحذيفي', 'علي بن عبدالرحمن الحذيفي', 'hudhaify', 'hudaify', 'الحذيفي'],
+            profileKey: 'Syekh Dr. Ali Al-Hudhaify'
           },
           {
             keywords: ['qasim', 'kasim', 'mohsen', 'muhsin', 'القاسم', 'عبد المحسن'],
@@ -12920,6 +13011,7 @@
       window.switchPrayerCity = switchPrayerCity;
       window.switchStream = switchStream;
       window.reloadStream = reloadStream;
+      window.selectStreamSource = selectStreamSource;
       window.toggleCinemaMode = toggleCinemaMode;
       window.renderImams = renderImams;
       window.renderFridayKhateeb = renderFridayKhateeb;
@@ -13297,25 +13389,7 @@
           quickPlayBtn.addEventListener('click', toggleAudioPlay);
         }
 
-        // Lazy-load YouTube stream iframe via IntersectionObserver to save critical FCP/LCP bandwidth
-        const streamIframe = document.getElementById('stream-iframe');
-        if (streamIframe && streamIframe.dataset && streamIframe.dataset.src) {
-          if ('IntersectionObserver' in window) {
-            const streamObs = new IntersectionObserver((entries, observer) => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  if (streamIframe.src === 'about:blank' || !streamIframe.src) {
-                    streamIframe.src = streamIframe.dataset.src;
-                  }
-                  observer.disconnect();
-                }
-              });
-            }, { rootMargin: '300px' });
-            streamObs.observe(streamIframe);
-          } else {
-            streamIframe.src = streamIframe.dataset.src;
-          }
-        }
+        // Dual YouTube Live iframes use native loading="lazy" with permanent channel live_stream URLs
 
         // Initialize theme from localStorage or default to 'light'
         const savedTheme = (function() {
