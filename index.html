@@ -1438,7 +1438,9 @@
             <div class="mt-4 pt-3 border-t border-[#E5DAC8]">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[11px] font-bold text-[#244C3B] flex items-center gap-1.5 uppercase tracking-wider">
-                  <i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                  <span id="makkah-weather-header-icon-wrap" class="inline-flex items-center justify-center shrink-0">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                  </span>
                   <span data-i18n="weather_makkah_title">Cuaca Real-Time Makkah</span>
                 </span>
                 <div class="flex items-center gap-2">
@@ -1472,9 +1474,11 @@
 
                 <div class="text-left pl-1">
                   <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_condition">Kondisi</span>
-                  <div class="flex items-center gap-1.5 mt-1 text-[#1C2D24] font-medium text-xs">
-                    <i id="makkah-weather-icon" data-lucide="sun" class="w-3.5 h-3.5 text-[#C5A059] shrink-0"></i>
-                    <span id="makkah-weather-desc" class="truncate font-bold text-xs">Cerah Bersih</span>
+                  <div class="flex items-center mt-0.5 min-h-[28px]">
+                    <div id="makkah-weather-icon-wrap" class="inline-flex items-center gap-1 px-2 py-1 rounded-xl border bg-[#C5A059]/12 border-[#C5A059]/35 text-[#B45309] dark:bg-amber-500/20 dark:border-amber-400/35 dark:text-[#FBBF24] shadow-2xs transition-all duration-300" title="Cerah Bersih" aria-label="Cerah Bersih">
+                      <i id="makkah-weather-icon" data-lucide="sun" class="w-4 h-4 shrink-0"></i>
+                    </div>
+                    <span id="makkah-weather-desc" class="sr-only">Cerah Bersih</span>
                   </div>
                   <span id="makkah-uv-level" class="text-[10px] text-[#244C3B] block mt-0.5 font-sans font-semibold">UV: Sedang</span>
                 </div>
@@ -1639,7 +1643,9 @@
             <div class="mt-4 pt-3 border-t border-[#E5DAC8]">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[11px] font-bold text-[#244C3B] flex items-center gap-1.5 uppercase tracking-wider">
-                  <i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                  <span id="madinah-weather-header-icon-wrap" class="inline-flex items-center justify-center shrink-0">
+                    <i data-lucide="sun" class="w-3.5 h-3.5 text-[#C5A059]"></i>
+                  </span>
                   <span data-i18n="weather_madinah_title">Cuaca Real-Time Madinah</span>
                 </span>
                 <div class="flex items-center gap-2">
@@ -1673,9 +1679,11 @@
 
                 <div class="text-left pl-1">
                   <span class="text-[10px] text-[#3B5145] uppercase block font-semibold" data-i18n="weather_condition">Kondisi</span>
-                  <div class="flex items-center gap-1.5 mt-1 text-[#1C2D24] font-medium text-xs">
-                    <i id="madinah-weather-icon" data-lucide="sun" class="w-4 h-4 text-[#C5A059] shrink-0"></i>
-                    <span id="madinah-weather-desc" class="truncate font-bold">Cerah Bersahabat</span>
+                  <div class="flex items-center mt-0.5 min-h-[28px]">
+                    <div id="madinah-weather-icon-wrap" class="inline-flex items-center gap-1 px-2 py-1 rounded-xl border bg-[#C5A059]/12 border-[#C5A059]/35 text-[#B45309] dark:bg-amber-500/20 dark:border-amber-400/35 dark:text-[#FBBF24] shadow-2xs transition-all duration-300" title="Cerah Bersahabat" aria-label="Cerah Bersahabat">
+                      <i id="madinah-weather-icon" data-lucide="sun" class="w-4 h-4 shrink-0"></i>
+                    </div>
+                    <span id="madinah-weather-desc" class="sr-only">Cerah Bersahabat</span>
                   </div>
                   <span id="madinah-uv-level" class="text-[10px] text-[#244C3B] block mt-0.5 font-sans font-semibold">Payung Terbuka</span>
                 </div>
@@ -12042,7 +12050,7 @@
           renderMosqueModal();
         }
 
-        // Refresh weather labels if data exists
+        // Refresh weather labels & dynamic icons if data exists
         if (window.weatherData) {
           ['makkah', 'madinah'].forEach(c => {
             const d = window.weatherData[c];
@@ -12051,6 +12059,18 @@
               if (feelsEl) feelsEl.innerText = lang === 'en' ? `Feels like ${d.feelsLike}°C` : `Terasa ${d.feelsLike}°C`;
               const windEl = document.getElementById(`${c}-wind`);
               if (windEl) windEl.innerText = lang === 'en' ? `Wind ${d.wind} km/h` : `Angin ${d.wind} km/j`;
+              const meta = interpretWeatherCode(d.weatherCode ?? 0, d.temp, d.wind, d.isDay ?? 1);
+              d.desc = meta.desc;
+              d.icon = meta.icon;
+              const descEl = document.getElementById(`${c}-weather-desc`);
+              if (descEl) descEl.innerText = meta.desc;
+              const uvEl = document.getElementById(`${c}-uv-level`);
+              if (uvEl) {
+                uvEl.innerText = c === 'makkah'
+                  ? (d.temp >= 35 ? (lang === 'en' ? "UV: High" : "UV: Tinggi") : (lang === 'en' ? "UV: Moderate" : "UV: Sedang"))
+                  : (lang === 'en' ? "Canopies Open" : "Payung Terbuka");
+              }
+              renderCityWeatherIcon(c, meta);
             }
           });
         }
@@ -12230,6 +12250,8 @@
           feelsLike: 36,
           humidity: 38,
           wind: 14,
+          weatherCode: 0,
+          isDay: 1,
           desc: "Cerah Bersih",
           icon: "sun",
           uv: "UV: Sedang",
@@ -12240,6 +12262,8 @@
           feelsLike: 32,
           humidity: 28,
           wind: 11,
+          weatherCode: 0,
+          isDay: 1,
           desc: "Cerah Bersahabat",
           icon: "sun",
           uv: "Payung Terbuka",
@@ -12248,31 +12272,90 @@
       };
       window.weatherData = weatherData;
 
-      function interpretWeatherCode(code, temp) {
-        let desc = currentLang === 'en' ? "Warm & Sunny" : "Cerah Hangat";
-        let icon = "sun";
-        if (code === 0) {
-          desc = temp >= 35 
-            ? (currentLang === 'en' ? "Hot & Sunny" : "Cerah Terik") 
-            : (currentLang === 'en' ? "Clear Sky" : "Cerah Bersih");
-          icon = "sun";
-        } else if (code >= 1 && code <= 3) {
-          desc = currentLang === 'en' ? "Partly Cloudy" : "Cerah Berawan";
-          icon = "cloud-sun";
-        } else if (code >= 45 && code <= 48) {
-          desc = currentLang === 'en' ? "Light Dust Fog" : "Kabut Debu Tipis";
-          icon = "cloud-fog";
-        } else if (code >= 51 && code <= 65) {
-          desc = currentLang === 'en' ? "Blessed Rain" : "Hujan Rahmat";
-          icon = "cloud-rain";
-        } else if (code >= 80 && code <= 82) {
-          desc = currentLang === 'en' ? "Light Rain" : "Hujan Ringan";
-          icon = "cloud-drizzle";
+      function interpretWeatherCode(code, temp, wind = 0, isDay = 1) {
+        const isEn = currentLang === 'en';
+        let desc = isEn ? "Warm & Sunny" : "Cerah Hangat";
+        let icon = isDay === 0 ? "moon" : "sun";
+        let secondaryIcon = null;
+        let category = "sunny";
+        let badgeClass = "bg-[#C5A059]/12 border-[#C5A059]/35 text-[#B45309] dark:bg-amber-500/20 dark:border-amber-400/35 dark:text-[#FBBF24]";
+        let iconColor = "text-[#C5A059] dark:text-[#FBBF24]";
+
+        if (code === 45 || code === 48 || (code >= 0 && code <= 3 && wind >= 28)) {
+          // Dusty / Hazy / Desert Wind conditions
+          category = "dusty";
+          icon = wind >= 28 ? "wind" : "haze";
+          secondaryIcon = wind >= 28 ? "haze" : (wind >= 18 ? "wind" : null);
+          desc = wind >= 28
+            ? (isEn ? "Dusty & Windy" : "Berdebu & Berangin")
+            : (isEn ? "Hazy / Light Dust" : "Berkabut Debu Tipis");
+          badgeClass = "bg-amber-700/10 border-amber-700/30 text-amber-800 dark:bg-amber-500/20 dark:border-amber-400/35 dark:text-amber-300";
+          iconColor = "text-amber-700 dark:text-amber-300";
         } else if (code >= 95) {
-          desc = currentLang === 'en' ? "Thunderstorm" : "Hujan Petir";
+          category = "storm";
           icon = "cloud-lightning";
+          desc = isEn ? "Thunderstorm" : "Hujan Petir";
+          badgeClass = "bg-indigo-500/12 border-indigo-500/30 text-indigo-700 dark:bg-indigo-500/20 dark:border-indigo-400/35 dark:text-indigo-300";
+          iconColor = "text-indigo-600 dark:text-indigo-300";
+        } else if (code >= 51 && code <= 67) {
+          category = "rain";
+          icon = code <= 55 ? "cloud-drizzle" : "cloud-rain";
+          desc = isEn ? "Blessed Rain" : "Hujan Rahmat";
+          badgeClass = "bg-sky-500/12 border-sky-500/30 text-sky-700 dark:bg-sky-500/20 dark:border-sky-400/35 dark:text-sky-300";
+          iconColor = "text-sky-600 dark:text-sky-300";
+        } else if (code >= 80 && code <= 82) {
+          category = "rain";
+          icon = "cloud-drizzle";
+          desc = isEn ? "Light Rain" : "Hujan Ringan";
+          badgeClass = "bg-sky-500/12 border-sky-500/30 text-sky-700 dark:bg-sky-500/20 dark:border-sky-400/35 dark:text-sky-300";
+          iconColor = "text-sky-600 dark:text-sky-300";
+        } else if (code === 3) {
+          category = "cloudy";
+          icon = "cloudy";
+          desc = isEn ? "Cloudy" : "Berawan";
+          badgeClass = "bg-slate-500/10 border-slate-400/35 text-slate-700 dark:bg-slate-500/20 dark:border-slate-400/35 dark:text-slate-200";
+          iconColor = "text-slate-600 dark:text-slate-300";
+        } else if (code >= 1 && code <= 2) {
+          category = "partly-cloudy";
+          icon = isDay === 0 ? "cloud-moon" : "cloud-sun";
+          desc = isEn ? "Partly Cloudy" : "Cerah Berawan";
+          badgeClass = "bg-amber-500/10 border-amber-500/30 text-[#8B6B23] dark:bg-amber-500/15 dark:border-amber-400/30 dark:text-amber-300";
+          iconColor = "text-[#A67C2E] dark:text-amber-300";
+        } else {
+          // Sunny / Clear
+          if (isDay === 0) {
+            category = "night";
+            icon = "moon";
+            desc = isEn ? "Clear Night" : "Malam Cerah";
+            badgeClass = "bg-indigo-500/10 border-indigo-400/30 text-indigo-700 dark:bg-indigo-500/20 dark:border-indigo-400/35 dark:text-indigo-300";
+            iconColor = "text-indigo-600 dark:text-indigo-300";
+          } else {
+            category = "sunny";
+            icon = "sun";
+            secondaryIcon = temp >= 37 ? "thermometer-sun" : null;
+            desc = temp >= 35
+              ? (isEn ? "Hot & Sunny" : "Cerah Terik")
+              : (isEn ? "Clear Sky" : "Cerah Bersih");
+            badgeClass = "bg-[#C5A059]/12 border-[#C5A059]/35 text-[#B45309] dark:bg-amber-500/20 dark:border-amber-400/35 dark:text-[#FBBF24]";
+            iconColor = "text-[#C5A059] dark:text-[#FBBF24]";
+          }
         }
-        return { desc, icon };
+        return { desc, icon, secondaryIcon, category, badgeClass, iconColor };
+      }
+
+      function renderCityWeatherIcon(city, meta) {
+        if (!meta) return;
+        const wrapEl = document.getElementById(`${city}-weather-icon-wrap`);
+        if (wrapEl) {
+          wrapEl.className = `inline-flex items-center gap-1 px-2 py-1 rounded-xl border ${meta.badgeClass} shadow-2xs transition-all duration-300`;
+          wrapEl.setAttribute('title', meta.desc);
+          wrapEl.setAttribute('aria-label', meta.desc);
+          wrapEl.innerHTML = `<i id="${city}-weather-icon" data-lucide="${meta.icon}" class="w-4 h-4 shrink-0"></i>${meta.secondaryIcon ? `<i data-lucide="${meta.secondaryIcon}" class="w-3.5 h-3.5 opacity-85 shrink-0"></i>` : ''}`;
+        }
+        const headerWrapEl = document.getElementById(`${city}-weather-header-icon-wrap`);
+        if (headerWrapEl) {
+          headerWrapEl.innerHTML = `<i data-lucide="${meta.icon}" class="w-3.5 h-3.5 ${meta.iconColor}"></i>`;
+        }
       }
 
       function getHaramainRealtimeCondition(city, astHour, astMinute, weather, lang) {
@@ -12619,12 +12702,15 @@
         const feels = Math.round(current.apparent_temperature || temp);
         const humidity = Math.round(current.relative_humidity_2m);
         const wind = Math.round(current.wind_speed_10m || 10);
-        const { desc, icon } = interpretWeatherCode(current.weather_code || 0, temp);
+        const weatherCode = current.weather_code || 0;
+        const isDay = typeof current.is_day === 'number' ? current.is_day : 1;
+        const meta = interpretWeatherCode(weatherCode, temp, wind, isDay);
+        const { desc, icon } = meta;
         const uvText = city === 'makkah' 
           ? (temp >= 35 ? (currentLang === 'en' ? "UV: High" : "UV: Tinggi") : (currentLang === 'en' ? "UV: Moderate" : "UV: Sedang")) 
           : (currentLang === 'en' ? "Canopies Open" : "Payung Terbuka");
 
-        weatherData[city] = { temp, feelsLike: feels, humidity, wind, desc, icon, uv: uvText };
+        weatherData[city] = { temp, feelsLike: feels, humidity, wind, weatherCode, isDay, desc, icon, uv: uvText };
 
         const tempEl = document.getElementById(`${city}-temp`);
         if (tempEl) tempEl.innerText = `${temp}°C`;
@@ -12644,10 +12730,7 @@
         const uvEl = document.getElementById(`${city}-uv-level`);
         if (uvEl) uvEl.innerText = uvText;
 
-        const iconEl = document.getElementById(`${city}-weather-icon`);
-        if (iconEl) {
-          iconEl.setAttribute('data-lucide', icon);
-        }
+        renderCityWeatherIcon(city, meta);
 
         const badgeEl = document.getElementById(`${city}-weather-status`);
         if (badgeEl) {
@@ -12821,7 +12904,7 @@
         gridEl.innerHTML = data.map((d, idx) => {
           const isActive = idx === activeIdx;
           const dayName = isEn ? d.dayNameShortEn : d.dayNameShortId;
-          const { desc, icon } = interpretWeatherCode(d.weatherCode, d.maxTemp);
+          const { desc, icon, iconColor } = interpretWeatherCode(d.weatherCode, d.maxTemp);
           
           return `
             <button 
@@ -12832,7 +12915,8 @@
                   ? 'active-day bg-[#FFFFFF] border-[#244C3B] shadow-md ring-2 ring-[#C5A059]/50 scale-[1.03]' 
                   : 'bg-[#FAF6F0] border-[#E5DAC8] hover:bg-[#FFFFFF] hover:border-[#244C3B]/40 shadow-xs'
               }"
-              title="${isEn ? d.fullDayNameEn : d.fullDayNameId} • ${Math.round(d.maxTemp)}°C / ${Math.round(d.minTemp)}°C"
+              title="${isEn ? d.fullDayNameEn : d.fullDayNameId} • ${desc} (${Math.round(d.maxTemp)}°C / ${Math.round(d.minTemp)}°C)"
+              aria-label="${isEn ? d.fullDayNameEn : d.fullDayNameId}: ${desc}"
             >
               <span class="text-[10px] font-bold uppercase tracking-tight truncate w-full ${isActive ? 'text-[#244C3B]' : 'text-[#1C2D24]'}">
                 ${dayName}
@@ -12841,7 +12925,7 @@
                 ${d.displayDate}
               </span>
               <div class="my-1 flex items-center justify-center">
-                <i data-lucide="${icon}" class="w-4 h-4 sm:w-4.5 sm:h-4.5 ${isActive ? 'text-[#C5A059]' : 'text-[#694F12]'}"></i>
+                <i data-lucide="${icon}" class="w-4 h-4 sm:w-4.5 sm:h-4.5 ${iconColor}"></i>
               </div>
               <div class="mt-0.5">
                 <span class="text-[11px] font-mono font-bold text-[#1C2D24] leading-none block">
@@ -12952,8 +13036,8 @@
 
         try {
           const [makkahRes, madinahRes] = await Promise.all([
-            fetch("https://api.open-meteo.com/v1/forecast?latitude=21.4225&longitude=39.8262&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,uv_index_max,relative_humidity_2m_max&timezone=Asia%2FRiyadh&forecast_days=5"),
-            fetch("https://api.open-meteo.com/v1/forecast?latitude=24.4672&longitude=39.6111&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,uv_index_max,relative_humidity_2m_max&timezone=Asia%2FRiyadh&forecast_days=5")
+            fetch("https://api.open-meteo.com/v1/forecast?latitude=21.4225&longitude=39.8262&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,uv_index_max,relative_humidity_2m_max&timezone=Asia%2FRiyadh&forecast_days=5"),
+            fetch("https://api.open-meteo.com/v1/forecast?latitude=24.4672&longitude=39.6111&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,uv_index_max,relative_humidity_2m_max&timezone=Asia%2FRiyadh&forecast_days=5")
           ]);
 
           if (makkahRes.ok) {
