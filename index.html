@@ -310,8 +310,8 @@
     <!-- GSAP (GreenSock Animation Platform) CDN for high-performance smooth counter & gauge bar transitions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-    <!-- HLS.js CDN for direct 24/7 Saudi Sunnah TV satellite HLS live streaming -->
-    <script defer src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+    <!-- HLS.js CDN for direct 24/7 Saudi Sunnah TV official satellite live streaming -->
+    <script id="hls-js-cdn" defer src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
 
     <style>
       /* Starry Dot Grid Background with warm ivory cream & sand gold ambient */
@@ -3448,6 +3448,12 @@
           notif_prayers_label: "Waktu Shalat Fardhu yang Diingatkan:",
           notif_sound_label: "Bunyi Suara Pengingat & Chime:",
           notif_sound_sub: "Mainkan nada panggilan harmonis saat notifikasi tiba.",
+          notif_haptic_label: "Getaran Haptik (Mobile):",
+          notif_haptic_sub: "Getarkan perangkat saat pengingat shalat tiba, efektif di lingkungan ramai.",
+          notif_haptic_gentle: "Halus",
+          notif_haptic_distinct: "Standar",
+          notif_haptic_strong: "Kuat (Ramai)",
+          notif_haptic_unsupported: "Browser/perangkat ini tidak mendukung Web Vibration API (hanya perangkat mobile tertentu).",
           notif_btn_cancel: "Batal",
           notif_btn_save: "Simpan Pengaturan",
           occ_gauge_status: "Status Kapasitas Terisi",
@@ -3782,6 +3788,12 @@
           notif_prayers_label: "Obligatory Prayers to Remind:",
           notif_sound_label: "Reminder Sound & Chime:",
           notif_sound_sub: "Play harmonic adhan chime tone upon alert.",
+          notif_haptic_label: "Haptic Vibration (Mobile):",
+          notif_haptic_sub: "Vibrate mobile device when prayer alerts fire — ideal in loud or busy areas.",
+          notif_haptic_gentle: "Gentle",
+          notif_haptic_distinct: "Distinct",
+          notif_haptic_strong: "Strong (Busy)",
+          notif_haptic_unsupported: "Web Vibration API is not supported on this browser/device.",
           notif_btn_cancel: "Cancel",
           notif_btn_save: "Save Settings",
           occ_gauge_status: "Occupancy Capacity Status",
@@ -3893,7 +3905,7 @@
       var selectedPrayerCity = 'makkah';
       window.selectedPrayerCity = selectedPrayerCity;
 
-      // Live streams configuration (Official 24/7 Saudi Quran TV & direct Saudi Sunnah TV HLS satellite stream)
+      // Live streams configuration (Official 24/7 Saudi Quran TV & Saudi Sunnah TV satellite/YouTube feeds)
       const streams = {
         makkah: {
           mode: 'youtube',
@@ -3913,7 +3925,6 @@
             id: "Saudi Quran TV • Ka'bah Al-Musyarrafah",
             en: "Saudi Quran TV • The Holy Kaaba"
           },
-          hlsUrl: "https://win.holol.com/live/quran/playlist.m3u8",
           embedUrl: "https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=0&rel=0&playsinline=1&enablejsapi=1",
           externalUrl: "https://www.youtube.com/@SaudiQuranTv/live",
           viewers: "184.290"
@@ -3936,14 +3947,18 @@
             id: "Saudi Sunnah TV • Raudhah & Masjid Nabawi",
             en: "Saudi Sunnah TV • Rawdah & Prophet's Mosque"
           },
-          hlsUrl: "https://win.holol.com/live/sunnah/playlist.m3u8",
-          embedUrl: "https://www.youtube.com/embed/TP5Qoq0Iu4s?autoplay=1&mute=0&rel=0&playsinline=1&enablejsapi=1",
+          hlsUrls: [
+            "https://win.holol.com/live/sunnah/playlist.m3u8",
+            "https://cdn-globecast.akamaized.net/live/eds/saudi_sunnah/hls_roku/index.m3u8"
+          ],
+          embedUrl: "https://www.youtube.com/embed/ygj8JkXQvgE?autoplay=1&mute=0&rel=0&playsinline=1&enablejsapi=1",
           externalUrl: "https://www.youtube.com/@SaudiSunnahTv/live",
           viewers: "142.610"
         }
       };
 
       let activeHlsInstance = null;
+      let activeHlsStartupTimer = null;
       let currentStream = 'makkah';
 
       // Friday Khateeb & Imam schedule (Official Announcement: Makkah 10 Jumada Al-Akhirah 1448 AH)
@@ -5469,6 +5484,10 @@
       }
 
       function stopHlsStream() {
+        if (activeHlsStartupTimer) {
+          clearTimeout(activeHlsStartupTimer);
+          activeHlsStartupTimer = null;
+        }
         if (activeHlsInstance) {
           try {
             activeHlsInstance.destroy();
@@ -5478,6 +5497,9 @@
         const hlsVideo = document.getElementById('stream-hls-video');
         if (hlsVideo) {
           try {
+            hlsVideo.onplaying = null;
+            hlsVideo.oncanplay = null;
+            hlsVideo.onerror = null;
             hlsVideo.pause();
             hlsVideo.removeAttribute('src');
             hlsVideo.load();
@@ -5499,17 +5521,16 @@
       }
 
       function unmuteActiveStream() {
-        const singleIframe = document.getElementById('stream-iframe');
         const hlsVideo = document.getElementById('stream-hls-video');
         if (hlsVideo && !hlsVideo.classList.contains('hidden')) {
           hlsVideo.volume = 1.0;
           hlsVideo.muted = false;
           hlsVideo.play().catch(() => {});
-        } else if (singleIframe && !singleIframe.classList.contains('hidden')) {
-          sendYouTubeStreamCommand('unMute');
-          sendYouTubeStreamCommand('setVolume', [100]);
-          sendYouTubeStreamCommand('playVideo');
+          return;
         }
+        sendYouTubeStreamCommand('unMute');
+        sendYouTubeStreamCommand('setVolume', [100]);
+        sendYouTubeStreamCommand('playVideo');
       }
 
       function ensureStreamAudioUnlockOnFirstGesture() {
@@ -5536,9 +5557,7 @@
           singleIframe.classList.remove('hidden');
           singleIframe.onload = () => {
             setTimeout(() => {
-              sendYouTubeStreamCommand('unMute');
-              sendYouTubeStreamCommand('setVolume', [100]);
-              sendYouTubeStreamCommand('playVideo');
+              unmuteActiveStream();
             }, 350);
           };
           singleIframe.src = config.embedUrl;
@@ -5554,7 +5573,6 @@
         const playPromise = hlsVideo.play();
         if (playPromise && typeof playPromise.catch === 'function') {
           playPromise.catch(() => {
-            // Browser autoplay policy blocked unmuted start on cold load: start smoothly and unmute on first tap/click
             hlsVideo.muted = true;
             hlsVideo.play().catch(() => {});
             ensureStreamAudioUnlockOnFirstGesture();
@@ -5562,16 +5580,20 @@
         }
       }
 
-      function activateHlsPlayer(city, config) {
+      function activateHlsPlayer(city, config, sourceIndex = 0) {
         const singleIframe = document.getElementById('stream-iframe');
         const hlsVideo = document.getElementById('stream-hls-video');
-        if (!hlsVideo || !config || !config.hlsUrl) {
+        const hlsUrls = Array.isArray(config && config.hlsUrls) ? config.hlsUrls : [];
+        const hlsUrl = hlsUrls[sourceIndex];
+
+        if (!hlsVideo || !config || !hlsUrl) {
           activateYoutubePlayer(config);
           return;
         }
 
-        // Stop YouTube iframe immediately to avoid dual audio
+        // Stop YouTube iframe immediately to prevent dual audio
         if (singleIframe) {
+          singleIframe.onload = null;
           singleIframe.src = 'about:blank';
           singleIframe.classList.add('hidden');
         }
@@ -5581,6 +5603,32 @@
         hlsVideo.style.opacity = '1';
         hlsVideo.volume = 1.0;
         hlsVideo.muted = false;
+
+        let failedOver = false;
+        const tryNextSource = () => {
+          if (failedOver || currentStream !== city) return;
+          failedOver = true;
+          if (sourceIndex + 1 < hlsUrls.length) {
+            activateHlsPlayer(city, config, sourceIndex + 1);
+          } else {
+            activateYoutubePlayer(config);
+          }
+        };
+
+        const clearWatchdog = () => {
+          if (activeHlsStartupTimer) {
+            clearTimeout(activeHlsStartupTimer);
+            activeHlsStartupTimer = null;
+          }
+        };
+
+        hlsVideo.onplaying = clearWatchdog;
+        hlsVideo.oncanplay = clearWatchdog;
+        activeHlsStartupTimer = setTimeout(() => {
+          if (currentStream === city && hlsVideo.readyState < 2) {
+            tryNextSource();
+          }
+        }, 8000);
 
         const startPlayback = () => {
           if (currentStream !== city) return;
@@ -5593,29 +5641,26 @@
             activeHlsInstance = hls;
             let networkRetries = 0;
 
-            hls.loadSource(config.hlsUrl);
+            hls.loadSource(hlsUrl);
             hls.attachMedia(hlsVideo);
             hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
               playHlsVideoWithDeviceVolume(hlsVideo);
             });
             hls.on(window.Hls.Events.ERROR, (event, data) => {
               if (data && data.fatal) {
-                if (data.type === window.Hls.ErrorTypes.NETWORK_ERROR && networkRetries < 2) {
+                if (data.type === window.Hls.ErrorTypes.NETWORK_ERROR && networkRetries < 1) {
                   networkRetries++;
                   hls.startLoad();
                 } else if (data.type === window.Hls.ErrorTypes.MEDIA_ERROR) {
                   hls.recoverMediaError();
                 } else {
-                  // Seamless automatic fallback to YouTube live embed
-                  activateYoutubePlayer(config);
+                  tryNextSource();
                 }
               }
             });
           } else if (hlsVideo.canPlayType('application/vnd.apple.mpegurl')) {
-            hlsVideo.src = config.hlsUrl;
-            hlsVideo.onerror = () => {
-              if (currentStream === city) activateYoutubePlayer(config);
-            };
+            hlsVideo.src = hlsUrl;
+            hlsVideo.onerror = tryNextSource;
             playHlsVideoWithDeviceVolume(hlsVideo);
           } else {
             activateYoutubePlayer(config);
@@ -5625,13 +5670,15 @@
         if (window.Hls || hlsVideo.canPlayType('application/vnd.apple.mpegurl')) {
           startPlayback();
         } else {
-          const script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
-          script.onload = startPlayback;
-          script.onerror = () => {
-            if (currentStream === city) activateYoutubePlayer(config);
-          };
-          document.head.appendChild(script);
+          let script = document.getElementById('hls-js-cdn');
+          if (!script) {
+            script = document.createElement('script');
+            script.id = 'hls-js-cdn';
+            script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
+            document.head.appendChild(script);
+          }
+          script.addEventListener('load', startPlayback, { once: true });
+          script.addEventListener('error', tryNextSource, { once: true });
         }
       }
 
@@ -5641,9 +5688,7 @@
         if (initIframe) {
           initIframe.addEventListener('load', () => {
             setTimeout(() => {
-              sendYouTubeStreamCommand('unMute');
-              sendYouTubeStreamCommand('setVolume', [100]);
-              sendYouTubeStreamCommand('playVideo');
+              unmuteActiveStream();
             }, 400);
           });
         }
@@ -5652,8 +5697,8 @@
 
       function mountStreamPlayer(city) {
         const config = streams[city] || streams.makkah;
-        if (config.mode === 'hls' && config.hlsUrl) {
-          activateHlsPlayer(city, config);
+        if (config.mode === 'hls' && Array.isArray(config.hlsUrls) && config.hlsUrls.length > 0) {
+          activateHlsPlayer(city, config, 0);
         } else {
           activateYoutubePlayer(config);
         }
@@ -9185,6 +9230,12 @@
       const NOTIF_STORAGE_KEY = 'haramain_prayer_notif_config';
       const NOTIF_LOG_KEY = 'haramain_prayer_notif_sent_log';
 
+      const PRAYER_HAPTIC_PATTERNS = {
+        gentle: [180, 90, 180],
+        distinct: [220, 100, 220, 100, 380],
+        strong: [350, 120, 350, 120, 500, 140, 350]
+      };
+
       let prayerNotifConfig = {
         enabled: false,
         leadMinutes: 10,
@@ -9196,14 +9247,47 @@
           maghrib: true,
           isha: true
         },
-        soundEnabled: true
+        soundEnabled: true,
+        hapticEnabled: true,
+        hapticPattern: 'distinct'
       };
+
+      function isVibrationApiSupported() {
+        return typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
+      }
+
+      function getActivePrayerHapticPattern(patternKey) {
+        const key = patternKey || prayerNotifConfig.hapticPattern || 'distinct';
+        return PRAYER_HAPTIC_PATTERNS[key] || PRAYER_HAPTIC_PATTERNS.distinct;
+      }
+
+      function triggerPrayerHapticFeedback(patternKey) {
+        if (!prayerNotifConfig.hapticEnabled || !isVibrationApiSupported()) return false;
+        try {
+          const pattern = Array.isArray(patternKey)
+            ? patternKey
+            : getActivePrayerHapticPattern(patternKey);
+          return navigator.vibrate(pattern);
+        } catch (err) {
+          console.warn('Vibration API error:', err);
+          return false;
+        }
+      }
 
       function loadPrayerNotifConfig() {
         try {
           const saved = localStorage.getItem(NOTIF_STORAGE_KEY);
           if (saved) {
-            prayerNotifConfig = Object.assign({}, prayerNotifConfig, JSON.parse(saved));
+            const parsed = JSON.parse(saved);
+            prayerNotifConfig = Object.assign({}, prayerNotifConfig, parsed, {
+              prayers: Object.assign({}, prayerNotifConfig.prayers, parsed.prayers || {})
+            });
+            if (typeof prayerNotifConfig.hapticEnabled !== 'boolean') {
+              prayerNotifConfig.hapticEnabled = true;
+            }
+            if (!PRAYER_HAPTIC_PATTERNS[prayerNotifConfig.hapticPattern]) {
+              prayerNotifConfig.hapticPattern = 'distinct';
+            }
           }
         } catch (e) {
           console.warn('Gagal memuat konfigurasi notifikasi:', e);
@@ -9283,23 +9367,31 @@
 
       async function sendPrayerNotification(title, body, tagKey, prayerKey, cityKey) {
         playPrayerNotifChime();
+        triggerPrayerHapticFeedback();
+
+        const activeVibratePattern = prayerNotifConfig.hapticEnabled
+          ? getActivePrayerHapticPattern()
+          : undefined;
 
         // Try ServiceWorker registration first
         if ('serviceWorker' in navigator) {
           try {
             const reg = await navigator.serviceWorker.getRegistration();
             if (reg && reg.showNotification && Notification.permission === 'granted') {
-              reg.showNotification(title, {
+              const swNotifOptions = {
                 body: body,
                 icon: '/pwa-192x192.png',
                 badge: '/pwa-192x192.png',
                 tag: tagKey,
                 renotify: true,
-                vibrate: [200, 100, 200, 100, 300],
                 data: {
                   url: window.location.origin + '/#prayer-times'
                 }
-              });
+              };
+              if (activeVibratePattern) {
+                swNotifOptions.vibrate = activeVibratePattern;
+              }
+              reg.showNotification(title, swNotifOptions);
               showNotice(title, body);
               return;
             }
@@ -9311,12 +9403,16 @@
         // Standard Web Notification API
         if (window.Notification && Notification.permission === 'granted') {
           try {
-            const notif = new Notification(title, {
+            const notifOptions = {
               body: body,
               icon: '/pwa-192x192.png',
               tag: tagKey,
               renotify: true
-            });
+            };
+            if (activeVibratePattern) {
+              notifOptions.vibrate = activeVibratePattern;
+            }
+            const notif = new Notification(title, notifOptions);
             notif.onclick = function() {
               window.focus();
               window.location.hash = 'prayer-times';
@@ -9413,6 +9509,8 @@
         if (window.Notification && Notification.permission !== 'granted') {
           const granted = await requestNotificationPermission();
           if (!granted && Notification.permission === 'denied') {
+            playPrayerNotifChime();
+            triggerPrayerHapticFeedback();
             showNotice(title, body);
             return;
           }
@@ -9465,6 +9563,24 @@
       function toggleNotifSound(enabled) {
         prayerNotifConfig.soundEnabled = enabled;
         savePrayerNotifConfig();
+      }
+
+      function toggleNotifHaptic(enabled) {
+        prayerNotifConfig.hapticEnabled = !!enabled;
+        savePrayerNotifConfig();
+        if (prayerNotifConfig.hapticEnabled) {
+          triggerPrayerHapticFeedback();
+        } else if (isVibrationApiSupported()) {
+          try { navigator.vibrate(0); } catch (e) {}
+        }
+      }
+
+      function setNotifHapticPattern(patternKey) {
+        if (!PRAYER_HAPTIC_PATTERNS[patternKey]) return;
+        prayerNotifConfig.hapticPattern = patternKey;
+        prayerNotifConfig.hapticEnabled = true;
+        savePrayerNotifConfig();
+        triggerPrayerHapticFeedback(patternKey);
       }
 
       function saveNotificationSettingsModal() {
@@ -9568,6 +9684,32 @@
 
         const soundCb = document.getElementById('notif-sound-toggle');
         if (soundCb) soundCb.checked = !!prayerNotifConfig.soundEnabled;
+
+        const hapticCb = document.getElementById('notif-haptic-toggle');
+        if (hapticCb) hapticCb.checked = !!prayerNotifConfig.hapticEnabled;
+
+        const hapticPatternsWrap = document.getElementById('notif-haptic-patterns-wrap');
+        if (hapticPatternsWrap) {
+          if (prayerNotifConfig.hapticEnabled) hapticPatternsWrap.classList.remove('hidden');
+          else hapticPatternsWrap.classList.add('hidden');
+        }
+
+        ['gentle', 'distinct', 'strong'].forEach(p => {
+          const btn = document.getElementById(`notif-haptic-pattern-${p}`);
+          if (btn) {
+            if (prayerNotifConfig.hapticPattern === p) {
+              btn.className = 'py-1.5 px-2.5 rounded-lg border text-center transition cursor-pointer bg-[#244C3B] text-white border-[#244C3B] shadow-2xs font-bold text-[11px]';
+            } else {
+              btn.className = 'py-1.5 px-2.5 rounded-lg border text-center transition cursor-pointer bg-white text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059] font-semibold text-[11px]';
+            }
+          }
+        });
+
+        const hapticUnsupportedNote = document.getElementById('notif-haptic-unsupported-note');
+        if (hapticUnsupportedNote) {
+          if (isVibrationApiSupported()) hapticUnsupportedNote.classList.add('hidden');
+          else hapticUnsupportedNote.classList.remove('hidden');
+        }
       }
 
       function findSyaikhProfile(name) {
@@ -10757,12 +10899,14 @@
         }
 
         const html = `
-          <div class="relative flex items-center justify-center cursor-pointer group hover:scale-125 transition-transform duration-200">
-            <div class="${pulseClass}"></div>
-            <div class="relative z-10 w-8 h-8 rounded-full border-2 flex items-center justify-center ${colorBg}">
-              ${iconSvg}
+          <div class="mosque-marker-pop">
+            <div class="relative flex items-center justify-center cursor-pointer group hover:scale-125 transition-transform duration-200">
+              <div class="${pulseClass}"></div>
+              <div class="relative z-10 w-8 h-8 rounded-full border-2 flex items-center justify-center ${colorBg}">
+                ${iconSvg}
+              </div>
+              ${badgeHtml}
             </div>
-            ${badgeHtml}
           </div>
         `;
 
@@ -10955,6 +11099,7 @@
             if (!container || typeof L === 'undefined') return;
 
             // If map instance exists, remove it cleanly to avoid leaflet re-initialization errors
+            cleanupMosqueMarkerEntrance();
             if (mosqueMapInstance) {
               try {
                 if (mosqueClusterGroup) {
@@ -11069,8 +11214,8 @@
             // Ensure container dimensions are recognized by Leaflet
             mosqueMapInstance.invalidateSize();
 
-            // Render markers & cards
-            renderMapMarkers(mosqueKey, currentMapFilter);
+            // Render markers with staggered GSAP pop-up entrance & cards
+            renderMapMarkers(mosqueKey, currentMapFilter, { animateEntrance: true, immediate: false });
             renderPoiListCards(mosqueKey, currentMapFilter);
             renderGateQuickNav(mosqueKey);
           }, 140);
@@ -11119,7 +11264,140 @@
         if (window.lucide) window.lucide.createIcons();
       }
 
-      function renderMapMarkers(mosqueKey = activeModalMosque, filter = currentMapFilter) {
+      let mosqueMapEntranceObserver = null;
+      let mosqueMapEntranceTween = null;
+
+      function cleanupMosqueMarkerEntrance() {
+        if (mosqueMapEntranceObserver) {
+          try { mosqueMapEntranceObserver.disconnect(); } catch (e) {}
+          mosqueMapEntranceObserver = null;
+        }
+        if (mosqueMapEntranceTween) {
+          try { mosqueMapEntranceTween.kill(); } catch (e) {}
+          mosqueMapEntranceTween = null;
+        }
+      }
+
+      function getSortedMosqueMarkerPopElements() {
+        const mapEl = document.getElementById('mosque-leaflet-map');
+        if (!mapEl) return [];
+        const nodes = Array.from(mapEl.querySelectorAll('.leaflet-marker-pane .mosque-marker-pop'));
+        if (nodes.length <= 1) return nodes;
+
+        const mapRect = mapEl.getBoundingClientRect();
+        const centerX = mapRect.left + mapRect.width / 2;
+        const centerY = mapRect.top + mapRect.height / 2;
+
+        return nodes.sort((a, b) => {
+          const rectA = a.getBoundingClientRect();
+          const rectB = b.getBoundingClientRect();
+          const distA = Math.hypot((rectA.left + rectA.width / 2) - centerX, (rectA.top + rectA.height / 2) - centerY);
+          const distB = Math.hypot((rectB.left + rectB.width / 2) - centerX, (rectB.top + rectB.height / 2) - centerY);
+          return distA - distB;
+        });
+      }
+
+      function animateMosqueMapMarkersEntrance(delay = 0.08) {
+        if (typeof window.gsap === 'undefined') return;
+        const nodes = getSortedMosqueMarkerPopElements();
+        if (!nodes.length) return;
+
+        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          window.gsap.set(nodes, { clearProps: 'transform,opacity,willChange' });
+          return;
+        }
+
+        if (mosqueMapEntranceTween) {
+          try { mosqueMapEntranceTween.kill(); } catch (e) {}
+          mosqueMapEntranceTween = null;
+        }
+
+        mosqueMapEntranceTween = window.gsap.fromTo(
+          nodes,
+          {
+            scale: 0,
+            y: 18,
+            opacity: 0,
+            transformOrigin: '50% 85%',
+            willChange: 'transform, opacity'
+          },
+          {
+            scale: 1,
+            y: 0,
+            opacity: 1,
+            duration: 0.52,
+            delay: delay,
+            ease: 'back.out(1.85)',
+            stagger: {
+              each: 0.055,
+              from: 'start'
+            },
+            overwrite: 'auto',
+            clearProps: 'transform,opacity,willChange'
+          }
+        );
+      }
+
+      function scheduleMosqueMarkerEntrance(immediate = false) {
+        cleanupMosqueMarkerEntrance();
+        if (typeof window.gsap === 'undefined') return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        requestAnimationFrame(() => {
+          const mapEl = document.getElementById('mosque-leaflet-map');
+          const modalBody = document.getElementById('mosque-modal-body');
+          const nodes = getSortedMosqueMarkerPopElements();
+          if (!mapEl || !nodes.length) return;
+
+          // Preset hidden state cleanly before popping up (without touching Leaflet's outer translate3d)
+          window.gsap.set(nodes, {
+            scale: 0,
+            y: 18,
+            opacity: 0,
+            transformOrigin: '50% 85%'
+          });
+
+          const triggerOnce = (delaySec) => {
+            if (mosqueMapEntranceObserver) {
+              try { mosqueMapEntranceObserver.disconnect(); } catch (e) {}
+              mosqueMapEntranceObserver = null;
+            }
+            animateMosqueMapMarkersEntrance(delaySec);
+          };
+
+          if (immediate || typeof IntersectionObserver === 'undefined' || !modalBody) {
+            triggerOnce(0.05);
+            return;
+          }
+
+          let hasTriggered = false;
+          const runEntrance = (delaySec) => {
+            if (hasTriggered) return;
+            hasTriggered = true;
+            triggerOnce(delaySec);
+          };
+
+          // Ensure markers immediately animate in if the user pans/zooms before intersection triggers
+          if (mosqueMapInstance) {
+            mosqueMapInstance.once('zoomstart', () => runEntrance(0));
+            mosqueMapInstance.once('movestart', () => runEntrance(0));
+          }
+
+          mosqueMapEntranceObserver = new IntersectionObserver((entries) => {
+            if (entries.some(entry => entry.isIntersecting)) {
+              runEntrance(0.1);
+            }
+          }, {
+            root: modalBody,
+            threshold: 0.15
+          });
+
+          mosqueMapEntranceObserver.observe(mapEl);
+        });
+      }
+
+      function renderMapMarkers(mosqueKey = activeModalMosque, filter = currentMapFilter, options = {}) {
         if (!mosqueMapInstance || typeof L === 'undefined') return;
 
         // Clear existing markers & cluster group
@@ -11135,11 +11413,13 @@
               const count = cluster.getChildCount();
               return L.divIcon({
                 html: `
-                  <div class="relative flex items-center justify-center cursor-pointer group">
-                    <span class="absolute -inset-1.5 rounded-full animate-pulse bg-gold-400/35"></span>
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#03241b] via-[#094838] to-[#011710] border-2 border-gold-400 text-gold-200 shadow-xl flex flex-col items-center justify-center font-extrabold group-hover:scale-110 transition-transform">
-                      <span class="text-xs font-mono font-bold text-amber-200">${count}</span>
-                      <span class="text-[7.5px] uppercase tracking-wider text-gold-300/90 font-semibold -mt-0.5">Lokasi</span>
+                  <div class="mosque-marker-pop">
+                    <div class="relative flex items-center justify-center cursor-pointer group">
+                      <span class="absolute -inset-1.5 rounded-full animate-pulse bg-gold-400/35"></span>
+                      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#03241b] via-[#094838] to-[#011710] border-2 border-gold-400 text-gold-200 shadow-xl flex flex-col items-center justify-center font-extrabold group-hover:scale-110 transition-transform">
+                        <span class="text-xs font-mono font-bold text-amber-200">${count}</span>
+                        <span class="text-[7.5px] uppercase tracking-wider text-gold-300/90 font-semibold -mt-0.5">Lokasi</span>
+                      </div>
                     </div>
                   </div>
                 `,
@@ -11215,6 +11495,10 @@
             marker.addTo(mosqueMapInstance);
           }
         });
+
+        if (options.animateEntrance !== false) {
+          scheduleMosqueMarkerEntrance(Boolean(options.immediate));
+        }
       }
 
       function renderPoiListCards(mosqueKey = activeModalMosque, filter = currentMapFilter) {
@@ -11287,7 +11571,7 @@
 
       function filterMosqueMap(filterType) {
         currentMapFilter = filterType;
-        renderMapMarkers(activeModalMosque, currentMapFilter);
+        renderMapMarkers(activeModalMosque, currentMapFilter, { animateEntrance: true, immediate: true });
         renderPoiListCards(activeModalMosque, currentMapFilter);
 
         // Update active filter chip buttons styling
@@ -11554,12 +11838,15 @@
           exitMosqueMapFullscreen();
         }
         isMosqueModalOpen = false;
+        cleanupMosqueMarkerEntrance();
         if (mosqueMapInstance) {
           try {
             mosqueMapInstance.remove();
           } catch (e) {}
           mosqueMapInstance = null;
           mosqueTileLayerInstance = null;
+          mosqueClusterGroup = null;
+          mosqueRoutePolyline = null;
           mosqueMapMarkers = [];
         }
         const modal = document.getElementById('mosque-info-modal');
@@ -13307,6 +13594,9 @@
       window.setNotifCity = setNotifCity;
       window.updateNotifPrayerCheckbox = updateNotifPrayerCheckbox;
       window.toggleNotifSound = toggleNotifSound;
+      window.toggleNotifHaptic = toggleNotifHaptic;
+      window.setNotifHapticPattern = setNotifHapticPattern;
+      window.triggerPrayerHapticFeedback = triggerPrayerHapticFeedback;
       window.saveNotificationSettingsModal = saveNotificationSettingsModal;
       window.checkPrayerNotifications = checkPrayerNotifications;
 
@@ -13887,13 +14177,43 @@
           <!-- 4. Sound Alert Switch -->
           <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] flex items-center justify-between gap-3 text-xs">
             <div class="flex items-center gap-2.5">
-              <i data-lucide="volume-2" class="w-4 h-4 text-[#244C3B]"></i>
+              <i data-lucide="volume-2" class="w-4 h-4 text-[#244C3B] shrink-0"></i>
               <div>
                 <span class="font-bold text-[#1C2D24]" data-i18n="notif_sound_label">Bunyi Suara Pengingat & Chime:</span>
                 <p class="text-[10.5px] text-[#2E4338] font-medium" data-i18n="notif_sound_sub">Mainkan nada panggilan harmonis saat notifikasi tiba.</p>
               </div>
             </div>
-            <input type="checkbox" id="notif-sound-toggle" checked onchange="toggleNotifSound(this.checked)" class="rounded text-[#244C3B] focus:ring-[#244C3B] h-4 w-4">
+            <input type="checkbox" id="notif-sound-toggle" checked onchange="toggleNotifSound(this.checked)" class="rounded text-[#244C3B] focus:ring-[#244C3B] h-4 w-4 cursor-pointer">
+          </div>
+
+          <!-- 5. Haptic Feedback (Vibration API) Switch & Intensity -->
+          <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#E5DAC8] space-y-3 text-xs">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="vibrate" class="w-4 h-4 text-[#244C3B] shrink-0"></i>
+                <div>
+                  <span class="font-bold text-[#1C2D24]" data-i18n="notif_haptic_label">Getaran Haptik (Mobile):</span>
+                  <p class="text-[10.5px] text-[#2E4338] font-medium" data-i18n="notif_haptic_sub">Getarkan perangkat saat pengingat shalat tiba, efektif di lingkungan ramai.</p>
+                </div>
+              </div>
+              <input type="checkbox" id="notif-haptic-toggle" checked onchange="toggleNotifHaptic(this.checked)" class="rounded text-[#244C3B] focus:ring-[#244C3B] h-4 w-4 cursor-pointer">
+            </div>
+
+            <div id="notif-haptic-patterns-wrap" class="grid grid-cols-3 gap-2 pt-2 border-t border-[#E5DAC8]/80">
+              <button type="button" id="notif-haptic-pattern-gentle" onclick="setNotifHapticPattern('gentle')" class="py-1.5 px-2.5 rounded-lg border text-center transition cursor-pointer bg-white text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059] font-semibold text-[11px]" data-i18n="notif_haptic_gentle">
+                Halus
+              </button>
+              <button type="button" id="notif-haptic-pattern-distinct" onclick="setNotifHapticPattern('distinct')" class="py-1.5 px-2.5 rounded-lg border text-center transition cursor-pointer bg-[#244C3B] text-white border-[#244C3B] shadow-2xs font-bold text-[11px]" data-i18n="notif_haptic_distinct">
+                Standar
+              </button>
+              <button type="button" id="notif-haptic-pattern-strong" onclick="setNotifHapticPattern('strong')" class="py-1.5 px-2.5 rounded-lg border text-center transition cursor-pointer bg-white text-[#2E4338] border-[#E5DAC8] hover:border-[#C5A059] font-semibold text-[11px]" data-i18n="notif_haptic_strong">
+                Kuat (Ramai)
+              </button>
+            </div>
+
+            <p id="notif-haptic-unsupported-note" class="hidden text-[10.5px] text-amber-800 bg-amber-50 border border-amber-200/80 rounded-xl px-2.5 py-1.5 font-medium" data-i18n="notif_haptic_unsupported">
+              Browser/perangkat ini tidak mendukung Web Vibration API (hanya perangkat mobile tertentu).
+            </p>
           </div>
         </div>
 
