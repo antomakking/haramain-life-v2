@@ -310,6 +310,9 @@
     <!-- GSAP (GreenSock Animation Platform) CDN for high-performance smooth counter & gauge bar transitions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
+    <!-- HLS.js CDN for direct 24/7 Saudi Sunnah TV satellite HLS live streaming -->
+    <script defer src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+
     <style>
       /* Starry Dot Grid Background with warm ivory cream & sand gold ambient */
       .bg-arabesque, .hero-dot-grid {
@@ -1841,12 +1844,21 @@
           <iframe 
             id="stream-iframe" 
             class="w-full h-full border-0 transition-opacity duration-300"
-            src="https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1"
+            src="https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=0&rel=0&playsinline=1&enablejsapi=1"
             title="Siaran Langsung Dua Tanah Suci"
             referrerpolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
             allowfullscreen>
           </iframe>
+
+          <video
+            id="stream-hls-video"
+            class="hidden w-full h-full bg-black object-contain transition-opacity duration-300"
+            controls
+            autoplay
+            playsinline
+            aria-label="Siaran Langsung Masjid Nabawi - Saudi Sunnah TV">
+          </video>
 
           <!-- Fallback Direct Overlay (in case embedded streaming channel changes) -->
           <div id="player-overlay" class="hidden absolute inset-0 bg-[#1E4333]/95 flex flex-col items-center justify-center p-6 text-center">
@@ -3881,9 +3893,10 @@
       var selectedPrayerCity = 'makkah';
       window.selectedPrayerCity = selectedPrayerCity;
 
-      // Live streams configuration (Official 24/7 YouTube live streams: @SaudiQuranTv & @SaudiSunnahTv)
+      // Live streams configuration (Official 24/7 Saudi Quran TV & direct Saudi Sunnah TV HLS satellite stream)
       const streams = {
         makkah: {
+          mode: 'youtube',
           title: {
             id: "Siaran Langsung Makkah • Masjidil Haram (Saudi Quran TV)",
             en: "Live Broadcast Makkah • Masjidil Haram (Saudi Quran TV)"
@@ -3900,17 +3913,13 @@
             id: "Saudi Quran TV • Ka'bah Al-Musyarrafah",
             en: "Saudi Quran TV • The Holy Kaaba"
           },
-          sources: [
-            "https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1",
-            "https://www.youtube-nocookie.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1",
-            "https://www.youtube.com/embed/live_stream?channel=UCos52azQNBgW63_9uDJoPDA&autoplay=1&mute=1&rel=0&playsinline=1"
-          ],
-          activeSourceIdx: 0,
-          embedUrl: "https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=1&rel=0&playsinline=1",
+          hlsUrl: "https://win.holol.com/live/quran/playlist.m3u8",
+          embedUrl: "https://www.youtube.com/embed/IsJTAdC3-Jw?autoplay=1&mute=0&rel=0&playsinline=1&enablejsapi=1",
           externalUrl: "https://www.youtube.com/@SaudiQuranTv/live",
           viewers: "184.290"
         },
         madinah: {
+          mode: 'hls',
           title: {
             id: "Siaran Langsung Madinah • Masjid Nabawi (Saudi Sunnah TV)",
             en: "Live Broadcast Madinah • Al-Masjid An-Nabawi (Saudi Sunnah TV)"
@@ -3927,18 +3936,14 @@
             id: "Saudi Sunnah TV • Raudhah & Masjid Nabawi",
             en: "Saudi Sunnah TV • Rawdah & Prophet's Mosque"
           },
-          sources: [
-            "https://www.youtube.com/embed/DLnqQHiDbaI?autoplay=1&mute=1&rel=0&playsinline=1",
-            "https://www.youtube-nocookie.com/embed/DLnqQHiDbaI?autoplay=1&mute=1&rel=0&playsinline=1",
-            "https://www.youtube.com/embed/live_stream?channel=UCROKYPep-UuODNwyipe6JMw&autoplay=1&mute=1&rel=0&playsinline=1"
-          ],
-          activeSourceIdx: 0,
-          embedUrl: "https://www.youtube.com/embed/DLnqQHiDbaI?autoplay=1&mute=1&rel=0&playsinline=1",
+          hlsUrl: "https://win.holol.com/live/sunnah/playlist.m3u8",
+          embedUrl: "https://www.youtube.com/embed/TP5Qoq0Iu4s?autoplay=1&mute=0&rel=0&playsinline=1&enablejsapi=1",
           externalUrl: "https://www.youtube.com/@SaudiSunnahTv/live",
           viewers: "142.610"
         }
       };
 
+      let activeHlsInstance = null;
       let currentStream = 'makkah';
 
       // Friday Khateeb & Imam schedule (Official Announcement: Makkah 10 Jumada Al-Akhirah 1448 AH)
@@ -5463,6 +5468,197 @@
         if (subtitleEl) subtitleEl.innerText = typeof config.subtitle === 'object' ? config.subtitle[lang] || config.subtitle.id : config.subtitle;
       }
 
+      function stopHlsStream() {
+        if (activeHlsInstance) {
+          try {
+            activeHlsInstance.destroy();
+          } catch (e) {}
+          activeHlsInstance = null;
+        }
+        const hlsVideo = document.getElementById('stream-hls-video');
+        if (hlsVideo) {
+          try {
+            hlsVideo.pause();
+            hlsVideo.removeAttribute('src');
+            hlsVideo.load();
+          } catch (e) {}
+          hlsVideo.classList.add('hidden');
+        }
+      }
+
+      function sendYouTubeStreamCommand(func, args = []) {
+        const singleIframe = document.getElementById('stream-iframe');
+        if (!singleIframe || singleIframe.classList.contains('hidden') || !singleIframe.contentWindow) return;
+        try {
+          singleIframe.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: func,
+            args: args
+          }), '*');
+        } catch (e) {}
+      }
+
+      function unmuteActiveStream() {
+        const singleIframe = document.getElementById('stream-iframe');
+        const hlsVideo = document.getElementById('stream-hls-video');
+        if (hlsVideo && !hlsVideo.classList.contains('hidden')) {
+          hlsVideo.volume = 1.0;
+          hlsVideo.muted = false;
+          hlsVideo.play().catch(() => {});
+        } else if (singleIframe && !singleIframe.classList.contains('hidden')) {
+          sendYouTubeStreamCommand('unMute');
+          sendYouTubeStreamCommand('setVolume', [100]);
+          sendYouTubeStreamCommand('playVideo');
+        }
+      }
+
+      function ensureStreamAudioUnlockOnFirstGesture() {
+        if (window.__streamAudioUnlockBound) return;
+        window.__streamAudioUnlockBound = true;
+        const unlock = () => {
+          unmuteActiveStream();
+          window.removeEventListener('pointerdown', unlock, true);
+          window.removeEventListener('click', unlock, true);
+          window.removeEventListener('touchstart', unlock, true);
+          window.removeEventListener('keydown', unlock, true);
+          window.__streamAudioUnlockBound = false;
+        };
+        window.addEventListener('pointerdown', unlock, { capture: true, passive: true });
+        window.addEventListener('click', unlock, { capture: true, passive: true });
+        window.addEventListener('touchstart', unlock, { capture: true, passive: true });
+        window.addEventListener('keydown', unlock, { capture: true, passive: true });
+      }
+
+      function activateYoutubePlayer(config) {
+        stopHlsStream();
+        const singleIframe = document.getElementById('stream-iframe');
+        if (singleIframe && config) {
+          singleIframe.classList.remove('hidden');
+          singleIframe.onload = () => {
+            setTimeout(() => {
+              sendYouTubeStreamCommand('unMute');
+              sendYouTubeStreamCommand('setVolume', [100]);
+              sendYouTubeStreamCommand('playVideo');
+            }, 350);
+          };
+          singleIframe.src = config.embedUrl;
+          singleIframe.style.opacity = '1';
+          ensureStreamAudioUnlockOnFirstGesture();
+        }
+      }
+
+      function playHlsVideoWithDeviceVolume(hlsVideo) {
+        if (!hlsVideo) return;
+        hlsVideo.volume = 1.0;
+        hlsVideo.muted = false;
+        const playPromise = hlsVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            // Browser autoplay policy blocked unmuted start on cold load: start smoothly and unmute on first tap/click
+            hlsVideo.muted = true;
+            hlsVideo.play().catch(() => {});
+            ensureStreamAudioUnlockOnFirstGesture();
+          });
+        }
+      }
+
+      function activateHlsPlayer(city, config) {
+        const singleIframe = document.getElementById('stream-iframe');
+        const hlsVideo = document.getElementById('stream-hls-video');
+        if (!hlsVideo || !config || !config.hlsUrl) {
+          activateYoutubePlayer(config);
+          return;
+        }
+
+        // Stop YouTube iframe immediately to avoid dual audio
+        if (singleIframe) {
+          singleIframe.src = 'about:blank';
+          singleIframe.classList.add('hidden');
+        }
+
+        stopHlsStream();
+        hlsVideo.classList.remove('hidden');
+        hlsVideo.style.opacity = '1';
+        hlsVideo.volume = 1.0;
+        hlsVideo.muted = false;
+
+        const startPlayback = () => {
+          if (currentStream !== city) return;
+          if (window.Hls && window.Hls.isSupported()) {
+            const hls = new window.Hls({
+              enableWorker: true,
+              lowLatencyMode: true,
+              backBufferLength: 30
+            });
+            activeHlsInstance = hls;
+            let networkRetries = 0;
+
+            hls.loadSource(config.hlsUrl);
+            hls.attachMedia(hlsVideo);
+            hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+              playHlsVideoWithDeviceVolume(hlsVideo);
+            });
+            hls.on(window.Hls.Events.ERROR, (event, data) => {
+              if (data && data.fatal) {
+                if (data.type === window.Hls.ErrorTypes.NETWORK_ERROR && networkRetries < 2) {
+                  networkRetries++;
+                  hls.startLoad();
+                } else if (data.type === window.Hls.ErrorTypes.MEDIA_ERROR) {
+                  hls.recoverMediaError();
+                } else {
+                  // Seamless automatic fallback to YouTube live embed
+                  activateYoutubePlayer(config);
+                }
+              }
+            });
+          } else if (hlsVideo.canPlayType('application/vnd.apple.mpegurl')) {
+            hlsVideo.src = config.hlsUrl;
+            hlsVideo.onerror = () => {
+              if (currentStream === city) activateYoutubePlayer(config);
+            };
+            playHlsVideoWithDeviceVolume(hlsVideo);
+          } else {
+            activateYoutubePlayer(config);
+          }
+        };
+
+        if (window.Hls || hlsVideo.canPlayType('application/vnd.apple.mpegurl')) {
+          startPlayback();
+        } else {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
+          script.onload = startPlayback;
+          script.onerror = () => {
+            if (currentStream === city) activateYoutubePlayer(config);
+          };
+          document.head.appendChild(script);
+        }
+      }
+
+      // Apply full device-level sound on initial stream load and unlock on first gesture if browser restricts autoplay
+      (function initDefaultStreamAudio() {
+        const initIframe = document.getElementById('stream-iframe');
+        if (initIframe) {
+          initIframe.addEventListener('load', () => {
+            setTimeout(() => {
+              sendYouTubeStreamCommand('unMute');
+              sendYouTubeStreamCommand('setVolume', [100]);
+              sendYouTubeStreamCommand('playVideo');
+            }, 400);
+          });
+        }
+        ensureStreamAudioUnlockOnFirstGesture();
+      })();
+
+      function mountStreamPlayer(city) {
+        const config = streams[city] || streams.makkah;
+        if (config.mode === 'hls' && config.hlsUrl) {
+          activateHlsPlayer(city, config);
+        } else {
+          activateYoutubePlayer(config);
+        }
+      }
+
       function switchStream(city) {
         if (city !== 'makkah' && city !== 'madinah') city = 'makkah';
         if (currentStream === city) return;
@@ -5471,6 +5667,7 @@
         const makkahTab = document.getElementById('stream-tab-makkah');
         const madinahTab = document.getElementById('stream-tab-madinah');
         const singleIframe = document.getElementById('stream-iframe');
+        const hlsVideo = document.getElementById('stream-hls-video');
         const overlay = document.getElementById('stream-transition-overlay');
         const overlayText = document.getElementById('stream-transition-text');
         const infoWrap = document.getElementById('stream-info-wrap');
@@ -5513,12 +5710,15 @@
         if (singleIframe) {
           singleIframe.style.opacity = '0.4';
         }
+        if (hlsVideo) {
+          hlsVideo.style.opacity = '0.4';
+        }
 
         setTimeout(() => {
           updateStreamInfo();
           const viewerEl = document.getElementById('viewer-count');
           if (viewerEl) viewerEl.innerText = config.viewers;
-          if (singleIframe) singleIframe.src = config.embedUrl;
+          mountStreamPlayer(city);
           const extLink = document.getElementById('external-stream-link');
           if (extLink) extLink.href = config.externalUrl;
 
@@ -5526,9 +5726,6 @@
           if (infoWrap) {
             infoWrap.style.opacity = '1';
             infoWrap.style.transform = 'translateY(0)';
-          }
-          if (singleIframe) {
-            singleIframe.style.opacity = '1';
           }
 
           // Fade out the overlay smoothly
@@ -5543,14 +5740,13 @@
 
       function reloadStream() {
         const activeKey = currentStream === 'madinah' ? 'madinah' : 'makkah';
-        const iframe = document.getElementById('stream-iframe');
         const overlay = document.getElementById('stream-transition-overlay');
         if (overlay) {
           overlay.classList.remove('pointer-events-none', 'opacity-0');
           overlay.classList.add('opacity-100');
         }
         setTimeout(() => {
-          if (iframe && streams[activeKey]) iframe.src = streams[activeKey].embedUrl;
+          mountStreamPlayer(activeKey);
           const playerOverlay = document.getElementById('player-overlay');
           if (playerOverlay) playerOverlay.classList.add('hidden');
           if (overlay) {
